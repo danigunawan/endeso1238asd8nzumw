@@ -15,6 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/list-penginapan', function () {
+    return view('penginapan.list');
+});
+
+
+Route::get('/detail-penginapan', function () {
+    return view('penginapan.detail');
+});
+
+
+Route::get('/list-cultural', function () {
+    return view('cultural.list');
+});
+
+
+Route::get('/detail-cultural', function () {
+    return view('cultural.detail');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

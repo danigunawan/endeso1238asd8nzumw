@@ -109,7 +109,7 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Rumah Alam</a>
                                         <i class="ddl-switch fa fa-angle-down"></i>
                                         <ul class="dropdown-menu">
-                                            <li><a href="list.html" title="Daftar">Daftar</a></li>
+                                            <li><a href="{{ url('/list-cultural')}}" title="Daftar">Daftar</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="list-cultural.html" title="Services">Cultural Experiences</a></li>
@@ -161,7 +161,7 @@
             </div><!-- Container /- -->
         </div><!-- Top Footer -->
     </div><!-- Footer Section /- -->   
-    
+
     <!-- JQuery v1.11.3 -->
     <script src="js/jquery.min.js"></script>
     
