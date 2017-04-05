@@ -36,5 +36,7 @@ Route::get('/detail-cultural', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index');
+
+
+Route::get('/home_admin', 'HomeController@index_admin');
