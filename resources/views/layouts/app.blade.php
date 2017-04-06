@@ -22,15 +22,22 @@
         ]) !!};
     </script>
 
+  
+
+
+
 
     <!-- Library - Bootstrap v3.3.5 -->
     <link rel="stylesheet" type="text/css" href="libraries/lib.css">
     <link rel="stylesheet" type="text/css" href="libraries/calender/calendar.css">
-    
+      <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+
     <!-- Custom - Common CSS -->
     <link rel="stylesheet" type="text/css" href="css/plugins.css">
     <link rel="stylesheet" type="text/css" href="css/navigation-menu.css">
-    
+    <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="stylesheet" type="text/css" href="css/shortcodes.css" />
@@ -106,7 +113,7 @@
                                     </li>
                                     <li><a href="#" title="Tentang">Tentang Endeso</a></li>
                                     <li class="dropdown">
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Rumah Alam</a>
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay</a>
                                         <i class="ddl-switch fa fa-angle-down"></i>
                                         <ul class="dropdown-menu">
                                             <li><a href="{{ url('/list-cultural')}}" title="Daftar">Daftar</a></li>
@@ -120,7 +127,7 @@
                         </nav>
                     </div>
                     <div class="col-md-2 book-now">
-                        <a href="#" title="Book Now">Masuk / Daftar</a>
+                        <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                     </div>
                 </div><!-- Row /- -->
             </div><!-- Container /- -->
