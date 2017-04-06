@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Destinasi;
+use Session;
 
 class DestinasiController extends Controller
 {
@@ -47,6 +48,8 @@ class DestinasiController extends Controller
     public function create()
     {
         //
+
+        return view('destinasi.create');
     }
 
     /**
@@ -58,6 +61,36 @@ class DestinasiController extends Controller
     public function store(Request $request)
     {
         //
+
+        $this->validate($request, [
+                'nama_destinasi' => 'required|unique:destinasi,nama_destinasi',
+                'foto_destinasi' => 'image|max:2048'
+                ]);
+
+        $destinasi = Destinasi::create($request->except('foto_destinasi'));
+
+        // isi field foto_destinasi jika ada foto_destinasi yang diupload
+        if ($request->hasFile('foto_destinasi')) {
+        // Mengambil file yang diupload
+        $uploaded_foto_destinasi = $request->file('foto_destinasi');
+        // mengambil extension file
+        $extension = $uploaded_foto_destinasi->getClientOriginalExtension();
+        // membuat nama file random berikut extension
+        $filename = md5(time()) . '.' . $extension;
+        // menyimpan foto_destinasi ke folder public/img
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        $uploaded_foto_destinasi->move($destinationPath, $filename);
+        // mengisi field foto_destinasi di destinasi dengan filename yang baru dibuat
+        $destinasi->foto_destinasi = $filename;
+        $destinasi->save();
+        }
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Berhasil menyimpan $destinasi->title"
+        ]);
+
+        return redirect()->route('destinasi.index');
+
     }
 
     /**

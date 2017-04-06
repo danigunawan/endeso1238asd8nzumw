@@ -5,10 +5,11 @@
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
             <div class="container">
-                <h3>Destinasi</h3>
+                <h3>Tambah Destinasi</h3>
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/home')}}">Admin</a></li>
-                    <li class="active">Destinasi</li>
+                    <li class="">Destinasi</li>
+                    <li class="active">Tambah</li>
                 </ol>
             </div>
         </div><!-- Page Banner /- -->
@@ -19,12 +20,12 @@
         <div id="recommended-section" class="recommended-section container-fluid no-padding">
             <!-- Container -->
             <div class="container">
+               
+           {!! Form::open(['url' => route('destinasi.store'),'files'=>'true','method' => 'post', 'class'=>'form-horizontal']) !!}
 
-            @include('layouts._flash')
-                <p> <a class="btn btn-primary" href="{{ route('destinasi.create') }}">Tambah</a> </p>
+                    @include('destinasi._form')
 
-                {!! $html->table(['class'=>'table-striped']) !!}
-            
+            {!! Form::close() !!}
                 
             </div><!-- Container /- -->
             <div class="section-padding"></div>
@@ -36,6 +37,5 @@
 
 @section('scripts')
 
-{!! $html->scripts() !!}
 
 @endsection
