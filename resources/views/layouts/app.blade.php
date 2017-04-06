@@ -258,6 +258,7 @@
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
+     <script src="{{ asset('js/custom.js') }}"></script>
 
     @yield('scripts')
 </body>

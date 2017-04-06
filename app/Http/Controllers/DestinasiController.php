@@ -185,5 +185,30 @@ class DestinasiController extends Controller
     public function destroy($id)
     {
         //
+
+        $destinasi = Destinasi::find($id);
+
+        // hapus foto lama, jika ada
+
+        if ($destinasi->cover) {
+
+        $old_cover = $destinasi->cover;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $destinasi->cover;
+        
+            try {
+            File::delete($filepath);
+            } catch (FileNotFoundException $e) {
+            // File sudah dihapus/tidak ada
+            }
+
+        }
+        $destinasi->delete();
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Destinasi berhasil dihapus"
+        ]);
+        return redirect()->route('destinasi.index');
     }
 }
