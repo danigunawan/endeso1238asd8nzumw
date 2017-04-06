@@ -108,20 +108,80 @@
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
+
+                                @if (Auth::guest())
                                     <li class="active">
-                                        <a href="index.html" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+                                        <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
                                     <li><a href="#" title="Tentang">Tentang Endeso</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay</a>
-                                        <i class="ddl-switch fa fa-angle-down"></i>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ url('/list-cultural')}}" title="Daftar">Daftar</a></li>
-                                        </ul>
+                                    <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
                                     </li>
-                                    <li><a href="list-cultural.html" title="Services">Cultural Experiences</a></li>
+                                       
+                                    <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
+                                    <li><a href="#" title="Contact">Kontak</a></li>
+                                    
+                                @endif
+
+                                @role('member')
+                                    <li class="active">
+                                        <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+
+                                    </li>
+                                    <li><a href="#" title="Contact">Pesanan Saya</a></li>
+                                          <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Services</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
+                                    </li>
+                                     <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
+                                        </ul> 
+
+                                    </li>
+                                    <li><a href="#" title="Tentang">Tentang Endeso</a></li>
                                     
                                     <li><a href="#" title="Contact">Kontak</a></li>
+                                    
+                                @endrole
+                                  
+                                @role('admin')
+                                    <li><a href="#" title="Services">Destinasi</a></li>
+                                    <li><a href="#" title="Services">Kamar</a></li>
+
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="#" title="Services">Kategori </a></li>
+                                             <li><a href="#" title="Services">Warga</a></li>
+                                        </ul> 
+
+                                    </li>
+
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> User</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="#" title="Services">Admin </a></li>
+                                             <li><a href="#" title="Services">Member</a></li>
+                                        </ul> 
+
+                                    </li>
+
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="#" title="Services">Hal. Tentang Endeso </a></li>
+                                             <li><a href="#" title="Services">Hal. Cara Pesan</a></li>
+                                             <li><a href="#" title="Services">Rekening</a></li>
+                                        </ul> 
+
+                                    </li>
+                                      <li><a href="#" title="Services">Komentar</a></li>
+
+
+                                @endrole
                                 </ul>
                             </div>
                         </nav>
