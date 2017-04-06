@@ -22,5 +22,8 @@ class DestinasiSeeder extends Seeder
         $destinasi = new Destinasi();
  		$destinasi->nama_destinasi = 'Tasik';
 		$destinasi->save();
+        $destinasi = new Destinasi();
+        $destinasi->nama_destinasi = 'Bali';
+        $destinasi->save();
     }
 }
