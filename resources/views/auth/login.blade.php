@@ -5,7 +5,7 @@
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
             <div class="container">
-                <h3>Cultural Experiences</h3>
+                <h3>Login</h3>
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a></li>
                     <li class="active">Login</li>
@@ -57,8 +57,13 @@
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
                                 </div>
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    Lupa Password?
+                                </a>
+                               
                             </div>
                         </div>
+
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
@@ -66,9 +71,8 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+                                
+                                Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
                             </div>
                         </div>
                     </form>
