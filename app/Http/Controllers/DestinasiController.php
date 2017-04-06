@@ -7,6 +7,7 @@ use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Destinasi;
 use Session;
+use Illuminate\Support\Facades\File;
 
 class DestinasiController extends Controller
 {
@@ -113,6 +114,9 @@ class DestinasiController extends Controller
     public function edit($id)
     {
         //
+        $destinasi = Destinasi::find($id);
+
+        return view('destinasi.edit')->with(compact('destinasi'));
     }
 
     /**
@@ -125,6 +129,51 @@ class DestinasiController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $this->validate($request, [
+        'nama_destinasi' => 'required|unique:destinasi,nama_destinasi,' . $id,
+        'foto_destinasi' => 'image|max:2048'
+        ]);
+
+        $destinasi = Destinasi::find($id);
+        $destinasi->update($request->all());
+
+        if ($request->hasFile('foto_destinasi')) {
+
+        // menambil foto_destinasi yang diupload berikut ekstensinya
+
+        $filename = null;
+        $uploaded_foto_destinasi = $request->file('foto_destinasi');
+        $extension = $uploaded_foto_destinasi->getClientOriginalExtension();
+        // membuat nama file random dengan extension
+        $filename = md5(time()) . '.' . $extension;
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        // memindahkan file ke folder public/img
+        $uploaded_foto_destinasi->move($destinationPath, $filename);
+        // hapus foto_destinasi lama, jika ada
+        if ($destinasi->foto_destinasi) {
+        $old_foto_destinasi = $destinasi->foto_destinasi;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $destinasi->foto_destinasi;
+        try {
+        File::delete($filepath);
+        } catch (FileNotFoundException $e) {
+        // File sudah dihapus/tidak ada
+        }
+
+        }
+        // ganti field foto_destinasi dengan cover yang baru
+
+        $destinasi->foto_destinasi = $filename;
+        $destinasi->save();
+        }
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Berhasil menyimpan $destinasi->title"
+        ]);
+
+        return redirect()->route('destinasi.index');
     }
 
     /**

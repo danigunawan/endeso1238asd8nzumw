@@ -10,6 +10,13 @@
 {!! Form::label('foto_destinasi', 'Foto', ['class'=>'col-md-2 control-label']) !!}
 	<div class="col-md-4">
 	{!! Form::file('foto_destinasi') !!}
+	<br>
+	@if (isset($destinasi) && $destinasi->foto_destinasi)
+	<p>
+	{!! Html::image(asset('img/'.$destinasi->foto_destinasi), null, ['class'=>'img-rounded img-responsive	']) !!}
+	</p>
+	@endif
+
 	{!! $errors->first('foto_destinasi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
