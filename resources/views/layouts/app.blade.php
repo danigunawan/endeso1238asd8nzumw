@@ -172,9 +172,7 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="#" title="Services">Hal. Tentang Endeso </a></li>
-                                             <li><a href="#" title="Services">Hal. Cara Pesan</a></li>
-                                             <li><a href="#" title="Services">Hal. Kontak</a></li>
+                                             <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
                                               <li><a href="#" title="Services">Social Media</a></li>
                                         </ul> 
