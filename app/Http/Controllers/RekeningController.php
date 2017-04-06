@@ -50,6 +50,7 @@ class RekeningController extends Controller
     public function create()
     {
         //
+        return view('rekening.create');
     }
 
     /**
@@ -61,6 +62,22 @@ class RekeningController extends Controller
     public function store(Request $request)
     {
         //
+         $this->validate($request, [
+            'nama_bank'   => 'required',
+            'nama_rekening_tabungan'   => 'required',
+            'nomor_rekening_tabungan'   => 'required|unique:rekening,nomor_rekening_tabungan'
+            ]);
+
+         $rekening = Rekening::create([
+            'nama_bank' => $request->nama_bank,
+            'nama_rekening_tabungan' => $request->nama_rekening_tabungan,
+            'nomor_rekening_tabungan' => $request->nomor_rekening_tabungan]);
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Menambah Data Rekening $rekening->nama_bank"
+            ]);
+        return redirect()->route('rekening.index');
     }
 
     /**
