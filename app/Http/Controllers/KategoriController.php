@@ -112,6 +112,9 @@ class KategoriController extends Controller
     public function edit($id)
     {
         //
+        $kategori = Kategori::find($id);
+
+        return view('kategori.edit')->with(compact('kategori'));
     }
 
     /**
@@ -124,6 +127,51 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas,' . $id,
+            'destinasi_kategori' => 'required|exists:destinasi,id',
+            'foto_kategori' => 'image|max:2048'
+        ]);
+
+        $kategori = Kategori::find($id);
+        $kategori->update($request->all());
+
+        if ($request->hasFile('foto_kategori')) {
+
+        // menambil foto_kategori yang diupload berikut ekstensinya
+
+        $filename = null;
+        $uploaded_foto_kategori = $request->file('foto_kategori');
+        $extension = $uploaded_foto_kategori->getClientOriginalExtension();
+        // membuat nama file random dengan extension
+        $filename = md5(time()) . '.' . $extension;
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        // memindahkan file ke folder public/img
+        $uploaded_foto_kategori->move($destinationPath, $filename);
+        // hapus foto_kategori lama, jika ada
+        if ($kategori->foto_kategori) {
+        $old_foto_kategori = $kategori->foto_kategori;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $kategori->foto_kategori;
+        try {
+        File::delete($filepath);
+        } catch (FileNotFoundException $e) {
+        // File sudah dihapus/tidak ada
+        }
+
+        }
+        // ganti field foto_kategori dengan cover yang baru
+
+        $kategori->foto_kategori = $filename;
+        $kategori->save();
+        }
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Berhasil Menyimpan $kategori->title"
+        ]);
+
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -135,5 +183,29 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         //
+        $kategori = Kategori::find($id);
+
+        // hapus foto lama, jika ada
+
+        if ($kategori->foto_kategori) {
+
+        $old_foto_kategori = $kategori->foto_kategori;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $kategori->foto_kategori;
+        
+            try {
+            File::delete($filepath);
+            } catch (FileNotFoundException $e) {
+            // File sudah dihapus/tidak ada
+            }
+
+        }
+        $kategori->delete();
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Kategori Berhasil Dihapus"
+        ]);
+        return redirect()->route('kategori.index');
     }
 }
