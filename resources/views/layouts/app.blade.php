@@ -127,7 +127,23 @@
                         </nav>
                     </div>
                     <div class="col-md-2 book-now">
-                        <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+
+                      @if (Auth::guest())
+                            <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+                        @else
+                       
+                                        <a href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                   
+                        @endif
+                        
                     </div>
                 </div><!-- Row /- -->
             </div><!-- Container /- -->
