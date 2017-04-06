@@ -90,7 +90,7 @@ class SettingHalamanController extends Controller
         "message"=>"Berhasil menyimpan $setting_halaman->judul"
         ]);
 
-        return redirect()->route('destinasi.index');
+        return redirect()->route('setting-halaman.index');
 
 
     }
@@ -115,6 +115,10 @@ class SettingHalamanController extends Controller
     public function edit($id)
     {
         //
+
+        $setting_halaman = SettingHalaman::find($id);
+
+        return view('setting-halaman.edit',['setting_halaman' => $setting_halaman]);
     }
 
     /**
@@ -127,6 +131,25 @@ class SettingHalamanController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $this->validate($request, [
+        'judul' => 'required', 
+        'isi_halaman' => 'required',
+        'jenis_halaman' => 'required|unique:setting_halamen,jenis_halaman,'.$id
+        ]);
+
+        $setting_halaman = SettingHalaman::find($id);
+        $setting_halaman->update($request->all());
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Berhasil menyimpan $setting_halaman->judul"
+        ]);
+
+        return redirect()->route('setting-halaman.index');
+
+
+
     }
 
     /**
@@ -138,5 +161,14 @@ class SettingHalamanController extends Controller
     public function destroy($id)
     {
         //
+
+      SettingHalaman::destroy($id);
+
+
+        Session::flash("flash_notification", [
+        "level"=>"success",
+        "message"=>"Setting Halaman berhasil dihapus"
+        ]);
+        return redirect()->route('setting-halaman.index');
     }
 }
