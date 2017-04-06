@@ -39,6 +39,14 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+
+Route::get('/tentang-endeso','HomeController@tentang');
+
+Route::get('/cara-pesan','HomeController@cara_pesan');
+
+Route::get('/kontak','HomeController@kontak');
+
+
 Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function () {
 
 	Route::resource('destinasi', 'DestinasiController');
