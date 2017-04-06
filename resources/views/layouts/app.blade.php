@@ -152,7 +152,7 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="#" title="Services">Kategori </a></li>
+                                             <li><a href="{{ route('kategori.index') }}" title="Services">Kategori </a></li>
                                              <li><a href="#" title="Services">Warga</a></li>
                                         </ul> 
 
@@ -260,7 +260,9 @@
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
-     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
 
     @yield('scripts')
 </body>
