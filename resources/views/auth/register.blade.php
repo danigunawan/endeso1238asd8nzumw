@@ -1,12 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
+
+
+ <main class="site-main page-spacing">
+        <!-- Page Banner -->
+        <div class="container-fluid page-banner about-banner">
+            <div class="container">
+                <h3>Registrasi</h3>
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Registrasi</li>
+                </ol>
+            </div>
+        </div><!-- Page Banner /- -->
+        
+                <div class="section-top-padding"></div>
+
+        <!-- Recommended Section -->
+        <div id="recommended-section" class="recommended-section container-fluid no-padding">
+            <!-- Container -->
+            <div class="container">
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
@@ -65,12 +80,15 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+
+                                Sudah punya akun? <a href="{{ route('login') }}">Login</a>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+                     </div><!-- Container /- -->
+            <div class="section-padding"></div>
+        </div><!-- Recommended Section /- -->
+        
+    </main>
 @endsection

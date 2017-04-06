@@ -40,7 +40,7 @@
                     
                     <div class="form-group">
                         <select class="selectpicker">
-                            <option>RUMAH ALAM</option>
+                            <option>HOMESTAY</option>
                             <option>CULTURAL EXPERIENCES</option>
                         </select>
                     </div>
@@ -48,13 +48,9 @@
                         <i class="fa fa-calendar-minus-o"></i>
                         <input type="text" class="form-control" id="datepicker1" placeholder="TANGGAL" />
                     </div>
+                    
                     <div class="form-group">
-                        <select class="selectpicker">
-                            <option>TUJUAN</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                        </select>
+                      {!! Form::select('author_id', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker']) !!}
                     </div>
                     <div class="form-group">
                         <select class="selectpicker">
@@ -83,8 +79,8 @@
             <!-- Container -->
             <div class="container">
                 <div class="section-header">
-                    <h3>Rumah ALam Terbaik</h3>
-                    <p>Pilihan Rumah Alam dengan rating dan harga terbaik pilihan pelanggan setia Endeso. Harga ditampilkan dalam ratusan ribu Rupiah.</p>
+                    <h3>Homestay Terbaik</h3>
+                    <p>Pilihan Homestay dengan rating dan harga terbaik pilihan pelanggan setia Endeso. Harga ditampilkan dalam ratusan ribu Rupiah.</p>
                 </div>
                 <div class="recommended-detail">
                     <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
@@ -159,7 +155,7 @@
                             </span>
                         </div>
                     </div>
-                    <a href="#" class="read-more">Rumah Alam lainnya<i class="fa fa-long-arrow-right"></i></a>
+                    <a href="#" class="read-more">Homestay lainnya<i class="fa fa-long-arrow-right"></i></a>
                 </div>
             </div><!-- Container /- -->
             <div class="section-padding"></div>
