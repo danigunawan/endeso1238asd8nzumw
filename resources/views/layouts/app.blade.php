@@ -10,7 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- Standard Favicon -->
-    <link rel="icon" type="image/x-icon" href="images/favicon.png" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -28,19 +28,19 @@
 
 
     <!-- Library - Bootstrap v3.3.5 -->
-    <link rel="stylesheet" type="text/css" href="libraries/lib.css">
-    <link rel="stylesheet" type="text/css" href="libraries/calender/calendar.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libraries/lib.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('libraries/calender/calendar.css') }}">
       <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
 
     <!-- Custom - Common CSS -->
-    <link rel="stylesheet" type="text/css" href="css/plugins.css">
-    <link rel="stylesheet" type="text/css" href="css/navigation-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/navigation-menu.css') }}">
     <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
 
     <!-- Custom - Theme CSS -->
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="css/shortcodes.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
         
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
@@ -69,10 +69,10 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                    <div class="logo-block col-md-3"><a href="index.html" title="Endeso"><img src="images/logo.png" alt="Logo" /></a></div>
+                    <div class="logo-block col-md-3"><a href="index.html" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
                     <div class="col-md-9 contact-detail">
                         <div class="phone">
-                            <img src="images/phone-ic.png" alt="Phone" />
+                            <img src="{{ asset('images/phone-ic.png') }}" alt="Phone" />
                             <h6>Hubungi Kami</h6>
                             <a href="tell:081234567890" >+62-812-3456-7890</a>
                         </div>
@@ -81,7 +81,7 @@
                             <div id="sb-search" class="sb-search">
                                 <form>
                                     <input class="sb-search-input" placeholder="Pencarian..." type="text" value="" name="search" id="search" />
-                                    <button class="sb-search-submit"><img src="images/search-ic.png" alt="Search" /></button>
+                                    <button class="sb-search-submit"><img src="{{ asset('images/search-ic.png') }}" alt="Search" /></button>
                                     <span class="sb-icon-search"></span>
                                 </form>
                             </div>
@@ -104,7 +104,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="index.html" title="Endeso" class="navbar-brand"><img src="images/logo-mobile.png"></a>
+                                <a href="index.html" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
@@ -145,7 +145,7 @@
                                 @endrole
                                   
                                 @role('admin')
-                                    <li><a href="#" title="Services">Destinasi</a></li>
+                                    <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
                                     <li><a href="#" title="Services">Kamar</a></li>
 
                                     <li class="dropdown"> 
@@ -230,7 +230,7 @@
                     
                     <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
                         <div style="text-align:center">
-                        <a href=#><img src="images/logo.png"></a>
+                        <a href=#><img src="{{ asset('images/logo.png') }}"></a>
                         </div>
                     </aside>
 
@@ -246,14 +246,19 @@
     </div><!-- Footer Section /- -->   
 
     <!-- JQuery v1.11.3 -->
-    <script src="js/jquery.min.js"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
     
     <!-- Library JS -->
-    <script src="libraries/lib.js"></script>
-    <script src="libraries/calender/jquery-ui-datepicker.min.js"></script>
+    <script src="{{ asset('libraries/lib.js') }}"></script>
+    <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
     <!-- Library - Theme JS --> 
-    <script src="js/functions.js"></script>
+    <script src="{{ asset('js/functions.js') }}"></script>
+
+    <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
+
+    @yield('scripts')
 </body>
 </html>
