@@ -141,5 +141,16 @@ class RekeningController extends Controller
     public function destroy($id)
     {
         //
+        if(!Rekening::destroy($id)) 
+        {
+            return redirect()->back();
+        }
+        else{
+        Session:: flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Data Rekening Berhasil Di Hapus"
+            ]);
+        return redirect()->route('rekening.index');
+        }
     }
 }
