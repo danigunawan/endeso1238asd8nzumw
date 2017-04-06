@@ -18,7 +18,7 @@ class CreateRekeningTable extends Migration
             $table->increments('id');
             $table->string('nama_bank');
             $table->string('nama_rekening_tabungan');
-            $table->integer('nomor_rekening_tabungan'); 
+            $table->string('nomor_rekening_tabungan'); 
             $table->timestamps();
         });
     }
