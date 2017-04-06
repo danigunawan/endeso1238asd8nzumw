@@ -100,6 +100,9 @@ class RekeningController extends Controller
     public function edit($id)
     {
         //
+        $rekening = Rekening::find($id);
+
+        return view('rekening.edit')->with(compact('rekening'));
     }
 
     /**
@@ -112,6 +115,21 @@ class RekeningController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request, [
+            'nama_bank'   => 'required',
+            'nama_rekening_tabungan'   => 'required',
+            'nomor_rekening_tabungan'   => 'required|unique:rekening,nomor_rekening_tabungan,' . $id,
+        ]); 
+
+        $rekening = Rekening::find($id);
+        $rekening->update($request->all());
+
+        Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Mengubah Data Rekening $rekening->nama_bank"
+            ]);
+
+        return redirect()->route('rekening.index');
     }
 
     /**
