@@ -73,4 +73,5 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('setting-halaman', 'SettingHalamanController');
 	Route::resource('user_admin', 'UserController');
 	Route::resource('user_member', 'User_memberController');
+	Route::resource('social_media', 'SocialMediaController');
 });
