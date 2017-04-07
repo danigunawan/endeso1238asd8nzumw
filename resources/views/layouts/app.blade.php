@@ -141,6 +141,9 @@
                                     <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+
+                                    <li><a href="{{ url('/edit-profil')}}" title="Profile">  {{ Auth::user()->name }}</a> 
+                                    </li>
                                     
                                 @endrole
                                   
@@ -180,6 +183,8 @@
                                     </li>
                                       <li><a href="#" title="Services">Komentar</a></li>
 
+                                       
+
 
                                 @endrole
                                 </ul>
@@ -191,6 +196,7 @@
                       @if (Auth::guest())
                             <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                         @else
+
                        
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

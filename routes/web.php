@@ -46,6 +46,18 @@ Route::get('/cara-pesan','HomeController@cara_pesan');
 
 Route::get('/kontak','HomeController@kontak');
 
+Route::get('/edit-profil', [
+	'middleware' => ['auth'],
+	'as'=> 'profil.edit',
+	'uses' => 'HomeController@edit_profil'
+]);
+
+Route::put('/edit-profil/{id}', [
+	'middleware' => ['auth'],
+	'as'=> 'profil.update',
+	'uses' => 'HomeController@update_profil'
+]);
+
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function () {
 
