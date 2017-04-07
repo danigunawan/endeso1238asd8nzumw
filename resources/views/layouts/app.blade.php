@@ -175,7 +175,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
-                                             <li><a href="#" title="Services">Member</a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
                                         </ul> 
 
                                     </li>
@@ -186,7 +186,7 @@
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
-                                              <li><a href="#" title="Services">Social Media</a></li>
+                                              <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
                                         </ul> 
 
                                     </li>
