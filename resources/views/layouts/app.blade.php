@@ -127,7 +127,7 @@
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 
                                     </li>
-                                    <li><a href="#" title="Contact">Pesanan Saya</a></li>
+                                    <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Services</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
@@ -142,7 +142,7 @@
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
-                                    <li><a href="{{ url('/edit-profil')}}" title="Profile">  {{ Auth::user()->name }}</a> 
+                                    <li> <a href="{{ url('/edit-profil')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
                                     </li>
                                     
                                 @endrole

@@ -6,10 +6,10 @@
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
             <div class="container">
-                <h3>Edit Profil</h3>
+                <h3>Ubah Profil</h3>
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/home')}}">Home</a></li>
-                    <li class="active">Edit Profil</li>
+                    <li class="active">Ubah Profil</li>
                 </ol>
             </div>
         </div><!-- Page Banner /- -->
@@ -19,26 +19,35 @@
         <!-- Recommended Section -->
         <div id="recommended-section" class="recommended-section container-fluid no-padding">
             <!-- Container -->
-            <div class="container">
-  @include('layouts._flash')
+            <div class="container ">
+            @include('layouts._flash')
+                 <div class="row">
+                    <div class="col-md-4">
+                      <ul class="nav nav-pills nav-stacked">
+                         <li class="active"><a href="{{ route('profil.edit')}}">Ubah Profil</a></li>
+                        <li ><a href="{{ route('pesanan')}}">Pesanan Saya</a></li>
+                      
+                      </ul>
+                   </div>
+                
               
 
                {!! Form::model($profil, ['url' => route('profil.update',$profil->id),
-            'method' => 'put', 'class'=>'form-horizontal']) !!}
+            'method' => 'put', 'class'=>'form-vertical col-md-6']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <label for="email" class="control-label">E-Mail Address</label>
 
-                            <div class="col-md-6">
-                {!! Form::email('email', null, ['class'=>'form-control']) !!}
+                            <div class="">
+                {!! Form::email('email', null, ['class'=>'form-control col-md-8']) !!}
                 {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Nama Lengkap</label>
+                            <label for="name" class=" control-label">Nama Lengkap</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                {!! Form::text('name', null, ['class'=>'form-control']) !!}
 
                                 {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
@@ -46,16 +55,16 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('jenis_kelamin') ? ' has-error' : '' }}">
-                        {!! Form::label('jenis_kelamin', 'Jenis Kelamins', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
+                        {!! Form::label('jenis_kelamin', 'Jenis Kelamins', ['class' => ' control-label']) !!}
+                            <div class="">
                                 {!! Form::select('jenis_kelamin', ['' => 'Pilih Jenis Kelamin','1' => 'Laki-Laki','2' => 'Perempuan'], null,['class' => 'form-control']) !!}
                                 {!! $errors->first('jenis_kelamin', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
                           <div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
-                            <label for="no_telp" class="col-md-4 control-label">No Telp</label>
+                            <label for="no_telp" class="control-label">No Telp</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                     
                                {!! Form::text('no_telp', null, ['class'=>'form-control']) !!}
 
@@ -63,9 +72,9 @@
                             </div>
                         </div>
                           <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Tanggal Lahir</label>
+                            <label for="name" class=" control-label">Tanggal Lahir</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                     
                                {!! Form::text('tanggal_lahir', null, ['class'=>'form-control']) !!}
 
@@ -73,9 +82,9 @@
                             </div>
                         </div>
                           <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
-                            <label for="alamat" class="col-md-4 control-label">Alamat</label>
+                            <label for="alamat" class=" control-label">Alamat</label>
 
-                            <div class="col-md-6">
+                            <div class="">
                                {!! Form::text('alamat', null, ['class'=>'form-control']) !!}
                                 {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -83,7 +92,7 @@
                    
 
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     Simpan Perubahan
                                 </button>
@@ -93,8 +102,8 @@
                             </div>
                         </div>
                     </form>
-            
-                
+                   
+                </div> <!-- Row /- -->
             </div><!-- Container /- -->
             <div class="section-padding"></div>
         </div><!-- Recommended Section /- -->

@@ -82,7 +82,14 @@ class HomeController extends Controller
 
         return redirect()->route('profil.edit');
     }
+      
+      public function pesanan()  
+    {
 
+
+        return view('pesanan');
+
+    }
 
 
    

@@ -46,16 +46,22 @@ Route::get('/cara-pesan','HomeController@cara_pesan');
 
 Route::get('/kontak','HomeController@kontak');
 
-Route::get('/edit-profil', [
+Route::get('/user/edit-profil', [
 	'middleware' => ['auth'],
 	'as'=> 'profil.edit',
 	'uses' => 'HomeController@edit_profil'
 ]);
 
-Route::put('/edit-profil/{id}', [
+Route::put('/user/edit-profil/{id}', [
 	'middleware' => ['auth'],
 	'as'=> 'profil.update',
 	'uses' => 'HomeController@update_profil'
+]);
+
+Route::get('/user/pesanan', [
+	'middleware' => ['auth'],
+	'as'=> 'pesanan',
+	'uses' => 'HomeController@pesanan'
 ]);
 
 
