@@ -23,13 +23,14 @@ class UserController extends Controller
         if ($request->ajax()) {
 
             $user_admin = Role_user::with(['user','role'])->where('role_id', 1);
+            $user = User::find(['id','name']);
 
             return Datatables::of($user_admin)->addColumn('action', function($user_admin){
                     return view('rekening._action', [
                     'model'=> $user_admin,
                     'hapus_url'=> route('user_admin.destroy', $user_admin->user),
                     'edit_url'=> route('user_admin.edit', $user_admin->user),
-                    'confirm_message' => 'Yakin mau menghapus ' . $user_admin->title . '?'
+                    'confirm_message' => 'Yakin mau menghapus ' . $user_admin->user->name . '?'
                     ]);
                 })->make(true);
             }
