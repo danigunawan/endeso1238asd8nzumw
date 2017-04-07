@@ -149,7 +149,16 @@
                                   
                                 @role('admin')
                                     <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
-                                    <li><a href="#" title="Services">Kamar</a></li>
+
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('rumah.index') }}" title="Services">Rumah </a></li>
+                                             <li><a href="#" title="Services">Kamar</a></li>
+                                        </ul> 
+
+                                    </li>
 
                                     <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
