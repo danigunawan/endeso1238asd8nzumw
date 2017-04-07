@@ -72,4 +72,5 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('kategori', 'KategoriController');
 	Route::resource('setting-halaman', 'SettingHalamanController');
 	Route::resource('user_admin', 'UserController');
+	Route::resource('user_member', 'User_memberController');
 });

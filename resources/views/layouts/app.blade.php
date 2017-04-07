@@ -166,7 +166,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
-                                             <li><a href="#" title="Services">Member</a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
                                         </ul> 
 
                                     </li>
