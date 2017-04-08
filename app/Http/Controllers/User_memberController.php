@@ -9,7 +9,7 @@ use App\Role_user;
 use App\User;
 use Session;
 
-class UserController extends Controller
+class User_memberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,15 +22,15 @@ class UserController extends Controller
 
         if ($request->ajax()) {
 
-            $user_admin = Role_user::with(['user','role'])->where('role_id', 1);
+            $user_member = Role_user::with(['user','role'])->where('role_id', 2);
             $user = User::find(['id','name']);
 
-            return Datatables::of($user_admin)->addColumn('action', function($user_admin){
+            return Datatables::of($user_member)->addColumn('action', function($user_member){
                     return view('rekening._action', [
-                    'model'=> $user_admin,
-                    'hapus_url'=> route('user_admin.destroy', $user_admin->user),
-                    'edit_url'=> route('user_admin.edit', $user_admin->user),
-                    'confirm_message' => 'Yakin mau menghapus ' . $user_admin->user->name . '?'
+                    'model'=> $user_member,
+                    'hapus_url'=> route('user_member.destroy', $user_member->user),
+                    'edit_url'=> route('user_member.edit', $user_member->user),
+                    'confirm_message' => 'Yakin mau menghapus ' . $user_member->user->name . '?'
                     ]);
                 })->make(true);
             }
@@ -40,10 +40,9 @@ class UserController extends Controller
             ->addColumn(['data' => 'user.email', 'name'=>'user.email', 'title'=>'Email']) 
             ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
 
-            return view('user_admin.index')->with(compact('html'));
+            return view('user_member.index')->with(compact('html'));
 
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -53,7 +52,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('user_admin.create');
+        return view('user_member.create');
     }
 
     /**
@@ -71,19 +70,19 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed'
             ]);
 
-            $admin = new User();
-            $admin->name = $request->name;
-            $admin->email = $request->email;
-            $admin->password = bcrypt($request->password);
-            $admin->save();
-            $admin->attachRole(1);
+            $member = new User();
+            $member->name = $request->name;
+            $member->email = $request->email;
+            $member->password = bcrypt($request->password);
+            $member->save();
+            $member->attachRole(2);
 
 
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil Menambah User Admin $request->name"
+            "message"=>"Berhasil Menambah User Member $request->name"
             ]);
-        return redirect()->route('user_admin.index');
+        return redirect()->route('user_member.index');
     }
 
     /**
@@ -107,7 +106,7 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        return view('user_admin.edit')->with(compact('user'));
+        return view('user_member.edit')->with(compact('user'));
     }
 
     /**
@@ -126,15 +125,15 @@ class UserController extends Controller
             'password' => 'required|min:6|confirmed'
         ]); 
 
-        $user_admin = User::find($id);
-        $user_admin->update($request->all());
+        $user_member = User::find($id);
+        $user_member->update($request->all());
 
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Berhasil Mengubah Data User Admin $user_admin->name"
+            "message"=>"Berhasil Mengubah Data User Member $user_member->name"
             ]);
 
-        return redirect()->route('user_admin.index');
+        return redirect()->route('user_member.index');
     }
 
     /**
@@ -153,9 +152,9 @@ class UserController extends Controller
         else{
         Session:: flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Data User Admin Berhasil Di Hapus"
+            "message"=>"Data User Member Berhasil Di Hapus"
             ]);
-        return redirect()->route('user_admin.index');
+        return redirect()->route('user_member.index');
         }
     }
 }

@@ -149,7 +149,16 @@
                                   
                                 @role('admin')
                                     <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
-                                    <li><a href="#" title="Services">Kamar</a></li>
+
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('rumah.index') }}" title="Services">Rumah </a></li>
+                                             <li><a href="#" title="Services">Kamar</a></li>
+                                        </ul> 
+
+                                    </li>
 
                                     <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
@@ -166,7 +175,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
-                                             <li><a href="#" title="Services">Member</a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
                                         </ul> 
 
                                     </li>
@@ -177,7 +186,7 @@
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
-                                              <li><a href="#" title="Services">Social Media</a></li>
+                                              <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
                                         </ul> 
 
                                     </li>
