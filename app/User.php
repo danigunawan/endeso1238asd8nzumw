@@ -34,19 +34,34 @@ class User extends Authenticatable
     'is_verified' => 'boolean',
     ];
 
+    public function generateVerificationToken()
+    {
+    $token = $this->verification_token;
+    if (!$token) {
+    $token = str_random(40);
+    $this->verification_token = $token;
+    $this->save();
+    }
+    return $token;
+    }
+
     public function sendVerification()
     {
+        
+    $token = $this->generateVerificationToken();
     $user = $this;
-    $token = str_random(40);
-
-    $user->verification_token = $token;
-
-    $user->save();
-
+  
     Mail::send('auth.emails.verification', compact('user', 'token'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Verifikasi Akun Endeso');
 
     });
 
+    }
+
+    public function verify()
+    {
+    $this->is_verified = 1;
+    $this->verification_token = null;
+    $this->save();
     }
 }

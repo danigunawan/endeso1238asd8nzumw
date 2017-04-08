@@ -79,3 +79,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 
 // untuk verifikasi akun
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
+
+// kirim ulang verifikasi akun
+Route::get('auth/send-verification', 'Auth\RegisterController@sendVerification');
