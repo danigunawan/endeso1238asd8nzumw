@@ -142,7 +142,7 @@
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
-                                    <li> <a href="{{ url('/edit-profil')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    <li> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
                                     </li>
                                     
                                 @endrole

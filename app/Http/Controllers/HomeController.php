@@ -67,13 +67,34 @@ class HomeController extends Controller
         'name' => 'required', 
         'email' => 'required|unique:users,email,'.$id,
         'tanggal_lahir' => 'date',
+         'foto_profil' => 'image|max:2048'
         ]);
+
+
 
 
         $tanggal_lahir = date_create($request->tanggal_lahir);       
         $profil = User::where('id',$id)->first();
 
         $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => date_format($tanggal_lahir,'Y-m-d'),'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp]);
+
+
+         // isi field foto_profil jika ada foto_profil yang diupload
+        if ($request->hasFile('foto_profil')) {
+        // Mengambil file yang diupload
+        $uploaded_foto_profil = $request->file('foto_profil');
+        // mengambil extension file
+        $extension = $uploaded_foto_profil->getClientOriginalExtension();
+        // membuat nama file random berikut extension
+        $filename = md5(time()) . '.' . $extension;
+        // menyimpan foto_profil ke folder public/img
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        $uploaded_foto_profil->move($destinationPath, $filename);
+        // mengisi field foto_profil di destinasi dengan filename yang baru dibuat
+        $profil->foto_profil = $filename;
+        $profil->save();
+
+        }
 
           Session::flash("flash_notification", [
         "level"=>"success",

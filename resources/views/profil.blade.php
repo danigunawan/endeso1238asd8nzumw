@@ -22,7 +22,7 @@
             <div class="container ">
             @include('layouts._flash')
                  <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                       <ul class="nav nav-pills nav-stacked">
                          <li class="active"><a href="{{ route('profil.edit')}}">Ubah Profil</a></li>
                         <li ><a href="{{ route('pesanan')}}">Pesanan Saya</a></li>
@@ -33,7 +33,7 @@
               
 
                {!! Form::model($profil, ['url' => route('profil.update',$profil->id),
-            'method' => 'put', 'class'=>'form-vertical col-md-6']) !!}
+            'method' => 'put','files'=>'true', 'class'=>'form-vertical col-md-5']) !!}
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -89,6 +89,16 @@
                                 {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
+                        {!! Form::label('foto_profil', 'Foto Profil', ['class'=>' control-label']) !!}
+                            <div class="">
+                            {!! Form::file('foto_profil') !!}
+
+                            {!! $errors->first('foto_profil', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
+
                    
 
                         <div class="form-group">
@@ -102,6 +112,16 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-md-4">
+                        
+                        @if (isset($profil) && $profil->foto_profil)
+                        <p>
+                        {!! Html::image(asset('img/'.$profil->foto_profil), null, ['class'=>'img-rounded img-responsive   ']) !!}
+                        <br>
+                        Foto Profil
+                        </p>
+                        @endif
+                    </div>
                    
                 </div> <!-- Row /- -->
             </div><!-- Container /- -->
