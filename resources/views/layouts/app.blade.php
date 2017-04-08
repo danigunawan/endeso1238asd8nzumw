@@ -165,7 +165,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('kategori.index') }}" title="Services">Kategori </a></li>
-                                             <li><a href="#" title="Services">Warga</a></li>
+                                             <li><a href="{{ route('warga.index') }}" title="Services">Warga</a></li>
                                         </ul> 
 
                                     </li>
