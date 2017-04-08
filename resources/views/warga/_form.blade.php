@@ -54,11 +54,19 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
-	{!! Form::label('harga', 'Harga', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('harga_endeso') ? ' has-error' : '' }}">
+	{!! Form::label('harga_endeso', 'Harga Endeso', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-4">
-		{!! Form::text('harga', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
-		{!! $errors->first('harga', '<p class="help-block">:message</p>') !!}
+		{!! Form::text('harga_endeso', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_endeso', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('harga_pemilik') ? ' has-error' : '' }}">
+	{!! Form::label('harga_pemilik', 'Harga Pemilik', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('harga_pemilik', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_pemilik', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 

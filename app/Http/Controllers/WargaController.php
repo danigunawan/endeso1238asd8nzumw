@@ -41,7 +41,8 @@ class WargaController extends Controller
             ->addColumn(['data' => 'jadwal_3', 'name'=>'jadwal_3', 'title'=>'Jadwal 3']) 
             ->addColumn(['data' => 'jadwal_4', 'name'=>'jadwal_4', 'title'=>'Jadwal 4']) 
             ->addColumn(['data' => 'jadwal_5', 'name'=>'jadwal_5', 'title'=>'Jadwal 5']) 
-            ->addColumn(['data' => 'harga', 'name'=>'harga', 'title'=>'Harga']) 
+            ->addColumn(['data' => 'harga_endeso', 'name'=>'harga_endeso', 'title'=>'Harga Endeso']) 
+            ->addColumn(['data' => 'harga_pemilik', 'name'=>'harga_pemilik', 'title'=>'Harga Pemilik']) 
             ->addColumn(['data' => 'kapasitas', 'name'=>'kapasitas', 'title'=>'Kapasitas']) 
             ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
 
@@ -77,7 +78,8 @@ class WargaController extends Controller
             'jadwal_3' => 'max:191',
             'jadwal_4' => 'max:191',
             'jadwal_5' => 'max:191',
-            'harga' => 'required',
+            'harga_endeso' => 'required',
+            'harga_pemilik' => 'required',
             'kapasitas' => 'required',
             'foto_profil' => 'image|max:2048'
         ]);
@@ -151,7 +153,8 @@ class WargaController extends Controller
             'jadwal_3' => 'max:191',
             'jadwal_4' => 'max:191',
             'jadwal_5' => 'max:191',
-            'harga' => 'required',
+            'harga_endeso' => 'required',
+            'harga_pemilik' => 'required',
             'kapasitas' => 'required',
             'foto_profil' => 'image|max:2048'
         ]);
