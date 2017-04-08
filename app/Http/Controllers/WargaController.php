@@ -35,7 +35,7 @@ class WargaController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'nama_warga', 'name'=>'nama_warga', 'title'=>'Nama Warga']) 
-            ->addColumn(['data' => 'kategori.nama_aktivitas', 'name'=>'kategori.nama_aktivitas', 'title'=>'Nama Warga']) 
+            ->addColumn(['data' => 'kategori.nama_aktivitas', 'name'=>'kategori.nama_aktivitas', 'title'=>'Kategori Culture']) 
             ->addColumn(['data' => 'jadwal_1', 'name'=>'jadwal_1', 'title'=>'Jadwal 1']) 
             ->addColumn(['data' => 'jadwal_2', 'name'=>'jadwal_2', 'title'=>'Jadwal 2']) 
             ->addColumn(['data' => 'jadwal_3', 'name'=>'jadwal_3', 'title'=>'Jadwal 3']) 
