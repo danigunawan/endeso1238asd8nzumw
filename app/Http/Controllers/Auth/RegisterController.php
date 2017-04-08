@@ -37,6 +37,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('user-should-verified');
     }
 
     /**
@@ -70,6 +71,9 @@ class RegisterController extends Controller
         ]);
         $memberRole = Role::where('name', 'member')->first();
         $user->attachRole($memberRole);
+        $user->sendVerification();
         return $user;
     }
+
+    public function verify(Request $request, $token) { }
 }

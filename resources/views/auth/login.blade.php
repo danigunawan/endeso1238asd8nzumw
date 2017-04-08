@@ -19,6 +19,7 @@
         <div id="recommended-section" class="recommended-section container-fluid no-padding">
             <!-- Container -->
             <div class="container">
+            @include('layouts._flash')
                  <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
