@@ -76,6 +76,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('social_media', 'SocialMediaController');
 	Route::resource('rumah','RumahController');
 	Route::resource('warga','WargaController');
+	Route::resource('kamar','KamarController');
 });
 
 // untuk verifikasi akun

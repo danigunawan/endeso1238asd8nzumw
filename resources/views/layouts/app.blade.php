@@ -155,7 +155,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('rumah.index') }}" title="Services">Rumah </a></li>
-                                             <li><a href="#" title="Services">Kamar</a></li>
+                                             <li><a href="{{ route('kamar.index') }}" title="Services">Kamar</a></li>
                                         </ul> 
 
                                     </li>

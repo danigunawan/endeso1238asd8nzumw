@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingHalamanSeeder::class);
         $this->call(SocialMediaSeeder::class);
         $this->call(RumahSeeder::class);
-        
+        $this->call(KamarSeeder::class);
     }
 }
