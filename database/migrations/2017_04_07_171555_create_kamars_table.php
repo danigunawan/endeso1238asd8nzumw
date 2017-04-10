@@ -14,7 +14,7 @@ class CreateKamarsTable extends Migration
     public function up()
     {
         Schema::create('kamar', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id_kamar');
             $table->integer('id_rumah'); 
             $table->integer('id_destinasi'); 
             $table->string('foto1')->nullable();

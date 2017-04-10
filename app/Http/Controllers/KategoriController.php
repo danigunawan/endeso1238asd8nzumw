@@ -75,7 +75,7 @@ class KategoriController extends Controller
         // mengambil extension file
         $extension = $uploaded_foto_kategori->getClientOriginalExtension();
         // membuat nama file random berikut extension
-        $filename = md5(time()) . '.' . $extension;
+        $filename = str_random(40) . '.' . $extension;
         // menyimpan foto_kategori ke folder public/img
         $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
         $uploaded_foto_kategori->move($destinationPath, $filename);
