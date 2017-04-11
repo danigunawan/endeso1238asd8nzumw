@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
+use Illuminate\Support\Facades\Mail;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','alamat','tanggal_lahir','no_telp','jenis_kelamin'
     ];
 
     /**
@@ -28,4 +29,39 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $casts = [
+    'is_verified' => 'boolean',
+    ];
+
+    public function generateVerificationToken()
+    {
+    $token = $this->verification_token;
+    if (!$token) {
+    $token = str_random(40);
+    $this->verification_token = $token;
+    $this->save();
+    }
+    return $token;
+    }
+
+    public function sendVerification()
+    {
+        
+    $token = $this->generateVerificationToken();
+    $user = $this;
+  
+    Mail::send('auth.emails.verification', compact('user', 'token'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Verifikasi Akun Endeso');
+
+    });
+
+    }
+
+    public function verify()
+    {
+    $this->is_verified = 1;
+    $this->verification_token = null;
+    $this->save();
+    }
 }

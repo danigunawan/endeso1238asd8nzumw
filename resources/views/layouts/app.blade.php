@@ -127,7 +127,7 @@
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 
                                     </li>
-                                    <li><a href="#" title="Contact">Pesanan Saya</a></li>
+                                    <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Services</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
@@ -141,19 +141,31 @@
                                     <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+
+                                    <li> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    </li>
                                     
                                 @endrole
                                   
                                 @role('admin')
                                     <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
-                                    <li><a href="#" title="Services">Kamar</a></li>
+
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('rumah.index') }}" title="Services">Rumah </a></li>
+                                             <li><a href="{{ route('kamar.index') }}" title="Services">Kamar</a></li>
+                                        </ul> 
+
+                                    </li>
 
                                     <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('kategori.index') }}" title="Services">Kategori </a></li>
-                                             <li><a href="#" title="Services">Warga</a></li>
+                                             <li><a href="{{ route('warga.index') }}" title="Services">Warga</a></li>
                                         </ul> 
 
                                     </li>
@@ -162,8 +174,8 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> User</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="#" title="Services">Admin </a></li>
-                                             <li><a href="#" title="Services">Member</a></li>
+                                             <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
                                         </ul> 
 
                                     </li>
@@ -174,11 +186,13 @@
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
-                                              <li><a href="#" title="Services">Social Media</a></li>
+                                              <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
                                         </ul> 
 
                                     </li>
                                       <li><a href="#" title="Services">Komentar</a></li>
+
+                                       
 
 
                                 @endrole
@@ -191,6 +205,7 @@
                       @if (Auth::guest())
                             <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                         @else
+
                        
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();

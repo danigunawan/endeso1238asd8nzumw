@@ -88,70 +88,12 @@
 							</div>
 						</form>
 					</div>
-                    <!--- Review /--->
+                    <!-- Review -->
                     
-                    <hr width="75%">
-                    
-					<!-- Form -->
-					<div class="booking-form2">
-						<h3>Form Pemesanan</h3>
-						<form class="row">
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<i class="fa fa-calendar-minus-o"></i>
-								<input type="text" placeholder="Tanggal Pergi" id="datepicker1" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<i class="fa fa-calendar-minus-o"></i>
-								<input type="text" placeholder="Tanggal Pulang" id="datepicker2" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<select class="selectpicker">
-									<option>JUMLAH DEWASA</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<select class="selectpicker">
-									<option>JUMLAH ANAK-ANAK</option>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-								</select>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Nama Lengkap" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Nomor KTP" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Alamat E-mail" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="No. Ponsel" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Alamat 1" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Alamat 2" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Kota" class="form-control"/>
-							</div>
-							<div class="form-group col-md-6 col-sm-6 col-xs-12">
-								<input type="text" placeholder="Propinsi" class="form-control"/>
-							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12">
-								<textarea placeholder="Catatan Khusus (Jika ada)" class="form-control"></textarea>
-							</div>
-							<div class="form-group col-md-12 col-sm-12 col-xs-12">
-								<button class="read-more" title="Book Now">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></button>
-							</div>
-						</form>
-					</div><!-- Form /- -->
+			
+					<button class="read-more btn-pesan" title="Book Now">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></button>
+						
+					
 				</div><!-- Contenta Area /- -->
 				<!-- Widget Area -->
 				<div class="col-md-4 col-sm-4 col-xs-12 widget-area">

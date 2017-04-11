@@ -46,6 +46,24 @@ Route::get('/cara-pesan','HomeController@cara_pesan');
 
 Route::get('/kontak','HomeController@kontak');
 
+Route::get('/user/edit-profil', [
+	'middleware' => ['auth'],
+	'as'=> 'profil.edit',
+	'uses' => 'HomeController@edit_profil'
+]);
+
+Route::put('/user/edit-profil/{id}', [
+	'middleware' => ['auth'],
+	'as'=> 'profil.update',
+	'uses' => 'HomeController@update_profil'
+]);
+
+Route::get('/user/pesanan', [
+	'middleware' => ['auth'],
+	'as'=> 'pesanan',
+	'uses' => 'HomeController@pesanan'
+]);
+
 
 Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function () {
 
@@ -53,4 +71,16 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('rekening', 'RekeningController');
 	Route::resource('kategori', 'KategoriController');
 	Route::resource('setting-halaman', 'SettingHalamanController');
+	Route::resource('user_admin', 'UserController');
+	Route::resource('user_member', 'User_memberController');
+	Route::resource('social_media', 'SocialMediaController');
+	Route::resource('rumah','RumahController');
+	Route::resource('warga','WargaController');
+	Route::resource('kamar','KamarController');
 });
+
+// untuk verifikasi akun
+Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
+
+// kirim ulang verifikasi akun
+Route::get('auth/send-verification', 'Auth\RegisterController@sendVerification');

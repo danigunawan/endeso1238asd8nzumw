@@ -1259,3 +1259,12 @@ main {
 		border-right: none;
 	}
 }
+
+.btn-pesan {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+   margin-left:auto;
+    margin-right:auto;
+    
+}
