@@ -170,7 +170,7 @@
 
                                     </li>
 
-                                     <li class="dropdown"> 
+                                    <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> User</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
@@ -180,7 +180,7 @@
 
                                     </li>
 
-                                     <li class="dropdown"> 
+                                    <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
@@ -190,8 +190,15 @@
                                         </ul> 
 
                                     </li>
-                                      <li><a href="#" title="Services">Komentar</a></li>
-
+                                     
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Komentar</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('komentar_kamar.index')}}" title="Services">Kamar</a></li>
+                                             <li><a href="{{ route('komentar_kategori.index')}}" title="Services">Kategori</a></li>
+                                        </ul> 
+                                    </li> 
                                        
 
 
