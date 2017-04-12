@@ -168,7 +168,7 @@ class KategoriController extends Controller
 
         Session::flash("flash_notification", [
         "level"=>"success",
-        "message"=>"Berhasil Menyimpan $kategori->title"
+        "message"=>"Berhasil Menyimpan $kategori->nama_aktivitas"
         ]);
 
         return redirect()->route('kategori.index');
@@ -207,5 +207,13 @@ class KategoriController extends Controller
         "message"=>"Kategori Berhasil Dihapus"
         ]);
         return redirect()->route('kategori.index');
+    }
+
+
+    public function list_cultural(){
+
+        $list_cultural = Kategori::limit(8)->get();
+        //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
+        return view('cultural.list', ['list_cultural' => $list_cultural]);
     }
 }

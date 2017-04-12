@@ -25,10 +25,8 @@ Route::get('/detail-penginapan', function () {
     return view('penginapan.detail');
 });
 
-
-Route::get('/list-cultural', function () {
-    return view('cultural.list');
-});
+//Routing Menggunakan Model
+Route::get('/list-cultural', 'KategoriController@list_cultural');
 
 
 Route::get('/detail-cultural', function () {
