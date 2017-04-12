@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingHalamanSeeder::class);
         $this->call(SocialMediaSeeder::class);
         $this->call(RumahSeeder::class);
+        $this->call(KomentarKategoriSeeder::class);
+        $this->call(KomentarKamarSeeder::class);
         $this->call(KamarSeeder::class);
+        $this->call(WargaSeeder::class);
+        $this->call(RekeningSeeder::class);
+
     }
 }

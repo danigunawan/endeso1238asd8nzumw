@@ -77,6 +77,32 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('rumah','RumahController');
 	Route::resource('warga','WargaController');
 	Route::resource('kamar','KamarController');
+	Route::resource('komentar_kamar','KomentarKamarController');
+	Route::resource('komentar_kategori','KomentarKategoriController');
+
+	Route::get('komentar_kategori/no_konfirmasi/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'komentar_kategori.no_konfirmasi',
+	'uses' => 'KomentarKategoriController@no_konfirmasi'
+	]);
+
+	Route::get('komentar_kategori/konfirmasi/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'komentar_kategori.konfirmasi',
+	'uses' => 'KomentarKategoriController@konfirmasi'
+	]);
+
+	Route::get('komentar_kamar/no_konfirmasi/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'komentar_kamar.no_konfirmasi',
+	'uses' => 'KomentarKamarController@no_konfirmasi'
+	]);
+
+	Route::get('komentar_kamar/konfirmasi/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'komentar_kamar.konfirmasi',
+	'uses' => 'KomentarKamarController@konfirmasi'
+	]);
 });
 
 // untuk verifikasi akun
