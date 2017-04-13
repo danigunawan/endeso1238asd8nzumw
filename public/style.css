@@ -1261,9 +1261,11 @@ main {
 }
 
 .btn-pesan {
-  position: fixed;
-  top: 50%;
-  right: 10px;
+
+  
+   position: fixed;
+   bottom: 0;
+   right: 0px;
    margin-left:auto;
     margin-right:auto;
     

@@ -80,6 +80,9 @@ class WargaController extends Controller
             'jadwal_5' => 'max:191',
             'harga_endeso' => 'required',
             'harga_pemilik' => 'required',
+            'latitude' => 'max:191',
+            'longitude' => 'max:191',
+            'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
             'foto_profil' => 'image|max:2048'
         ]);
@@ -155,6 +158,9 @@ class WargaController extends Controller
             'jadwal_5' => 'max:191',
             'harga_endeso' => 'required',
             'harga_pemilik' => 'required',
+            'latitude' => 'max:191',
+            'longitude' => 'max:191',
+            'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
             'foto_profil' => 'image|max:2048'
         ]);
