@@ -25,19 +25,81 @@
 	</div>
 </div>
 
-<!-- KOLOM FOTO KATEGORI -->
-<div class="form-group{{ $errors->has('foto_kategori') ? ' has-error' : '' }}">
-	{!! Form::label('foto_kategori', 'Foto', ['class' => 'col-md-2 control-label']) !!}
-	<div class="col-md-8">
-		{!! Form::file('foto_kategori') !!}
+<!-- KOLOM FOTO KAtegori GROUP -->
+<!-- KOLOM FOTO KAtegori  1-->
+<div class="form-group{{ $errors->has('foto_kategori.0') ? ' has-error' : '' }}">
+	{!! Form::label('foto_kategori', 'Foto 1', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-2">
+		{!! Form::file('foto_kategori[]') !!}
 			@if (isset($kategori) && $kategori->foto_kategori)
 				<p>
 					{!! Html::image(asset('img/'.$kategori->foto_kategori), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kategori', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kategori.0', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
+
+<!-- KOLOM FOTO KAtegori  2-->
+<div class="form-group{{ $errors->has('foto_kategori.1') ? ' has-error' : '' }}">
+	{!! Form::label('foto_kategori2', 'Foto 2', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-2">
+		{!! Form::file('foto_kategori[]') !!}
+			@if (isset($kategori) && $kategori->foto_kategori2)
+				<p>
+					{!! Html::image(asset('img/'.$kategori->foto_kategori2), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_kategori.1', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+
+<!-- KOLOM FOTO KAtegori 3-->
+<div class="form-group{{ $errors->has('foto_kategori.2') ? ' has-error' : '' }}">
+	{!! Form::label('foto_kategori3', 'Foto 3 ', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-2">
+		{!! Form::file('foto_kategori[]') !!}
+			@if (isset($kategori) && $kategori->foto_kategori3)
+				<p>
+					{!! Html::image(asset('img/'.$kategori->foto_kategori3), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_kategori.2', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+
+<!-- KOLOM FOTO KAtegori  4-->
+
+<div class="form-group{{ $errors->has('foto_kategori.3') ? ' has-error' : '' }}">
+	{!! Form::label('foto_kategori4', 'Foto 4', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-2">
+		{!! Form::file('foto_kategori[]') !!}
+			@if (isset($kategori) && $kategori->foto_kategori4)
+				<p>
+					{!! Html::image(asset('img/'.$kategori->foto_kategori4), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_kategori.3', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<!-- KOLOM FOTO KAtegori  5-->
+<div class="form-group{{ $errors->has('foto_kategori.4') ? ' has-error' : '' }}">
+	{!! Form::label('foto_kategori5', 'Foto 5', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-2">
+		{!! Form::file('foto_kategori[]') !!}
+			@if (isset($kategori) && $kategori->foto_kategori5)
+				<p>
+					{!! Html::image(asset('img/'.$kategori->foto_kategori5), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_kategori.4', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<!--END KOLOM FOTO KAtegori GROUP -->
 
 <!-- TOMBOL SIMPAN KATEGORI -->
 <div class="form-group">

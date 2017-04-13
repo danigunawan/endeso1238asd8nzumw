@@ -89,8 +89,10 @@ class KamarController extends Controller
 
         // isi field foto_kamar jika ada FOTO KAMAR 1 yang diupload
         if ($request->hasFile('foto_kamar')) {
+           
             $foto_kamar = $request->file('foto_kamar');
-
+             if (is_array($foto_kamar) || is_object($foto_kamar))
+            {
             $urutan = 0;
 
             foreach ($foto_kamar as $foto_kamars){
@@ -124,8 +126,10 @@ class KamarController extends Controller
                 $kamar->foto5 = $filename; 
                 } 
             }
+
             // menyimpan field foto_kamar di database kamar dengan filename yang baru dibuat
                    $kamar->save();
+            }
 
         }
 

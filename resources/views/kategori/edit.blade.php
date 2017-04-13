@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <main class="site-main page-spacing">
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
@@ -8,7 +9,7 @@
                 <h3>Edit Kategori</h3>
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/home')}}">Admin</a></li>
-                    <li class="">Kategori</li>
+                    <li><a href="{{ url('/admin/kategori')}}">Kategori</a></li>
                     <li class="active">Edit</li>
                 </ol>
             </div>
