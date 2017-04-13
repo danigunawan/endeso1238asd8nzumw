@@ -37,6 +37,7 @@ class KamarController extends Controller
             ->addColumn(['data' => 'kapasitas', 'name'=>'kapasitas', 'title'=>'Kapasitas'])
             ->addColumn(['data' => 'harga_endeso', 'name'=>'harga_endeso', 'title'=>'Harga Endeso'])
             ->addColumn(['data' => 'harga_pemilik', 'name'=>'harga_pemilik', 'title'=>'Harga Pemilik'])
+            ->addColumn(['data' => 'harga_makan', 'name'=>'harga_makan', 'title'=>'Harga Makan'])
             ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
             return view('kamar.index')->with(compact('html'));
     }
@@ -64,13 +65,13 @@ class KamarController extends Controller
         $this->validate($request, [
              'id_rumah' => 'required|exists:rumah,id',
             'id_destinasi' => 'required|exists:destinasi,id',
-            'foto_kamar_1' => 'image|max:2048',
-            'foto_kamar_2' => 'image|max:2048',
-            'foto_kamar_3' => 'image|max:2048',
-            'foto_kamar_4' => 'image|max:2048',
-            'foto_kamar_5' => 'image|max:2048',
-            'deskripsi'> 'required',
-            'harga_pemilik' => 'required'
+            'foto_kamar.*' => 'image|max:2048',
+            'deskripsi' => 'required',
+            'harga_endeso' => 'required',
+            'harga_pemilik' => 'required',
+            'harga_makan' => 'required'
+
+
             ]); 
 
         $kamar = Kamar::create([
@@ -82,8 +83,8 @@ class KamarController extends Controller
             'longitude' => $request->longitude,
             'judul_peta' => $request->judul_peta,
            'harga_endeso' => $request->harga_endeso,
-           'harga_pemilik' => $request->harga_pemilik
-           
+           'harga_pemilik' => $request->harga_pemilik,
+           'harga_makan' => $request->harga_makan
            ]);
 
         // isi field foto_kamar jika ada FOTO KAMAR 1 yang diupload
@@ -173,14 +174,11 @@ class KamarController extends Controller
        $this->validate($request, [
              'id_rumah' => 'required|exists:rumah,id',
             'id_destinasi' => 'required|exists:destinasi,id',
-            'foto_kamar_1' => 'image|max:2048',
-            'foto_kamar_2' => 'image|max:2048',
-            'foto_kamar_3' => 'image|max:2048',
-            'foto_kamar_4' => 'image|max:2048',
-            'foto_kamar_5' => 'image|max:2048',
+            'foto_kamar.*' => 'image|max:2048',
             'deskripsi' => 'required',
             'harga_endeso' => 'required',
-            'harga_pemilik' => 'required'
+            'harga_pemilik' => 'required',
+            'harga_makan' => 'required'            
             ]); 
 
         $kamar = Kamar::find($id);
@@ -193,7 +191,9 @@ class KamarController extends Controller
             'longitude' => $request->longitude,
             'judul_peta' => $request->judul_peta,
            'harga_endeso' => $request->harga_endeso,
-           'harga_pemilik' => $request->harga_pemilik
+           'harga_pemilik' => $request->harga_pemilik,
+           'harga_makan' => $request->harga_makan
+
         ]);
 
         if ($request->hasFile('foto_kamar')) {

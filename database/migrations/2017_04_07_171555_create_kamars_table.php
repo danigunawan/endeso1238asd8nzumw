@@ -29,6 +29,7 @@ class CreateKamarsTable extends Migration
             $table->string('judul_peta')->nullable();
             $table->integer('harga_endeso')->nullable();
             $table->integer('harga_pemilik')->nullable();
+            $table->integer('harga_makan')->nullable();
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@
 
 <!-- KOLOM FOTO KAMAR GROUP -->
 <!-- KOLOM FOTO KAMAR  1-->
-<div class="form-group{{ $errors->has('foto_kamar[]') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_kamar.0') ? ' has-error' : '' }}">
 	{!! Form::label('foto1', 'Foto 1', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-2">
 		{!! Form::file('foto_kamar[]') !!}
@@ -37,12 +37,12 @@
 					{!! Html::image(asset('img/'.$kamar->foto1), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kamar[]', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kamar.0', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
 <!-- KOLOM FOTO KAMAR  2-->
-<div class="form-group{{ $errors->has('foto_kamar[]') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_kamar.1') ? ' has-error' : '' }}">
 	{!! Form::label('foto2', 'Foto 2', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-2">
 		{!! Form::file('foto_kamar[]') !!}
@@ -51,13 +51,13 @@
 					{!! Html::image(asset('img/'.$kamar->foto2), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kamar[]', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kamar.1', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
 
 <!-- KOLOM FOTO KAMAR 3-->
-<div class="form-group{{ $errors->has('foto_kamar[]') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_kamar.2') ? ' has-error' : '' }}">
 	{!! Form::label('foto3', 'Foto 3 ', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-2">
 		{!! Form::file('foto_kamar[]') !!}
@@ -66,14 +66,14 @@
 					{!! Html::image(asset('img/'.$kamar->foto3), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kamar[]', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kamar.2', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
 
 <!-- KOLOM FOTO KAMAR  4-->
 
-<div class="form-group{{ $errors->has('foto_kamar[]') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_kamar.3') ? ' has-error' : '' }}">
 	{!! Form::label('foto4', 'Foto 4', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-2">
 		{!! Form::file('foto_kamar[]') !!}
@@ -82,12 +82,12 @@
 					{!! Html::image(asset('img/'.$kamar->foto4), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kamar[]', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kamar.3', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
 <!-- KOLOM FOTO KAMAR  5-->
-<div class="form-group{{ $errors->has('foto_kamar[]') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_kamar.4') ? ' has-error' : '' }}">
 	{!! Form::label('foto5', 'Foto 5', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-2">
 		{!! Form::file('foto_kamar[]') !!}
@@ -96,7 +96,7 @@
 					{!! Html::image(asset('img/'.$kamar->foto5), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_kamar[]', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_kamar.4', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
@@ -112,6 +112,36 @@
 		{!! $errors->first('kapasitas', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
+
+
+
+<!-- KOLOM HARGA ENDESO -->
+<div class="form-group{{ $errors->has('harga_endeso') ? ' has-error' : '' }}">
+	{!! Form::label('harga_endeso', 'Harga Endeso', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::text('harga_endeso', null, ['class' => 'form-control', 'placeholder' => 'Harga Endeso', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_endeso', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<!-- KOLOM HARGA PEMILIK -->
+<div class="form-group{{ $errors->has('harga_pemilik') ? ' has-error' : '' }}">
+	{!! Form::label('harga_pemilik', 'Harga Pemilik', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::text('harga_pemilik', null, ['class' => 'form-control', 'placeholder' => 'Harga Pemilik', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_pemilik', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<!-- KOLOM HARGA MAKAN -->
+<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }}">
+	{!! Form::label('harga_makan', 'Harga Makan', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::text('harga_makan', null, ['class' => 'form-control', 'placeholder' => 'Harga Makan', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 
 
 <!-- KOLOM LATITUDE -->
@@ -138,24 +168,6 @@
 	<div class="col-md-8">
 		{!! Form::text('judul_peta', null, ['class' => 'form-control', 'placeholder' => 'Judul Peta', 'autocomplete' => 'off']) !!}
 		{!! $errors->first('judul_peta', '<p class="help-block">:message</p>') !!}
-	</div>
-</div>
-
-<!-- KOLOM HARGA ENDESO -->
-<div class="form-group{{ $errors->has('harga_endeso') ? ' has-error' : '' }}">
-	{!! Form::label('harga_endeso', 'Harga Endeso', ['class' => 'col-md-2 control-label']) !!}
-	<div class="col-md-8">
-		{!! Form::text('harga_endeso', null, ['class' => 'form-control', 'placeholder' => 'Harga Endeso', 'autocomplete' => 'off']) !!}
-		{!! $errors->first('harga_endeso', '<p class="help-block">:message</p>') !!}
-	</div>
-</div>
-
-<!-- KOLOM HARGA PEMILIK -->
-<div class="form-group{{ $errors->has('harga_pemilik') ? ' has-error' : '' }}">
-	{!! Form::label('harga_pemilik', 'Harga Pemilik', ['class' => 'col-md-2 control-label']) !!}
-	<div class="col-md-8">
-		{!! Form::text('harga_pemilik', null, ['class' => 'form-control', 'placeholder' => 'Harga Pemilik', 'autocomplete' => 'off']) !!}
-		{!! $errors->first('harga_pemilik', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
