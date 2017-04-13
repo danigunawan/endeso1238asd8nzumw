@@ -26,6 +26,8 @@ class CreateWargaTable extends Migration
             $table->string('jadwal_5')->nullable();
             $table->string('harga_endeso'); 
             $table->string('harga_pemilik'); 
+            $table->string('latitude_longitude')->nullable();
+            $table->string('alamat_warga')->nullable();
             $table->integer('kapasitas');  
             $table->timestamps();
         });

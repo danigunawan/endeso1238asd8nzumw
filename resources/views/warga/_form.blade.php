@@ -70,6 +70,22 @@
 	</div>
 </div>
 
+<div class="form-group{{ $errors->has('latitude_longitude') ? ' has-error' : '' }}">
+	{!! Form::label('latitude_longitude', 'Latitude Longitude', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('latitude_longitude', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('latitude_longitude', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('alamat_warga') ? ' has-error' : '' }}">
+	{!! Form::label('alamat_warga', 'Alamat Warga', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('alamat_warga', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('alamat_warga', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 <div class="form-group{{ $errors->has('kapasitas') ? ' has-error' : '' }}">
 	{!! Form::label('kapasitas', 'Kapasitas', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-4">
