@@ -21,9 +21,10 @@ Route::get('/list-penginapan', function () {
 });
 
 
-Route::get('/detail-penginapan', function () {
-    return view('penginapan.detail');
-});
+Route::get('/detail-penginapan/{id}', [
+	'as'=> 'penginapan.detail',
+	'uses' => 'HomeController@detail_penginapan'
+]);
 
 
 Route::get('/list-cultural', function () {

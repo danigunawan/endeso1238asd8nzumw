@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\SettingHalaman;
 use App\User;
 use Auth;
+use App\Kamar;
+use App\KomentarKamar;
 use Session;
 
 class HomeController extends Controller
@@ -106,9 +108,16 @@ class HomeController extends Controller
       
       public function pesanan()  
     {
-
-
         return view('pesanan');
+    }
+
+       public function detail_penginapan($id)  
+    {
+        $kamar = Kamar::with(['rumah'])->find($id);
+        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
+
+        $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
+        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar]);
 
     }
 
