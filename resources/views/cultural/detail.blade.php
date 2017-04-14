@@ -146,7 +146,7 @@
 								</div>
 								<div class="media-body">
 									<div class="media-content">
-										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->user->create_at}}</span><a href="#" title="Reply">Balas</a></h4>
+										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->user->created_at}}</span><a href="#" title="Reply">Balas</a></h4>
 										<p>{{ $komentar_kategoris->isi_komentar }}</p>
 									</div>
 								</div>
