@@ -7,7 +7,9 @@ use App\SettingHalaman;
 use App\User;
 use Auth;
 use App\Kamar;
+use App\Kategori;
 use App\KomentarKamar;
+use App\KomentarKategori;
 use Session;
 
 class HomeController extends Controller
@@ -60,25 +62,22 @@ class HomeController extends Controller
         $id_user = Auth::user()->id;
         $profil = User::where('id',$id_user)->first();
 
-        return view('profil',['profil' => $profil]);
+        $status_foto_profil = strpos($profil->foto_profil, 'http');
+
+        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil]);
     }
 
        public function update_profil(Request $request, $id)
     {   
          $this->validate($request, [
         'name' => 'required', 
-        'email' => 'required|unique:users,email,'.$id,
-        'tanggal_lahir' => 'date',
+        'email' => 'required|unique:users,email,'.$id, 
          'foto_profil' => 'image|max:2048'
         ]);
-
-
-
-
-        $tanggal_lahir = date_create($request->tanggal_lahir);       
+     
         $profil = User::where('id',$id)->first();
 
-        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => date_format($tanggal_lahir,'Y-m-d'),'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp]);
+        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $request->tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp]);
 
 
          // isi field foto_profil jika ada foto_profil yang diupload
@@ -111,14 +110,24 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
-       public function detail_penginapan($id)  
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout)  
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar]);
+        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout]);
 
+    }
+
+    public function detail_cultural($id){
+
+        $detail_cultural = Kategori::find($id);
+
+        $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get();
+
+        //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail)
+        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori]);
     }
 
 
