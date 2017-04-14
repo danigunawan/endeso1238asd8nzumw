@@ -16,6 +16,13 @@ Route::get('/', function () {
 });
 
 
+Route::get('auth/login', function () {
+    return view('auth');
+});
+ 
+Route::get('auth/google', 'AuthController@redirectToGoogle');
+Route::get('auth/google/callback', 'AuthController@handleGoogleCallback');
+
 Route::get('/list-penginapan', function () {
     return view('penginapan.list');
 });

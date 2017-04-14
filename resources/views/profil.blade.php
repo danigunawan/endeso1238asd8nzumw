@@ -114,13 +114,20 @@
                     </form>
                     <div class="col-md-4">
                         
-                        @if (isset($profil) && $profil->foto_profil)
+                        @if (isset($profil) && $profil->foto_profil && $status_foto_profil === FALSE )
                         <p>
-                        {!! Html::image(asset('img/'.$profil->foto_profil), null, ['class'=>'img-rounded img-responsive   ']) !!}
+                        {!! Html::image(asset('img/'.$profil->foto_profil), null, ['class'=>'img-rounded img-responsive']) !!}
+                        <br>
+                        Foto Profil
+                        </p>
+                        @elseif (isset($profil) && $profil->foto_profil && $status_foto_profil >= 0  )
+                        <p>
+                        {!! Html::image(asset($profil->foto_profil), null, ['class'=>'img-rounded img-responsive']) !!}
                         <br>
                         Foto Profil
                         </p>
                         @endif
+
                     </div>
                    
                 </div> <!-- Row /- -->
