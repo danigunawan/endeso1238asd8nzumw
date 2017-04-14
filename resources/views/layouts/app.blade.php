@@ -179,10 +179,7 @@
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
                                     <li><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
-                                    <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
-                                    </li>
-                                       
-                                    <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
+                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
                                     
                                 @endif

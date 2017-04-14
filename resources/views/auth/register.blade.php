@@ -80,7 +80,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
-                                <a href="{{ url('auth/google') }}" class="loginBtn loginBtn--google">
+                                <a href="{{ url('auth/google') }}"class="btn loginBtn loginBtn--google" style="text-decoration: none;">
                                     <strong>Register With Google</strong>
                                 </a>
 
