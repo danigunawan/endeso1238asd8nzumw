@@ -28,19 +28,19 @@ Route::get('/list-penginapan', function () {
 });
 
 
-Route::get('/detail-penginapan', function () {
-    return view('penginapan.detail');
-});
+Route::get('/detail-penginapan/{id}', [
+	'as'=> 'penginapan.detail',
+	'uses' => 'HomeController@detail_penginapan'
+]);
+
+//Routing Menggunakan Model
+Route::get('/list-cultural', 'KategoriController@list_cultural');
 
 
-Route::get('/list-cultural', function () {
-    return view('cultural.list');
-});
-
-
-Route::get('/detail-cultural', function () {
-    return view('cultural.detail');
-});
+Route::get('/detail-cultural/{id}', [
+	'as'=> 'cultural.detail',
+	'uses' => 'HomeController@detail_cultural'
+]);
 
 Auth::routes();
 

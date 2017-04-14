@@ -57,31 +57,65 @@ class KategoriController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
     public function store(Request $request)
     {
         //
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas',
             'destinasi_kategori' => 'required|exists:destinasi,id',
-            'foto_kategori' => 'image|max:2048'
+            'foto_kategori.*' => 'image|max:2048'
         ]);
 
-        $kategori = Kategori::create($request->except('foto_kategori'));
+        $kategori = Kategori::create([
 
-        // isi field foto_kategori jika ada foto_kategori yang diupload
+           'nama_aktivitas' => $request->nama_aktivitas,
+           'deskripsi_kategori' => $request->deskripsi_kategori,
+           'destinasi_kategori' => $request->destinasi_kategori
+           
+        ]);
+
+
+        // isi field foto_kategori jika ada FOTO kategori 1 yang diupload
         if ($request->hasFile('foto_kategori')) {
-        // Mengambil file yang diupload
-        $uploaded_foto_kategori = $request->file('foto_kategori');
-        // mengambil extension file
-        $extension = $uploaded_foto_kategori->getClientOriginalExtension();
-        // membuat nama file random berikut extension
-        $filename = str_random(40) . '.' . $extension;
-        // menyimpan foto_kategori ke folder public/img
-        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-        $uploaded_foto_kategori->move($destinationPath, $filename);
-        // mengisi field foto_kategori di destinasi dengan filename yang baru dibuat
-        $kategori->foto_kategori = $filename;
-        $kategori->save();
+            $foto_kategori = $request->file('foto_kategori');
+
+            $urutan = 0;
+
+            foreach ($foto_kategori as $foto_kategoris){
+
+                // mengambil urutan untuk foto 1 - 5 
+                $urutan++;
+
+                // Mengambil file yang diupload
+                $uploaded_foto_kategori = $foto_kategoris;
+                // mengambil extension file
+                $extension = $uploaded_foto_kategori->getClientOriginalExtension();
+                // membuat nama file random berikut extension
+                $filename = str_random(40) . '.' . $extension;
+                // menyimpan foto_kategori ke folder public/img
+                $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+                $uploaded_foto_kategori->move($destinationPath, $filename);
+                // mengisi field foto_kategori di database kategori dengan filename yang baru dibuat
+                if ($urutan == 1){
+                $kategori->foto_kategori = $filename; 
+                }  
+                if ($urutan == 2){
+                $kategori->foto_kategori2 = $filename; 
+                }  
+                if ($urutan == 3){
+                $kategori->foto_kategori3 = $filename; 
+                }  
+                if ($urutan == 4){
+                $kategori->foto_kategori4 = $filename; 
+                }  
+                if ($urutan == 5){
+                $kategori->foto_kategori5 = $filename; 
+                } 
+            }
+            // menyimpan field foto_kategori di database kategori dengan filename yang baru dibuat
+                   $kategori->save();
+
         }
 
         Session::flash("flash_notification", [
@@ -130,48 +164,80 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas,' . $id,
             'destinasi_kategori' => 'required|exists:destinasi,id',
-            'foto_kategori' => 'image|max:2048'
+            'foto_kategori.*' => 'image|max:2048'
         ]);
 
         $kategori = Kategori::find($id);
-        $kategori->update($request->all());
+        $kategori->update([
+
+           'nama_aktivitas' => $request->nama_aktivitas,
+           'deskripsi_kategori' => $request->deskripsi_kategori,
+           'destinasi_kategori' => $request->destinasi_kategori
+           
+        ]);
 
         if ($request->hasFile('foto_kategori')) {
+            $foto_kategori = $request->file('foto_kategori');
 
-        // menambil foto_kategori yang diupload berikut ekstensinya
+            $urutan = 0;
 
-        $filename = null;
-        $uploaded_foto_kategori = $request->file('foto_kategori');
-        $extension = $uploaded_foto_kategori->getClientOriginalExtension();
-        // membuat nama file random dengan extension
-        $filename = md5(time()) . '.' . $extension;
-        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-        // memindahkan file ke folder public/img
-        $uploaded_foto_kategori->move($destinationPath, $filename);
-        // hapus foto_kategori lama, jika ada
-        if ($kategori->foto_kategori) {
-        $old_foto_kategori = $kategori->foto_kategori;
-        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
-        . DIRECTORY_SEPARATOR . $kategori->foto_kategori;
-        try {
-        File::delete($filepath);
-        } catch (FileNotFoundException $e) {
-        // File sudah dihapus/tidak ada
-        }
+            foreach ($foto_kategori as $foto_kategoris){
+                # code...
+                // mengambil urutan untuk foto 1 - 5 
+                $urutan++;
 
-        }
-        // ganti field foto_kategori dengan cover yang baru
+                   // menambil foto_kategori yang diupload berikut ekstensinya
 
-        $kategori->foto_kategori = $filename;
-        $kategori->save();
-        }
+                    $filename = null;
+                    $uploaded_foto_kategori = $foto_kategoris;
+                    $extension = $uploaded_foto_kategori->getClientOriginalExtension();
+                    // membuat nama file random dengan extension
+                    $filename = str_random(40) . '.' . $extension;
+                    $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+                    // memindahkan file ke folder public/img
+                    $uploaded_foto_kategori->move($destinationPath, $filename);
+                    // hapus foto_kategori lama, jika ada
+                    if ($kategori->foto_kategori) {
+                    $old_foto_kategori = $kategori->foto_kategori;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+                    . DIRECTORY_SEPARATOR . $kategori->foto_kategori;
+                    try {
+                    File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                    // File sudah dihapus/tidak ada
+                    }
+
+                 }
+                // ganti field foto_kategori dengan cover yang baru
+                 if ($urutan == 1){
+                $kategori->foto_kategori = $filename; 
+                }  
+                if ($urutan == 2){
+                $kategori->foto_kategori2 = $filename; 
+                }  
+                if ($urutan == 3){
+                $kategori->foto_kategori3 = $filename; 
+                }  
+                if ($urutan == 4){
+                $kategori->foto_kategori4 = $filename; 
+                }  
+                if ($urutan == 5){
+                $kategori->foto_kategori5 = $filename; 
+                } 
+            }
+            // menyimpan field foto_kategori di database kategori dengan filename yang baru dibuat
+                   $kategori->save();
+
+         }
 
         Session::flash("flash_notification", [
         "level"=>"success",
-        "message"=>"Berhasil Menyimpan $kategori->title"
+        "message"=>"Berhasil Menyimpan $kategori->nama_aktivitas"
         ]);
 
         return redirect()->route('kategori.index');
+
+
     }
 
     /**
@@ -207,5 +273,13 @@ class KategoriController extends Controller
         "message"=>"Kategori Berhasil Dihapus"
         ]);
         return redirect()->route('kategori.index');
+    }
+
+
+    public function list_cultural(){
+
+        $list_cultural = Kategori::limit(8)->get();
+        //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
+        return view('cultural.list', ['list_cultural' => $list_cultural]);
     }
 }
