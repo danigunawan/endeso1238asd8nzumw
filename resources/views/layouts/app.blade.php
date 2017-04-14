@@ -190,16 +190,7 @@
 
                                     </li>
                                     <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
-                                          <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Services</a> 
-                                        <i class="ddl-switch fa fa-angle-down"></i> 
-                                        <ul class="dropdown-menu"> 
-                                             <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
-                                    </li>
-                                     <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
-                                        </ul> 
-
-                                    </li>
+                                          
                                     <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
