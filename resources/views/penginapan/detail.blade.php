@@ -11,7 +11,7 @@
 				<ol class="breadcrumb">
 					<li><a href="index.html">Home</a></li>
                     <li><a href="list.html">Rumah Alam</a></li>
-					<li class="active">Wae Rebo</li>
+					<li class="active">{{$kamar->rumah->nama_pemilik}}</li>
 				</ol>
 			</div>
             <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i> 4.5/5</div>
@@ -119,7 +119,7 @@
                     <!-- Review -->
                     
 			
-					<button class="read-more btn-pesan" title="Book Now">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></button>
+					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
 						
 					
 				</div><!-- Contenta Area /- -->
@@ -138,9 +138,9 @@
 						@foreach($kamar_lain as $kamar_lains)
 							<div class="single-room">
 							@if (isset($kamar_lains) && $kamar_lains->foto1)
-							<a href="{{route('penginapan.detail',$kamar_lains->id_kamar)}}">{!! Html::image(asset('img/'.$kamar_lains->foto1), null, ['alt' => 'Slide','style'=>'width:30%']) !!}</a>					
+							<a href="{{url('/detail-penginapan/'.$kamar_lains->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout)}}">{!! Html::image(asset('img/'.$kamar_lains->foto1), null, ['alt' => 'Slide','style'=>'width:30%']) !!}</a>					
 							@endif
-							<a href="{{route('penginapan.detail',$kamar_lains->id_kamar)}}"><h4>{{$kamar_lains->rumah->nama_pemilik}}<b>{{$kamar_lains->harga_endeso + $kamar_lains->harga_pemilik}}</b> <span>{{$kamar_lains->destinasi->nama_destinasi}}</span></h4></a>
+							<a href="{{url('/detail-penginapan/'.$kamar_lains->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout)}}"><h4>{{$kamar_lains->rumah->nama_pemilik}}<b>{{$kamar_lains->harga_endeso + $kamar_lains->harga_pemilik}}</b> <span>{{$kamar_lains->destinasi->nama_destinasi}}</span></h4></a>
 						</div>
 						@endforeach
 					</aside>

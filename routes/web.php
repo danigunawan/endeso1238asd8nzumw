@@ -28,7 +28,9 @@ Route::get('/list-penginapan', function () {
 });
 
 
-Route::get('/detail-penginapan/{id}', [
+
+
+Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}', [
 	'as'=> 'penginapan.detail',
 	'uses' => 'HomeController@detail_penginapan'
 ]);
@@ -111,6 +113,17 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
 });
+
+
+Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}', [
+	'as'=> 'pesanhomestay.form',
+	'uses' => 'PesanhomestayController@index'
+]);
+
+Route::post('/pesan-homestay', [
+	'as'=> 'pesanhomestay.proses',
+	'uses' => 'PesanhomestayController@store'
+]);
 
 // untuk verifikasi akun
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
