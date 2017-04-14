@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         $this->call(KamarSeeder::class);
         $this->call(WargaSeeder::class);
         $this->call(RekeningSeeder::class);
+        $this->call(PesananHomestaySeeder::class);
+        $this->call(PesananCulturSeeder::class);
 
     }
 }
