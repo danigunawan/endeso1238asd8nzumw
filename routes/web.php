@@ -30,9 +30,10 @@ Route::get('/detail-penginapan/{id}', [
 Route::get('/list-cultural', 'KategoriController@list_cultural');
 
 
-Route::get('/detail-cultural', function () {
-    return view('cultural.detail');
-});
+Route::get('/detail-cultural/{id}', [
+	'as'=> 'cultural.detail',
+	'uses' => 'HomeController@detail_cultural'
+]);
 
 Auth::routes();
 

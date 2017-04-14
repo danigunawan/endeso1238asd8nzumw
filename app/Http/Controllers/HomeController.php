@@ -7,7 +7,9 @@ use App\SettingHalaman;
 use App\User;
 use Auth;
 use App\Kamar;
+use App\Kategori;
 use App\KomentarKamar;
+use App\KomentarKategori;
 use Session;
 
 class HomeController extends Controller
@@ -119,6 +121,16 @@ class HomeController extends Controller
         $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
         return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar]);
 
+    }
+
+    public function detail_cultural($id){
+
+        $detail_cultural = Kategori::find($id);
+
+        $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get();
+
+        //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail)
+        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori]);
     }
 
 
