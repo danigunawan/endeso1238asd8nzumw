@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 
 Route::get('auth/login', function () {
@@ -35,6 +33,11 @@ Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}', [
 	'uses' => 'HomeController@detail_penginapan'
 ]);
 
+Route::get('/detail-penginapan-home/{id}', [
+	'as'=> 'penginapan.detail_home',
+	'uses' => 'DetailPenginapanHomeController@index'
+]);
+
 //Routing Menggunakan Model
 Route::get('/list-cultural', 'KategoriController@list_cultural');
 
@@ -47,8 +50,7 @@ Route::get('/detail-cultural/{id}', [
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-
-
+ 
 Route::get('/tentang-endeso','HomeController@tentang');
 
 Route::get('/cara-pesan','HomeController@cara_pesan');
