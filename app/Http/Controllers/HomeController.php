@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Html\Builder;
 use App\SettingHalaman;
 use App\User;
 use Auth;
@@ -10,8 +11,11 @@ use App\Kamar;
 use App\Rumah;
 use App\Kategori;
 use App\KomentarKamar;
-use App\KomentarKategori;
 use Session;
+use App\PesananHomestay;
+use App\PesananCulture;
+use Illuminate\Support\Facades\DB;
+use App\Warga;
 
 class HomeController extends Controller
 {
@@ -66,22 +70,23 @@ class HomeController extends Controller
         $id_user = Auth::user()->id;
         $profil = User::where('id',$id_user)->first();
 
-        $status_foto_profil = strpos($profil->foto_profil, 'http');
-
-        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil]);
+        return view('profil',['profil' => $profil]);
     }
 
        public function update_profil(Request $request, $id)
     {   
          $this->validate($request, [
         'name' => 'required', 
-        'email' => 'required|unique:users,email,'.$id, 
+        'email' => 'required|unique:users,email,'.$id,
+        'tanggal_lahir' => 'date',
          'foto_profil' => 'image|max:2048'
         ]);
-     
+
+
+        $tanggal_lahir = date_create($request->tanggal_lahir);       
         $profil = User::where('id',$id)->first();
 
-        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $request->tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp]);
+        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => date_format($tanggal_lahir,'Y-m-d'),'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp]);
 
 
          // isi field foto_profil jika ada foto_profil yang diupload
@@ -101,7 +106,7 @@ class HomeController extends Controller
 
         }
 
-          Session::flash("flash_notification", [
+        Session::flash("flash_notification", [
         "level"=>"success",
         "message"=>"Berhasil menyimpan Perubahan Profil"
         ]);
@@ -114,24 +119,119 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
-       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout)  
+       public function detail_penginapan($id)  
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('id_destinasi',$id)->limit(5)->get();
         return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout]);
+      }
 
+    public static function tanggal_mysql($tanggal2){
+    
+    $date= date_create($tanggal2);
+    $date_format = date_format($date,"Y-m-d");
+    return $date_format;
     }
 
-    public function detail_cultural($id){
 
-        $detail_cultural = Kategori::find($id);
+    public function pencarian_ce_homestay(Request $request)
+    {   
+DB::enableQueryLog();
+        // JIKA PILIHAN DESTINASI NYA HOMESTAY
+        if ($request->pilihan == 1) {
 
-        $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get();
+                  // validate
+            $this->validate($request,[
+                  'pilihan'       => 'required',
+                  'dari_tanggal'  => 'required|date',
+                  'sampai_tanggal'=> 'required|date',
+                  'tujuan'        => 'required',
+                  'jumlah_orang'  => 'required'
+                  ]);
+            
+            $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
+                $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
+            })->get();
 
-        //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail)
-        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori]);
+            $tampil_kamar = '';   
+            $hitung = 0;
+
+            foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
+
+                $pesanan = PesananHomestay::status($kamars,$request)->count();
+
+                    if ($pesanan == 0) {//  if ($pesanan == 0)
+
+                        //harga kamar
+                        $harga_kamar = $kamars->harga_endeso + $kamars->harga_pemilik;
+
+                        // untuk menghirung berapa kamar yang tampil
+                        $hitung = $hitung + 1;
+
+                        $tampil_kamar .= "<div class='col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail'>
+                                            <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
+                                              <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
+
+                                              <span><a href='detail-penginapan-home'>Pesan</a></span>
+                                            </div>
+                                            <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
+                                              <h4>".$kamars->rumah->nama_pemilik."</h4>
+                                              <p>".$kamars->deskripsi ."</p>
+                                              <h6><b><sup>RP</sup>".$harga_kamar."</b><span>/Orang/Malam</span></h6>
+                                              <span>
+                                                <i class='fa fa-star'></i>
+                                                <i class='fa fa-star'></i>
+                                                <i class='fa fa-star'></i>
+                                                <i class='fa fa-star'></i>
+                                                <i class='fa fa-star-half-o'></i>
+                                              </span>
+                                            </div>
+                                          </div>";
+
+                    }////  if ($pesanan == 0)
+            } // foreach ($kamar as $kamars)
+            
+            // jika kamar tidak ada yang tampil maka akan muncul alert
+            if ($hitung === 0) {// if ($hitung === 0)
+               Session::flash("flash_notification", [
+              "level"=>"success",
+              "message"=>"Tujuan Homestay yang anda pilih sudah terisi atau jumlah orang melebihi kapasitas, silahkan pilih Tujuan Homestay yang lain"
+              ]);
+            }// if ($hitung === 0)
+
+          return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
+
+        }
+        else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
+        {
+
+             // validate
+            $this->validate($request,[
+                  'pilihan'       => 'required',
+                  'dari_tanggal'  => 'required|date',
+                  'tujuan'        => 'required',
+                  'jumlah_orang'  => 'required'
+                  ]);
+            
+            $kategori = Kategori::with('warga')->where('destinasi_kategori',$request->tujuan)->get();
+
+            foreach ($kategori as $kategoris) {
+            
+              $pesanan = PesananCulture::where('check_in',$request->dari_tanggal)
+                        ->where('id_warga',$kategoris->warga->id)
+                        ->where('jumlah_orang','<',$kategoris->warga->kapasitas)->get();
+
+            }
+
+
+            
+        }
+
+      dd(DB::getQueryLog());
+
+
     }
 
 

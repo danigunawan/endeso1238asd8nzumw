@@ -36,36 +36,72 @@
                 <div class="col-md-2 col-sm-12 col-xs-12">
                     <h4><span>Pesan</span> Sekarang</h4>
                 </div>
-                <form class="col-md-10 col-sm-12 col-xs-12">
-                    
-                    <div class="form-group">
-                        <select class="selectpicker">
-                            <option>HOMESTAY</option>
-                            <option>CULTURAL EXPERIENCES</option>
-                        </select>
+
+
+
+          {!! Form::open(['url' => 'pencarian','files'=>'true','method' => 'get', 'class'=>'col-md-10 col-sm-12 col-xs-12']) !!}
+                 <div class="row"> 
+
+                    <div class="col-sm-2" id="col-pilihan">
+                        <div style="width:180px;" class="form-group {{ $errors->has('pilihan') ? ' has-error' : '' }}">
+                            {{ Form::select('pilihan', [
+                            '1' => 'HOMESTAY',
+                            '2' => 'CULTURAL EXPERIENCES'],null, ['class'=> 'selectpicker', 'id'=>'pilihan' ]
+                            ) }}
+                            {!! $errors->first('pilihan', '<p class="help-block">:message</p>') !!}
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <i class="fa fa-calendar-minus-o"></i>
-                        <input type="text" class="form-control" id="datepicker1" placeholder="TANGGAL" />
+
+                    <div class="col-sm-2"> 
+                        <div id="dari_tanggal" style="width:180px;" class="form-group{{ $errors->has('dari_tanggal') ? ' has-error' : '' }}">
+                            <i class="fa fa-calendar-minus-o"></i>
+                            {!! Form::text('dari_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker1','placeholder'=>'DARI TANGGAL']) !!}
+                            {!! $errors->first('dari_tanggal', '<p class="help-block">:message</p>') !!}
+
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                      {!! Form::select('author_id', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker']) !!}
+
+                    <span id="span_cultur">
+                        <div class="col-sm-2">
+                            <div id="sampai_tanggal" style="width:180px;"  class="form-group{{ $errors->has('sampai_tanggal') ? ' has-error' : '' }}">
+                                <i class="fa fa-calendar-minus-o"></i>
+                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL']) !!}
+                                {!! $errors->first('sampai_tanggal', '<p class="help-block">:message</p>') !!}
+
+                            </div>
+                        </div>
+                    </span>
+
+                    <div class="col-sm-2" id="col-tujuan">
+                        <div style="width:180px;"  class="form-group{{ $errors->has('tujuan') ? ' has-error' : '' }}">
+                          {!! Form::select('tujuan', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker']) !!}
+                          {!! $errors->first('tujuan', '<p class="help-block">:message</p>') !!}
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <select class="selectpicker">
-                            <option>JUMLAH ORANG</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+
+                    <div class="col-sm-2" id="col-jumlah">
+                        <div style="width:180px;"  class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
+                            {!! Form::select('jumlah_orang',[
+                            '1' => '1',
+                            '2' => '2',
+                            '3' => '3',
+                            '4' => '4',
+                            '5' => '5'],null,['class'=>'selectpicker','placeholder'=>'JUMLAH ORANG']) !!}
+
+                             {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
+
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="CARI" title="CARI" />
+
+                    <div class="col-sm-2">
+                        <div class="form-group" style="width:100px; ">
+                            {!! Form::submit('CARI') !!}
+                        </div>
                     </div>
-                </form>
+
+
+                </div>
+               {!! Form::close() !!}
             </div>      
             
         </div>
@@ -163,10 +199,11 @@
         </div><!-- Offer Section /- -->
         <div class="section-padding"></div>
         
-  
-        
+
     </main>
-    
-       
+
+
 
 @endsection
+
+ 

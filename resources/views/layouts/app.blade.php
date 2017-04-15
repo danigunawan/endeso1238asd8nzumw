@@ -320,6 +320,9 @@
         </div><!-- Top Footer -->
     </div><!-- Footer Section /- -->   
 
+
+
+
     <!-- JQuery v1.11.3 -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     
@@ -336,6 +339,52 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+
+
+
+          <script type="text/javascript">
+
+        $(document).ready(function(){
+
+
+                var pilihan = $("#pilihan").val();
+
+                    //jika pilihan nya CULTUR EXPERIENCE
+                    if (pilihan == 2) {
+
+                        $("#span_cultur").hide();
+                        $("#datepicker1").attr("placeholder","TANGGAL");
+                    }
+                    else
+                    {
+
+                        $("#span_cultur").show();
+                        $("#datepicker1").attr("placeholder","DARI TANGGAL");
+
+                    }
+
+            $(document).on('change','#pilihan',function(e){
+
+                var pilihan = $(this).val();
+
+                    //jika pilihan nya CULTUR EXPERIENCE
+                    if (pilihan == 2) {
+
+                        $("#span_cultur").hide();
+                        $("#datepicker1").attr("placeholder","TANGGAL");
+                    }
+                    else
+                    {
+
+                        $("#span_cultur").show();
+                        $("#datepicker1").attr("placeholder","DARI TANGGAL");
+
+                    }
+
+            });
+        });
+
+       </script>
 
     @yield('scripts')
 </body>

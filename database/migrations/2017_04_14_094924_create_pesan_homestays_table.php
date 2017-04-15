@@ -15,10 +15,10 @@ class CreatePesanHomestaysTable extends Migration
     {
         Schema::create('pesan_homestays', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama',100);
-            $table->integer('no_telp',100);
-            $table->string('email',100);           
-            $table->integer('no_ktp',100)->nullable();
+            $table->string('nama');
+            $table->integer('no_telp');
+            $table->string('email');           
+            $table->integer('no_ktp')->nullable();
             $table->timestamps();
         });
     }

@@ -57,6 +57,8 @@ Route::get('/cara-pesan','HomeController@cara_pesan');
 
 Route::get('/kontak','HomeController@kontak');
 
+Route::get('/pencarian','HomeController@pencarian_ce_homestay');
+
 Route::get('/user/edit-profil', [
 	'middleware' => ['auth'],
 	'as'=> 'profil.edit',
@@ -132,3 +134,5 @@ Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
 
 // kirim ulang verifikasi akun
 Route::get('auth/send-verification', 'Auth\RegisterController@sendVerification');
+
+

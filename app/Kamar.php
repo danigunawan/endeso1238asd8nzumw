@@ -19,4 +19,6 @@ class Kamar extends Model
 	  {
 	  return $this->hasOne('App\Rumah','id','id_rumah');
 	  }
+
+	  
 }
