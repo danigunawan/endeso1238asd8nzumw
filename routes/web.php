@@ -130,6 +130,12 @@ Route::get('/pesan-homestay-proses', [
 	'uses' => 'PesanhomestayController@store'
 ]);
 
+//
+Route::get('/pesan-cultural/{id}/{tanggal_masuk}', [
+	'as'=> 'pesananCultural.form',
+	'uses' => 'PesananCulturalController@index'
+]);
+
 // untuk verifikasi akun
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
 

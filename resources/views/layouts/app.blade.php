@@ -134,7 +134,7 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                    <div class="logo-block col-md-3"><a href="index.html" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                    <div class="logo-block col-md-3"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
                     <div class="col-md-9 contact-detail">
                         <div class="phone">
                             <img src="{{ asset('images/phone-ic.png') }}" alt="Phone" />
@@ -169,7 +169,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="index.html" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
+                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
