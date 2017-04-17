@@ -339,7 +339,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-
+      <script src="{{ asset('js/my.js') }}"></script>
 
 
           <script type="text/javascript">

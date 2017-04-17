@@ -13,14 +13,7 @@ class CreatePesanHomestaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('pesan_homestays', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nama');
-            $table->integer('no_telp');
-            $table->string('email');           
-            $table->integer('no_ktp')->nullable();
-            $table->timestamps();
-        });
+       
     }
     
     /**

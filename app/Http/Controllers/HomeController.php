@@ -119,13 +119,15 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
-       public function detail_penginapan($id)  
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)  
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
-        $komentar = KomentarKamar::with('user')->where('id_destinasi',$id)->limit(5)->get();
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout]);
+        $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
+
+
+        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
       }
 
     public static function tanggal_mysql($tanggal2){
@@ -160,7 +162,7 @@ DB::enableQueryLog();
 
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
 
-                $pesanan = PesananHomestay::status($kamars,$request)->count();
+                $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
 
                     if ($pesanan == 0) {//  if ($pesanan == 0)
 
@@ -174,7 +176,7 @@ DB::enableQueryLog();
                                             <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
                                               <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
 
-                                              <span><a href='detail-penginapan-home'>Pesan</a></span>
+                                              <span><a href='".url('/detail-penginapan/'.$kamars->id_kamar.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.HomeController::tanggal_mysql($request->sampai_tanggal).'/'.$request->jumlah_orang)."'>Pesan</a></span>
                                             </div>
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
