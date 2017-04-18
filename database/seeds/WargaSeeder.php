@@ -13,6 +13,6 @@ class WargaSeeder extends Seeder
     public function run()
     {
         //
-        $warga = Warga::create(['nama_warga' => 'Bayu', 'id_kategori_culture' => '1','jadwal_1' => '09:00 - 10:00', 'harga_endeso' => '50.000','harga_pemilik' => '100.000', 'kapasitas' => '5']); 
+        $warga = Warga::create(['nama_warga' => 'Bayu', 'id_kategori_culture' => '1','jadwal_1' => '09:00 - 10:00', 'harga_endeso' => '50000','harga_pemilik' => '100000', 'kapasitas' => '5']); 
     }
 }

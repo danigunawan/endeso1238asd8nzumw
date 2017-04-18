@@ -10,6 +10,7 @@ use Auth;
 use App\Kamar;
 use App\Rumah;
 use App\Kategori;
+use App\KomentarKategori;
 use App\KomentarKamar;
 use Session;
 use App\PesananHomestay;
@@ -120,6 +121,17 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
+    public function detail_cultural($id){ 
+ 
+        $detail_cultural = Kategori::find($id); 
+ 
+        $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get(); 
+ 
+        //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
+        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori]); 
+    } 
+
+
        public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)  
     {
         $kamar = Kamar::with(['rumah'])->find($id);
@@ -130,6 +142,8 @@ class HomeController extends Controller
 
         return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
       }
+
+
 
     public static function tanggal_mysql($tanggal2){
     

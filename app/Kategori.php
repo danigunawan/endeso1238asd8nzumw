@@ -17,6 +17,6 @@ class Kategori extends Model
 
 	  public function warga()
 	  {
-	  	return $this->belongsTo('App\Warga','id');
+	  	return $this->hasMany('App\Warga','id');
 	  }
 }
