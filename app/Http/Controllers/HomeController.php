@@ -36,9 +36,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $tanggal = date('Y-m-d');
         $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get(); 
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal]);
  
     }
 

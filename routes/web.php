@@ -33,11 +33,6 @@ Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah
 	'uses' => 'HomeController@detail_penginapan'
 ]);
 
-Route::get('/detail-penginapan-home/{id}', [
-	'as'=> 'penginapan.detail_home',
-	'uses' => 'DetailPenginapanHomeController@index'
-]);
-
 //Routing Menggunakan Model
 Route::get('/list-cultural', 'KategoriController@list_cultural');
 
