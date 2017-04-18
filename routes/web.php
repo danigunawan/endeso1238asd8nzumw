@@ -28,7 +28,7 @@ Route::get('/list-penginapan', function () {
 
 
 
-Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}', [
+Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah_orang}', [
 	'as'=> 'penginapan.detail',
 	'uses' => 'HomeController@detail_penginapan'
 ]);
@@ -119,12 +119,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 });
 
 
-Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}', [
+Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah_orang}', [
 	'as'=> 'pesanhomestay.form',
 	'uses' => 'PesanhomestayController@index'
 ]);
 
-Route::post('/pesan-homestay', [
+Route::get('/pesan-homestay-proses', [
+	'middleware' => ['auth'],
 	'as'=> 'pesanhomestay.proses',
 	'uses' => 'PesanhomestayController@store'
 ]);

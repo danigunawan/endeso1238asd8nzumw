@@ -119,13 +119,15 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
-       public function detail_penginapan($id)  
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)  
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
-        $komentar = KomentarKamar::with('user')->where('id_destinasi',$id)->limit(5)->get();
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout]);
+        $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
+
+
+        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
       }
 
     public static function tanggal_mysql($tanggal2){
@@ -138,11 +140,10 @@ class HomeController extends Controller
 
     public function pencarian_ce_homestay(Request $request)
     {   
-DB::enableQueryLog();
         // JIKA PILIHAN DESTINASI NYA HOMESTAY
         if ($request->pilihan == 1) {
 
-                  // validate
+            // validate
             $this->validate($request,[
                   'pilihan'       => 'required',
                   'dari_tanggal'  => 'required|date',
@@ -153,28 +154,28 @@ DB::enableQueryLog();
             
             $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
                 $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
-            })->get();
+            })->get();  
 
             $tampil_kamar = '';   
             $hitung = 0;
 
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
 
-                $pesanan = PesananHomestay::status($kamars,$request)->count();
+                $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
 
                     if ($pesanan == 0) {//  if ($pesanan == 0)
 
                         //harga kamar
                         $harga_kamar = $kamars->harga_endeso + $kamars->harga_pemilik;
 
-                        // untuk menghirung berapa kamar yang tampil
+                        // untuk menghitung berapa kamar yang akan tampil
                         $hitung = $hitung + 1;
 
                         $tampil_kamar .= "<div class='col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail'>
                                             <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
                                               <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
 
-                                              <span><a href='detail-penginapan-home'>Pesan</a></span>
+                                              <span><a href='".url('/detail-penginapan/'.$kamars->id_kamar.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.HomeController::tanggal_mysql($request->sampai_tanggal).'/'.$request->jumlah_orang)."'>Pesan</a></span>
                                             </div>
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
@@ -193,16 +194,29 @@ DB::enableQueryLog();
                     }////  if ($pesanan == 0)
             } // foreach ($kamar as $kamars)
             
-            // jika kamar tidak ada yang tampil maka akan muncul alert
-            if ($hitung === 0) {// if ($hitung === 0)
-               Session::flash("flash_notification", [
-              "level"=>"success",
-              "message"=>"Tujuan Homestay yang anda pilih sudah terisi atau jumlah orang melebihi kapasitas, silahkan pilih Tujuan Homestay yang lain"
-              ]);
-            }// if ($hitung === 0)
+                  // jika kapasitas nya tidak mencukupi
+                  if ($kamar->count() == "") { // if if ($kamar->count() == "")
+                    Session::flash("flash_notification", [
+                    "level"=>"danger",
+                    "message"=>"mohon maaf tidak ada homestay yang mencukupi kapasitas yang anda inginkan"
+                    ]);
+                  }// if if ($kamar->count() == "")
+                  else
+                  {// else if ($kamar->count() == "")
+                   
+                     // jika kamar tidak ada yang tampil maka akan muncul alert
+                  
+                      if ($hitung === 0) {// if ($hitung === 0)
+                         Session::flash("flash_notification", [
+                        "level"=>"danger",
+                        "message"=>"mohon maaf homestay di destinasi yang anda pilih sedang penuh, silahkan pilih tanggal lain"
+                        ]);
+                      }// if ($hitung === 0)
+                      
+                  }// else if ($kamar->count() == "")
 
-          return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
 
+           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
         }
         else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
         {
@@ -215,21 +229,11 @@ DB::enableQueryLog();
                   'jumlah_orang'  => 'required'
                   ]);
             
-            $kategori = Kategori::with('warga')->where('destinasi_kategori',$request->tujuan)->get();
+            $kategori = Kategori::where('destinasi_kategori',$request->tujuan)->get();   
 
-            foreach ($kategori as $kategoris) {
-            
-              $pesanan = PesananCulture::where('check_in',$request->dari_tanggal)
-                        ->where('id_warga',$kategoris->warga->id)
-                        ->where('jumlah_orang','<',$kategoris->warga->kapasitas)->get();
+            return view('pencarian_cultur',['kategori'=>$kategori]);
 
-            }
-
-
-            
         }
-
-      dd(DB::getQueryLog());
 
 
     }

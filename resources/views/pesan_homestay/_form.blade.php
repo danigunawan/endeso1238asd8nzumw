@@ -32,8 +32,29 @@
 								{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
 							</div><br>
 
+							<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
+								{!! Form::text('jumlah_orang', $value = $jumlah_orang , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'jumlah_orang', 'autocomplete' => 'off']) !!}
+								{!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
+							</div><br>
+
+							<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }}">
+								{!!Form::select('harga_makan', ['0'=>'Tidak Termasuk Makan','1'=>'Termasuk Makan'], null, ['class' => 'form-control','data-placeholder'=>'Harga Makan','id'=>'harga_makan','style'=>'heigth:10%'] )!!}
+								{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
+							</div><br>
+
+								{!! Form::hidden('harga_makan_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_makan_hidden', 'autocomplete' => 'off']) !!}
 							
-							<div class="form-group">
-								<button class="read-more" title="Book Now">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></button>
-							</div>
-					
+								{!! Form::hidden('harga_total_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_total_hidden', 'autocomplete' => 'off']) !!}
+								
+								{!! Form::hidden('harga_endeso_hidden', $detail_kamar->harga_endeso , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_endeso_hidden', 'autocomplete' => 'off']) !!}
+							
+								{!! Form::hidden('harga_pemilik_hidden', $detail_kamar->harga_pemilik , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_pemilik_hidden', 'autocomplete' => 'off']) !!}
+
+								{!! Form::hidden('id_kamar', $detail_kamar->id_kamar , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'id_kamar', 'autocomplete' => 'off']) !!}
+							
+								{!! Form::hidden('jumlah_malam', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'jumlah_malam', 'autocomplete' => 'off']) !!}
+
+							{{ Form::button('Pesan Sekarang', array('class' => 'btn btn-success','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}
+							
+
+

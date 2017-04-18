@@ -18,13 +18,19 @@ class CreatePesananHomestaysTable extends Migration
             $table->integer('id_kamar');
             $table->date('check_in');
             $table->date('check_out');
-            $table->integer('status_pesanan');
+            $table->integer('status_pesanan')->default(0);
             $table->integer('id_user');
             $table->integer('total_harga');
             $table->integer('harga_endeso'); 
-            $table->integer('harga_pemilik'); 
+            $table->integer('harga_pemilik');
+            $table->integer('harga_makan')->nullable();
             $table->string('jumlah_malam');
             $table->integer('jumlah_orang');
+            $table->string('nama');
+            $table->string('no_telp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('no_ktp')->nullable();
+           
             $table->timestamps();
         });
     }
