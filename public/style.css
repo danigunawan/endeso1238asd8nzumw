@@ -825,14 +825,16 @@ main {
 
 /* -- Read More */
 .read-more {
+	background-color: #df9915;
+	color: #fff;
+	text-decoration: none;
 	display: inline-block;
 	padding: 11px 13px 10px 23px;
 	border: 2px solid #df9915;
-	font-weight: 600;
+	font-weight: 1000;
 	text-transform: uppercase;
 	letter-spacing: 0.52px;
 	text-decoration: none;
-	color: #333;
 	position: relative;
 	overflow: hidden;
 	text-decoration: none;
@@ -843,11 +845,12 @@ main {
 }
 .read-more i {
 	margin-left: 40px;
-	color: #fff;
+	color: #df9915;
 	z-index: 1;
 	position: relative;
 }
 .read-more::before {
+
 	content: "";
 	width: 52px;
 	right: 0px;
@@ -855,7 +858,7 @@ main {
 	bottom: 0;
 	position: absolute;
 	border-left: 15px solid transparent;
-    border-top: 44px solid #df9915;
+    border-top: 44px solid #fff;
 	-webkit-transition: all 1s ease 0s;
 	-moz-transition: all 1s ease 0s;
 	-o-transition: all 1s ease 0s;
@@ -863,15 +866,14 @@ main {
 
 }
 .read-more:hover {
-	background-color: #df9915;
-	color: #fff;
-	text-decoration: none;
+	background-color: #fff;
+	color: #333;
 }
 .read-more:hover::before { 
-	border-top-color: #fff;
+	border-top-color: #df9915;
 }
 .read-more:hover i {
-	color: #df9915;
+	color: #fff;
 }
 
 
