@@ -113,7 +113,7 @@ class RumahController extends Controller
     {
         //
         $this->validate($request, [
-            'nama_pemilik'   => 'required|unique:rumah,nama_pemilik',
+            'nama_pemilik'   => 'required|unique:rumah,nama_pemilik,' . $id,
             'no_telp'   => 'required',
             'alamat'   => 'required'
             ]);

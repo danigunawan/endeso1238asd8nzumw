@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('no_telp')->nullable();
             $table->string('jenis_kelamin')->nullable();
             $table->string('tanggal_lahir')->nullable();
+            $table->string('kewarga_negaraan')->nullable();
             $table->string('alamat')->nullable();
             $table->rememberToken();
             $table->timestamps();

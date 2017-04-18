@@ -55,6 +55,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'jenis_kelamin' => 'max:255',
+            'tanggal_lahir' => 'max:255',
+            'alamat' => 'max:255',
+            'kewarga_negaraan' => 'max:255',
             'password' => 'required|min:6|confirmed',
         ]);
     }
@@ -71,6 +75,10 @@ class RegisterController extends Controller
         $user = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
+        'jenis_kelamin' => $data['jenis_kelamin'],
+        'tanggal_lahir' => $data['tanggal_lahir'],
+        'alamat' => $data['alamat'],
+        'kewarga_negaraan' => $data['kewarga_negaraan'],
         'password' => bcrypt($data['password']),
         ]);
         $memberRole = Role::where('name', 'member')->first();

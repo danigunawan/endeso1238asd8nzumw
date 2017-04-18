@@ -32,7 +32,7 @@ class PesananHomestay extends Model
                         })->orwhere(function($query) use ($dari_tanggal,$sampai_tanggal) {
                            $query->where('check_out','<',HomeController::tanggal_mysql($sampai_tanggal))->where('check_in','<=',HomeController::tanggal_mysql($sampai_tanggal));
                           });
-                            });
+                            })->where('status','<','4');
 
               return $query;
 		
