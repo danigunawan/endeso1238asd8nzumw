@@ -64,4 +64,16 @@ class User extends Authenticatable
     $this->verification_token = null;
     $this->save();
     }
+
+    public static function sendInvoice($user,$email,$password_random)
+    {
+         
+    
+    Mail::send('emails.verifikasi_google', compact('user','email','password_random'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Verifikasi Akun Endeso');
+
+    });
+
+    }
+
 }
