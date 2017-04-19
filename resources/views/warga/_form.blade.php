@@ -54,6 +54,14 @@
 	</div>
 </div>
 
+<div class="form-group{{ $errors->has('durasi') ? ' has-error' : '' }}">
+	{!! Form::label('durasi', 'Durasi', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('durasi', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('durasi', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 <div class="form-group{{ $errors->has('harga_endeso') ? ' has-error' : '' }}">
 	{!! Form::label('harga_endeso', 'Harga Endeso', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-4">
@@ -103,7 +111,7 @@
 </div>
 
 <div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
-	{!! Form::label('foto_profil', 'Foto', ['class' => 'col-md-2 control-label']) !!}
+	{!! Form::label('foto_profil', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
 		{!! Form::file('foto_profil') !!}
 			@if (isset($warga) && $warga->foto_profil)
@@ -113,7 +121,7 @@
 			@endif
 		{!! $errors->first('foto_profil', '<p class="help-block">:message</p>') !!}
 	</div>
-</div>
+</div> 
 
 <div class="form-group">
 	<div class="col-md-4 col-md-offset-2">

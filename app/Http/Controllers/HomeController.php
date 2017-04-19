@@ -245,8 +245,36 @@ class HomeController extends Controller
                   ]);
             
             $kategori = Kategori::where('destinasi_kategori',$request->tujuan)->get();   
+            
+            $lis_cultural = '';
+            foreach ($kategori as $kategoris ) {
+               # code... 
+              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
 
-            return view('pencarian_cultur',['kategori'=>$kategori]);
+             $lis_cultural .= '
+        <div class="recommended-detail">
+          <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
+            <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
+              <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
+              <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'">Pesan</a></span>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
+              <h4>'. $kategoris->nama_aktivitas .'</h4>
+              <h6><b><sup>RP</sup>'. $warga->harga_endeso .'   </b><span>ribu / paket</span></h6>
+              <span>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                <i class="fa fa-star-half-o"></i>
+              </span>
+            </div>
+          </div>
+          
+        </div>';
+             } 
+
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);
 
         }
 
