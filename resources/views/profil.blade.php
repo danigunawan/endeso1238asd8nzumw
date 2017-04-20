@@ -82,7 +82,7 @@
                             </div>
                         </div>
                           <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
-                            <label for="alamat" class=" control-label">Alamat</label>
+                            <label for="alamat" class=" control-label">Tempat Tinggal</label>
 
                             <div class="">
                                {!! Form::text('alamat', null, ['class'=>'form-control']) !!}
@@ -90,6 +90,14 @@
                             </div>
                         </div>
 
+                          <div class="form-group{{ $errors->has('kewarga_negaraan') ? ' has-error' : '' }}">
+                            <label for="kewarga_negaraan" class=" control-label">Kewarga Negaraan</label>
+
+                            <div class="">
+                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control']) !!}
+                                {!! $errors->first('kewarga_negaraan', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
                         {!! Form::label('foto_profil', 'Foto Profil', ['class'=>' control-label']) !!}
                             <div class="">

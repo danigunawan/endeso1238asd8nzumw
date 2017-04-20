@@ -38,21 +38,19 @@ class AuthController extends Controller
         'id' => $user->getId(),
         'name' => $user->getName(),
         'email' => $user->getEmail(),
-        'foto_profil' => $user->getAvatar(),
         'password' =>   bcrypt($password_random),
+        'foto_profil' => $user->getAvatar(),
         ]; 
 
         $createuser =  User::firstOrCreate($data);
         $memberRole = Role::where('name', 'member')->first();
         $createuser->attachRole($memberRole); 
 		Auth::login($createuser);
-     
-        $email = $user->getEmail(); 
-            User::sendInvoice($user,$email,$password_random);
+        $createuser->sendAkun($password_random);
 
         Session::flash("flash_notification", [
         "level"=>"success",
-        "message"=>"Cek Email Untuk Verifikasi Akun"
+        "message"=>"Cek Email Untuk Verifikasi Akun Endeso Anda"
         ]);  
         return redirect()->to('/user/edit-profil'); 
         		 
