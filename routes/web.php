@@ -37,7 +37,7 @@ Route::get('/detail-penginapan/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah
 Route::get('/list-cultural', 'KategoriController@list_cultural');
 
 
-Route::get('/detail-cultural/{id}', [
+Route::get('/detail-cultural/{id}/{tanggal_masuk}/{jumlah_orang}', [
 	'as'=> 'cultural.detail',
 	'uses' => 'HomeController@detail_cultural'
 ]);
@@ -126,7 +126,7 @@ Route::get('/pesan-homestay-proses', [
 ]);
 
 //
-Route::get('/pesan-cultural/{id}/{tanggal_masuk}', [
+Route::get('/pesan-cultural/{id}/{tanggal_masuk}/{jumlah_orang}', [
 	'as'=> 'pesananCultural.form',
 	'uses' => 'PesananCulturalController@index'
 ]);

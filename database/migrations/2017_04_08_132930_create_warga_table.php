@@ -19,6 +19,7 @@ class CreateWargaTable extends Migration
             $table->integer('id_kategori_culture'); 
             $table->string('nama_warga'); 
             $table->string('foto_profil')->nullable(); 
+            $table->string('foto_tempat')->nullable(); 
             $table->string('jadwal_1'); 
             $table->string('jadwal_2')->nullable();
             $table->string('jadwal_3')->nullable();

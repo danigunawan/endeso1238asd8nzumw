@@ -110,16 +110,29 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('foto_profil.0') ? ' has-error' : '' }}">
 	{!! Form::label('foto_profil', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::file('foto_profil') !!}
+		{!! Form::file('foto_profil[]') !!}
 			@if (isset($warga) && $warga->foto_profil)
 				<p>
 					{!! Html::image(asset('img/'.$warga->foto_profil), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_profil', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_profil.0', '<p class="help-block">:message</p>') !!}
+	</div>
+</div> 
+
+<div class="form-group{{ $errors->has('foto_profil.1') ? ' has-error' : '' }}">
+	{!! Form::label('foto_tempat', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::file('foto_profil[]') !!}
+			@if (isset($warga) && $warga->foto_tempat)
+				<p>
+					{!! Html::image(asset('img/'.$warga->foto_tempat), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_profil.1', '<p class="help-block">:message</p>') !!}
 	</div>
 </div> 
 

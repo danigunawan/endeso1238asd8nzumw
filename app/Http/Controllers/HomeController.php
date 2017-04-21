@@ -121,14 +121,17 @@ class HomeController extends Controller
         return view('pesanan');
     }
 
-    public function detail_cultural($id){ 
+    public function detail_cultural($id, $tanggal_masuk, $jumlah_orang){ 
  
         $detail_cultural = Kategori::find($id); 
  
         $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get(); 
+
+        $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
+
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
-        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori]); 
+        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
     } 
 
 
@@ -256,7 +259,7 @@ class HomeController extends Controller
           <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
             <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
               <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
-              <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'">Pesan</a></span>
+              <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
               <h4>'. $kategoris->nama_aktivitas .'</h4>

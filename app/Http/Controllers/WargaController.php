@@ -85,25 +85,58 @@ class WargaController extends Controller
             'longitude' => 'max:191',
             'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
-            'foto_profil' => 'image|max:2048'
+            'foto_profil.*' => 'image|max:2048'
         ]);
 
-        $warga = Warga::create($request->except('foto_profil'));
+        $warga = Warga::create([
 
-        // isi field foto_profil jika ada foto_profil yang diupload
+           'nama_warga' => $request->nama_warga,
+           'id_kategori_culture' => $request->id_kategori_culture,
+           'jadwal_1' => $request->jadwal_1,
+           'jadwal_2' => $request->jadwal_2,
+           'jadwal_3' => $request->jadwal_3,
+           'jadwal_4' => $request->jadwal_4,
+           'jadwal_5' => $request->jadwal_5,
+           'durasi' => $request->durasi,
+           'harga_endeso' => $request->harga_endeso,
+           'harga_pemilik' => $request->harga_pemilik,
+           'latitude' => $request->latitude,
+           'longitude' => $request->longitude,
+           'alamat_warga' => $request->alamat_warga,
+           'kapasitas' => $request->kapasitas
+        ]);
+
         if ($request->hasFile('foto_profil')) {
-        // Mengambil file yang diupload
-        $uploaded_foto_profil = $request->file('foto_profil');
-        // mengambil extension file
-        $extension = $uploaded_foto_profil->getClientOriginalExtension();
-        // membuat nama file random berikut extension
-        $filename = md5(time()) . '.' . $extension;
-        // menyimpan foto_profil ke folder public/img
-        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-        $uploaded_foto_profil->move($destinationPath, $filename);
-        // mengisi field foto_profil di destinasi dengan filename yang baru dibuat
-        $warga->foto_profil = $filename;
-        $warga->save();
+            
+            $foto_profil = $request->file('foto_profil');
+            
+                $urutan = 0;
+
+                foreach ($foto_profil as $foto_profils){
+
+                    // mengambil urutan untuk foto 1 - 5 
+                    $urutan++;
+
+                    // Mengambil file yang diupload
+                    $uploaded_foto_profil = $foto_profils;
+                    // mengambil extension file
+                    $extension = $uploaded_foto_profil->getClientOriginalExtension();
+                    // membuat nama file random berikut extension
+                    $filename = str_random(40) . '.' . $extension;
+                    // menyimpan foto_profil ke folder public/img
+                    $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+                    $uploaded_foto_profil->move($destinationPath, $filename);
+                    // mengisi field foto_profil di database warga dengan filename yang baru dibuat
+                    if ($urutan == 1){
+                    $warga->foto_profil = $filename; 
+                    }  
+                    if ($urutan == 2){
+                    $warga->foto_tempat = $filename; 
+                    }
+                }
+                // menyimpan field foto_profil di database warga dengan filename yang baru dibuat
+                $warga->save();
+
         }
 
         Session::flash("flash_notification", [
@@ -164,41 +197,73 @@ class WargaController extends Controller
             'longitude' => 'max:191',
             'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
-            'foto_profil' => 'image|max:2048'
+            'foto_profil.*' => 'image|max:2048'
         ]);
 
         $warga = Warga::find($id);
-        $warga->update($request->all());
+        $warga->update([
+
+           'nama_warga' => $request->nama_warga,
+           'id_kategori_culture' => $request->id_kategori_culture,
+           'jadwal_1' => $request->jadwal_1,
+           'jadwal_2' => $request->jadwal_2,
+           'jadwal_3' => $request->jadwal_3,
+           'jadwal_4' => $request->jadwal_4,
+           'jadwal_5' => $request->jadwal_5,
+           'durasi' => $request->durasi,
+           'harga_endeso' => $request->harga_endeso,
+           'harga_pemilik' => $request->harga_pemilik,
+           'latitude' => $request->latitude,
+           'longitude' => $request->longitude,
+           'alamat_warga' => $request->alamat_warga,
+           'kapasitas' => $request->kapasitas
+           
+        ]);
 
         if ($request->hasFile('foto_profil')) {
+            $foto_profil = $request->file('foto_profil');
 
-        // menambil foto_profil yang diupload berikut ekstensinya
+            $urutan = 0;
 
-        $filename = null;
-        $uploaded_foto_profil = $request->file('foto_profil');
-        $extension = $uploaded_foto_profil->getClientOriginalExtension();
-        // membuat nama file random dengan extension
-        $filename = md5(time()) . '.' . $extension;
-        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-        // memindahkan file ke folder public/img
-        $uploaded_foto_profil->move($destinationPath, $filename);
-        // hapus foto_profil lama, jika ada
-        if ($warga->foto_profil) {
-        $old_foto_profil = $warga->foto_profil;
-        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
-        . DIRECTORY_SEPARATOR . $warga->foto_profil;
-        try {
-        File::delete($filepath);
-        } catch (FileNotFoundException $e) {
-        // File sudah dihapus/tidak ada
-        }
+            foreach ($foto_profil as $foto_profils){
+                # code...
+                // mengambil urutan untuk foto 1 - 5 
+                $urutan++;
 
-        }
-        // ganti field foto_profil dengan cover yang baru
+                   // menambil foto_profil yang diupload berikut ekstensinya
 
-        $warga->foto_profil = $filename;
-        $warga->save();
-        }
+                    $filename = null;
+                    $uploaded_foto_profil = $foto_profils;
+                    $extension = $uploaded_foto_profil->getClientOriginalExtension();
+                    // membuat nama file random dengan extension
+                    $filename = str_random(40) . '.' . $extension;
+                    $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+                    // memindahkan file ke folder public/img
+                    $uploaded_foto_profil->move($destinationPath, $filename);
+                    // hapus foto_profil lama, jika ada
+                    if ($warga->foto_profil) {
+                    $old_foto_profil = $warga->foto_profil;
+                    $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+                    . DIRECTORY_SEPARATOR . $warga->foto_profil;
+                    try {
+                    File::delete($filepath);
+                    } catch (FileNotFoundException $e) {
+                    // File sudah dihapus/tidak ada
+                    }
+
+                 }
+                // ganti field foto_profil dengan cover yang baru
+                 if ($urutan == 1){
+                $warga->foto_profil = $filename; 
+                }  
+                if ($urutan == 2){
+                $warga->foto_tempat = $filename; 
+                }
+            }
+            // menyimpan field foto_profil di database warga dengan filename yang baru dibuat
+            $warga->save();
+
+         }
 
         Session::flash("flash_notification", [
         "level"=>"success",

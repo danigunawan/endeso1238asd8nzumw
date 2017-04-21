@@ -245,8 +245,8 @@
 						<h3 class="widget-title">Tentang {{$detail_cultural->nama_aktivitas}}</h3>
 						<p>{!! $detail_cultural->deskripsi_kategori !!}</p>
 					</aside><!-- Features Widget -->
-                    
-                   	<button class="read-more btn-pesan" title="Book Now">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></button>
+
+                   	<a href="{{ url('/pesan-cultural/'.$detail_cultural->id.'/'.$tanggal_masuk.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{number_format($warga->harga_endeso + $warga->harga_pemilik,0,',','.')}}) <i class="fa fa-long-arrow-right"></i></a>
 
                     <!-- Features Widget 
 					<aside class="widget widget_features">

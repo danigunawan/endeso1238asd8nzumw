@@ -61,3 +61,11 @@
 
 
 @endsection
+
+@section('scripts')
+<script type="text/javascript">
+	$.post('Diisi dengan route(yang dicontroller)',{_token:'{{ csrf_token() }}'}, function(data){
+		
+	});
+</script>
+@endsection
