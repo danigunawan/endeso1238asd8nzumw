@@ -60,6 +60,30 @@ Route::get('/user/edit-profil', [
 	'uses' => 'HomeController@edit_profil'
 ]);
 
+Route::get('/detail-pesanan-homestay/{id}', [
+	'middleware' => ['auth'],
+	'as'=> 'detail_pesanan.homestay',
+	'uses' => 'HomeController@detail_pesanan_homestay'
+]);
+
+Route::get('/detail-pesanan-culture/{id}/{destinasi}/{aktivitas}', [
+	'middleware' => ['auth'],
+	'as'=> 'detail_pesanan.culture',
+	'uses' => 'HomeController@detail_pesanan_culture'
+]);
+
+Route::get('/PembayaranCulture/{id}', [
+	'middleware' => ['auth'],
+	'as'=> 'pembayaran_culture.culture',
+	'uses' => 'HomeController@pembayaran_culture'
+]);
+
+Route::get('/PembayaranHomestay/{id}', [
+	'middleware' => ['auth'],
+	'as'=> 'pembayaran_homestay.homestay',
+	'uses' => 'HomeController@pembayaran_homestay'
+]);
+
 Route::put('/user/edit-profil/{id}', [
 	'middleware' => ['auth'],
 	'as'=> 'profil.update',

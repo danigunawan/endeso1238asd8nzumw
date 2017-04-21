@@ -2,6 +2,7 @@
     @extends('layouts.app')
 
 @section('content')
+
     <main class="site-main page-spacing">
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
@@ -32,19 +33,26 @@
                       </ul>
                    </div>
                    <div class="col-md-8">
-                       <ul class="nav nav-tabs">
-                          <li class="active"><a href="#">Pesanan Baru</a></li>
-                          <li><a href="#">Pesanan Lama</a></li> 
-                        </ul>
-                        <br>
-                        <center><h3>Belum Ada Pesanan</h3></center>
-                        <center>     <p>Seluruh pesanan baru Anda akan muncul di sini, tapi kini Anda belum punya satu pun. Mari buat pesanan via homepage!</p></center>    
 
+                     <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#homestay">Pesanan Homestay</a></li>
+                        <li><a data-toggle="tab" href="#culture">Pesanan Cultur Experience</a></li>
+                      </ul>
+
+                      <div class="tab-content">
+                         <div id="homestay" class="tab-pane fade in active">
+                              {!! $tampil_pesanan_homestay !!}
+                              {!! $belum_ada_pemesanan_homestay !!}
+                         </div>
+
+                        <div id="culture" class="tab-pane fade">
+                              {!! $tampil_pesanan_culture !!}
+                              {!! $belum_ada_pemesanan_culture !!}
+                        </div>
+                      </div>
                    </div>
                 
-              
-
-           
+                         
                    
                 </div> <!-- Row /- -->
             </div><!-- Container /- -->
@@ -53,4 +61,5 @@
         
     </main>
 
-@endsection     
+@endsection    
+
