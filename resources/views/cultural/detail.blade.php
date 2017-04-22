@@ -156,24 +156,13 @@
 
 						</ul>
 					</div>
-					<div class="comment-form">
-						<h3>Bagikan Pengalamanmu</h3>
-						<form class="row">
-							<div class="form-group col-md-6">
-								<input type="text" required="" placeholder="Nama Lengkap" class="form-control">
-							</div>
-							<div class="form-group col-md-6">
-								<input type="text" required="" placeholder="Nomor Pesanan Endeso" class="form-control">
-							</div>												
-							<div class="form-group col-md-12">
-								<textarea placeholder="Tuliskan Pengalamanmu" rows="8" class="form-control"></textarea>
-							</div>
-							<div class="form-group col-md-12">
-								<input type="submit" title="Submit" value="Kirim Review" name="submit">
-							</div>
-						</form>
-					</div>
-                    <!--- Review /-->
+
+
+            {!! Form::model($warga, ['url' => route('komentar_cultural.proses'),
+            'method' => 'get', 'files'=>'true']) !!}
+                    @include('komentar_kategori._form')
+            {!! Form::close() !!}
+
                     
                     <hr width="75%">
                     

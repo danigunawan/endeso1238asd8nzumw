@@ -386,6 +386,19 @@ class HomeController extends Controller
     } 
 
 
+    public function komentar_cultural(Request $request){  
+
+          $this->validate($request, [
+        'isi_komentar' => 'required',
+        'id_kategori' => 'required',
+     
+        ]); 
+    $id_user = Auth::user()->id;
+    KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user]);
+
+    return back();
+
+    } 
 
 
        public function detail_penginapan($id)  

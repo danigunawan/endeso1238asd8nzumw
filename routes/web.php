@@ -157,6 +157,12 @@ Route::get('/pesan-cultural/{id}/{tanggal_masuk}/{jumlah_orang}', [
 	'uses' => 'PesananCulturalController@index'
 ]);
 
+//
+Route::get('/komentar_cultural', [
+	'middleware' => ['auth'],
+	'as'=> 'komentar_cultural.proses',
+	'uses' => 'HomeController@komentar_cultural'
+]);
 // untuk verifikasi akun
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
 
