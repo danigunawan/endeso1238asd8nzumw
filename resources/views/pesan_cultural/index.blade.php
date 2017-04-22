@@ -63,6 +63,21 @@
 @endsection
 
 @section('scripts')
+    <script type="text/javascript">
+        $("#warga").change(function(){
+            var warga = $('#warga').val();
+
+                        $.post('{{ url('/ajax-jadwal-kegiatan') }}',
+                        {
+                            '_token': $('meta[name=csrf-token]').attr('content'),
+                            warga:warga },function(data){
+                                $("#jadwal_1").val(data);
+                            });
+                    });
+    </script>
+@endsection
+
+@section('scripts')
 <script type="text/javascript">
 	$.post('Diisi dengan route(yang dicontroller)',{_token:'{{ csrf_token() }}'}, function(data){
 		

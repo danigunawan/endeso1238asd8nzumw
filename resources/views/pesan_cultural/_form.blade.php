@@ -14,11 +14,11 @@
 
 </div>
 
-<!--KOLOM WAKTU -->
-<div class="form-group{{ $errors->has('jadwal_kegiatan') ? ' has-error' : '' }}">   
-        {!! Form::label('jadwal_kegiatan', 'Jadwal Kegiatan', ['class' => 'control-label']) !!}
-		{!! Form::select('jadwal_kegiatan', ['' => '--PILIH JADWAL--']+App\Warga::pluck('jadwal_1', 'jadwal_1')->all(), null,['class' => 'form-control']) !!}
-		{!! $errors->first('jadwal_kegiatan', '<p class="help-block">:message</p>') !!}
+<!--KOLOM NAMA LENGKAP -->
+<div class="form-group{{ $errors->has('jadwal_1') ? ' has-error' : '' }}">
+        {!! Form::label('jadwal_1', 'Jadwal 1', ['class' => 'control-label']) !!}
+        {!! Form::text('jadwal_1', null, ['class' => 'form-control','id' => 'jadwal_1', 'autocomplete' => 'off']) !!}
+        {!! $errors->first('jadwal_1', '<p class="help-block">:message</p>') !!}
 </div>
 
 <!--KOLOM NAMA LENGKAP -->

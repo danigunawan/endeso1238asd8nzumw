@@ -54,6 +54,8 @@ Route::get('/kontak','HomeController@kontak');
 
 Route::get('/pencarian','HomeController@pencarian_ce_homestay');
 
+Route::post('/ajax-jadwal-kegiatan', 'PesananCulturalController@ajax_jadwal_kegiatan');
+
 Route::get('/user/edit-profil', [
 	'middleware' => ['auth'],
 	'as'=> 'profil.edit',
