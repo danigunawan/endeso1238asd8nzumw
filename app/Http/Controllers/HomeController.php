@@ -442,8 +442,8 @@ class HomeController extends Controller
             $hitung = 0;
 
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
-
-                $pesanan = PesananHomestay::status($kamars,$request)->count();
+         
+                $pesanan = PesananHomestay::status($kamars,$request->dari_tanggal,$request->sampai_tanggal)->count();
 
                     if ($pesanan == 0) {//  if ($pesanan == 0)
 
@@ -457,7 +457,7 @@ class HomeController extends Controller
                                             <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
                                               <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
 
-                                              <span><a href='detail-penginapan-home/".$kamars->id_kamar."/".$request->dari_tanggal."/".$request->sampai_tanggal."'>Pesan</a></span>
+                                              <span><a href='detail-penginapan/".$kamars->id_kamar."/".$request->dari_tanggal."/".$request->sampai_tanggal."'>Pesan</a></span>
                                             </div>
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
