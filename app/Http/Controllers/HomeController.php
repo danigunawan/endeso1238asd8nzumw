@@ -459,7 +459,7 @@ class HomeController extends Controller
                                             <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
                                               <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
 
-                                              <span><a href='detail-penginapan/".$kamars->id_kamar."/".$request->dari_tanggal."/".$request->sampai_tanggal."'>Pesan</a></span>
+                                              <span><a href='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>Pesan</a></span>
                                             </div>
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
