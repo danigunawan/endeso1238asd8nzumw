@@ -1,46 +1,81 @@
 
-							<div class="form-group{{ $errors->has('tanggal_checkin') ? ' has-error' : '' }}">
-							<i class="fa fa-calendar-minus-o"></i>
-								{!! Form::text('tanggal_checkin', $value = $tanggal_checkin , ['class' => 'form-control', 'placeholder' => 'Tanggal Check In', 'id'=>'datepicker1', 'autocomplete' => 'off']) !!}
+							<div class="form-group{{ $errors->has('tanggal_checkin') ? ' has-error' : '' }} has-feedback">
+							
+							{!! Form::label('tanggal_checkin', 'Tanggal Checkin', ['class' => 'control-label']) !!}
+								{!! Form::text('tanggal_checkin', $value = $tanggal_checkin , ['class' => 'form-control datepicker', 'placeholder' => 'Tanggal Check In', 'id'=>'datepicker1', 'autocomplete' => 'off']) !!}
+								<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 								{!! $errors->first('tanggal_checkin', '<p class="help-block">:message</p>') !!}
-							</div><br>
+							</div>
 							
 		
-							<div class="form-group{{ $errors->has('tanggal_checkout') ? ' has-error' : '' }}">
-							<i class="fa fa-calendar-minus-o"></i>
-								{!! Form::text('tanggal_checkout', $value = $tanggal_checkout , ['class' => 'form-control', 'placeholder' => 'Tanggal Check Out', 'id'=>'datepicker2', 'autocomplete' => 'off']) !!}
+							<div class="form-group{{ $errors->has('tanggal_checkout') ? ' has-error' : '' }} has-feedback">
+							
+								{!! Form::label('tanggal_checkout', 'Tanggal Checkout', ['class' => 'control-label']) !!}
+								{!! Form::text('tanggal_checkout', $value = $tanggal_checkout , ['class' => 'form-control datepicker', 'placeholder' => 'Tanggal Check Out', 'id'=>'datepicker2', 'autocomplete' => 'off']) !!}
+								<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
 								{!! $errors->first('tanggal_checkout', '<p class="help-block">:message</p>') !!}
-							</div><br>
-
-							<div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
-								{!! Form::text('nama', null , ['class' => 'form-control', 'placeholder' => 'Nama Lengkap', 'id'=>'nama', 'autocomplete' => 'off']) !!}
-								{!! $errors->first('nama', '<p class="help-block">:message</p>') !!}
-							</div><br>
-
-							<div class="form-group{{ $errors->has('no_ktp') ? ' has-error' : '' }}">
-								{!! Form::text('no_ktp', null , ['class' => 'form-control', 'placeholder' => 'No KTP', 'id'=>'no_ktp', 'autocomplete' => 'off']) !!}
-								{!! $errors->first('no_ktp', '<p class="help-block">:message</p>') !!}
-							</div><br>
-
-							<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-								{!! Form::text('email', null , ['class' => 'form-control', 'placeholder' => 'Alamat Email', 'id'=>'email', 'autocomplete' => 'off']) !!}
-								{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-							</div><br>
-
-							<div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
-								{!! Form::text('no_telp', null , ['class' => 'form-control', 'placeholder' => 'No Telp', 'id'=>'no_telp', 'autocomplete' => 'off']) !!}
-								{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
-							</div><br>
+							</div>
 
 							<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
-								{!! Form::text('jumlah_orang', $value = $jumlah_orang , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'jumlah_orang', 'autocomplete' => 'off']) !!}
-								{!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
-							</div><br>
+								{!! Form::label('jumlah_orang', 'Jumlah Orang', ['class' => 'control-label']) !!}
 
-							<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }}">
-								{!!Form::select('harga_makan', ['0'=>'Tidak Termasuk Makan','1'=>'Termasuk Makan'], null, ['class' => 'form-control','data-placeholder'=>'Harga Makan','id'=>'harga_makan','style'=>'heigth:10%'] )!!}
-								{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
-							</div><br>
+								{!! Form::select('jumlah_orang',[
+                          			'1' => '1',
+                          			'2' => '2',
+                          			'3' => '3',
+                          			'4' => '4',
+                          			'5' => '5',
+                          			'6' => '6',
+                          			'7' => '7',
+                          			'8' => '8',
+                          			'9' => '9',
+                           			'10' => '10',
+                           			'11' => '11',
+                           			'12' => '12',
+                           			'13' => '13',
+                           			'14' => '14',
+                           			'15' => '15',],null,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
+								{!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
+							</div>
+
+							<div class="form-group{{ $errors->has('nama') ? ' has-error' : '' }}">
+								{!! Form::label('nama', 'Nama Lengkap', ['class' => 'control-label']) !!}
+								{!! Form::text('nama', null , ['class' => 'form-control', 'placeholder' => '....', 'id'=>'nama', 'autocomplete' => 'off']) !!}
+								{!! $errors->first('nama', '<p class="help-block">:message</p>') !!}
+							</div>
+
+							<div class="form-group{{ $errors->has('no_ktp') ? ' has-error' : '' }}">
+								{!! Form::label('no_ktp', 'No KTP', ['class' => 'control-label']) !!}
+								{!! Form::text('no_ktp', null , ['class' => 'form-control', 'placeholder' => '....', 'id'=>'no_ktp', 'autocomplete' => 'off']) !!}
+								{!! $errors->first('no_ktp', '<p class="help-block">:message</p>') !!}
+							</div>
+
+							<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+								{!! Form::label('email', 'Alamat Email', ['class' => 'control-label']) !!}
+								{!! Form::text('email', null , ['class' => 'form-control', 'placeholder' => '....', 'id'=>'email', 'autocomplete' => 'off']) !!}
+								{!! $errors->first('email', '<p class="help-block">:message</p>') !!}
+							</div>
+
+							<div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
+								{!! Form::label('no_telp', 'No Telp', ['class' => 'control-label']) !!}
+								{!! Form::text('no_telp', null , ['class' => 'form-control', 'placeholder' => '....', 'id'=>'no_telp', 'autocomplete' => 'off']) !!}
+								{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
+							</div>
+
+							<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }} " id="kolom_harga">
+   							{!! Form::label('harga_makan', 'Harga Makan' , ['class' => 'control-label']) !!}
+   							<br>
+    						<div class="col-sm-1" >
+     						<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" />
+
+    							</div>
+    						<div class="col-sm-11" >
+    							<i>{!!$detail_kamar->info_makanan!!}</i>
+							</div>
+							{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
+  							</div>
+
+  			
 
 								{!! Form::hidden('harga_makan_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_makan_hidden', 'autocomplete' => 'off']) !!}
 							
@@ -52,9 +87,10 @@
 
 								{!! Form::hidden('id_kamar', $detail_kamar->id_kamar , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'id_kamar', 'autocomplete' => 'off']) !!}
 							
-								{!! Form::hidden('jumlah_malam', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'jumlah_malam', 'autocomplete' => 'off']) !!}
+								{!! Form::hidden('jumlah_malam', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'jumlah_malam', 'autocomplete' => 'off' ]) !!}
 
-							{{ Form::button('Pesan Sekarang', array('class' => 'btn btn-success','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}
+							{{ Form::button('Pesan Sekarang <i class="fa fa-long-arrow-right"></i>', array('class' => 'btn read-more','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}
+							 
 							
 
 

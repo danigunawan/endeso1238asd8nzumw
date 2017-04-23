@@ -163,6 +163,12 @@ Route::get('/komentar_cultural', [
 	'as'=> 'komentar_cultural.proses',
 	'uses' => 'HomeController@komentar_cultural'
 ]);
+
+Route::get('/pembayaran/{id}', [
+	'as'=> 'pembayaran.index',
+	'uses' => 'PembayaranController@index'
+]);
+
 // untuk verifikasi akun
 Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
 

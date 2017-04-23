@@ -8,6 +8,8 @@ use App\PesananHomestay;
 use Session;
 use Auth;
 use App\Http\Controllers\HomeController;
+use App\Rekening;
+
 
 class PesanhomestayController extends Controller
 {
@@ -20,7 +22,7 @@ class PesanhomestayController extends Controller
     	
     		public function store(Request $request){
 
-   	$detail_kamar = Kamar::find($request->id_kamar);
+   		$detail_kamar = Kamar::find($request->id_kamar);
 
 
     	 $this->validate($request, [
@@ -36,7 +38,7 @@ class PesanhomestayController extends Controller
             ]); 
 
 
-    $pesanan = PesananHomestay::status($request->id_kamar,$request->tanggal_checkin,$request->tanggal_checkout)->count();
+    	$pesanan = PesananHomestay::status($request->id_kamar,$request->tanggal_checkin,$request->tanggal_checkout)->count();
 
         if ($pesanan > 0) { //jika pemesanan status dari 0 atau sudah terjadi pemesanan
         	 
@@ -72,12 +74,13 @@ class PesanhomestayController extends Controller
       	    Session::flash("flash_notification", [
               "level"=>"success",
               "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran di Email Anda"
-              ]);  
-
+              ]);
+                
+      	    $rekening_tujuan = Rekening::all();
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
-      	    PesananHomestay::sendInvoice($total_harga_endeso);
+      	    PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan);
 
-      	    return redirect()->back();
+      	  return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);
 
       	}//else penutup pesanan masih tercukupi
 

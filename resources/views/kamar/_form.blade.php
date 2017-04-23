@@ -143,6 +143,15 @@
 </div>
 
 
+<!-- KOLOM HARGA MAKAN -->
+<div class="form-group{{ $errors->has('info_makanan') ? ' has-error' : '' }}">
+	{!! Form::label('info_makanan', 'Info Makanan', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::textarea('info_makanan', null, ['class' => 'form-control', 'placeholder' => 'Info Makanan', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('info_makanan', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 
 <!-- KOLOM LATITUDE -->
 <div class="form-group{{ $errors->has('latitude') ? ' has-error' : '' }}">

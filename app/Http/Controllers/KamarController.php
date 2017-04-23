@@ -84,7 +84,9 @@ class KamarController extends Controller
             'judul_peta' => $request->judul_peta,
            'harga_endeso' => $request->harga_endeso,
            'harga_pemilik' => $request->harga_pemilik,
-           'harga_makan' => $request->harga_makan
+           'harga_makan' => $request->harga_makan,
+           'info_makanan' => $request->info_makanan
+
            ]);
 
         // isi field foto_kamar jika ada FOTO KAMAR 1 yang diupload
@@ -196,7 +198,8 @@ class KamarController extends Controller
             'judul_peta' => $request->judul_peta,
            'harga_endeso' => $request->harga_endeso,
            'harga_pemilik' => $request->harga_pemilik,
-           'harga_makan' => $request->harga_makan
+           'harga_makan' => $request->harga_makan,
+           'info_makanan' => $request->info_makanan
 
         ]);
 

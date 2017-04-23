@@ -41,7 +41,7 @@
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
-        
+    
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
     <![endif]-->
@@ -110,6 +110,9 @@
 .loginBtn--google:focus {
   background: #E74B37;
 }
+.big-checkbox {width: 3000000px; height: 3000000px;}
+.
+
 </style>
 
 

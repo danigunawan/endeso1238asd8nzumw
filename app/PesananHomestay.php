@@ -39,17 +39,18 @@ class PesananHomestay extends Model
 		}
 
 
-    public static function sendInvoice($total_harga_endeso)
+    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan)
     {
         
     $user = Auth::user();
     
-    Mail::send('emails.invoice', compact('user','total_harga_endeso'), function($m)use($user) {
+    Mail::send('emails.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Invoice Homestay Endeso');
 
     });
 
     }
+
 
 
 }

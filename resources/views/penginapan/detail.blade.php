@@ -119,7 +119,7 @@
                     <!-- Review -->
                     
 			
-					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
+					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now" style="height:6%;background-color:#df9915;">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
 						
 					
 				</div><!-- Contenta Area /- -->

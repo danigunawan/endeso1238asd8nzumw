@@ -401,13 +401,15 @@ class HomeController extends Controller
     } 
 
 
-       public function detail_penginapan($id)  
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
-        $komentar = KomentarKamar::with('user')->where('id_destinasi',$id)->limit(5)->get();
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout]);
+        $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
+
+        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
+
       }
 
 

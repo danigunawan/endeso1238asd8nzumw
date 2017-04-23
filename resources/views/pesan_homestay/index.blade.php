@@ -40,10 +40,10 @@
 
 						</div>
 						<div class="col-sm-6">
-						
+						<br>
 				<!-- panel Rincian Pemesanan /- -->
-							<div class="panel panel-warning">
-							 <div class="panel-heading"><h3>Rincian Pemesanan</h3></div>
+							<div class="panel panel-default">
+							 <div class="panel-heading" style="background-color:#df9915;color:#fff"><h3>Rincian Pemesanan</h3></div>
   								<div class="panel-body">
 								<div class="row" style="padding:10%">
 									<div class="col-xs-3">
@@ -61,8 +61,8 @@
 				<!-- panel Rincian Pemesanan /- -->
 
 				<!-- panel Rincian Pemesanan /- -->
-				<div class="panel panel-warning">
-					<div class="panel-heading"><h3>Rincian Harga</h3></div>
+				<div class="panel panel-default" >
+					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h3>Rincian Harga</h3></div>
   					<div class="panel-body">
 						<table>
  							<tbody>
@@ -103,12 +103,38 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$(document).on('change','#harga_makan',function(e){
-		hitung_penginapan();
+
+    $(document).ready(function(){
+    	$("#harga_makan").attr("data-toogle", 0);
+      	hitung_penginapan_document();
     });
 
-    $(document).on('keyup','#jumlah_orang',function(e){
- 		hitung_penginapan();   
+	$(document).on('click','#harga_makan',function(e){
+		$(this).prop('checked', this.checked);
+
+		hitung_penginapan_checkbox();
+    });
+
+    $(document).on('change','#jumlah_orang',function(e){
+
+ 		hitung_penginapan();
+
+ 		var jumlah_orang_baru = $(this).val();
+ 		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		if (jumlah_orang_baru > 1){
+
+ 			$(".span-hapus").remove();
+
+ 			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
+        {	
+       	$('<div class="form-group span-hapus"><label align="left">Nama Tamu</label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
+        }
+
+ 		}
+ 		else{
+ 			$("#kolom_tamu").html('');
+ 		}
+        
     });
 
     $(document).on('change','#datepicker1',function(e){
@@ -119,9 +145,6 @@
        hitung_penginapan(); 
     });
 
-    $(document).ready(function(){
-      	hitung_penginapan();
-    });
 </script>
 @endsection
 

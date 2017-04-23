@@ -88,31 +88,162 @@ function bersihPemisah(ini){
 	return a;
 }
 
-function hitung_penginapan() {
 
-        var harga_kamar = $("#harga_kamar").text();
-        var ceklist_harga_makan = $("#harga_makan").val();
+
+function hitung_penginapan_checkbox() {
+
+		var harga_kamar = $("#harga_kamar").text();
+        var ceklist_harga_makan = $(this).attr('data-toogle');
 		var harga_makan = $("#hidden_makan").text();
-
 		if (ceklist_harga_makan == 1){
+
+		var harga_jumlah =  parseInt(harga_kamar);
+		$("#harga_makan_tampil").hide();
+		$("#label").hide();
+		$("#harga_makan_hidden").val('');
+		$(this).attr("data-toogle", 0);
+
+		}
+		else{
 		var harga_jumlah =  parseInt(harga_kamar) + parseInt(harga_makan);
 		$("#harga_makan_tampil").show();
 		$("#label").show();
 		$("#harga_makan_hidden").val(harga_makan);
+		$(this).attr("data-toogle", 1);
+		}
+
+
+		var tanggal_checkin = new Date($("#datepicker1").val());
+		var tanggal_checkout = new Date($("#datepicker2").val());
+		var timeDiff = Math.abs(tanggal_checkout.getTime() - tanggal_checkin.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		var hitung_hari = diffDays;
+
+		var jumlah_orang = $("#jumlah_orang").val();
+ 
+ 		if (jumlah_orang == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+		}
+		else if (tanggal_checkin == '' && tanggal_checkout == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang);
 		}
 		else{
+        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+
+        	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      	}
+
+
+
+      	// tampilan rincian harga
+      	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
+         $("#harga_total").text(tandaPemisahTitik(total_harga));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_harga_orang").text(harga_jumlah);
+        $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
+         $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
+        // tampilan rincian harga
+
+        //tampilan di form hideen
+         $("#harga_total_hidden").val(total_harga);
+         $("#jumlah_malam").val(hitung_hari);         
+         //tampilan di form hideen
+}
+function hitung_penginapan() {
+
+		var harga_kamar = $("#harga_kamar").text();
+        var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
+		var harga_makan = $("#hidden_makan").text();
+		
+		if (ceklist_harga_makan == 0){
+
 		var harga_jumlah =  parseInt(harga_kamar);
 		$("#harga_makan_tampil").hide();
 		$("#label").hide();
 		$("#harga_makan_hidden").val('');
 		}
+		else{
+		var harga_jumlah =  parseInt(harga_kamar) + parseInt(harga_makan);
+		$("#harga_makan_tampil").show();
+		$("#label").show();
+		$("#harga_makan_hidden").val(harga_makan);
+		}
 
 		var tanggal_checkin = new Date($("#datepicker1").val());
 		var tanggal_checkout = new Date($("#datepicker2").val());
-		var hitung_hari = tanggal_checkout.getDate() - tanggal_checkin.getDate(); 
+		var timeDiff = Math.abs(tanggal_checkout.getTime() - tanggal_checkin.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		var hitung_hari = diffDays;
+		var jumlah_orang = $("#jumlah_orang").val();
+		 		console.log(jumlah_orang);
+
+ 		if (jumlah_orang == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+		}
+		else if (tanggal_checkin == '' && tanggal_checkout == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang);
+		}
+		else{
+        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+
+        	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      	}
+
+
+
+      	// tampilan rincian harga
+      	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
+         $("#harga_total").text(tandaPemisahTitik(total_harga));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_harga_orang").text(harga_jumlah);
+        $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
+         $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
+        // tampilan rincian harga
+
+        //tampilan di form hideen
+         $("#harga_total_hidden").val(total_harga);
+         $("#jumlah_malam").val(hitung_hari);         
+         //tampilan di form hideen
+}
+function hitung_penginapan_document() {
+
+		var harga_kamar = $("#harga_kamar").text();
+        var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
+		var harga_makan = $("#hidden_makan").text();
+		
+		var harga_jumlah =  parseInt(harga_kamar);
+		$("#harga_makan_tampil").hide();
+		$("#label").hide();
+		$("#harga_makan_hidden").val('');
+
+		var tanggal_checkin = new Date($("#datepicker1").val());
+		var tanggal_checkout = new Date($("#datepicker2").val());
+		var timeDiff = Math.abs(tanggal_checkout.getTime() - tanggal_checkin.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		var hitung_hari = diffDays;
 		var jumlah_orang = $("#jumlah_orang").val();
 
-		if (jumlah_orang == ''){
+ 		if (jumlah_orang == ''){
 			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
 
 			var harga_jumlah_orang = parseInt(harga_jumlah);
