@@ -164,6 +164,13 @@ Route::get('/komentar_cultural', [
 	'uses' => 'HomeController@komentar_cultural'
 ]);
 
+//
+Route::get('/komentar_penginapan', [
+	'middleware' => ['auth'],
+	'as'=> 'komentar_penginapan.proses',
+	'uses' => 'HomeController@komentar_penginapan'
+]);
+
 Route::get('/pembayaran/{id}', [
 	'as'=> 'pembayaran.index',
 	'uses' => 'PembayaranController@index'

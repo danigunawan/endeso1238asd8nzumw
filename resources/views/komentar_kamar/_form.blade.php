@@ -6,7 +6,7 @@
 								{!! Form::textarea('isi_komentar', null, ['class'=>'form-control', 'placeholder' => 'Tulisakan Komentar',]) !!}
 							</div>
 
-							{!! Form::hidden('id_kategori', $value  = $detail_cultural->id, ['class'=>'form-control']) !!}
+							{!! Form::hidden('id_kamar', $value  = $kamar->id, ['class'=>'form-control']) !!}
 							<div class="form-group col-md-12">								
 								{!! Form::submit('Kirim Komentar') !!} 
 							</div>
