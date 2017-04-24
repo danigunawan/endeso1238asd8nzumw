@@ -5,24 +5,67 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kategori;
 use App\Warga;
+use App\PesananCulture;
+use Session;
+use Auth;
 
 class PesananCulturalController extends Controller
 {
     //
-    public function index($id, $tanggal_masuk){
+    public function index($id, $tanggal_masuk,$jumlah_orang){
     	$detail_kategori = Kategori::find($id);
 
-    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk]);
+    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang]);
     }
 
+    public function store(Request $request){
+
+        $warga = Warga::find($request->id_warga); 
+        $id_user = Auth::user()->id;
+
+         $this->validate($request, [
+            'id_warga' => 'required|exists:warga,id',
+            'jadwal' => 'required',
+            'check_in' => 'required',
+            'nama' => 'required',
+            'no_telp' => 'required|numeric',
+            'no_ktp' => 'required|numeric',
+            'email' => 'required|email|max:255',
+            'jumlah_orang'=>'required|numeric|max:'.$warga->kapasitas.''
+
+            ]); 
+
+            $pesan_homestay = PesananCulture::create([
+            'id_warga' => $request->id_warga,
+            'check_in' => HomeController::tanggal_mysql($request->check_in), 
+            'nama' => $request->nama,
+            'no_telp' => $request->no_telp,
+            'no_ktp' => $request->no_ktp,
+            'email' => $request->email,
+            'jadwal' => $request->jadwal,
+            'total_harga' => $warga->harga_pemilik + $warga->harga_endeso,
+            'harga_pemilik' => $warga->harga_pemilik,
+            'harga_endeso' => $warga->harga_endeso, 
+            'jumlah_orang' => $request->jumlah_orang, 
+            'id_user'=> $id_user
+
+           ]);
+ 
+            Session::flash("flash_notification", [   
+            "level"=>"success",
+            "message"=>"Data Pemesanan Anda Berhasil Tersimpan,Silakan
+            Konfirmasi Pembayaran di Email Anda"]); 
+            return back();
+
+    }
 
     public function ajax_jadwal_kegiatan(Request $request)
     { 
         if ($request-> ajax()) {
             # code...
-            $id_warga = $request->warga;
+            $id_warga = $request->id_warga;
             $warga = Warga::find($id_warga); 
-            return $warga->jadwal_1;
+            return $warga->jadwal_2;
 
         } 
     }

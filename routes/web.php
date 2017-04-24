@@ -151,6 +151,12 @@ Route::get('/pesan-homestay-proses', [
 	'uses' => 'PesanhomestayController@store'
 ]);
 
+Route::get('/pesan-cultural-proses', [
+	'middleware' => ['auth'],
+	'as'=> 'pesancultural.proses',
+	'uses' => 'PesananCulturalController@store'
+]);
+
 //
 Route::get('/pesan-cultural/{id}/{tanggal_masuk}/{jumlah_orang}', [
 	'as'=> 'pesananCultural.form',
