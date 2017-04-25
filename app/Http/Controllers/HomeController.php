@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
 use DateTime;
-use App\Rekening;
 
 class HomeController extends Controller
 {
@@ -368,9 +367,7 @@ class HomeController extends Controller
       return view('detail_pesanan_culture',['pesanan_culture'=>$pesanan_culture, 
                                             'tampil_detail'=>$tampil_detail, 
                                             'waktu_pesan'=>$waktu_pesan,
-                                            'nama_user'=>$nama_user,
-                                            'destinasi'=>$destinasi,
-                                            'aktivitas'=>$aktivitas]);      
+                                            'nama_user'=>$nama_user]);      
 
 
     }
@@ -414,23 +411,6 @@ class HomeController extends Controller
     KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user]);
 
     return back();
-
-    } 
-
-    public function pembayaran_culture($id,$destinasi,$aktivitas){     
-
-      $pesanan_culture = PesananCulture::where('id',$id)->first();
-
-      $check_in = DateTime::createFromFormat('Y-m-d', $pesanan_culture->check_in);
-      $format_check_in = $check_in->format('j M Y');
-
-      $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
-      $waktu_pesan = $created_ats->format('j M Y');
-      $rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
-      $warga = Warga::select('id','harga_endeso','harga_pemilik')->where('id',$pesanan_culture->id_warga)->first();
-
-      return view('pembayaran_cultural.index',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'rekening'=>$rekening,'warga'=>$warga]);
-
 
     } 
 

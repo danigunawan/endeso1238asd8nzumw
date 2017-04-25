@@ -65,7 +65,7 @@ class PesananCulturalController extends Controller
             # code...
             $id_warga = $request->id_warga;
             $warga = Warga::find($id_warga); 
-            return $warga->jadwal_1;
+            return $warga->jadwal_2;
 
         } 
     }

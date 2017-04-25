@@ -95,7 +95,7 @@
 					    		</div>
 
 					    		<div class="col-sm-4">
-									<a href="{{ url('/PembayaranCulture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas)}}" class="btn btn-warning">Pembayaran</a>	
+									<a href="{{ route('pembayaran_culture.culture', $pesanan_culture->id) }}" class="btn btn-warning">Pembayaran</a>	
 					    		</div>
 
 					    	</div>
