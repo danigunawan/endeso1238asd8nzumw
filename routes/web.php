@@ -177,7 +177,6 @@ Route::get('/komentar_penginapan', [
 	'uses' => 'HomeController@komentar_penginapan'
 ]);
 
-Route::get('/pembayaran/{id}', [
 Route::get('/pembayaran', [ 	
 	'as'=> 'pembayaran.index',
 	'uses' => 'PembayaranController@index'
