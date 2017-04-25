@@ -38,7 +38,7 @@
                         <li class="active"><a data-toggle="tab" href="#homestay">Pesanan Homestay</a></li>
                         <li><a data-toggle="tab" href="#culture">Pesanan Cultur Experience</a></li>
                       </ul>
-
+                      <br><br>
                       <div class="tab-content">
                          <div id="homestay" class="tab-pane fade in active">
                               {!! $tampil_pesanan_homestay !!}

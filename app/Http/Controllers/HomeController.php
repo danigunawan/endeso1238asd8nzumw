@@ -187,14 +187,15 @@ class HomeController extends Controller
                                         <div class="row">
                                           <div class="col-md-6">
 
-                                            <div class="alert alert-info" role="alert">
-                                              <strong>'.$pesanan_homestays->status_pesanan.'</strong> 
+                                            <div class="alert alert-warning" role="alert">
+                                              <strong> '.$pesanan_homestays->status_pesanan.'  </strong> 
                                             </div>
+
 
                                           </div>
 
                                           <div class="col-md-6">
-                                            <a href="'.url("/detail-pesanan-homestay/".$pesanan_homestays->id).'" class="btn btn-primary lg">Detail</a>
+                                            <a href="'.url("/detail-pesanan-homestay/".$pesanan_homestays->id).'" class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
                                           </div>
                                         </div>
 
@@ -256,14 +257,15 @@ class HomeController extends Controller
                                         <div class="row">
                                           <div class="col-md-6">
 
-                                            <div class="alert alert-info" role="alert">
+                                           <div class="alert alert-warning" role="alert">
                                               <strong>'.$pesanan_cultures->status_pesanan.'</strong> 
                                             </div>
 
                                           </div>
 
                                           <div class="col-md-6">
-                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id."/".$query->nama_aktivitas."/".$query->nama_destinasi).'" class="btn btn-primary lg">Detail</a>
+                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id."/".$query->nama_aktivitas."/".$query->nama_destinasi).'" 
+                                            class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
                                           </div>
                                         </div>
 
@@ -308,9 +310,9 @@ class HomeController extends Controller
       $waktu_pesan = $created_ats->format('j M Y');
 
       $tampil_detail = '<div class="panel panel-default">
-                          <div class="panel-heading"><b><h3>Detail Homestay</h3></b></div>
+                          <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Homestay</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$kamar->rumah->nama_pemilik.',<h4>'.$kamar->destinasi->nama_destinasi.'</h4></h3>
+                            <h3>'.$kamar->rumah->nama_pemilik.',<h5>'.$kamar->destinasi->nama_destinasi.'</h5></h3>
                              <table>
                             <tbody>                            
                                 <tr><td width="25%"><font class="satu">Check-in </font></td> 
@@ -345,9 +347,9 @@ class HomeController extends Controller
       $nama_user = User::select('name')->where('id',$pesanan_culture->id_user)->first();
 
       $tampil_detail = '<div class="panel panel-default">
-                          <div class="panel-heading"><b><h3>Detail Culture</h3></b></div>
+                          <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Culture</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$destinasi.',<h4>'.$aktivitas.'</h4></h3>
+                            <h3>'.$destinasi.',<h5>'.$aktivitas.'</h5></h3>
                              <table>
                             <tbody>                            
                                 <tr><td width="25%"><font class="satu">Check-in </font></td> 

@@ -43,19 +43,19 @@
                    <div class="col-md-8">
 
 					  <div class="panel panel-default">
-					    <div class="panel-heading"><b><h3>Detail Pesanan</h3></b></div>
+					    <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Pesanan</h4></b></div>
 					    <div class="panel-body">
 					    	<div class="row">
 					    		<div class="col-sm-4">
-					    			<p>Dipesan Oleh, <br><br>
+					    			<p>Dipesan Oleh<br><br>
 					    				<b>{!! $nama_user->name !!}</b></p>
 					    		</div>
 					    		<div class="col-sm-4">
-					    			<p>Tanggal Pemesanan,<br><br>
+					    			<p>Tanggal Pemesanan<br><br>
 					    			<b>{!! $waktu_pesan !!}</b></p>
 					    		</div>
 					    		<div class="col-sm-4">
-					    			<p>No. Pesanan, <br><br>
+					    			<p>No. Pesanan <br><br>
 					    			<b>{!! $pesanan_culture->id !!}</b></p>
 					    		</div>
 					    	</div>
@@ -64,12 +64,12 @@
 					    <div class="panel-body">
 					    	<div class="row">
 					    		<div class="col-sm-4">
-					    			<p>Jumlah Orang,<br><br>
+					    			<p>Jumlah Orang<br><br>
 					    				<b>{!! $pesanan_culture->jumlah_orang  !!} {!! "Orang" !!}</b></p>
 					    		</div>
 					    		<div class="col-sm-4">
-					    			<p>Status Pesanan,<br>
-					    		     <div class="alert alert-info" role="alert">
+					    			<p>Status Pesanan<br>
+					    		     <div class="alert alert-warning" role="alert">
 	                                     <strong>@if($pesanan_culture->status_pesanan == 0)
 						    				{!! "Anda baru saja melakukan pemesanan" !!}
 
@@ -94,8 +94,9 @@
                                       
 					    		</div>
 
-					    		<div class="col-sm-4">
-									<a href="{{ route('pembayaran_culture.culture', $pesanan_culture->id) }}" class="btn btn-warning">Pembayaran</a>	
+					    		<div class="col-sm-4"><br>
+									<a href="{{ route('pembayaran_culture.culture', $pesanan_culture->id) }}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
+					    			
 					    		</div>
 
 					    	</div>
