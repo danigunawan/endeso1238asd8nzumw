@@ -16,7 +16,7 @@ class CreateTamuHomestaysTable extends Migration
         Schema::create('tamu_homestays', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_pesanan');
-            $table->string('nama_tamu');
+            $table->string('nama_tamu')->nullable();
             $table->timestamps();
         });
     }

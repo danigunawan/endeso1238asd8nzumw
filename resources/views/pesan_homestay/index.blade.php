@@ -9,9 +9,9 @@
 			<div class="container">
 				<h3>{{$detail_kamar->rumah->nama_pemilik}}</h3>
 				<ol class="breadcrumb">
-					<li><a href="index.html">Home</a></li>
-                    <li><a href="list.html">Homestay</a></li>
-					<li class="active">{{$detail_kamar->rumah->nama_pemilik}}</li>
+					<li><a href="#">Home</a></li>
+                    <li><a href="#">Homestay</a></li>
+					<li class="active">Pemesanan</li>
 				</ol>
 			</div>
             <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i> 4.5/5</div>
@@ -107,6 +107,27 @@
     $(document).ready(function(){
     	$("#harga_makan").attr("data-toogle", 0);
       	hitung_penginapan_document();
+
+
+      	var jumlah_orang_baru = $("#jumlah_orang").val();
+ 		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		var no = 1;
+ 		if (jumlah_orang_baru > 1){
+
+ 			$(".span-hapus").remove();
+ 
+ 			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
+        {	
+        	
+       	$('<div class="form-group{{ $errors->has('nama_tamu.+no+++') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no+++' </label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
+        }
+
+ 		}
+ 		else{
+ 			$(".span-hapus").html('');
+ 		}
+
+
     });
 
 	$(document).on('click','#harga_makan',function(e){
@@ -121,18 +142,20 @@
 
  		var jumlah_orang_baru = $(this).val();
  		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		var no = 1;
  		if (jumlah_orang_baru > 1){
 
  			$(".span-hapus").remove();
-
+ 
  			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
         {	
-       	$('<div class="form-group span-hapus"><label align="left">Nama Tamu</label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
+        	
+       	$('<div class="form-group{{ $errors->has('nama_tamu.+no+++') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no+++' </label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
         }
 
  		}
  		else{
- 			$("#kolom_tamu").html('');
+ 			$(".span-hapus").html('');
  		}
         
     });

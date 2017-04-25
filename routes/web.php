@@ -164,7 +164,7 @@ Route::get('/komentar_cultural', [
 	'uses' => 'HomeController@komentar_cultural'
 ]);
 
-Route::get('/pembayaran/{id}', [
+Route::get('/pembayaran', [ 	
 	'as'=> 'pembayaran.index',
 	'uses' => 'PembayaranController@index'
 ]);

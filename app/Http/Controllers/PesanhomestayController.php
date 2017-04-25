@@ -9,7 +9,7 @@ use Session;
 use Auth;
 use App\Http\Controllers\HomeController;
 use App\Rekening;
-
+use App\TamuHomestay;
 
 class PesanhomestayController extends Controller
 {
@@ -71,6 +71,37 @@ class PesanhomestayController extends Controller
 
            ]);
 
+
+if ($request->jumlah_orang > 1){
+// INSERT DATA TAMU
+            $tamu_homestay = TamuHomestay::create([
+              'id_pesanan' => $pesan_homestay->id,
+              ]);
+
+           if ($request->has('nama_tamu')) {
+             $nama_tamu = $request->input('nama_tamu');
+             if (is_array($nama_tamu) || is_object($nama_tamu))
+            {
+              $urutan = 0;
+
+
+              foreach ($nama_tamu as $nama_tamus) {
+
+                 $urutan++;
+                # code...
+                
+                    $tamu_homestay->nama_tamu = $nama_tamus;
+
+                    $tamu_homestay->save();  
+                 
+            }//end foreach
+                
+            }
+
+          }
+// INSERT DATA TAMU
+}
+
       	    Session::flash("flash_notification", [
               "level"=>"success",
               "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran di Email Anda"
@@ -80,7 +111,9 @@ class PesanhomestayController extends Controller
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
       	    PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan);
 
-      	  return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);
+            $detail_pesanan = PesananHomestay::find($pesan_homestay->id);
+
+          return view('pembayaran.index',['id'=>$pesan_homestay->id,'detail_pesanan'=>$detail_pesanan]);
 
       	}//else penutup pesanan masih tercukupi
 

@@ -34,7 +34,7 @@
                            			'12' => '12',
                            			'13' => '13',
                            			'14' => '14',
-                           			'15' => '15',],null,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
+                           			'15' => '15',], $value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
 								{!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
 							</div>
 
@@ -62,20 +62,23 @@
 								{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
 							</div>
 
-							<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }} " id="kolom_harga">
-   							{!! Form::label('harga_makan', 'Harga Makan' , ['class' => 'control-label']) !!}
-   							<br>
-    						<div class="col-sm-1" >
-     						<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" />
-
+							<div class="panel panel-default" style="background:#eceff1;" id="kolom_harga">
+								<div class="panel-body">
+								{!! Form::label('harga_makan', 'Harga Makan' , ['class' => 'control-label']) !!}
+								<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }} " >
+   								<br>
+    							<div class="col-sm-1" >
+     							<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" />
     							</div>
-    						<div class="col-sm-11" >
-    							<i>{!!$detail_kamar->info_makanan!!}</i>
-							</div>
-							{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
+
+    							<div class="col-sm-11" >
+    								<i><b>*Info</b>:  {!!$detail_kamar->info_makanan!!}</i>
+								</div>
+								{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
+  								</div>
+  								</div>
   							</div>
 
-  			
 
 								{!! Form::hidden('harga_makan_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_makan_hidden', 'autocomplete' => 'off']) !!}
 							
