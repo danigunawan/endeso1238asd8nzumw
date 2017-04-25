@@ -376,7 +376,7 @@ class HomeController extends Controller
  
         $detail_cultural = Kategori::find($id); 
  
-        $komentar_kategori = KomentarKategori::with('user')->where('id', $id)->limit(5)->get(); 
+        $komentar_kategori = KomentarKategori::with('user')->where('status',1)->where('id_kategori', $id)->limit(5)->get(); 
 
         $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
@@ -385,6 +385,20 @@ class HomeController extends Controller
         return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
     } 
 
+
+    public function komentar_penginapan(Request $request){  
+
+          $this->validate($request, [
+        'isi_komentar' => 'required',
+        'id_kamar' => 'required',
+     
+        ]); 
+    $id_user = Auth::user()->id;
+    KomentarKamar::create(['isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user]);
+
+    return back();
+
+    } 
 
     public function komentar_cultural(Request $request){  
 
@@ -406,7 +420,7 @@ class HomeController extends Controller
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
 
-        $komentar = KomentarKamar::with('user')->where('id_kamar',$id)->limit(5)->get();
+        $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
 
         return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
 

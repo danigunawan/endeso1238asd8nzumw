@@ -227,22 +227,14 @@
                                     </li>
 
                                     <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> User</a> 
-                                        <i class="ddl-switch fa fa-angle-down"></i> 
-                                        <ul class="dropdown-menu"> 
-                                             <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
-                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
-                                        </ul> 
-
-                                    </li>
-
-                                    <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
                                               <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
+                                                <li><a href="{{ route('user_admin.index')}}" title="Services">User Admin </a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">User Member</a></li>
                                         </ul> 
 
                                     </li>
@@ -255,6 +247,17 @@
                                              <li><a href="{{ route('komentar_kategori.index')}}" title="Services">Kategori</a></li>
                                         </ul> 
                                     </li> 
+
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pesanan</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pemesanan </a></li>
+                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
+                                            
+                                        </ul> 
+
+                                    </li>
                                        
 
 

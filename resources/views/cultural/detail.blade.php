@@ -126,34 +126,32 @@
                      Event / -->
                     
                     <hr width="75%" style="margin-top:100px;margin-bottom:100px">
-                    
-                    <!--- Review -->
+
+                     <!--- Review -->
                     <div class="comment-section">
 						<h3 class="section-heading"> Review dari Pelanggan</h3>
 						<ul class="media-list">
-
 						@foreach($komentar_kategori as $komentar_kategoris)
-
-							<li class="media">
-								<div class="media-left">
-									<a href="#" title="Peter Hein">
-										@if (isset($komentar_kategoris) && $komentar_kategoris->user->foto_profil)
-											{!! Html::image(asset('img/'.$komentar_kategoris->user->foto_profil), null, ['alt' => 'comment', 'style' => 'height:100px']) !!}
-										@else
-											{!! Html::image(asset('images/user_icon.jpg'), null, ['alt' => 'comment', 'style' => 'height:100px']) !!}	
-										@endif
-									</a>							
+							<div class="panel panel-default">
+							<li class="row" style="padding:5%">
+								<div class="col-sm-2">
+							<a href="#" title="Peter Hein">
+							@if (isset($komentar_kategoris) && $komentar_kategoris->user->foto_profil)
+							{!! Html::image(asset('img/'.$komentar_kategoris->user->foto_profil), null, ['alt' => 'comment']) !!}
+							@else
+							{!! Html::image(asset('images/user_icon.jpg'), null, ['alt' => 'comment']) !!}	
+							@endif
+							</a>							
 								</div>
-								<div class="media-body">
+								<div class="col-sm-10">
 									<div class="media-content">
-										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->user->created_at}}</span><a href="#" title="Reply">Balas</a></h4>
-										<p>{{ $komentar_kategoris->isi_komentar }}</p>
+										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->created_at}}</span></h4>
+										<p>{{$komentar_kategoris->isi_komentar}}</p>
 									</div>
 								</div>
-							</li>
-
-						@endforeach
-
+								</li>
+							</div>
+							@endforeach
 						</ul>
 					</div>
 

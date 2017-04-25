@@ -17,13 +17,17 @@ class CreatePesananCulturesTable extends Migration
             $table->increments('id');
             $table->integer('id_warga');
             $table->string('jadwal');
-            $table->integer('status_pesanan');
+            $table->integer('status_pesanan')->default(0);
             $table->date('check_in');
             $table->integer('id_user');
             $table->integer('total_harga');
             $table->integer('harga_endeso');
             $table->integer('harga_pemilik');
             $table->integer('jumlah_orang');
+            $table->string('nama');
+            $table->string('no_telp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('no_ktp')->nullable();
             $table->timestamps();
         });
     }

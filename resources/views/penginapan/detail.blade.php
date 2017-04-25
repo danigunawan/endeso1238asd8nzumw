@@ -90,7 +90,7 @@
 								</div>
 								<div class="col-sm-10">
 									<div class="media-content">
-										<h4 class="media-heading">{{$komentars->user->name}} <span>{{$komentars->created_at}}</span><a href="#" title="Reply">Balas</a></h4>
+										<h4 class="media-heading">{{$komentars->user->name}} <span>{{$komentars->created_at}}</span></h4>
 										<p>{{$komentars->isi_komentar}}</p>
 									</div>
 								</div>
@@ -99,24 +99,10 @@
 							@endforeach
 						</ul>
 					</div>
-					<div class="comment-form">
-						<h3>Bagikan Pengalamanmu</h3>
-						<form class="row">
-							<div class="form-group col-md-6">
-								<input type="text" required="" placeholder="Nama Lengkap" class="form-control">
-							</div>
-							<div class="form-group col-md-6">
-								<input type="text" required="" placeholder="Nomor Pesanan Endeso" class="form-control">
-							</div>												
-							<div class="form-group col-md-12">
-								<textarea placeholder="Tuliskan Pengalamanmu" rows="8" class="form-control"></textarea>
-							</div>
-							<div class="form-group col-md-12">
-								<input type="submit" title="Submit" value="Kirim Review" name="submit">
-							</div>
-						</form>
-					</div>
-                    <!-- Review -->
+
+		            {!! Form::model($kamar, ['url' => route('komentar_penginapan.proses'),'method' => 'get', 'files'=>'true']) !!}
+		                    @include('komentar_kamar._form')
+		            {!! Form::close() !!}
                     
 			
 					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now" style="height:6%;background-color:#df9915;">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
