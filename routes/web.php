@@ -74,10 +74,16 @@ Route::get('/detail-pesanan-culture/{id}/{destinasi}/{aktivitas}', [
 	'uses' => 'HomeController@detail_pesanan_culture'
 ]);
 
-Route::get('/PembayaranCulture/{id}', [
+Route::get('/PembayaranCulture/{id}/{aktivitas}/{destinasi}', [
 	'middleware' => ['auth'],
 	'as'=> 'pembayaran_culture.culture',
 	'uses' => 'HomeController@pembayaran_culture'
+]);
+
+Route::get('/pesanan_culture_proses', [
+	'middleware' => ['auth'],
+	'as'=> 'pesanan_culture_proses.proses',
+	'uses' => 'HomeController@pesanan_culture_proses'
 ]);
 
 Route::get('/PembayaranHomestay/{id}', [
