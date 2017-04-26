@@ -189,9 +189,15 @@ Route::get('/komentar_penginapan', [
 	'uses' => 'HomeController@komentar_penginapan'
 ]);
 
-Route::get('/pembayaran', [ 	
+Route::get('/pembayaran-homestay/{id}', [ 	
+	'middleware' => ['auth'],
 	'as'=> 'pembayaran.index',
 	'uses' => 'PembayaranController@index'
+]);
+
+Route::get('/pembayaran-proses', [ 	
+	'as'=> 'pembayaran.proses',
+	'uses' => 'PembayaranController@store'
 ]);
 
 // untuk verifikasi akun

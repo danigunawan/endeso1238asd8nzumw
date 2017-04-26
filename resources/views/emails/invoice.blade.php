@@ -15,7 +15,7 @@ down payment (DP) sejumlah {{$total_harga_endeso}}.<p>
 
 <p>Batas waktu pembayaran down payment (DP) anda adalah 120 menit. Jika anda tidak melakukan pembayaran dan konfirmasi pembayaran melebihi batas waktu, pesanan anda kami anggap gagal dan anda dapat melakukan pemesanan ulang di website.</p>
 
-<p>Mohon untuk mengirim bukti transfer dengan melampirkan foto bukti transfer dengan cara mengklik link berikut ini <a href="{{route('pembayaran.index',$id_pesanan)}}">Konfirmasi Pembayaran</a>.</p>
+<p>Mohon untuk mengirim bukti transfer dengan melampirkan foto bukti transfer dengan cara mengklik link berikut ini .</p>
 
 <p>Salam Traveler,</p>
 <p>Endeso</p>

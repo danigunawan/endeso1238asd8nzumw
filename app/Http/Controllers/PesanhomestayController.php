@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Rekening;
 use App\TamuHomestay;
 
+
 class PesanhomestayController extends Controller
 {
     //
@@ -106,14 +107,12 @@ if ($request->jumlah_orang > 1){
               "level"=>"success",
               "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran di Email Anda"
               ]);
-                
-      	    $rekening_tujuan = Rekening::all();
+
+            $rekening_tujuan = Rekening::all();
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
       	    PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan);
 
-            $detail_pesanan = PesananHomestay::find($pesan_homestay->id);
-
-          return view('pembayaran.index',['id'=>$pesan_homestay->id,'detail_pesanan'=>$detail_pesanan]);
+          return redirect('/pembayaran-homestay/'.$pesan_homestay->id.'');
 
       	}//else penutup pesanan masih tercukupi
 

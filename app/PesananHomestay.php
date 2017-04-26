@@ -51,7 +51,10 @@ class PesananHomestay extends Model
 
     }
 
-
+    public function kamar()
+    {
+    return $this->belongsTo('App\Kamar','id','id_kamar');
+    }
 
 }
 
