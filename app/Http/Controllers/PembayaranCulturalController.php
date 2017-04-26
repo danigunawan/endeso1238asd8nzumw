@@ -46,13 +46,17 @@ class PembayaranCulturalController extends Controller
       return view('pembayaran_cultural.transaksi_pembayaran',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'warga'=>$warga]);
     }
 
-    public function proses_transaksi_pembayaran_culture(Request $request){
+    public function store(Request $request){
         $this->validate($request, [
             'nomor_rekening_pelanggan' => 'required',
             'nama_bank_pelanggan' => 'required',
             'id_pesanan' => '',    
             'foto_tanda_bukti' => 'image|max:2048|required'    
             ]); 
+
+            $pesanan =  PesananCulture::find($request->id_pesanan);
+            $pesanan->status_pesanan = 1; 
+            $pesanan->save();
 
         $id_user = Auth::user()->id;
         $pesanan_culture = PembayaranCulture::create([
@@ -62,7 +66,6 @@ class PembayaranCulturalController extends Controller
            'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
            'nama_bank_pelanggan' => $request->nama_bank_pelanggan,  
         ]);
-
          // isi field foto_tanda_bukti jika ada foto_tanda_bukti yang diupload
         if ($request->hasFile('foto_tanda_bukti')) {
         // Mengambil file yang diupload
@@ -78,7 +81,9 @@ class PembayaranCulturalController extends Controller
         $pesanan_culture->foto_tanda_bukti = $filename;
         $pesanan_culture->save();
         } 
-
+ 
         return redirect('/user/pesanan');
         } 
+
+
 }

@@ -86,11 +86,11 @@ Route::get('/transaksi_pembayaran_culture/{id}/{aktivitas}/{destinasi}', [
 	'uses' => 'PembayaranCulturalController@transaksi_pembayaran_culture'
 ]);
 
-Route::get('/proses_transaksi_pembayaran_culture', [
+Route::put('/proses_transaksi_pembayaran_culture', [
 	'middleware' => ['auth'],
-	'as'=> 'transaksi_pembayaran_culture.proses',
-	'uses' => 'PembayaranCulturalController@proses_transaksi_pembayaran_culture'
-]);
+	'as'=> 'transaksi_pembayaran_culture.store',
+	'uses' => 'PembayaranCulturalController@store'
+]); 
 
 Route::get('/PembayaranHomestay/{id}', [
 	'middleware' => ['auth'],

@@ -47,11 +47,46 @@
                         <div class="panel-heading"><b><h3>Pemesanan Anda sedang dalam tahap:<br>Menunggu Bukti Pembayaran Anda</h3></head></b></div>
                         <div class="panel-body">   
                         <img src="https://da8hvrloj7e7d.cloudfront.net/imageResource/2017/03/03/1488535476786-46bcebee6249ad3db671f76ea7397d43.png" style="align-content:center;"><br>
-                        <span>Mohon unggah bukti transfer Anda untuk mempercepat proses konfirmasi dari sistem bank. Jika Anda belum menyelesaikan pembayaran, Anda dapat mengulangi pemesanan.</span>                                   
-                        {!! Form::model($pesanan_culture, ['url' => route('transaksi_pembayaran_culture.proses'),
-                        'method' => 'get', 'files'=>'true']) !!}
-                                @include('pembayaran_cultural._form')
-                        {!! Form::close() !!}     
+                        <span>Mohon unggah bukti transfer Anda untuk mempercepat proses konfirmasi dari sistem bank. Jika Anda belum menyelesaikan pembayaran, Anda dapat mengulangi pemesanan.</span>                                    
+
+
+               {!! Form::model($pesanan_culture, ['url' => route('transaksi_pembayaran_culture.store'),'method' => 'put','files'=>'true', 'class'=>'form-horizontal']) !!}
+                        {{ csrf_field() }}
+                              <!--KOLOM Nomor Rekening -->
+                          <div class="form-group{{ $errors->has('nomor_rekening_pelanggan') ? ' has-error' : '' }}">
+                          {!! Form::label('nomor_rekening_pelanggan', 'Nomor Rekening', ['class'=>'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                            {!! Form::number('nomor_rekening_pelanggan', null, ['class'=>'form-control']) !!}
+                            {!! $errors->first('nomor_rekening_pelanggan', '<p class="help-block">:message</p>') !!}
+                            </div>
+                          </div>
+
+                          <!--SELECT Nama Bank -->
+                          <div class="form-group{{ $errors->has('nama_bank_pelanggan') ? ' has-error' : '' }}">   
+                                  {!! Form::label('nama_bank_pelanggan', 'Nama Bank', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                              {!! Form::select('nama_bank_pelanggan', ['' => '-- PILIH BANK --','BNI' => 'BNI'], null,['class' => 'form-control']) !!}
+                              {!! $errors->first('nama_bank_pelanggan', '<p class="help-block">:message</p>') !!}
+                            </div>
+                          </div>
+
+                          <!-- FOTO BUKTI TRANSFER --> 
+                                      <div class="form-group{{ $errors->has('foto_tanda_bukti') ? ' has-error' : '' }}">
+                                      {!! Form::label('foto_tanda_bukti', 'Foto Tanda Bukti', ['class'=>'col-md-4 control-label']) !!}
+                                          <div class="col-md-6">
+                                          {!! Form::file('foto_tanda_bukti') !!}
+                                          {!! $errors->first('foto_tanda_bukti', '<p class="help-block">:message</p>') !!}
+                                          </div>
+                                      </div> 
+
+                            {!! Form::hidden('id_pesanan', $value=$pesanan_culture->id, ['class'=>'form-control']) !!}
+
+              <div class="form-group">
+                <div class="col-md-4">
+                {!! Form::submit('Kirim Bukti Pembayaran', ['class'=>'btn btn-primary']) !!}
+                </div>
+              </div>
+
                         </div>
                       </div>
                     </div>
