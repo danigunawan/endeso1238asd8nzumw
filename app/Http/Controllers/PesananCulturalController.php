@@ -8,6 +8,7 @@ use App\Warga;
 use App\PesananCulture;
 use Session;
 use Auth;
+use App\Destinasi;
 
 class PesananCulturalController extends Controller
 {
@@ -21,6 +22,8 @@ class PesananCulturalController extends Controller
     public function store(Request $request){
 
         $warga = Warga::find($request->id_warga); 
+        $kategori = Kategori::select('id','nama_aktivitas','destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
+        $destinasi = Destinasi::select('id','nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
         $id_user = Auth::user()->id;
 
          $this->validate($request, [
@@ -35,7 +38,7 @@ class PesananCulturalController extends Controller
 
             ]); 
 
-            $pesan_homestay = PesananCulture::create([
+            $pesanan_culture = PesananCulture::create([
             'id_warga' => $request->id_warga,
             'check_in' => HomeController::tanggal_mysql($request->check_in), 
             'nama' => $request->nama,
@@ -55,7 +58,7 @@ class PesananCulturalController extends Controller
             "level"=>"success",
             "message"=>"Data Pemesanan Anda Berhasil Tersimpan,Silakan
             Konfirmasi Pembayaran di Email Anda"]); 
-            return back();
+            return redirect('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi->nama_destinasi.'/'.$kategori->nama_aktivitas.''); 
 
     }
 
@@ -65,7 +68,7 @@ class PesananCulturalController extends Controller
             # code...
             $id_warga = $request->id_warga;
             $warga = Warga::find($id_warga); 
-            return $warga->jadwal_2;
+            return $warga->jadwal_1;
 
         } 
     }

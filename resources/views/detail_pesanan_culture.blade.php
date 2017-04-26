@@ -95,7 +95,7 @@
 					    		</div>
 
 					    		<div class="col-sm-4"><br>
-									<a href="{{ url('/PembayaranCulture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas)}}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
+									<a href="{{ url('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas)}}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
 					    			
 					    		</div>
 

@@ -13,12 +13,13 @@
   <!-- Page Banner -->
   <div class="container-fluid page-banner about-banner">
    <div class="container">
-    <h3>Pembayaran</h3>
+    <h3>Bukti Pembayaran</h3>
     <ol class="breadcrumb">
      <li><a href="#">Home</a></li>
      <li><a href="#">Cultural</a></li>
      <li><a href="#">Pemesanan</a></li>
-     <li class="active">Pembayaran</li>
+     <li><a href="#">Pembayaran</a></li>
+     <li class="active">Proses</li>
     </ol>
    </div>
             <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i> 4.5/5</div>
@@ -36,22 +37,21 @@
                  <div class="row">
                      <div class="col-md-2">
                        <ul class="nav nav-pills nav-stacked">
-                         <li class="active"><a href="#">Petunjuk Pembayaran Transfer</a></li>
-                       </ul>
+                         <li class=""><a href="#">Petunjuk Pembayaran Transfer</a></li>
+                         <li class="active"><a href="#">Bukti Pembayaran</a></li>
+                       </ul> 
                     </div>
                     <div class="col-md-6">
 
                       <div class="panel panel-default">
-                        <div class="panel-heading"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
-                        <div class="panel-body">      
-                        <h4>1. Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> <br>
-                        <h4>2. Mohon Transfer Ke:</h4>
-                        <h4>{{ $rekening->nama_bank }}</h4>
-                        <b>Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                        Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
-                        <h5>Jumlah Transfer : {{ $warga->harga_endeso + $warga->harga_pemilik }}</h5><br>
-                        <h4>3. Anda Sudah Membayar? 
-                        <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
+                        <div class="panel-heading"><b><h3>Pemesanan Anda sedang dalam tahap:<br>Menunggu Bukti Pembayaran Anda</h3></head></b></div>
+                        <div class="panel-body">   
+                        <img src="https://da8hvrloj7e7d.cloudfront.net/imageResource/2017/03/03/1488535476786-46bcebee6249ad3db671f76ea7397d43.png" style="align-content:center;"><br>
+                        <span>Mohon unggah bukti transfer Anda untuk mempercepat proses konfirmasi dari sistem bank. Jika Anda belum menyelesaikan pembayaran, Anda dapat mengulangi pemesanan.</span>                                   
+                        {!! Form::model($pesanan_culture, ['url' => route('transaksi_pembayaran_culture.proses'),
+                        'method' => 'get', 'files'=>'true']) !!}
+                                @include('pembayaran_cultural._form')
+                        {!! Form::close() !!}     
                         </div>
                       </div>
                     </div>

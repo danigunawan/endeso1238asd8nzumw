@@ -15,11 +15,12 @@ class CreatePembayaranCultureTable extends Migration
     {
         Schema::create('pembayaran_culture', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('id_user');
             $table->integer('id_pesanan');
             $table->integer('id_rekening_endeso');
             $table->string('nama_bank_pelanggan');
             $table->integer('nomor_rekening_pelanggan');
-            $table->string('foto_tanda_bukti')->nullable();
+            $table->string('foto_tanda_bukti');
             $table->integer('status')->nullable();
             $table->timestamps();
         });

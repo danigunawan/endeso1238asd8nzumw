@@ -74,16 +74,22 @@ Route::get('/detail-pesanan-culture/{id}/{destinasi}/{aktivitas}', [
 	'uses' => 'HomeController@detail_pesanan_culture'
 ]);
 
-Route::get('/PembayaranCulture/{id}/{aktivitas}/{destinasi}', [
+Route::get('/pembayaran_culture/{id}/{aktivitas}/{destinasi}', [
 	'middleware' => ['auth'],
 	'as'=> 'pembayaran_culture.culture',
-	'uses' => 'HomeController@pembayaran_culture'
+	'uses' => 'PembayaranCulturalController@pembayaran_culture'
 ]);
 
-Route::get('/pesanan_culture_proses', [
+Route::get('/transaksi_pembayaran_culture/{id}/{aktivitas}/{destinasi}', [
 	'middleware' => ['auth'],
-	'as'=> 'pesanan_culture_proses.proses',
-	'uses' => 'HomeController@pesanan_culture_proses'
+	'as'=> 'transaksi_pembayaran_culture.form',
+	'uses' => 'PembayaranCulturalController@transaksi_pembayaran_culture'
+]);
+
+Route::get('/proses_transaksi_pembayaran_culture', [
+	'middleware' => ['auth'],
+	'as'=> 'transaksi_pembayaran_culture.proses',
+	'uses' => 'PembayaranCulturalController@proses_transaksi_pembayaran_culture'
 ]);
 
 Route::get('/PembayaranHomestay/{id}', [
