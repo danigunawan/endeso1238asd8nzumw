@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/* PEMBUKA AJAX PESANAN CULTURAL */
+Route::post('/ajax-jadwal-kegiatan', 'PesananCulturalController@ajax_jadwal_kegiatan');
 
+Route::post('/ajax-warga-cultural', 'PesananCulturalController@ajax_warga_cultural');
+Route::post('/ajax-harga-cultural', 'PesananCulturalController@ajax_harga_cultural');
+
+/* PENUTUP AJAX PESANAN CULTURAL */
 Route::get('/', 'HomeController@index');
 
 
@@ -53,8 +59,6 @@ Route::get('/cara-pesan','HomeController@cara_pesan');
 Route::get('/kontak','HomeController@kontak');
 
 Route::get('/pencarian','HomeController@pencarian_ce_homestay');
-
-Route::post('/ajax-jadwal-kegiatan', 'PesananCulturalController@ajax_jadwal_kegiatan');
 
 Route::get('/user/edit-profil', [
 	'middleware' => ['auth'],

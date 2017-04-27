@@ -30,7 +30,7 @@
 						<div class="col-sm-6">
 
 
-            {!! Form::model($detail_kategori, ['url' => route('pesancultural.proses'),
+            {!! Form::model($warga, ['url' => route('pesancultural.proses'),
             'method' => 'get', 'files'=>'true']) !!}
                     @include('pesan_cultural._form') 
             {!! Form::close() !!}
@@ -67,12 +67,11 @@
   					<div class="panel-body">
 						<table>
  							<tbody>
-      						 	<tr><td width="50%" style="font-size:150%"><b>Warga :<span id="nama_warga"></span></b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
+      						 	<tr><td width="50%" style="font-size:150%"><b>Warga : <span id="nama_warga"></span></b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td></td> </tr>
 
-      						 	<tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="nama_warga"></span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_cultural"></span> </td></tr>
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr> 
-
   							</tbody>
 						</table>
 								<hr>
@@ -103,38 +102,30 @@
     <script type="text/javascript">
         $("#id_warga").change(function(){
             var id_warga = $('#id_warga').val();
+            
 
-                        $.post('{{ url('/ajax-jadwal-kegiatan') }}',
+                        $.post('{{ url('/ajax-jadwal-kegiatan') }}',{'_token': $('meta[name=csrf-token]').attr('content'),
+                            id_warga:id_warga },function(data){   
+                            $(".span-option").remove();
+                   			$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_1+'">'+data.jadwal_1+'</option><option class="span-option" value="'+data.jadwal_2+'">'+data.jadwal_2+'</option><option class="span-option" value="'+data.jadwal_3+'">'+data.jadwal_3+'</option><option class="span-option" value="'+data.jadwal_4+'">'+data.jadwal_4+'</option><option class="span-option" value="'+data.jadwal_5+'">'+data.jadwal_5+'</option>'); 
+                        });
+
+
+
+                        $.post('{{ url('/ajax-warga-cultural') }}',
                         {
                             '_token': $('meta[name=csrf-token]').attr('content'),
                             id_warga:id_warga },function(data){
-                                $("#jadwal_1").val(data);
+                                $("#nama_warga").text(data);
                             });
 
+                        $.post('{{ url('/ajax-harga-cultural') }}',
+                        {
+                            '_token': $('meta[name=csrf-token]').attr('content'),
+                            id_warga:id_warga },function(data){
+                                $("#harga_cultural").text(data);
+                            });
 
                     });
     </script>
-@endsection
-
-@section('scripts')
-<script type="text/javascript">
- 
-    $(document).on('change','#jumlah_orang',function(e){
-
- 		hitung_penginapan();
-
- 		var jumlah_orang_baru = $(this).val();
- 		var jumlah_orang_ganti = jumlah_orang_baru - 1;  
-        
-    });
-
-    $(document).on('change','#datepicker1',function(e){
-  		hitung_penginapan(); 
-    });
-
-    $(document).on('change','#datepicker2',function(e){
-       hitung_penginapan(); 
-    });
-
-</script>
 @endsection

@@ -6,18 +6,15 @@
         {!! $errors->first('check_in', '<p class="help-block">:message</p>') !!}
 </div>
 
-<!--KOLOM WARGA -->
-<div class="form-group{{ $errors->has('id_warga') ? ' has-error' : '' }}">   
-        {!! Form::label('id_warga', 'Warga', ['class' => 'control-label']) !!}
-		{!! Form::select('id_warga', ['' => '--PILIH WARGA--']+App\Warga::pluck('nama_warga', 'id')->all(), null,['class' => 'form-control']) !!}
-		{!! $errors->first('id_warga', '<p class="help-block">:message</p>') !!}
-
+<div class="form-group{{ $errors->has('id_warga') ? ' has-error' : '' }}">
+        {!! Form::label('id_warga', 'Nama Warga', ['class' => 'control-label']) !!}
+        {!!Form::select('id_warga', $warga, null, ['class' => 'form-control'])!!}
+        {!! $errors->first('id_warga', '<p class="help-block">:message</p>') !!}
 </div>
-
 <!--KOLOM NAMA LENGKAP -->
 <div class="form-group{{ $errors->has('jadwal') ? ' has-error' : '' }}">
-        {!! Form::label('jadwal', 'Jadwal 1', ['class' => 'control-label']) !!}
-        {!! Form::text('jadwal', null, ['class' => 'form-control','id' => 'jadwal_1', 'autocomplete' => 'off']) !!}
+        {!! Form::label('jadwal', 'Jadwal ', ['class' => 'control-label']) !!}
+        {!! Form::select('jadwal', [], null, ['class' => 'form-control','id' => 'jadwal', 'autocomplete' => 'off']) !!}
         {!! $errors->first('jadwal', '<p class="help-block">:message</p>') !!}
 </div>
 

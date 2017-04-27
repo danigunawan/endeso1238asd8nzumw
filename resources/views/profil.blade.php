@@ -66,7 +66,7 @@
 
                             <div class="">
                     
-                               {!! Form::text('no_telp', null, ['class'=>'form-control']) !!}
+                               {!! Form::number('no_telp', null, ['class'=>'form-control','maxlength' => 15]) !!}
 
                                 {!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -76,7 +76,7 @@
 
                             <div class="">
                                     
-                               {!! Form::text('tanggal_lahir', null, ['class'=>'form-control']) !!}
+                               {!! Form::text('tanggal_lahir', null, ['class'=>'form-control','maxlength' => 15]) !!}
 
                                 {!! $errors->first('tanggal_lahir', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -85,7 +85,7 @@
                             <label for="alamat" class=" control-label">Tempat Tinggal</label>
 
                             <div class="">
-                               {!! Form::text('alamat', null, ['class'=>'form-control']) !!}
+                               {!! Form::text('alamat', null, ['class'=>'form-control','maxlength' => 40]) !!}
                                 {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <label for="kewarga_negaraan" class=" control-label">Kewarga Negaraan</label>
 
                             <div class="">
-                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control']) !!}
+                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control','maxlength' => 20]) !!}
                                 {!! $errors->first('kewarga_negaraan', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>

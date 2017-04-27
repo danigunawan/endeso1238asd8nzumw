@@ -14,9 +14,10 @@ class PesananCulturalController extends Controller
 {
     //
     public function index($id, $tanggal_masuk,$jumlah_orang){
-    	$detail_kategori = Kategori::find($id);
+    	$detail_kategori = Kategori::find($id);        
+            $warga = Warga::where('id_kategori_culture',$detail_kategori->id)->pluck('nama_warga','id'); 
 
-    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang]);
+    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang,'warga'=>$warga]);
     }
 
     public function store(Request $request){
@@ -67,10 +68,31 @@ class PesananCulturalController extends Controller
         if ($request-> ajax()) {
             # code...
             $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return $warga->jadwal_1;
+            $warga = Warga::select('id','jadwal_1','jadwal_2','jadwal_3','jadwal_4','jadwal_5')->find($id_warga); 
+            return $warga;
 
         } 
     }
 
+    public function ajax_warga_cultural(Request $request)
+    { 
+        if ($request-> ajax()) {
+            # code...
+            $id_warga = $request->id_warga;
+            $warga = Warga::find($id_warga); 
+            return $warga->nama_warga;
+
+        } 
+    }
+
+    public function ajax_harga_cultural(Request $request)
+    { 
+        if ($request-> ajax()) {
+            # code...
+            $id_warga = $request->id_warga;
+            $warga = Warga::find($id_warga); 
+            return ($warga->harga_endeso + $warga->harga_pemilik);
+
+        } 
+    }
 }
