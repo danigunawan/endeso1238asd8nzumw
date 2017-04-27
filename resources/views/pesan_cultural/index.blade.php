@@ -107,7 +107,26 @@
                         $.post('{{ url('/ajax-jadwal-kegiatan') }}',{'_token': $('meta[name=csrf-token]').attr('content'),
                             id_warga:id_warga },function(data){   
                             $(".span-option").remove();
-                   			$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_1+'">'+data.jadwal_1+'</option><option class="span-option" value="'+data.jadwal_2+'">'+data.jadwal_2+'</option><option class="span-option" value="'+data.jadwal_3+'">'+data.jadwal_3+'</option><option class="span-option" value="'+data.jadwal_4+'">'+data.jadwal_4+'</option><option class="span-option" value="'+data.jadwal_5+'">'+data.jadwal_5+'</option>'); 
+
+                            if (data.jadwal_1 != null) {
+                            	$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_1+'">'+data.jadwal_1+'</option>');
+                            }
+                            if (data.jadwal_2 != null) {
+                            	$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_2+'">'+data.jadwal_2+'</option>');
+
+                            } 
+                            if (data.jadwal_3 != null) {
+                            	$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_3+'">'+data.jadwal_3+'</option>');
+
+                            } 
+                            if (data.jadwal_4 != null) {
+                            	$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_4+'">'+data.jadwal_4+'</option>');
+
+                            } 
+                            if (data.jadwal_5 != null) {
+                            	$("#jadwal").prepend('<option class="span-option" value="'+data.jadwal_5+'">'+data.jadwal_5+'</option>');
+
+                            } 
                         });
 
 
