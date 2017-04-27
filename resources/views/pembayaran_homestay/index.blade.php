@@ -53,7 +53,7 @@
                         Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
                         <h5>Jumlah Transfer : Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}</h5><br>
                         <h4>3. Anda Sudah Membayar? 
-                        <a href="" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
+                        <a href="{{ url('/transaksi_pembayaran_homestay/'.$id.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
                         </div>
                       </div>
 
@@ -139,9 +139,6 @@ curr_min = curr_min + "";
 if (curr_min.length == 1) {
     curr_min = "0" + curr_min;
 }
-
-$("#now").text(curr_hour + " : " + curr_min + " WIB ");
-
 
 });
 </script>

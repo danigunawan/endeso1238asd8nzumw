@@ -13,9 +13,15 @@ class CreatePembayaranHomestaysTable extends Migration
      */
     public function up()
     {
-        Schema::create('pembayaran_homestays', function (Blueprint $table) {
+        Schema::create('pembayaran_homestay', function (Blueprint $table) {
             $table->increments('id');
-            
+            $table->integer('id_user');
+            $table->integer('id_pesanan');
+            $table->integer('id_rekening_endeso');
+            $table->string('nama_bank_pelanggan');
+            $table->integer('nomor_rekening_pelanggan');
+            $table->string('foto_tanda_bukti');
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

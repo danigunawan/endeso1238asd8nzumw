@@ -92,11 +92,6 @@ Route::put('/proses_transaksi_pembayaran_culture', [
 	'uses' => 'PembayaranCulturalController@store'
 ]); 
 
-Route::get('/PembayaranHomestay/{id}', [
-	'middleware' => ['auth'],
-	'as'=> 'pembayaran_homestay.homestay',
-	'uses' => 'HomeController@pembayaran_homestay'
-]);
 
 Route::put('/user/edit-profil/{id}', [
 	'middleware' => ['auth'],
@@ -195,7 +190,13 @@ Route::get('/pembayaran-homestay/{id}', [
 	'uses' => 'PembayaranController@index'
 ]);
 
-Route::get('/pembayaran-proses', [ 	
+Route::get('/transaksi_pembayaran_homestay/{id}', [ 	
+	'middleware' => ['auth'],
+	'as'=> 'pembayaran.transaksi_pembayaran_culture',
+	'uses' => 'PembayaranController@transaksi_pembayaran_culture'
+]);
+
+Route::post('/pembayaran-proses', [ 	
 	'as'=> 'pembayaran.proses',
 	'uses' => 'PembayaranController@store'
 ]);
