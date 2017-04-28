@@ -64,9 +64,9 @@
                           <div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
                             <label for="no_telp" class="control-label">No Telp</label>
 
-                            <div class="">
-                    
-                               {!! Form::number('no_telp', null, ['class'=>'form-control','maxlength' => 15]) !!}
+                            <div class=""> 
+
+                               {!! Form::number('no_telp', null, ['class'=>'form-control']) !!}
 
                                 {!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -76,7 +76,7 @@
 
                             <div class="">
                                     
-                               {!! Form::text('tanggal_lahir', null, ['class'=>'form-control','maxlength' => 15]) !!}
+                               {!! Form::date('tanggal_lahir', null, ['class'=>'form-control','maxlength' => 15]) !!}
 
                                 {!! $errors->first('tanggal_lahir', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -85,7 +85,7 @@
                             <label for="alamat" class=" control-label">Tempat Tinggal</label>
 
                             <div class="">
-                               {!! Form::text('alamat', null, ['class'=>'form-control','maxlength' => 40]) !!}
+                               {!! Form::text('alamat', null, ['class'=>'form-control','maxlength' => 50]) !!}
                                 {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <label for="kewarga_negaraan" class=" control-label">Kewarga Negaraan</label>
 
                             <div class="">
-                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control','maxlength' => 20]) !!}
+                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control','maxlength' => 50]) !!}
                                 {!! $errors->first('kewarga_negaraan', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
