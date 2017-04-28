@@ -63,7 +63,7 @@
                              '13' => '13',
                              '14' => '14',
                              '15' => '15',
-                             ],$value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--']) !!}
+                             ],$value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
         {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
 </div> 
 

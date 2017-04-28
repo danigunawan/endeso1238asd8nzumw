@@ -25,6 +25,8 @@
             <div class="container">
                 <!-- Form -->
 					<div class="booking-form2">
+                    
+                    @include('layouts._flash')
 						<h3>Form Pemesanan</h3>
 						<div class="row">
 						<div class="col-sm-6">
@@ -71,7 +73,9 @@
 
       						 	<tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_cultural"></span> </td></tr>
 
-      						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr> 
+
+      						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+
   							</tbody>
 						</table>
 								<hr>
@@ -97,9 +101,30 @@
 
 
 @endsection
-
-@section('scripts')
+ 
+@section('scripts')   
     <script type="text/javascript">
+
+    $(document).ready(function(){ 
+      	hitung_penginapan_document();
+
+
+      	var jumlah_orang_baru = $("#jumlah_orang").val();
+ 		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		var no = 1; 
+
+    });
+ 
+
+    $(document).on('change','#jumlah_orang',function(e){
+
+ 		hitung_penginapan();
+
+ 		var jumlah_orang_baru = $(this).val();
+ 		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		var no = 1;
+        
+    }); 
         $("#id_warga").change(function(){
             var id_warga = $('#id_warga').val();
             
@@ -145,6 +170,12 @@
                                 $("#harga_cultural").text(data);
                             });
 
+                        $.post('{{ url('/ajax-harga-perhitungan-cultural') }}',
+                        {
+                            '_token': $('meta[name=csrf-token]').attr('content'),
+                            id_warga:id_warga },function(data){
+                                $("#hitung_harga_orang").text(data);
+                            });
                     });
     </script>
 @endsection

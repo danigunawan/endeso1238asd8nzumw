@@ -44,9 +44,9 @@
                     <div class="col-md-6">
 
                       <div class="panel panel-default">
-                        <div class="panel-heading"><b><h3>Pemesanan Anda sedang dalam tahap:<br>Menunggu Bukti Pembayaran Anda</h3></head></b></div>
+                        <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Pemesanan Anda sedang dalam tahap:<br>Menunggu Bukti Pembayaran Anda</h4></head></b></div>
                         <div class="panel-body">   
-                        <img src="https://da8hvrloj7e7d.cloudfront.net/imageResource/2017/03/03/1488535476786-46bcebee6249ad3db671f76ea7397d43.png" style="align-content:center;"><br>
+                        <img src="{{ asset('images/unduh.jpg') }}" style="align-content:center;"><br>
                         <span>Mohon unggah bukti transfer Anda untuk mempercepat proses konfirmasi dari sistem bank. Jika Anda belum menyelesaikan pembayaran, Anda dapat mengulangi pemesanan.</span>                                    
 
 
@@ -79,40 +79,43 @@
                                           </div>
                                       </div> 
 
-                            {!! Form::hidden('id_pesanan', $value=$pesanan_culture->id, ['class'=>'form-control']) !!}
-
+                            {!! Form::hidden('id_pesanan', $value=$pesanan_culture->id, ['class'=>'form-control']) !!} 
               <div class="form-group">
                 <div class="col-md-4">
-                {!! Form::submit('Kirim Bukti Pembayaran', ['class'=>'btn btn-primary']) !!}
+                  {{ Form::submit('Kirim Bukti Pembayaran', array('class' => 'btn read-more','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}
                 </div>
               </div>
+
 
                         </div>
                       </div>
                     </div>
 
                    <div class="col-md-4">                 
-                      
-                     <div class="panel panel-default">
-          <div class="panel-heading"><b> <h4><p>No. Pesanan <br><br>
-        <b>{{$pesanan_culture->id}}</b></p></h4></head></b></div>
-          <div class="panel-body">
-        Rincian Pesanan <br>
-                            <h3>{{ $destinasi }}<h4>{{ $aktivitas }}</h4></h3>
-                             <table>
+                       
+                      <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#df9915;color:#fff" ><b><p>No. Pesanan <br>
+                <h4>({{$pesanan_culture->id}})</h4>
+                </p></h4></b></div>
+                <div class="panel-body">
+                      <!-- panel Rincian Pemesanan /- --> 
+                      <h4>Rincian Pesanan<br> 
+                      <hr>
+                          <h3>Destinasi : {{ $destinasi }}<h4>Cultural Experiences : {{ $aktivitas }}</h4></h3><br> 
+                          <table>
                             <tbody>                            
-                                <tr><td width="25%"><font class="satu">Check-in </font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $format_check_in }}</font> 
-                                </tr>
-                                <tr><td width="25%"><font class="satu">Jadwal</font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $pesanan_culture->jadwal }}</font> 
-                                </tr>
-                                <tr><td  width="25%"><font class="satu">Kode Booking  </font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td> <font class="satu">{{ $pesanan_culture->id }}</font> </td>
-                                </tr>
+                              <tr><td width="25%"><font class="satu">Check-in </font></td> 
+                                <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $format_check_in }}</font> 
+                              </tr>
+                              <tr><td width="25%"><font class="satu">Jadwal</font></td> 
+                                <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $pesanan_culture->jadwal }}</font> 
+                              </tr>
+                              <tr><td  width="25%"><font class="satu">Kode Booking  </font></td> 
+                                <td> &nbsp;&nbsp;</td> <td> <font class="satu">{{ $pesanan_culture->id }}</font> </td>
+                              </tr>
                             </tbody>
                           </table>
-          </div>
+                </div>
 
       </div><!--<div class="panel panel-default">-->
                      

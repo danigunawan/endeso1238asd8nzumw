@@ -35,10 +35,14 @@ class PesananCulturalController extends Controller
             'no_telp' => 'required|numeric',
             'no_ktp' => 'required|numeric',
             'email' => 'required|email|max:255',
-            'jumlah_orang'=>'required|numeric|max:'.$warga->kapasitas.''
-
+            'jumlah_orang'=>'required|numeric|max:'.$warga->kapasitas.'' 
             ]); 
 
+
+        $pesanan = PesananCulture::status($request->id_warga,$request->jadwal,$request->check_in)->sum('jumlah_orang');
+        $sisa_pesanan = $warga->kapasitas - $pesanan;
+
+          if ($sisa_pesanan >= $request->jumlah_orang ) {
             $pesanan_culture = PesananCulture::create([
             'id_warga' => $request->id_warga,
             'check_in' => HomeController::tanggal_mysql($request->check_in), 
@@ -53,14 +57,17 @@ class PesananCulturalController extends Controller
             'jumlah_orang' => $request->jumlah_orang, 
             'id_user'=> $id_user
 
-           ]);
- 
-            Session::flash("flash_notification", [   
-            "level"=>"success",
-            "message"=>"Data Pemesanan Anda Berhasil Tersimpan,Silakan
-            Konfirmasi Pembayaran di Email Anda"]); 
-            return redirect('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi->nama_destinasi.'/'.$kategori->nama_aktivitas.''); 
+           ]); 
+        
+        return redirect('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi->nama_destinasi.'/'.$kategori->nama_aktivitas.'');         
+        }else{
+            Session::flash("flash_notification", [
+              "level"=>"danger",
+              "message"=>"Mohon maaf warga di cultural yang anda pilih sedang penuh, silahkan pilih jadwal atau warga lain"
+              ]);  
 
+            return redirect()->back()->withInput($request->input());
+        } 
     }
 
     public function ajax_jadwal_kegiatan(Request $request)
@@ -86,6 +93,17 @@ class PesananCulturalController extends Controller
     }
 
     public function ajax_harga_cultural(Request $request)
+    { 
+        if ($request-> ajax()) {
+            # code...
+            $id_warga = $request->id_warga;
+            $warga = Warga::find($id_warga); 
+            return ($warga->harga_endeso + $warga->harga_pemilik);
+
+        } 
+    }
+
+    public function ajax_harga_perhitungan_cultural(Request $request)
     { 
         if ($request-> ajax()) {
             # code...
