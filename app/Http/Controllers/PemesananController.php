@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
-use Yajra\Datatables\Datatables;
-use App\Kategori;
-use App\Warga;
+use Yajra\Datatables\Datatables; 
+use App\PesananHomestay;
 use App\PesananCulture;
 use Session;
-use Auth;
-use App\Destinasi;
+use Auth; 
 
-class PemesananCulturalController extends Controller
+class PemesananController extends Controller
 {
     //
     public function index(Request $request, Builder $htmlBuilder)
@@ -57,7 +55,48 @@ class PemesananCulturalController extends Controller
             ->addColumn(['data' => 'user.name', 'name'=>'user.name', 'title'=>'Nama Pemesan'])   
             ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'Status' , 'searchable'=>false]); 
 
-            return view('pesanan_cultural.index')->with(compact('html'));
+            return view('pemesanan.index')->with(compact('html'));
 
     }
+
+    public function datatable_pesanan_homestay(Request $request, Builder $htmlBuilder)
+    {
+        //
+
+        if ($request->ajax()) {
+
+             $pesanan_homestay = PesananHomestay::with(['warga','user']);
+
+            return Datatables::of($pesanan_homestay)->addColumn('status_pesanan',function($pesanan_status){
+                $status_pesanan = "status_pesanan";
+                if ($pesanan_status->status_pesanan == 0 ) {
+                    # code...
+                    $status_pesanan = "baru saja melakukan pemesanan";
+                }
+                elseif ($pesanan_status->status_pesanan == 1) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
+                }
+                elseif ($pesanan_status->status_pesanan == 2) {
+                    # code...
+                     $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
+                } 
+                elseif ($pesanan_status->status_pesanan == 3) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check In";
+                } 
+                elseif ($pesanan_status->status_pesanan == 4) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check Out";
+                } 
+                elseif ($pesanan_status->status_pesanan == 5) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah membatalkan pesanan anda";
+                } 
+                return $status_pesanan; 
+                })->make(true);
+            } 
+
+    }
+
 }

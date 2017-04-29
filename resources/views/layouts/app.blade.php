@@ -252,7 +252,7 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pesanan</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="{{ route('pemesanan_cultural.index') }}" title="Services">Pemesanan </a></li>
+                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
                                              <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
                                             
                                         </ul> 

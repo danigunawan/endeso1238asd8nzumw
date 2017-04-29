@@ -125,7 +125,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('kamar','KamarController');
 	Route::resource('komentar_kamar','KomentarKamarController');
 	Route::resource('komentar_kategori','KomentarKategoriController');
-	Route::resource('pemesanan_cultural','PemesananCulturalController');
+	Route::resource('pemesanan','PemesananController');
+
+	Route::get('pesana/homestay',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay',
+	'uses' => 'AnggotaController@datatable_pesanan_homestay'
+	] );
 
 	Route::get('komentar_kategori/no_konfirmasi/{id}',[
 	'middleware' => ['auth'],
