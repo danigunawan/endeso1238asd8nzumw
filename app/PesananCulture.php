@@ -13,4 +13,14 @@ class PesananCulture extends Model
     	$query->where('id_warga',$id_warga)->where('jadwal',$jadwal)->where('check_in',$tanggal_masuk)->sum('jumlah_orang');
         return $query;
     }
+
+    public function warga()
+	  {
+	  	return $this->belongsTo('App\Warga','id_warga');
+	  }
+
+    public function user()
+	  {
+	  	return $this->belongsTo('App\User','id_user');
+	  }
 }
