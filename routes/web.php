@@ -125,6 +125,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('kamar','KamarController');
 	Route::resource('komentar_kamar','KomentarKamarController');
 	Route::resource('komentar_kategori','KomentarKategoriController');
+	Route::resource('pemesanan_cultural','PemesananCulturalController');
 
 	Route::get('komentar_kategori/no_konfirmasi/{id}',[
 	'middleware' => ['auth'],
