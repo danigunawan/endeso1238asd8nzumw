@@ -130,7 +130,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::get('pesana/homestay',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.homestay',
-	'uses' => 'AnggotaController@datatable_pesanan_homestay'
+	'uses' => 'PemesananController@datatable_pesanan_homestay'
 	] );
 
 	Route::get('komentar_kategori/no_konfirmasi/{id}',[

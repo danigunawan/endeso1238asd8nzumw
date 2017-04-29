@@ -65,7 +65,7 @@ class PemesananController extends Controller
 
         if ($request->ajax()) {
 
-             $pesanan_homestay = PesananHomestay::with(['warga','user']);
+             $pesanan_homestay = PesananHomestay::with(['kamar','user']);
 
             return Datatables::of($pesanan_homestay)->addColumn('status_pesanan',function($pesanan_status){
                 $status_pesanan = "status_pesanan";

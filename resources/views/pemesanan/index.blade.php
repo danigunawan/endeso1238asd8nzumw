@@ -34,7 +34,9 @@
                          <table  class="table-striped table" id="datatable_pesanan_homestay">
                              <thead>
                                 <tr>
-                                    <th >Status</th> 
+                                    <th>Nama Kamar</th> 
+                                    <th>Nama Pemesan</th> 
+                                    <th>Status</th> 
                                 </tr>
                              </thead>
                         </table>
@@ -59,7 +61,9 @@
 {!! $html->scripts() !!}
 <script type="text/javascript">
 $("#datatable_pesanan_homestay").DataTable({
-    "serverSide":true,"processing":true,"ajax":"{{ url('pesana/homestay') }}","columns":[ 
+    "serverSide":true,"processing":true,"ajax":"{{ url('admin/pesana/homestay') }}","columns":[  
+    {"data":"kamar.id_kamar","name":"kamar.id_kamar","title":"Nama Kamar","orderable":false,"searchable":false},
+    {"data":"user.name","name":"user.name","title":"Nama Pemesan","orderable":false,"searchable":false},
     {"data":"status_pesanan","name":"status_pesanan","title":"","orderable":false,"searchable":false}
 ]});
 </script>
