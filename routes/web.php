@@ -18,6 +18,12 @@ Route::post('/ajax-harga-cultural', 'PesananCulturalController@ajax_harga_cultur
 Route::post('/ajax-harga-perhitungan-cultural', 'PesananCulturalController@ajax_harga_perhitungan_cultural');
 
 /* PENUTUP AJAX PESANAN CULTURAL */
+
+/* PEMBUKA AJAX PEMBAYARAN HOMESTAY */
+Route::post('/update-status-pesanan', 'PembayaranController@status_pesanan');
+/* PENUTUP AJAX PEMBAYARAN HOMESTAY */
+
+
 Route::get('/', 'HomeController@index');
 
 
@@ -204,8 +210,8 @@ Route::get('/pembayaran-homestay/{id}', [
 
 Route::get('/transaksi_pembayaran_homestay/{id}', [ 	
 	'middleware' => ['auth'],
-	'as'=> 'pembayaran.transaksi_pembayaran_culture',
-	'uses' => 'PembayaranController@transaksi_pembayaran_culture'
+	'as'=> 'pembayaran.transaksi_pembayaran_homestay',
+	'uses' => 'PembayaranController@transaksi_pembayaran_homestay'
 ]);
 
 Route::post('/pembayaran-proses', [ 	
