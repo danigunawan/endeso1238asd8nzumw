@@ -62,6 +62,8 @@
 								{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
 							</div>
 
+
+
 							<div class="panel panel-default" style="background:#eceff1;" id="kolom_harga">
 								<div class="panel-body">
 								{!! Form::label('harga_makan', 'Harga Makan' , ['class' => 'control-label']) !!}
@@ -76,9 +78,8 @@
 								</div>
 								{!! $errors->first('harga_makan', '<p class="help-block">:message</p>') !!}
   								</div>
-  								</div>
+								  </div>
   							</div>
-
 
 								{!! Form::hidden('harga_makan_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_makan_hidden', 'autocomplete' => 'off']) !!}
 							

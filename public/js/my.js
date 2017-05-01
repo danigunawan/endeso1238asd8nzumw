@@ -101,7 +101,7 @@ function hitung_penginapan_checkbox() {
 		$("#harga_makan_tampil").hide();
 		$("#label").hide();
 		$("#harga_makan_hidden").val('');
-		$(this).attr("data-toogle", 0);
+		$(this).attr("data-toogle", "0");
 
 		}
 		else{
@@ -109,7 +109,7 @@ function hitung_penginapan_checkbox() {
 		$("#harga_makan_tampil").show();
 		$("#label").show();
 		$("#harga_makan_hidden").val(harga_makan);
-		$(this).attr("data-toogle", 1);
+		$(this).attr("data-toogle", "1");
 		}
 
 
@@ -185,7 +185,6 @@ function hitung_penginapan() {
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		var hitung_hari = diffDays;
 		var jumlah_orang = $("#jumlah_orang").val();
-		 		console.log(jumlah_orang);
 
  		if (jumlah_orang == ''){
 			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
@@ -235,6 +234,7 @@ function hitung_penginapan_document() {
 		$("#harga_makan_tampil").hide();
 		$("#label").hide();
 		$("#harga_makan_hidden").val('');
+		$("#harga_makan").attr("data-toogle", 0);
 
 		var tanggal_checkin = new Date($("#datepicker1").val());
 		var tanggal_checkout = new Date($("#datepicker2").val());

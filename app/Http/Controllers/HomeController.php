@@ -304,7 +304,7 @@ class HomeController extends Controller
       $format_check_in = $check_in->format('j M Y');
 
       $check_out = DateTime::createFromFormat('Y-m-d', $pesanan_homestay->check_out);
-      $format_check_out = $check_in->format('j M Y');
+      $format_check_out = $check_out->format('j M Y');
 
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_homestay->created_at);
       $waktu_pesan = $created_ats->format('j M Y');
@@ -332,6 +332,8 @@ class HomeController extends Controller
 
       return view('detail_pesanan_homestay',['pesanan_homestay'=>$pesanan_homestay, 'tampil_detail'=>$tampil_detail, 'waktu_pesan'=>$waktu_pesan]);      
     }
+
+
 
     public function detail_pesanan_culture($id,$destinasi,$aktivitas)
     {

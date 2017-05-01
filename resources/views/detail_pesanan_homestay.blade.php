@@ -95,8 +95,9 @@
 						    		<div class="col-sm-4">
 						    			<p> Jumlah Malam <br><br>
 						    			<b>{!! $pesanan_homestay->jumlah_malam !!}{!! " Malam" !!}</b></p><br>
-											<a href="{{ route('pembayaran_homestay.homestay', $pesanan_homestay->id) }}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
-
+						    			@if ($pesanan_homestay->status_pesanan < 2 )
+											<a href="{{ route('pembayaran.index', $pesanan_homestay->id) }}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
+										@endif
 						    		</div>
 						    	</div>
 						    </div>

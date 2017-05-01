@@ -105,7 +105,6 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-    	$("#harga_makan").attr("data-toogle", 0);
       	hitung_penginapan_document();
 
 
