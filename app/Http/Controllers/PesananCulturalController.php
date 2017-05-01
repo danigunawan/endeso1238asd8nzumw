@@ -31,7 +31,7 @@ class PesananCulturalController extends Controller
             'id_warga' => 'required|exists:warga,id',
             'jadwal' => 'required',
             'check_in' => 'required',
-            'nama' => 'required',
+            'nama_warga' => 'required',
             'no_telp' => 'required|numeric',
             'no_ktp' => 'required|numeric',
             'email' => 'required|email|max:255',
@@ -46,7 +46,7 @@ class PesananCulturalController extends Controller
             $pesanan_culture = PesananCulture::create([
             'id_warga' => $request->id_warga,
             'check_in' => HomeController::tanggal_mysql($request->check_in), 
-            'nama' => $request->nama,
+            'nama_warga' => $request->nama_warga,
             'no_telp' => $request->no_telp,
             'no_ktp' => $request->no_ktp,
             'email' => $request->email,
@@ -70,46 +70,13 @@ class PesananCulturalController extends Controller
         } 
     }
 
-    public function ajax_jadwal_kegiatan(Request $request)
+    public function ajax_data_warga(Request $request)
     { 
         if ($request-> ajax()) {
             # code...
             $id_warga = $request->id_warga;
-            $warga = Warga::select('id','jadwal_1','jadwal_2','jadwal_3','jadwal_4','jadwal_5')->find($id_warga); 
+            $warga = Warga::find($id_warga); 
             return $warga;
-
-        } 
-    }
-
-    public function ajax_warga_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return $warga->nama_warga;
-
-        } 
-    }
-
-    public function ajax_harga_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return ($warga->harga_endeso + $warga->harga_pemilik);
-
-        } 
-    }
-
-    public function ajax_harga_perhitungan_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return ($warga->harga_endeso + $warga->harga_pemilik);
 
         } 
     }

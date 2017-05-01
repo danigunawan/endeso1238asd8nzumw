@@ -281,3 +281,64 @@ function hitung_penginapan_document() {
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
 }
+
+
+//SCRIPT PERHITUNGAN PEMESAN CULTURAL
+
+
+function hitung_penginapan_cultural_document() {
+
+
+        var jumlah_orang = $("#jumlah_orang").val();
+        var harga_cultural = $("#harga_cultural").text();
+
+        if (harga_cultural == "") {
+            harga_cultural = 0;
+        };
+
+        if (jumlah_orang == "") {
+            jumlah_orang = 0;
+        };
+        
+        var total_harga = parseInt(harga_cultural) * parseInt(jumlah_orang);
+
+        // tampilan rincian harga
+        $("#hitung_orang").text(jumlah_orang);
+        $("#hitung_harga_orang").text(harga_cultural);
+        $("#harga_jumlah_orang").text(total_harga);
+}
+
+function hitung_penginapan_cultural() {
+
+        var jumlah_orang = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_orang").val()))));
+        var harga_cultural = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_cultural").text()))));
+
+        if (harga_cultural == "") {
+            harga_cultural = 0;
+        };
+
+        if (jumlah_orang == "") {
+            jumlah_orang = 0;
+        };
+        
+        var total_harga = parseInt(harga_cultural) * parseInt(jumlah_orang);
+
+        // tampilan rincian harga
+        $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+        $("#hitung_harga_orang").text(tandaPemisahTitik(harga_cultural));
+        $("#harga_jumlah_orang").text(tandaPemisahTitik(total_harga));
+        $("#harga_total").text(tandaPemisahTitik(total_harga));
+
+}
+
+function hitung_penginapan_warga_cultural(harga_warga) {
+
+       	var jumlah_orang = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_orang").val()))));
+       	if (jumlah_orang == "") {
+       		jumlah_orang = 0;
+       	}
+   //HITUNG TOTAL HARGA
+		var total_harga = parseInt(harga_warga) * parseInt(jumlah_orang);
+		$("#harga_jumlah_orang").text(tandaPemisahTitik(total_harga));
+		$("#harga_total").text(tandaPemisahTitik(total_harga));
+}
