@@ -30,7 +30,46 @@ class PembayaranCulturalController extends Controller
       $rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
       $warga = Warga::select('id','harga_endeso','harga_pemilik')->where('id',$pesanan_culture->id_warga)->first();
 
-      return view('pembayaran_cultural.index',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'rekening'=>$rekening,'warga'=>$warga]);
+      $datetime1 = new DateTime();
+      $datetime2 = new DateTime($pesanan_culture->created_at);
+      $interval = $datetime1->diff($datetime2);
+      $time_diff_jam = $interval->format('%H');
+      $time_diff_minutes = $interval->format('%i');
+
+      if ($time_diff_jam >= 1){
+            $pesanan =  PesananCulture::find($id);
+            $pesanan->status_pesanan = 5; 
+            $pesanan->save();
+
+            Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Transaksi Ini Telah Melebihi Batas Waktu yang ditentukan "
+        ]);
+
+             return redirect()->back();
+        }
+        else{
+            if ($time_diff_minutes > 30){
+            
+            $pesanan =  PesananCulture::find($id);
+            $pesanan->status_pesanan = 5; 
+            $pesanan->save();
+
+            Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Transaksi Ini Telah Melebihi Batas Waktu yang ditentukan "
+            ]);
+
+             return redirect()->back();
+
+            }
+            else{
+            $time_diff_minutes = 30 - $time_diff_minutes;
+
+            return view('pembayaran_cultural.index',['id'=>$id,'pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'rekening'=>$rekening,'warga'=>$warga, 'time_diff'=>$time_diff_minutes]);
+            }
+        }
+
     } 
     
     public function transaksi_pembayaran_culture($id,$destinasi,$aktivitas){ 
@@ -84,6 +123,11 @@ class PembayaranCulturalController extends Controller
  
         return redirect('/user/pesanan');
         } 
-
+  public function status_pesanan_cultural(Request $request){
+        $id = $request->id_pesanan;
+        $pesanan_cultural =  PesananCulture::find($id);
+        $pesanan_cultural->status_pesanan_cultural = 5; 
+        $pesanan_cultural->save(); 
+    }
 
 }

@@ -13,7 +13,7 @@
 /* PEMBUKA AJAX PESANAN CULTURAL */
 Route::post('/ajax-data-warga', 'PesananCulturalController@ajax_data_warga');
 
-
+Route::post('/update-status-pesanan-cultural', 'PembayaranCulturalController@status_pesanan_cultural');
 /* PENUTUP AJAX PESANAN CULTURAL */
 
 /* PEMBUKA AJAX PEMBAYARAN HOMESTAY */

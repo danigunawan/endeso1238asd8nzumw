@@ -96,28 +96,42 @@
  @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-    document.getElementById('timer').innerHTML =
-  30 + ":" + 00;
-startTimer();
+<script type="text/javascript">
+$(document).ready(function(){ 
+  document.getElementById('timer').innerHTML = {{$time_diff}} + ":" + 00;
+  startTimer();  
 
 function startTimer() {
   var presentTime = document.getElementById('timer').innerHTML;
   var timeArray = presentTime.split(/[:]+/);
-  var m = timeArray[0];
-  var s = checkSecond((timeArray[1] - 1));
-  if(s==59){m=m-1}
+  var id_pesanan = "{{$id}}";
+  var menit = timeArray[0];
+  var detik = checkSecond((timeArray[1] - 1));
+  if(detik==59){menit=menit-1}
   //if(m<0){alert('timer completed')}
   
   document.getElementById('timer').innerHTML =
-    m + ":" + s;
-  setTimeout(startTimer, 1000);
+    menit + ":" + detik;
+    if(menit < "03"){
+      //untuk post ke route
+      $.post('{{ url('/update-status-pesanan-cultural') }}',{'_token': $('meta[name=csrf-token]').attr('content'),id_pesanan:id_pesanan },function(data){  
+      });
+     //untuk post ke route
+
+      window.location = "{{ url('/user/pesanan/') }}";
+    }
+    else{
+    setTimeout(startTimer, 1000);
+  }
 }
 
 function checkSecond(sec) {
   if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
   if (sec < 0) {sec = "59"};
   return sec;
-}
+} 
+
+
+});
 </script>
 @endsection
