@@ -550,6 +550,8 @@ class HomeController extends Controller
             <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
               <h4>'. $kategoris->nama_aktivitas .'</h4>
               <h6><b><sup>RP</sup>'. $warga->harga_endeso .'   </b><span>ribu / paket</span></h6>
+
+              <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
               <span>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>

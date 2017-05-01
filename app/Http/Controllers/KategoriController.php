@@ -64,6 +64,7 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas',
             'destinasi_kategori' => 'required|exists:destinasi,id',
+            'durasi' => 'required',
             'foto_kategori.*' => 'image|max:2048'
         ]);
 
@@ -71,7 +72,8 @@ class KategoriController extends Controller
 
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
-           'destinasi_kategori' => $request->destinasi_kategori
+           'destinasi_kategori' => $request->destinasi_kategori,
+           'durasi' => $request->durasi
            
         ]);
 
@@ -164,6 +166,7 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas,' . $id,
             'destinasi_kategori' => 'required|exists:destinasi,id',
+            'durasi' => 'required',
             'foto_kategori.*' => 'image|max:2048'
         ]);
 
@@ -172,7 +175,8 @@ class KategoriController extends Controller
 
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
-           'destinasi_kategori' => $request->destinasi_kategori
+           'destinasi_kategori' => $request->destinasi_kategori,
+           'durasi' => $request->durasi
            
         ]);
 
