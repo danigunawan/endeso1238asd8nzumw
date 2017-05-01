@@ -11,11 +11,8 @@
 |
 */
 /* PEMBUKA AJAX PESANAN CULTURAL */
-Route::post('/ajax-jadwal-kegiatan', 'PesananCulturalController@ajax_jadwal_kegiatan');
+Route::post('/ajax-data-warga', 'PesananCulturalController@ajax_data_warga');
 
-Route::post('/ajax-warga-cultural', 'PesananCulturalController@ajax_warga_cultural');
-Route::post('/ajax-harga-cultural', 'PesananCulturalController@ajax_harga_cultural');
-Route::post('/ajax-harga-perhitungan-cultural', 'PesananCulturalController@ajax_harga_perhitungan_cultural');
 
 /* PENUTUP AJAX PESANAN CULTURAL */
 Route::get('/', 'HomeController@index');

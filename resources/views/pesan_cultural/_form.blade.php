@@ -8,13 +8,13 @@
 
 <div class="form-group{{ $errors->has('id_warga') ? ' has-error' : '' }}">
         {!! Form::label('id_warga', 'Nama Warga', ['class' => 'control-label']) !!}
-        {!!Form::select('id_warga', $warga, null, ['class' => 'form-control'])!!}
+        {!!Form::select('id_warga', $warga, null, ['class' => 'form-control','placeholder'=>'--PILIH WARGA--'])!!}
         {!! $errors->first('id_warga', '<p class="help-block">:message</p>') !!}
 </div>
 <!--KOLOM NAMA LENGKAP -->
 <div class="form-group{{ $errors->has('jadwal') ? ' has-error' : '' }}">
         {!! Form::label('jadwal', 'Jadwal ', ['class' => 'control-label']) !!}
-        {!! Form::select('jadwal', [], null, ['class' => 'form-control','id' => 'jadwal', 'autocomplete' => 'off']) !!}
+        {!! Form::select('jadwal', [], null, ['class' => 'form-control','placeholder'=>'--PILIH JADWAL--','id' => 'jadwal', 'autocomplete' => 'off']) !!}
         {!! $errors->first('jadwal', '<p class="help-block">:message</p>') !!}
 </div>
 
@@ -46,23 +46,8 @@
 
 <div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
         {!! Form::label('jumlah_orang', 'Jumlah Orang', ['class' => 'control-label']) !!}
-
         {!! Form::select('jumlah_orang',[
-                             '1' => '1',
-                             '2' => '2',
-                             '3' => '3',
-                             '4' => '4',
-                             '5' => '5',
-                             '6' => '6',
-                             '7' => '7',
-                             '8' => '8',
-                             '9' => '9',
-                             '10' => '10',
-                             '11' => '11',
-                             '12' => '12',
-                             '13' => '13',
-                             '14' => '14',
-                             '15' => '15',
+                             $jumlah_orang => $jumlah_orang,
                              ],$value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
         {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
 </div> 
