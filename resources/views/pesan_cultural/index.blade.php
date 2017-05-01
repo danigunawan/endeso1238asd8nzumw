@@ -130,6 +130,7 @@
     $(document).on('change','#id_warga',function(e){
 
             var id_warga = $('#id_warga').val();
+            var jumlah_orang = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_orang").val()))));
         
 
                         $.post('{{ url('/ajax-data-warga') }}',{'_token': $('meta[name=csrf-token]').attr('content'),
@@ -167,20 +168,26 @@
                         $("#harga_cultural").text(tandaPemisahTitik(harga_warga));
                         $("#hitung_harga_orang").text(tandaPemisahTitik(harga_warga));
 
+                    //HITUNG HARGA
                         hitung_penginapan_warga_cultural(harga_warga);
+
+                    //TAMPIL KAPASITAS ORANG /WARGA
+                            var kapasitas_orang;
+                            $("#jumlah_orang option").remove();
+
+                            $("#jumlah_orang").append('<option class="span-kapasitas" value="">--PILIH JUMLAH ORANG--</option>');
+                            for (kapasitas_orang = 1; kapasitas_orang <= kapasitas; kapasitas_orang++){
+                                if (jumlah_orang == kapasitas_orang) {
+                                    $("#jumlah_orang").append('<option selected class="span-kapasitas" value="'+kapasitas_orang+'">'+kapasitas_orang+' '+'</option>');                                }
+                                else{
+                                    $("#jumlah_orang").append('<option class="span-kapasitas" value="'+kapasitas_orang+'">'+kapasitas_orang+' '+'</option>');                                }
+                            }
 
                     //TAMPIL FOTO WARGA
                         $(".span-hapus").remove();
 
                         $("#span_foto").prepend('<span class="span-hapus"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
                         $("#span_tentang_warga").show();
-
-                    //TAMPIL KAPASITAS ORANG /WARGA
-                            var kapasitas_orang;
-                            $("#jumlah_orang option").remove();
-                            for (kapasitas_orang = 1; kapasitas_orang <= kapasitas; kapasitas_orang++){
-                                $("#jumlah_orang").append('<option class="span-kapasitas" value="'+kapasitas_orang+'">'+kapasitas_orang+' '+'</option>');
-                            }
 
                         });
 

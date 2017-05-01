@@ -31,7 +31,7 @@ class PesananCulturalController extends Controller
             'id_warga' => 'required|exists:warga,id',
             'jadwal' => 'required',
             'check_in' => 'required',
-            'nama_warga' => 'required',
+            'nama' => 'required',
             'no_telp' => 'required|numeric',
             'no_ktp' => 'required|numeric',
             'email' => 'required|email|max:255',
@@ -46,7 +46,7 @@ class PesananCulturalController extends Controller
             $pesanan_culture = PesananCulture::create([
             'id_warga' => $request->id_warga,
             'check_in' => HomeController::tanggal_mysql($request->check_in), 
-            'nama_warga' => $request->nama_warga,
+            'nama' => $request->nama,
             'no_telp' => $request->no_telp,
             'no_ktp' => $request->no_ktp,
             'email' => $request->email,
