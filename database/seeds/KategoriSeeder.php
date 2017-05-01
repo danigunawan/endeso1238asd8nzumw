@@ -13,8 +13,8 @@ class KategoriSeeder extends Seeder
     public function run()
     {
         //
-        $kategori = Kategori::create(['nama_aktivitas' => 'A', 'destinasi_kategori' => '1', 'deskripsi_kategori' => 'Kota Tapis Berseri' ]);
-        $kategori = Kategori::create(['nama_aktivitas' => 'B', 'destinasi_kategori' => '2', 'deskripsi_kategori' => 'Ibu Kota Indonesia' ]);
-        $kategori = Kategori::create(['nama_aktivitas' => 'C', 'destinasi_kategori' => '3', 'deskripsi_kategori' => 'Tasik Terbaik' ]);
+        $kategori = Kategori::create(['nama_aktivitas' => 'Tapis Kain', 'destinasi_kategori' => '1', 'deskripsi_kategori' => 'Kota Lampung' ]);
+        $kategori = Kategori::create(['nama_aktivitas' => 'Bela Diri', 'destinasi_kategori' => '2', 'deskripsi_kategori' => 'Kota Jakarta' ]);
+        $kategori = Kategori::create(['nama_aktivitas' => 'Bertani', 'destinasi_kategori' => '3', 'deskripsi_kategori' => 'Kota Tasik' ]);
     }
 }

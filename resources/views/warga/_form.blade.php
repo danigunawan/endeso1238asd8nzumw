@@ -54,11 +54,51 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('harga') ? ' has-error' : '' }}">
-	{!! Form::label('harga', 'Harga', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('durasi') ? ' has-error' : '' }}">
+	{!! Form::label('durasi', 'Durasi', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-4">
-		{!! Form::text('harga', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
-		{!! $errors->first('harga', '<p class="help-block">:message</p>') !!}
+		{!! Form::text('durasi', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('durasi', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('harga_endeso') ? ' has-error' : '' }}">
+	{!! Form::label('harga_endeso', 'Harga Endeso', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('harga_endeso', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_endeso', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('harga_pemilik') ? ' has-error' : '' }}">
+	{!! Form::label('harga_pemilik', 'Harga Pemilik', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('harga_pemilik', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('harga_pemilik', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('latitude') ? ' has-error' : '' }}">
+	{!! Form::label('latitude', 'Latitude', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('latitude', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('latitude', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('longitude') ? ' has-error' : '' }}">
+	{!! Form::label('longitude', 'Longitude', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('longitude', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('longitude', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('alamat_warga') ? ' has-error' : '' }}">
+	{!! Form::label('alamat_warga', 'Alamat Warga', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::text('alamat_warga', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('alamat_warga', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
@@ -70,18 +110,31 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
-	{!! Form::label('foto_profil', 'Foto', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('foto_profil.0') ? ' has-error' : '' }}">
+	{!! Form::label('foto_profil', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::file('foto_profil') !!}
+		{!! Form::file('foto_profil[]') !!}
 			@if (isset($warga) && $warga->foto_profil)
 				<p>
 					{!! Html::image(asset('img/'.$warga->foto_profil), null, ['class' => 'img-rounded img-responsive']) !!}
 				</p>
 			@endif
-		{!! $errors->first('foto_profil', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('foto_profil.0', '<p class="help-block">:message</p>') !!}
 	</div>
-</div>
+</div> 
+
+<div class="form-group{{ $errors->has('foto_profil.1') ? ' has-error' : '' }}">
+	{!! Form::label('foto_tempat', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::file('foto_profil[]') !!}
+			@if (isset($warga) && $warga->foto_tempat)
+				<p>
+					{!! Html::image(asset('img/'.$warga->foto_tempat), null, ['class' => 'img-rounded img-responsive']) !!}
+				</p>
+			@endif
+		{!! $errors->first('foto_profil.1', '<p class="help-block">:message</p>') !!}
+	</div>
+</div> 
 
 <div class="form-group">
 	<div class="col-md-4 col-md-offset-2">

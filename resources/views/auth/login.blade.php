@@ -72,6 +72,10 @@
                                     Login
                                 </button>
 
+                                <a href="{{ url('auth/google') }}" class="btn loginBtn loginBtn--google" style="text-decoration: none;">
+                                    <strong>Login With Google</strong>
+                                </a>
+
                                 
                                 Belum punya akun? <a href="{{ route('register') }}">Daftar</a>
                             </div>

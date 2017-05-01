@@ -17,6 +17,10 @@ class CreateKategorisTable extends Migration
             $table->increments('id');
             $table->string('nama_aktivitas');
             $table->string('foto_kategori')->nullable();
+            $table->string('foto_kategori2')->nullable();
+            $table->string('foto_kategori3')->nullable();
+            $table->string('foto_kategori4')->nullable();
+            $table->string('foto_kategori5')->nullable();
             $table->integer('destinasi_kategori'); 
             $table->text('deskripsi_kategori')->nullable();            
             $table->timestamps();

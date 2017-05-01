@@ -64,9 +64,9 @@
                           <div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
                             <label for="no_telp" class="control-label">No Telp</label>
 
-                            <div class="">
-                    
-                               {!! Form::text('no_telp', null, ['class'=>'form-control']) !!}
+                            <div class=""> 
+
+                               {!! Form::number('no_telp', null, ['class'=>'form-control']) !!}
 
                                 {!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -76,20 +76,28 @@
 
                             <div class="">
                                     
-                               {!! Form::text('tanggal_lahir', null, ['class'=>'form-control']) !!}
+                               {!! Form::date('tanggal_lahir', null, ['class'=>'form-control','maxlength' => 15]) !!}
 
                                 {!! $errors->first('tanggal_lahir', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
                           <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
-                            <label for="alamat" class=" control-label">Alamat</label>
+                            <label for="alamat" class=" control-label">Tempat Tinggal</label>
 
                             <div class="">
-                               {!! Form::text('alamat', null, ['class'=>'form-control']) !!}
+                               {!! Form::text('alamat', null, ['class'=>'form-control','maxlength' => 50]) !!}
                                 {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
                             </div>
                         </div>
 
+                          <div class="form-group{{ $errors->has('kewarga_negaraan') ? ' has-error' : '' }}">
+                            <label for="kewarga_negaraan" class=" control-label">Kewarga Negaraan</label>
+
+                            <div class="">
+                               {!! Form::text('kewarga_negaraan', null, ['class'=>'form-control','maxlength' => 50]) !!}
+                                {!! $errors->first('kewarga_negaraan', '<p class="help-block">:message</p>') !!}
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('foto_profil') ? ' has-error' : '' }}">
                         {!! Form::label('foto_profil', 'Foto Profil', ['class'=>' control-label']) !!}
                             <div class="">
@@ -114,13 +122,20 @@
                     </form>
                     <div class="col-md-4">
                         
-                        @if (isset($profil) && $profil->foto_profil)
+                        @if (isset($profil) && $profil->foto_profil && $status_foto_profil === FALSE )
                         <p>
-                        {!! Html::image(asset('img/'.$profil->foto_profil), null, ['class'=>'img-rounded img-responsive   ']) !!}
+                        {!! Html::image(asset('img/'.$profil->foto_profil), null, ['class'=>'img-rounded img-responsive']) !!}
+                        <br>
+                        Foto Profil
+                        </p>
+                        @elseif (isset($profil) && $profil->foto_profil && $status_foto_profil >= 0  )
+                        <p>
+                        {!! Html::image(asset($profil->foto_profil), null, ['class'=>'img-rounded img-responsive']) !!}
                         <br>
                         Foto Profil
                         </p>
                         @endif
+
                     </div>
                    
                 </div> <!-- Row /- -->

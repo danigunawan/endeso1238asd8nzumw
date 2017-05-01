@@ -479,7 +479,9 @@
 			dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 		});
 		
-		$( "#datepicker1,#datepicker2" ).datepicker();
+		$( ".datepicker").datepicker({
+			minDate: 0
+		});
 		
 		/* -- Map Initialization */
 		if( $( "#map-canvas-contact").length == 1 ){

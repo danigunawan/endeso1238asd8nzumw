@@ -53,6 +53,62 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('jenis_kelamin') ? ' has-error' : '' }}">
+                            <label for="jenis_kelamin" class="col-md-4 control-label">Jenis Kelamin</label>
+
+                            <div class="col-md-6">
+                            {!! Form::select('jenis_kelamin', ['Laki-Laki' => 'Laki-Laki','Perempuan' => 'Perempuan'], null,['class' => 'form-control','placeholder' => 'Jenis Kelamin','required']) !!}
+
+                                @if ($errors->has('jenis_kelamin'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('jenis_kelamin') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('tanggal_lahir') ? ' has-error' : '' }}">
+                            <label for="tanggal_lahir" class="col-md-4 control-label">Tanggal Lahir</label>
+
+                            <div class="col-md-6">
+                                <input id="tanggal_lahir" type="tanggal_lahir" class="form-control" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+
+                                @if ($errors->has('tanggal_lahir'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tanggal_lahir') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
+                            <label for="alamat" class="col-md-4 control-label">Tempat Tinggal</label>
+
+                            <div class="col-md-6">
+                                <input id="alamat" type="alamat" class="form-control" name="alamat" value="{{ old('alamat') }}" required>
+
+                                @if ($errors->has('alamat'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('alamat') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('kewarga_negaraan') ? ' has-error' : '' }}">
+                            <label for="kewarga_negaraan" class="col-md-4 control-label">Kewarga Negaraan</label>
+
+                            <div class="col-md-6">
+                                <input id="kewarga_negaraan" type="kewarga_negaraan" class="form-control" name="kewarga_negaraan" value="{{ old('kewarga_negaraan') }}" required>
+
+                                @if ($errors->has('kewarga_negaraan'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('kewarga_negaraan') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
@@ -80,6 +136,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <a href="{{ url('auth/google') }}"class="btn loginBtn loginBtn--google" style="text-decoration: none;">
+                                    <strong>Register With Google</strong>
+                                </a>
 
                                 Sudah punya akun? <a href="{{ route('login') }}">Login</a>
                             </div>

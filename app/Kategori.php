@@ -14,4 +14,9 @@ class Kategori extends Model
 	  {
 	  return $this->belongsTo('App\Destinasi','destinasi_kategori');
 	  }
+
+	  public function warga()
+	  {
+	  	return $this->hasMany('App\Warga','id');
+	  }
 }

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','alamat','tanggal_lahir','no_telp','jenis_kelamin'
+        'name', 'email', 'password','alamat','tanggal_lahir','no_telp','jenis_kelamin','kewarga_negaraan','foto_profil'
     ];
 
     /**
@@ -64,4 +64,19 @@ class User extends Authenticatable
     $this->verification_token = null;
     $this->save();
     }
+ 
+    public function sendAkun($password_random)
+    {
+        
+    $token = $this->generateVerificationToken();
+    $user = $this;
+  
+    Mail::send('auth.emails.verification', compact('user', 'token','password_random'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Verifikasi Akun Endeso');
+
+    });
+
+    }
+
+
 }

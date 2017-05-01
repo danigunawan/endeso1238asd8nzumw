@@ -41,11 +41,79 @@
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
-        
+    
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
     <![endif]-->
+<style type="text/css">
+    
+/* Shared */
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
 
+
+/* Facebook */
+.loginBtn--facebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn--facebook:before {
+  border-right: #364e92 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.loginBtn--google:before {
+  border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
+}
+.big-checkbox {width: 3000000px; height: 3000000px;}
+.
+
+</style>
 
 
 </head>
@@ -69,7 +137,7 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                    <div class="logo-block col-md-3"><a href="index.html" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                    <div class="logo-block col-md-3"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
                     <div class="col-md-9 contact-detail">
                         <div class="phone">
                             <img src="{{ asset('images/phone-ic.png') }}" alt="Phone" />
@@ -104,7 +172,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="index.html" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
+                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
@@ -114,10 +182,7 @@
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
                                     <li><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
-                                    <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
-                                    </li>
-                                       
-                                    <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
+                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
                                     
                                 @endif
@@ -128,16 +193,7 @@
 
                                     </li>
                                     <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
-                                          <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Services</a> 
-                                        <i class="ddl-switch fa fa-angle-down"></i> 
-                                        <ul class="dropdown-menu"> 
-                                             <li><a href="{{ url('/list-penginapan')}}" title="Daftar">Homestay</a>
-                                    </li>
-                                     <li><a href="{{ url('/list-cultural')}}" title="Services">Cultural Experiences</a></li>
-                                        </ul> 
-
-                                    </li>
+                                          
                                     <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
@@ -170,28 +226,38 @@
 
                                     </li>
 
-                                     <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> User</a> 
-                                        <i class="ddl-switch fa fa-angle-down"></i> 
-                                        <ul class="dropdown-menu"> 
-                                             <li><a href="{{ route('user_admin.index')}}" title="Services">Admin </a></li>
-                                             <li><a href="{{ route('user_member.index')}}" title="Services">Member</a></li>
-                                        </ul> 
-
-                                    </li>
-
-                                     <li class="dropdown"> 
+                                    <li class="dropdown"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
                                               <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
+                                                <li><a href="{{ route('user_admin.index')}}" title="Services">User Admin </a></li>
+                                             <li><a href="{{ route('user_member.index')}}" title="Services">User Member</a></li>
                                         </ul> 
 
                                     </li>
-                                      <li><a href="#" title="Services">Komentar</a></li>
+                                     
+                                    <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Komentar</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('komentar_kamar.index')}}" title="Services">Kamar</a></li>
+                                             <li><a href="{{ route('komentar_kategori.index')}}" title="Services">Kategori</a></li>
+                                        </ul> 
+                                    </li> 
 
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pesanan</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
+                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
+                                            
+                                        </ul> 
+
+                                    </li>
                                        
 
 
@@ -260,6 +326,9 @@
         </div><!-- Top Footer -->
     </div><!-- Footer Section /- -->   
 
+
+
+
     <!-- JQuery v1.11.3 -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     
@@ -276,6 +345,52 @@
     <script src="{{ asset('js/custom.js') }}"></script>
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+      <script src="{{ asset('js/my.js') }}"></script>
+
+
+          <script type="text/javascript">
+
+        $(document).ready(function(){
+
+
+                var pilihan = $("#pilihan").val();
+
+                    //jika pilihan nya CULTUR EXPERIENCE
+                    if (pilihan == 2) {
+
+                        $("#span_cultur").hide();
+                        $("#datepicker1").attr("placeholder","TANGGAL");
+                    }
+                    else
+                    {
+
+                        $("#span_cultur").show();
+                        $("#datepicker1").attr("placeholder","DARI TANGGAL");
+
+                    }
+
+            $(document).on('change','#pilihan',function(e){
+
+                var pilihan = $(this).val();
+
+                    //jika pilihan nya CULTUR EXPERIENCE
+                    if (pilihan == 2) {
+
+                        $("#span_cultur").hide();
+                        $("#datepicker1").attr("placeholder","TANGGAL");
+                    }
+                    else
+                    {
+
+                        $("#span_cultur").show();
+                        $("#datepicker1").attr("placeholder","DARI TANGGAL");
+
+                    }
+
+            });
+        });
+
+       </script>
 
     @yield('scripts')
 </body>
