@@ -146,10 +146,10 @@ class HomeController extends Controller
               $pesanan_homestays->status_pesanan = "Anda baru saja melakukan pemesanan";   
           }
           else if ($pesanan_homestays->status_pesanan == 1) {
-              $pesanan_homestays->status_pesanan = "Anda telah mengkonfirmasi pembayaran anda";   
+              $pesanan_homestays->status_pesanan = "Admin Sedang Melakukan Pengecekan Pembayaran anda";   
           }
            else if ($pesanan_homestays->status_pesanan == 2) {
-              $pesanan_homestays->status_pesanan = "Kami telah mengkonfirmasi pembayaran anda";   
+              $pesanan_homestays->status_pesanan = "Pesanan Anda Telah dikonfirmasi oleh admin";   
           }
           elseif ($pesanan_homestays->status_pesanan == 3) {
               $pesanan_homestays->status_pesanan = "Check In";   
@@ -158,7 +158,7 @@ class HomeController extends Controller
               $pesanan_homestays->status_pesanan = "Check Out";   
           }  
           else if ($pesanan_homestays->status_pesanan == 5) {
-              $pesanan_homestays->status_pesanan = "Anda telah membatalkan pesanan anda";   
+              $pesanan_homestays->status_pesanan = "Pesanan Batal";   
           }
 
           $tampil_pesanan_homestay .= '<div class="panel panel-default">

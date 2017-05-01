@@ -9,7 +9,8 @@ use App\Kamar;
 use Http\Controller\Auth\StringController;
 use App\PembayaranHomestay;
 use Auth;
-
+use DateTime;
+use Session;
 class PembayaranController extends Controller
 {
     //
@@ -19,15 +20,54 @@ class PembayaranController extends Controller
     	$detail_pesanan = PesananHomestay::find($id);
         $kamar = Kamar::with(['rumah'])->find($detail_pesanan->id_kamar);
 
-     return view('pembayaran_homestay.index',['id'=>$id,'detail_pesanan'=>$detail_pesanan,'rekening'=>$rekening,'kamar'=>$kamar]);
+        $datetime1 = new DateTime();
+        $datetime2 = new DateTime($detail_pesanan->created_at);
+        $interval = $datetime1->diff($datetime2);
+        $time_diff_jam = $interval->format('%H');
+        $time_diff_minutes = $interval->format('%i');
+    
+        if ($time_diff_jam >= 1){
+            $pesanan =  PesananHomestay::find($id);
+            $pesanan->status_pesanan = 5; 
+            $pesanan->save();
 
+            Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Transaksi Ini Telah Melebihi Batas Waktu yang ditentukan "
+        ]);
+
+             return redirect()->back();
+        }
+        else{
+            if ($time_diff_minutes > 30){
+            
+            $pesanan =  PesananHomestay::find($id);
+            $pesanan->status_pesanan = 5; 
+            $pesanan->save();
+
+            Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Transaksi Ini Telah Melebihi Batas Waktu yang ditentukan "
+            ]);
+
+             return redirect()->back();
+
+            }
+            else{
+            $time_diff_minutes = 30 - $time_diff_minutes;
+
+            return view('pembayaran_homestay.index',['id'=>$id,'detail_pesanan'=>$detail_pesanan,'rekening'=>$rekening,'kamar'=>$kamar,'time_diff'=>$time_diff_minutes]);
+            }
+        }
     }
 
-        public function transaksi_pembayaran_culture($id){
+        public function transaksi_pembayaran_homestay($id){
 
     	$rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
     	$detail_pesanan = PesananHomestay::find($id);
         $kamar = Kamar::with(['rumah'])->find($detail_pesanan->id_kamar);
+        
+
 
      return view('pembayaran_homestay.transaksi_pembayaran',['id'=>$id,'detail_pesanan'=>$detail_pesanan,'rekening'=>$rekening,'kamar'=>$kamar]);
 
@@ -43,53 +83,6 @@ class PembayaranController extends Controller
             $pesanan =  PesananHomestay::find($request->id_pesanan);
             $pesanan->status_pesanan = 1; 
             $pesanan->save();
-
-            $pembayaran_homestay_count = PembayaranHomestay::where('id_pesanan',$request->id_pesanan)->count();
-
-        if ($pembayaran_homestay_count > 0){
-
-
-            $id_user = Auth::user()->id;
-            $pembayaran_homestay_update = PembayaranHomestay::where('id_pesanan',$request->id_pesanan);
-            $pembayaran_homestay_update->update([
-           'id_user' => $id_user,
-           'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
-           'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
-           'status_pembayaran' => "0"
-           ]);
-            
-            if ($request->hasFile('foto_tanda_bukti')) {
-                 // menambil foto_tanda_bukti yang diupload berikut ekstensinya
-
-                $filename = null;
-                $uploaded_foto_tanda_bukti = $request->file('foto_tanda_bukti');
-                $extension = $uploaded_foto_tanda_bukti->getClientOriginalExtension();
-                // membuat nama file random dengan extension
-                $filename = md5(time()) . '.' . $extension;
-                $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
-                // memindahkan file ke folder public/img
-                $uploaded_foto_tanda_bukti->move($destinationPath, $filename);
-                // hapus foto_tanda_bukti lama, jika ada
-                if ($pembayaran_homestay_update->foto_tanda_bukti) {
-                $old_foto_tanda_bukti = $pembayaran_homestay_update->foto_tanda_bukti;
-                $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
-                . DIRECTORY_SEPARATOR . $pembayaran_homestay_update->foto_tanda_bukti;
-                try {
-                File::delete($filepath);
-                } catch (FileNotFoundException $e) {
-                // File sudah dihapus/tidak ada
-                }
-                }
-        // ganti field foto_tanda_bukti dengan cover yang baru
-
-        $pembayaran_homestay_update->foto_tanda_bukti = $filename;
-        $pembayaran_homestay_update->save();
-            }
-            
-        return redirect('/user/pesanan');
-
-        } //if ($pesanan->id != $request->id_pesanan ){
-        else{
 
             $id_user = Auth::user()->id;
             $pembayaran_homestay_insert = PembayaranHomestay::create([
@@ -118,8 +111,17 @@ class PembayaranController extends Controller
             
           return redirect('/user/pesanan');
 
-        }//else ($pesanan->id == $request->id_pesanan ){
+     
+    }
 
+
+      public function status_pesanan(Request $request)
+    { 
+
+     $id = $request->id_pesanan;
+        $pesanan =  PesananHomestay::find($id);
+        $pesanan->status_pesanan = 5; 
+        $pesanan->save(); 
     }
 
 

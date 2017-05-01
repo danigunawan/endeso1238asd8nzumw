@@ -74,19 +74,19 @@
 							    				{!! "Anda baru saja melakukan pemesanan" !!}
 
 							    				@elseif($pesanan_homestay->status_pesanan == 1)
-							    				{!! "Kami telah mengkonfirmasi pembayaran anda" !!} 
+							    				{!! "Admin Sedang Melakukan Pengecekan Pembayaran anda" !!} 
 
 							    				@elseif($pesanan_homestay->status_pesanan == 2)
-							    				{!! "Check In" !!}
+							    				{!! "Pesanan Anda Telah dikonfirmasi oleh admin" !!}
 
 							    				@elseif($pesanan_homestay->status_pesanan == 3)
-							    				{!! "Check Out" !!}  
+							    				{!! "Check In" !!}  
 
 							    				@elseif($pesanan_homestay->status_pesanan == 4)
-							    				{!! "Anda baru saja melakukan pemesanan" !!}  
+							    				{!! "Check Out" !!}  
 
 							    				@elseif($pesanan_homestay->status_pesanan == 5)
-							    				{!!"Anda telah membatalkan pesanan anda" !!}   
+							    				{!!"Pesanan Batal" !!}   
 
 							    				@endif
 							    			</strong> 
@@ -95,7 +95,7 @@
 						    		<div class="col-sm-4">
 						    			<p> Jumlah Malam <br><br>
 						    			<b>{!! $pesanan_homestay->jumlah_malam !!}{!! " Malam" !!}</b></p><br>
-						    			@if ($pesanan_homestay->status_pesanan < 2 )
+						    			@if ($pesanan_homestay->status_pesanan < 1 )
 											<a href="{{ route('pembayaran.index', $pesanan_homestay->id) }}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
 										@endif
 						    		</div>
