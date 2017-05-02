@@ -103,6 +103,9 @@
 @media (min-width: 992px) {
 	.ow-navigation .navbar-brand {
 		display: none;
+	}	
+	.ow-navigation .li-navbar {
+		display: none!important;
 	}
 	.menu-block {
 		margin-top: -10px;

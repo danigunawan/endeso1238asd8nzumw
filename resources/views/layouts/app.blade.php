@@ -166,7 +166,7 @@
                     <div class="col-md-10">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
-                                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                <button aria-controls="navbar" aria-expanded="false" id="btnCollapse" collapse-toogle="1" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
@@ -184,6 +184,10 @@
                                     <li><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
                                     <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+                                    </li>
                                     
                                 @endif
 
@@ -199,6 +203,14 @@
                                     <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
                                     <li> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    </li>
+
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                           {{ csrf_field() }}
+                                        </form>
                                     </li>
                                     
                                 @endrole
@@ -259,33 +271,30 @@
 
                                     </li>
                                        
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
 
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                           {{ csrf_field() }}
+                                        </form>
+                                    </li>
 
                                 @endrole
                                 </ul>
                             </div>
                         </nav>
                     </div>
-                    <div class="col-md-2 book-now">
-
-                      @if (Auth::guest())
-                            <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+                    <div class="col-md-2 book-now" id="btnLogin">
+                        @if (Auth::guest())
+                          <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                         @else
+                          <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
 
-                       
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                   
+                          <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                             {{ csrf_field() }}
+                          </form>
                         @endif
-                        
-                    </div>
+                  </div>
                 </div><!-- Row /- -->
             </div><!-- Container /- -->
         </div><!-- Menu Block /- -->
@@ -352,8 +361,7 @@
 
         $(document).ready(function(){
 
-
-                var pilihan = $("#pilihan").val();
+            var pilihan = $("#pilihan").val();
 
                     //jika pilihan nya CULTUR EXPERIENCE
                     if (pilihan == 2) {
@@ -388,9 +396,11 @@
                     }
 
             });
+
         });
 
        </script>
+
 
     @yield('scripts')
 </body>
