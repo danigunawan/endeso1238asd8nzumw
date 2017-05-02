@@ -19,8 +19,8 @@ class CreatePembayaranCultureTable extends Migration
             $table->integer('id_pesanan');
             $table->integer('id_rekening_endeso');
             $table->string('nama_bank_pelanggan');
-            $table->integer('nomor_rekening_pelanggan');
-            $table->string('foto_tanda_bukti');
+            $table->string('nomor_rekening_pelanggan');
+            $table->string('foto_tanda_bukti')->nullable();
             $table->integer('status')->nullable();
             $table->timestamps();
         });

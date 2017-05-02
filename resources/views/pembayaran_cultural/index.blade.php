@@ -112,7 +112,7 @@ function startTimer() {
   
   document.getElementById('timer').innerHTML =
     menit + ":" + detik;
-    if(menit < "03"){
+    if(menit < "00"){
       //untuk post ke route
       $.post('{{ url('/update-status-pesanan-cultural') }}',{'_token': $('meta[name=csrf-token]').attr('content'),id_pesanan:id_pesanan },function(data){  
       });

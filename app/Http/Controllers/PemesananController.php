@@ -25,27 +25,27 @@ class PemesananController extends Controller
                 $status_pesanan = "status_pesanan";
                 if ($pesanan_status->status_pesanan == 0 ) {
                     # code...
-                    $status_pesanan = "baru saja melakukan pemesanan";
+                    $status_pesanan = "Pelanggan Baru Saja Melakukan Pemesanan";
                 }
                 elseif ($pesanan_status->status_pesanan == 1) {
                     # code...
-                     $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
+                     $status_pesanan = "Pelanggan Telah Mengkonfirmasi Pembayaran";
                 }
                 elseif ($pesanan_status->status_pesanan == 2) {
                     # code...
-                     $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
+                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi";
                 } 
                 elseif ($pesanan_status->status_pesanan == 3) {
                     # code...
-                     $status_pesanan = "Pelanggan telah Check In";
+                     $status_pesanan = "Pelanggan Check In";
                 } 
                 elseif ($pesanan_status->status_pesanan == 4) {
                     # code...
-                     $status_pesanan = "Pelanggan telah Check Out";
+                     $status_pesanan = "Pelanggan Check Out";
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan telah membatalkan pesanan anda";
+                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
                 } 
                 return $status_pesanan; 
                 })->make(true);
@@ -71,27 +71,27 @@ class PemesananController extends Controller
                 $status_pesanan = "status_pesanan";
                 if ($pesanan_status->status_pesanan == 0 ) {
                     # code...
-                    $status_pesanan = "baru saja melakukan pemesanan";
+                    $status_pesanan = "Pelanggan Baru Saja Melakukan Pemesanan";
                 }
                 elseif ($pesanan_status->status_pesanan == 1) {
                     # code...
-                     $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
+                     $status_pesanan = "Pelanggan Telah Mengkonfirmasi Pembayaran";
                 }
                 elseif ($pesanan_status->status_pesanan == 2) {
                     # code...
-                     $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
+                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi";
                 } 
                 elseif ($pesanan_status->status_pesanan == 3) {
                     # code...
-                     $status_pesanan = "Pelanggan telah Check In";
+                     $status_pesanan = "Pelanggan Check In";
                 } 
                 elseif ($pesanan_status->status_pesanan == 4) {
                     # code...
-                     $status_pesanan = "Pelanggan telah Check Out";
+                     $status_pesanan = "Pelanggan Check Out";
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan telah membatalkan pesanan anda";
+                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
                 } 
                 return $status_pesanan; 
                 })->make(true);

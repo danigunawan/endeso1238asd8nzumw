@@ -70,33 +70,34 @@
 					    		<div class="col-sm-4">
 					    			<p>Status Pesanan<br>
 					    		     <div class="alert alert-warning" role="alert">
-	                                     <strong>@if($pesanan_culture->status_pesanan == 0)
-						    				{!! "Anda baru saja melakukan pemesanan" !!}
+		                                     <strong>@if($pesanan_culture->status_pesanan == 0)
+							    				{!! "Anda Baru Saja Melakukan Pemesanan" !!}
 
-						    				@elseif($pesanan_culture->status_pesanan == 1)
-						    				{!! "Kami telah mengkonfirmasi pembayaran anda" !!} 
+							    				@elseif($pesanan_culture->status_pesanan == 1)
+							    				{!! "Kami Sedang Melakukan Pengecekan Pembayaran Anda" !!} 
 
-						    				@elseif($pesanan_culture->status_pesanan == 2)
-						    				{!! "Check In" !!}
+							    				@elseif($pesanan_culture->status_pesanan == 2)
+							    				{!! "Pembayaran Anda Telah Dikonfirmasi" !!}
 
-						    				@elseif($pesanan_culture->status_pesanan == 3)
-						    				{!! "Check Out" !!}  
+							    				@elseif($pesanan_culture->status_pesanan == 3)
+							    				{!! "Check In" !!}  
 
-						    				@elseif($pesanan_culture->status_pesanan == 4)
-						    				{!! "Anda baru saja melakukan pemesanan" !!}  
+							    				@elseif($pesanan_culture->status_pesanan == 4)
+							    				{!! "Check Out" !!}  
 
-						    				@elseif($pesanan_culture->status_pesanan == 5)
-						    				{!!"Anda telah membatalkan pesanan anda" !!}   
+							    				@elseif($pesanan_culture->status_pesanan == 5)
+							    				{!!"Pesanan Anda Dibatalkan" !!}   
 
-						    				@endif
-						    			</strong> 
+							    				@endif
+							    			</strong> 
                                       </div></p>
                                       
 					    		</div>
 
 					    		<div class="col-sm-4"><br>
+					    		@if ($pesanan_culture->status_pesanan < 1 )
 									<a href="{{ url('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas)}}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
-					    			
+					    		@endif
 					    		</div>
 
 					    	</div>
