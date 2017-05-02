@@ -10,15 +10,19 @@ use Auth;
 use App\Http\Controllers\HomeController;
 use App\Rekening;
 use App\TamuHomestay;
+use App\Http\Controllers\StringController;
 
 
 class PesanhomestayController extends Controller
 {
     //
 
-           public function index($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang){   
+           public function index($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction){   
         $detail_kamar = Kamar::with(['rumah'])->find($id);
-        return view('pesan_homestay.index',['detail_kamar' => $detail_kamar,'id'=>$id,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
+
+        $harga_kamar = $detail_kamar->harga_endeso + $detail_kamar->harga_pemilik;
+
+        return view('pesan_homestay.index',['detail_kamar' => $detail_kamar,'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),'id'=>$id,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
     	}
     	
     		public function store(Request $request){

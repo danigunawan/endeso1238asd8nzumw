@@ -92,16 +92,18 @@ function bersihPemisah(ini){
 
 function hitung_penginapan_checkbox() {
 
-		var harga_kamar = $("#harga_kamar").text();
-        var ceklist_harga_makan = $(this).attr('data-toogle');
-		var harga_makan = $("#hidden_makan").text();
-		if (ceklist_harga_makan == 1){
+		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
+        var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
+		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
+		var checked = $('#harga_makan').is(":checked");
 
-		var harga_jumlah =  parseInt(harga_kamar);
+		 if (checked == false){
+
+		 var harga_jumlah =  parseInt(harga_kamar);
 		$("#harga_makan_tampil").hide();
 		$("#label").hide();
 		$("#harga_makan_hidden").val('');
-		$(this).attr("data-toogle", 0);
+		$("#harga_makan").attr("data-toogle", 0);
 
 		}
 		else{
@@ -109,7 +111,7 @@ function hitung_penginapan_checkbox() {
 		$("#harga_makan_tampil").show();
 		$("#label").show();
 		$("#harga_makan_hidden").val(harga_makan);
-		$(this).attr("data-toogle", 1);
+		$("#harga_makan").attr("data-toogle", 0);
 		}
 
 
@@ -148,7 +150,7 @@ function hitung_penginapan_checkbox() {
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
-        $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
          $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
@@ -161,11 +163,12 @@ function hitung_penginapan_checkbox() {
 }
 function hitung_penginapan() {
 
-		var harga_kamar = $("#harga_kamar").text();
+		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
-		var harga_makan = $("#hidden_makan").text();
-		
-		if (ceklist_harga_makan == 0){
+		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
+		var checked = $('#harga_makan').is(":checked");
+
+		 if (checked == false){
 
 		var harga_jumlah =  parseInt(harga_kamar);
 		$("#harga_makan_tampil").hide();
@@ -214,7 +217,7 @@ function hitung_penginapan() {
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
-        $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
          $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
@@ -227,11 +230,16 @@ function hitung_penginapan() {
 }
 function hitung_penginapan_document() {
 
-		var harga_kamar = $("#harga_kamar").text();
+		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
-		var harga_makan = $("#hidden_makan").text();
-		
+		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
 		var harga_jumlah =  parseInt(harga_kamar);
+
+		if (harga_makan != 0) {
+
+		$("#kolom_harga").show();
+		};
+
 		$("#harga_makan_tampil").hide();
 		$("#label").hide();
 		$("#harga_makan_hidden").val('');
@@ -270,7 +278,7 @@ function hitung_penginapan_document() {
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
-        $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
          $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));

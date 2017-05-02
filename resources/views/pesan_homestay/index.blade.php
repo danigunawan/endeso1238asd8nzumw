@@ -70,7 +70,7 @@
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:150%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
 
-      						 	<tr><td  width="50%" style="font-size:150%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_kamar">{{$detail_kamar->harga_endeso + $detail_kamar->harga_pemilik}}</span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:150%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
 

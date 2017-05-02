@@ -18,23 +18,7 @@
 
 							<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
 								{!! Form::label('jumlah_orang', 'Jumlah Orang', ['class' => 'control-label']) !!}
-
-								{!! Form::select('jumlah_orang',[
-                          			'1' => '1',
-                          			'2' => '2',
-                          			'3' => '3',
-                          			'4' => '4',
-                          			'5' => '5',
-                          			'6' => '6',
-                          			'7' => '7',
-                          			'8' => '8',
-                          			'9' => '9',
-                           			'10' => '10',
-                           			'11' => '11',
-                           			'12' => '12',
-                           			'13' => '13',
-                           			'14' => '14',
-                           			'15' => '15',], $value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
+								{!! Form::selectRange('jumlah_orang',1 , $detail_kamar->kapasitas, $value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
 								{!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
 							</div>
 
@@ -64,13 +48,13 @@
 
 
 
-							<div class="panel panel-default" style="background:#eceff1;" id="kolom_harga">
+							<div style="display: none;" class="panel panel-default" style="background:#eceff1;" id="kolom_harga">
 								<div class="panel-body">
 								{!! Form::label('harga_makan', 'Harga Makan' , ['class' => 'control-label']) !!}
 								<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }} " >
    								<br>
     							<div class="col-sm-1" >
-     							<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" />
+     							<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" >
     							</div>
 
     							<div class="col-sm-11" >
