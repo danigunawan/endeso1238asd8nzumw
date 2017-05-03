@@ -156,6 +156,11 @@ class PemesananController extends Controller
 
             return Datatables::of($pesanan_homestay)
 
+            ->addColumn('action',     
+                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>'           
+ 
+            )
+
             ->addColumn('nama_pemilik', function($pesanan_homestay){
                 $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
                 $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah)->first();
@@ -190,8 +195,6 @@ class PemesananController extends Controller
                 } 
                 return $status_pesanan; 
                 })->make(true);
-            } 
-
-    }
-
+            }  
+      } 
 }

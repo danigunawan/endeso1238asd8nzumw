@@ -178,6 +178,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'pemesanan.status-cultural-pesanan',
 	'uses' => 'PemesananController@status_pesanan_cultural'
 	]); 
+
+	Route::get('status/pesanan/homestay/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-homestay-pesanan',
+	'uses' => 'PemesananController@status_pesanan_homestay'
+	]); 
 });
 
 
