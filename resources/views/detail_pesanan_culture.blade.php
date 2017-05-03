@@ -96,7 +96,7 @@
 
 					    		<div class="col-sm-4"><br>
 					    		@if ($pesanan_culture->status_pesanan < 1 )
-									<a href="{{ url('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas)}}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
+									<a href="{{ url('/pembayaran_culture/'.$pesanan_culture->id)}}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>	
 					    		@endif
 					    		</div>
 

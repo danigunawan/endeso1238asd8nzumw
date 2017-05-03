@@ -7,6 +7,7 @@ use App\Kategori;
 use App\Warga;
 use App\PesananCulture;
 use Session;
+use App\Rekening;
 use Auth;
 use App\Destinasi;
 
@@ -51,19 +52,29 @@ class PesananCulturalController extends Controller
             'no_ktp' => $request->no_ktp,
             'email' => $request->email,
             'jadwal' => $request->jadwal,
-            'total_harga' => $warga->harga_pemilik + $warga->harga_endeso,
             'harga_pemilik' => $warga->harga_pemilik,
             'harga_endeso' => $warga->harga_endeso, 
             'jumlah_orang' => $request->jumlah_orang, 
+            'total_harga' => ($warga->harga_pemilik + $warga->harga_endeso) * $request->jumlah_orang,
             'id_user'=> $id_user
 
            ]); 
+
+            Session::flash("flash_notification", [
+              "level"=>"success",
+              "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran Di Email Anda"
+            ]);
+
+            $rekening_tujuan = Rekening::all();
+            $total_harga_endeso = $warga->harga_endeso * $request->jumlah_orang;
+            PesananCulture::sendInvoice($total_harga_endeso,$pesanan_culture->id,$rekening_tujuan);
         
-        return redirect('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi->nama_destinasi.'/'.$kategori->nama_aktivitas.'');         
-        }else{
+        return redirect('/pembayaran_culture/'.$pesanan_culture->id.'');         
+        }
+        else{
             Session::flash("flash_notification", [
               "level"=>"danger",
-              "message"=>"Mohon maaf warga di cultural yang anda pilih sedang penuh, silahkan pilih jadwal atau warga lain"
+              "message"=>"Mohon Maaf Warga Di Cultural Yang Anda Pilih Sedang Penuh, Silahkan Pilih Jadwal Atau Warga Lain"
               ]);  
 
             return redirect()->back()->withInput($request->input());

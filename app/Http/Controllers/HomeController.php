@@ -264,7 +264,7 @@ class HomeController extends Controller
                                           </div>
 
                                           <div class="col-md-6">
-                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id."/".$query->nama_aktivitas."/".$query->nama_destinasi).'" 
+                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id).'" 
                                             class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
                                           </div>
                                         </div>
@@ -335,7 +335,7 @@ class HomeController extends Controller
 
 
 
-    public function detail_pesanan_culture($id,$destinasi,$aktivitas)
+    public function detail_pesanan_culture($id)
     {
       $pesanan_culture = PesananCulture::where('id',$id)->first();
 
@@ -345,13 +345,17 @@ class HomeController extends Controller
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
       $waktu_pesan = $created_ats->format('j M Y');
 
+      $warga = Warga::select('id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
+      $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
+      $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
+
 
       $nama_user = User::select('name')->where('id',$pesanan_culture->id_user)->first();
 
       $tampil_detail = '<div class="panel panel-default">
                           <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Culture</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$destinasi.',<h5>'.$aktivitas.'</h5></h3>
+                            <h3>'.$destinasi->nama_destinasi.',<h5>'.$kategori->nama_aktivitas.'</h5></h3>
                              <table>
                             <tbody>                            
                                 <tr><td width="25%"><font class="satu">Check-in </font></td> 
@@ -372,8 +376,8 @@ class HomeController extends Controller
                                             'tampil_detail'=>$tampil_detail, 
                                             'waktu_pesan'=>$waktu_pesan,     
                                             'nama_user'=>$nama_user,
-                                            'destinasi'=>$destinasi,
-                                            'aktivitas'=>$aktivitas]); 
+                                            'destinasi'=>$destinasi->nama_destinasi,
+                                            'aktivitas'=>$kategori->nama_aktivitas]); 
 
     }
 

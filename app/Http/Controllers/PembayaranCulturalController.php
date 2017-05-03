@@ -9,6 +9,8 @@ use App\PesananCulture;
 use App\PembayaranCulture;
 use Illuminate\Support\Facades\DB;
 use App\Warga; 
+use App\Kategori; 
+use App\Destinasi; 
 use DateTime;
 use App\Rekening;
 use Auth;
@@ -18,7 +20,7 @@ class PembayaranCulturalController extends Controller
 {
     //
 
-    public function pembayaran_culture($id,$destinasi,$aktivitas){     
+    public function pembayaran_culture($id){     
 
       $pesanan_culture = PesananCulture::where('id',$id)->first();
 
@@ -28,7 +30,9 @@ class PembayaranCulturalController extends Controller
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
       $waktu_pesan = $created_ats->format('j M Y');
       $rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
-      $warga = Warga::select('id','harga_endeso','harga_pemilik')->where('id',$pesanan_culture->id_warga)->first();
+      $warga = Warga::select('id','harga_endeso','harga_pemilik', 'id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
+      $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
+      $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
 
       $datetime1 = new DateTime();
       $datetime2 = new DateTime($pesanan_culture->created_at);
@@ -66,13 +70,13 @@ class PembayaranCulturalController extends Controller
             else{
             $time_diff_minutes = 30 - $time_diff_minutes;
 
-            return view('pembayaran_cultural.index',['id'=>$id,'pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'rekening'=>$rekening,'warga'=>$warga, 'time_diff'=>$time_diff_minutes]);
+            return view('pembayaran_cultural.index',['id'=>$id,'pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$kategori->nama_aktivitas,'destinasi'=>$destinasi->nama_destinasi,'rekening'=>$rekening,'warga'=>$warga, 'time_diff'=>$time_diff_minutes]);
             }
         }
 
     } 
     
-    public function transaksi_pembayaran_culture($id,$destinasi,$aktivitas){ 
+    public function transaksi_pembayaran_culture($id){ 
       $pesanan_culture = PesananCulture::where('id',$id)->first();
 
       $check_in = DateTime::createFromFormat('Y-m-d', $pesanan_culture->check_in);
@@ -80,9 +84,11 @@ class PembayaranCulturalController extends Controller
 
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
       $waktu_pesan = $created_ats->format('j M Y'); 
-      $warga = Warga::select('id','harga_endeso','harga_pemilik')->where('id',$pesanan_culture->id_warga)->first();
+      $warga = Warga::select('id','harga_endeso','harga_pemilik', 'id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
+      $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
+      $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
 
-      return view('pembayaran_cultural.transaksi_pembayaran',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas,'destinasi'=>$destinasi,'warga'=>$warga]);
+      return view('pembayaran_cultural.transaksi_pembayaran',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas->nama_aktivitas,'destinasi'=>$destinasi->nama_destinasi,'warga'=>$warga]);
     }
 
     public function store(Request $request){
