@@ -130,6 +130,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('komentar_kategori','KomentarKategoriController');
 	Route::resource('pemesanan','PemesananController');
 
+	Route::get('konfirmasi_pembayaran',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.index',
+	'uses' => 'PembayaranController@konfirmasi'
+	]);
+
 	Route::get('pesana/homestay',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.homestay',
@@ -159,6 +165,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'komentar_kamar.konfirmasi',
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
+
+
+
+
 
 
 	Route::get('pemesanan/cultural/check_in/{id}',[

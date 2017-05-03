@@ -18,6 +18,7 @@ class CreatePembayaranHomestaysTable extends Migration
             $table->integer('id_user');
             $table->integer('id_pesanan');
             $table->string('nama_bank_pelanggan');
+            $table->string('nama_bank_tujuan');
             $table->string('nomor_rekening_pelanggan');
             $table->string('foto_tanda_bukti')->nullable();
             $table->integer('status_pembayaran')->nullable();
