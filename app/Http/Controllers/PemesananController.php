@@ -44,7 +44,7 @@ class PemesananController extends Controller
                 }
                 elseif ($pesanan_status->status_pesanan == 2) {
                     # code...
-                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi";
+                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi Admin";
                 } 
                 elseif ($pesanan_status->status_pesanan == 3) {
                     # code...
@@ -100,7 +100,7 @@ class PemesananController extends Controller
                 }
                 elseif ($pesanan_status->status_pesanan == 2) {
                     # code...
-                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi";
+                     $status_pesanan = "Pembayaran Sudah Dikonfirmasi Admin";
                 } 
                 elseif ($pesanan_status->status_pesanan == 3) {
                     # code...
@@ -131,19 +131,19 @@ class PemesananController extends Controller
     public function cultural_check_in($id){ 
 
             $pesanan_cultural = PesananCulture::find($id);   
-            $pesanan_cultural->status_pesanan = 4;
+            $pesanan_cultural->status_pesanan = 3;
             $pesanan_cultural->save();   
 
-        return redirect()->route('pemesanan.index');
+        return back();
     }
     
     public function cultural_check_out($id){ 
 
             $pesanan_cultural = PesananCulture::find($id);   
-            $pesanan_cultural->status_pesanan = 5;
+            $pesanan_cultural->status_pesanan = 4;
             $pesanan_cultural->save();   
 
-        return redirect()->route('pemesanan.index');
+        return back();
     }
 
     public function datatable_pesanan_homestay(Request $request, Builder $htmlBuilder)

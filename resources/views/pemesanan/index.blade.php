@@ -51,8 +51,8 @@
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu"> 
-                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',3) }}">Check In</a></li>
-                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',4) }}">Check Out</a></li> 
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',2) }}">Check In</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',3) }}">Check Out</a></li> 
                             </ul>
                           </div>    
 
