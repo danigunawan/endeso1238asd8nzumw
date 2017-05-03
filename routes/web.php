@@ -159,6 +159,25 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'komentar_kamar.konfirmasi',
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
+
+
+	Route::get('pemesanan/cultural/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.cultural_check_in',
+	'uses' => 'PemesananController@cultural_check_in'
+	]);
+
+	Route::get('pemesanan/cultural/check_out/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.cultural_check_out',
+	'uses' => 'PemesananController@cultural_check_out'
+	]);
+
+	Route::get('status/pesanan/cultural/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-cultural-pesanan',
+	'uses' => 'PemesananController@status_pesanan_cultural'
+	]); 
 });
 
 
