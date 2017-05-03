@@ -43,7 +43,19 @@
 
                          </div>
 
-                        <div id="culture" class="tab-pane fade">                          
+                        <div id="culture" class="tab-pane fade">   
+
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary">Check In & Check Out</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu"> 
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',3) }}">Check In</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',4) }}">Check Out</a></li> 
+                            </ul>
+                          </div>    
+
                                  {!! $html->table(['class'=>'table-striped']) !!}
                         </div>
                       </div>
@@ -62,9 +74,9 @@
 <script type="text/javascript">
 $("#datatable_pesanan_homestay").DataTable({
     "serverSide":true,"processing":true,"ajax":"{{ url('admin/pesana/homestay') }}","columns":[  
-    {"data":"kamar.id_kamar","name":"kamar.id_kamar","title":"Nama Kamar","orderable":false,"searchable":false},
+    {"data":"nama_pemilik","name":"nama_pemilik","title":"Pemilik Rumah","orderable":false,"searchable":false},
     {"data":"user.name","name":"user.name","title":"Nama Pemesan","orderable":false,"searchable":false},
-    {"data":"status_pesanan","name":"status_pesanan","title":"","orderable":false,"searchable":false}
+    {"data":"status_pesanan","name":"status_pesanan","title":"Status","orderable":false,"searchable":false} 
 ]});
 </script>
 @endsection
