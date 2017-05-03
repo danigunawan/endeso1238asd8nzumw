@@ -231,18 +231,29 @@ function hitung_penginapan() {
 function hitung_penginapan_document() {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
-        var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
+        var checked = $('#harga_makan').is(":checked");
 		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
 		var harga_jumlah =  parseInt(harga_kamar);
 
 		if (harga_makan != 0) {
 
 		$("#kolom_harga").show();
+
+			if (checked == false){
+
+			var harga_jumlah =  parseInt(harga_kamar);
+			$("#harga_makan_tampil").hide();
+			$("#label").hide();
+			$("#harga_makan_hidden").val('');
+			}
+			else{
+			var harga_jumlah =  parseInt(harga_kamar) + parseInt(harga_makan);
+			$("#harga_makan_tampil").show();
+			$("#label").show();
+			$("#harga_makan_hidden").val(harga_makan);
+			}
 		};
 
-		$("#harga_makan_tampil").hide();
-		$("#label").hide();
-		$("#harga_makan_hidden").val('');
 
 		var tanggal_checkin = new Date($("#datepicker1").val());
 		var tanggal_checkout = new Date($("#datepicker2").val());

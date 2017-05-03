@@ -54,7 +54,9 @@
 								<div class="form-group{{ $errors->has('harga_makan') ? ' has-error' : '' }} " >
    								<br>
     							<div class="col-sm-1" >
-     							<input type="checkbox" name="harga_makan" id="harga_makan" data-toogle="0" >
+
+    							{{ Form::checkbox('harga_makan',  null, ['class' => 'field' , 'id'=>'harga_makan', 'data-toogle'=>'0']) }}
+
     							</div>
 
     							<div class="col-sm-11" >
@@ -64,6 +66,18 @@
   								</div>
 								  </div>
   							</div>
+
+
+  							@for ($i = 1; $i < old('jumlah_orang',$jumlah_orang); $i++)
+
+							<div class="form-group{{ $errors->has('nama_tamu') ? ' has-error' : '' }} span-hapus">
+								{!! Form::label('nama_tamu','Nama Tamu '.$i,['class'=>'control-label']) !!}
+								{!! Form::text('nama_tamu['.$i.']', null, ['class'=>'form-control',  'id'=>'nama_tamu', 'autocomplete'=>'off']) !!}
+								{!! $errors->first('nama_tamu', '<p class="help-block">:message</p>') !!}
+							</div>
+
+
+							@endfor
 
 								{!! Form::hidden('harga_makan_hidden', null , ['class' => 'form-control', 'placeholder' => 'Jumlah Orang', 'id'=>'harga_makan_hidden', 'autocomplete' => 'off']) !!}
 							

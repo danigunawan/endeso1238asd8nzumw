@@ -17,7 +17,7 @@ class PesanhomestayController extends Controller
 {
     //
 
-           public function index($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction){   
+           public function index($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction, Request $request){   
         $detail_kamar = Kamar::with(['rumah'])->find($id);
 
         $harga_kamar = $detail_kamar->harga_endeso + $detail_kamar->harga_pemilik;
@@ -79,27 +79,24 @@ class PesanhomestayController extends Controller
 
 if ($request->jumlah_orang > 1){
 // INSERT DATA TAMU
-            $tamu_homestay = TamuHomestay::create([
-              'id_pesanan' => $pesan_homestay->id,
-              ]);
+
 
            if ($request->has('nama_tamu')) {
+
              $nama_tamu = $request->input('nama_tamu');
+
              if (is_array($nama_tamu) || is_object($nama_tamu))
             {
-              $urutan = 0;
 
 
               foreach ($nama_tamu as $nama_tamus) {
-
-                 $urutan++;
-                # code...
-                
-                    $tamu_homestay->nama_tamu = $nama_tamus;
-
-                    $tamu_homestay->save();  
+                    # code...      
+                    $tamu_homestay = TamuHomestay::create([
+                      'id_pesanan' => $pesan_homestay->id,
+                      'nama_tamu' => $nama_tamus
+                      ]);    
                  
-            }//end foreach
+                }//end foreach
                 
             }
 
