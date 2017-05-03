@@ -545,28 +545,28 @@ class HomeController extends Controller
               $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
 
              $lis_cultural .= '
-        <div class="recommended-detail">
-          <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
-            <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
-              <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
-              <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
-              <h4>'. $kategoris->nama_aktivitas .'</h4>
-              <h6><b><sup>RP</sup>'. $warga->harga_endeso .'   </b><span>ribu / paket</span></h6>
+                            <div class="recommended-detail">
+                              <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
+                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
+                                  <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
+                                  <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
+                                  <h4>'. $kategoris->nama_aktivitas .'</h4>
+                                  <h6><b><sup>RP</sup>'. $warga->harga_endeso .'</b><span>ribu / paket</span></h6>
 
-              <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
-              <span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-              </span>
-            </div>
-          </div>
-          
-        </div>';
+                                  <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
+                                  <span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                  </span>
+                                </div>
+                              </div>
+                              
+                            </div>';
              } 
 
             return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);

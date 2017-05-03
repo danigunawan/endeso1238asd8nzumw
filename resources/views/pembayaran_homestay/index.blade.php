@@ -43,24 +43,28 @@
                     </div>
                     <div class="col-md-6">
 
+                        <h4>Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> 
                       <div class="panel panel-default" >
+
                         <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
                         <div class="panel-body">      
-                        <h4>1. Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> <br><hr>
-                        <h4>2. Mohon Transfer Ke:</h4>
-                        <h4>{{ $rekening->nama_bank }}</h4>
-                        <b>Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                        Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
-                        <h5>Jumlah Transfer : Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}</h5><br>
-                        <h4>3. Anda Sudah Membayar? 
+                        <h4>1. Mohon lakukan pembayaran downpayment (DP) sebesar Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }} </h4>
+                        <h4>&nbsp;&nbsp;&nbsp;Melalui transfer ke :</h4>
+                        <h4>&nbsp;&nbsp;&nbsp;{{ $rekening->nama_bank }}</h4>
+                        <b>&nbsp;&nbsp;&nbsp;Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
+                        &nbsp;&nbsp;&nbsp;Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
+                        <h4>2. Lakukan konfirmasi pembayaran dengan meng-upload foto bukti transfer.</h4>
+                        <h4>Anda sudah bayar ? 
                         <a href="{{ url('/transaksi_pembayaran_homestay/'.$id.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
+                        <hr>
+                        <h4>3. Lakukan sisa pembayaran sebesar Rp. {{ number_format($detail_pesanan->harga_pemilik * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }} ketika anda check-out  </h4>
                         </div>
                       </div>
 
 	              </div>
 
 	                  <div class="col-md-4">                 
-	                   		
+	                   		<br><br>
 	                   	<div class="panel panel-default">
 						    <div class="panel-heading" style="background-color:#df9915;color:#fff" ><b><p>No. Pesanan <br>
 						    <h4>({{$id}})</h4>
