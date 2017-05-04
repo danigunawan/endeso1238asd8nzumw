@@ -161,12 +161,13 @@ function hitung_penginapan_checkbox() {
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
 }
-function hitung_penginapan() {
+function hitung_penginapan(harga_endeso) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
 		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
 		var checked = $('#harga_makan').is(":checked");
+		var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(harga_endeso))));
 
 		 if (checked == false){
 
@@ -188,7 +189,6 @@ function hitung_penginapan() {
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		var hitung_hari = diffDays;
 		var jumlah_orang = $("#jumlah_orang").val();
-		 		console.log(jumlah_orang);
 
  		if (jumlah_orang == ''){
 			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
@@ -209,7 +209,8 @@ function hitung_penginapan() {
       		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
       	}
 
-
+      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+      	console.log(total_dp);
 
       	// tampilan rincian harga
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
@@ -221,6 +222,7 @@ function hitung_penginapan() {
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
          $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
+         $("#harga_dp").text(tandaPemisahTitik(total_dp));
         // tampilan rincian harga
 
         //tampilan di form hideen
@@ -228,13 +230,57 @@ function hitung_penginapan() {
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
 }
-function hitung_penginapan_document() {
+function hitung_penginapan_document(harga_endeso) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var checked = $('#harga_makan').is(":checked");
 		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
 		var harga_jumlah =  parseInt(harga_kamar);
 
+		var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(harga_endeso))));
+
+                    //MENAMPILKAN PETA WARGA
+                            var latitude_homestay = $("#latitude_homestay").val();
+                            var longitude_homestay = $("#longitude_homestay").val();
+
+
+                                                        
+                            if (latitude_homestay != "" && longitude_homestay != "") {
+                              var marker;
+
+                              function initMap() {
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                  zoom: 15,
+                                  center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                                });
+
+                                marker = new google.maps.Marker({
+                                  map: map,
+                                  draggable: true,
+                                  animation: google.maps.Animation.DROP,
+                                  position: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                                });
+                                marker.addListener('click', toggleBounce);
+                              } //INTI MAP
+
+                              function toggleBounce() {
+                                if (marker.getAnimation() !== null) {
+                                  marker.setAnimation(null);
+
+                                }
+                                else {
+                                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                                
+
+                                }
+
+                              }// TOOGLE BOUNCE
+
+                              initMap();
+
+                            } //END IF
+                    //MENAMPILKAN PETA WARGA
+                    
 		if (harga_makan != 0) {
 
 		$("#kolom_harga").show();
@@ -281,6 +327,7 @@ function hitung_penginapan_document() {
       		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
       	}
 
+      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
 
 
       	// tampilan rincian harga
@@ -293,6 +340,7 @@ function hitung_penginapan_document() {
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
          $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
+         $("#harga_dp").text(tandaPemisahTitik(total_dp));
         // tampilan rincian harga
 
         //tampilan di form hideen

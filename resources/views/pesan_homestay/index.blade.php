@@ -45,17 +45,27 @@
 							<div class="panel panel-default">
 							 <div class="panel-heading" style="background-color:#df9915;color:#fff"><h3>Rincian Pemesanan</h3></div>
   								<div class="panel-body">
-								<div class="row" style="padding:10%">
-									<div class="col-xs-3">
-									{!! Html::image(asset('img/'.$detail_kamar->foto1), null, ['alt' => 'Slide']) !!}					
-									</div>
-									<div class="col-xs-9">
-										<aside class="widget widget_features">
-									<h3 class="widget-title">Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
-									{!!$detail_kamar->deskripsi!!}
-								</aside><!-- Features Widget -->
-									</div>
-								</div>
+
+									<div class="row" style="padding:3%">
+    									<div class="col-xs-3">
+    									@if (isset($detail_kamar) && $detail_kamar->foto1)
+    										<p>
+    											{!! Html::image(asset('img/'.$detail_kamar->foto1), null, ['class' => 'img-rounded img-responsive']) !!}
+    										</p>                              
+    									@endif 						
+    									</div>
+    									<div class="col-xs-9">                                          
+                                            <aside class="widget widget_features">
+                                                <h3 class="widget-title"> Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
+                                                {!!$detail_kamar->deskripsi!!}
+                                            </aside><!-- Features Widget -->
+                                        </div>
+    								</div>
+
+    								<div class="row" style="padding: 3%">
+	                                        <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>                                                                  
+	                                </div>
+
 								</div>
 							</div>
 				<!-- panel Rincian Pemesanan /- -->
@@ -84,7 +94,7 @@
 								<hr>
 						<table>
  							<tbody>
- 								<tr><td width="50%" style="font-size:150%;color:red;">Downpayment (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. {{ $dp }}</td></tr>
+ 								<tr><td width="50%" style="font-size:150%;color:red;">Down Payment (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
       							<tr><td width="50%" style="font-size:150%;color:red;">Total Pembayaran </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
   							</tbody>
 						</table>
@@ -106,7 +116,9 @@
 @section('scripts')
 <script type="text/javascript">
 
-      	hitung_penginapan_document();
+	var harga_endeso = "{{ $dp }}";
+
+      	hitung_penginapan_document(harga_endeso);
 
 
 	$(document).on('click','#harga_makan',function(e){
@@ -116,8 +128,9 @@
     });
 
     $(document).on('change','#jumlah_orang',function(e){
+    	var harga_endeso = "{{ $dp }}";
 
- 		hitung_penginapan();
+ 		hitung_penginapan(harga_endeso);
 
  		var jumlah_orang_baru = $(this).val();
  		var jumlah_orang_ganti = jumlah_orang_baru - 1;
@@ -141,11 +154,13 @@
     });
 
     $(document).on('change','#datepicker1',function(e){
-  		hitung_penginapan(); 
+    	var harga_endeso = "{{ $dp }}";
+  		hitung_penginapan(harga_endeso); 
     });
 
     $(document).on('change','#datepicker2',function(e){
-       hitung_penginapan(); 
+    	var harga_endeso = "{{ $dp }}";
+       hitung_penginapan(harga_endeso); 
     });
 
 </script>

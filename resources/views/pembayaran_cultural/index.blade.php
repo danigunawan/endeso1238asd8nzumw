@@ -51,17 +51,42 @@
                         <div class="panel-body">      
                         <h4>1. Mohon Lakukan Pembayaran Down Payment (DP) Sebesar Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h4>
                               <h5>
-                                Melalui Transfer Ke : <br>
-                               
-                                    Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                                    Nama Penerima  : {{ $rekening->nama_rekening_tabungan }}
+
+                                <table>
+                                    <tbody>                            
+                                      <tr><td width="25%"><font class="satu"> Melalui Transfer Ke </font></td> 
+                                        <td> &nbsp;: </td></tr>
+                                    </tbody>
+                                </table>
+
+                                @foreach($rekening as $rekenings)
+                                  <table>
+                                    <tbody>                       
+                                      <tr><td width="25%"><font class="satu"> Nomor Rekening </font></td> 
+                                        <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nomor_rekening_tabungan }} </font></td>
+                                      </tr><br>
+                                      <tr><td width="25%"><font class="satu"> Atas Nama </font></td> 
+                                        <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nama_rekening_tabungan }} </font></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                @endforeach
 
                               </h5>
                         <h4>2. Lakukan Konfirmasi Pembayaran Dengan Meng-upload Foto Bukti Transfer</h4>
                             <h5>
-                              Anda Sudah Bayar ? <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
+                                <table>
+                                    <tbody>                            
+                                      <tr>
+                                        <td width="25%"><font class="satu"> Anda Sudah Bayar ?  </font></td> 
+                                        <td> &nbsp; 
+                                          <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                </table>
                             </h5>
-                        <h4>3. Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }} </h4>
+                        <h4>3. Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }} Ketika Anda Check Out</h4>
                         </div>
                       </div>
                     </div>

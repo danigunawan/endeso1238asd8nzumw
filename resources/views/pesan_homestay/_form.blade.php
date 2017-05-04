@@ -16,6 +16,9 @@
 								{!! $errors->first('tanggal_checkout', '<p class="help-block">:message</p>') !!}
 							</div>
 
+							{!! Form::hidden('latitude', $value = $detail_kamar->latitude, ['class'=>'form-control', 'id' => 'latitude_homestay']) !!}
+							{!! Form::hidden('longitude', $value = $detail_kamar->longitude, ['class'=>'form-control', 'id' => 'longitude_homestay']) !!}
+
 							<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
 								{!! Form::label('jumlah_orang', 'Jumlah Orang', ['class' => 'control-label']) !!}
 								{!! Form::selectRange('jumlah_orang',1 , $detail_kamar->kapasitas, $value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}

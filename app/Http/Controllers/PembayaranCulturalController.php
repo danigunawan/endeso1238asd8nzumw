@@ -29,7 +29,7 @@ class PembayaranCulturalController extends Controller
 
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
       $waktu_pesan = $created_ats->format('j M Y');
-      $rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
+      $rekening = Rekening::all();
       $warga = Warga::select('id','harga_endeso','harga_pemilik', 'id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
       $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
       $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
@@ -88,7 +88,7 @@ class PembayaranCulturalController extends Controller
       $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
       $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
 
-      return view('pembayaran_cultural.transaksi_pembayaran',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$aktivitas->nama_aktivitas,'destinasi'=>$destinasi->nama_destinasi,'warga'=>$warga]);
+      return view('pembayaran_cultural.transaksi_pembayaran',['pesanan_culture'=>$pesanan_culture,'check_in'=>$check_in,'format_check_in'=>$format_check_in,'created_ats'=>$created_ats,'waktu_pesan'=>$waktu_pesan,'aktivitas'=>$kategori->nama_aktivitas,'destinasi'=>$destinasi->nama_destinasi,'warga'=>$warga]);
     }
 
     public function store(Request $request){
