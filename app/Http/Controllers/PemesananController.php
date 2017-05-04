@@ -141,6 +141,7 @@ class PemesananController extends Controller
 
             $pesanan_cultural = PesananCulture::find($id);   
             $pesanan_cultural->status_pesanan = 4;
+            $pesanan_cultural->sendCheckout($pesanan_cultural);
             $pesanan_cultural->save();   
 
         return back();
@@ -156,10 +157,20 @@ class PemesananController extends Controller
 
             return Datatables::of($pesanan_homestay)
 
-            ->addColumn('action',     
-                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>'           
+            ->addColumn('action',  function($check){    
+
+                if ($check->status_pesanan == 0 ) {
+                    # code belum nampil
+                  
+                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>';
+                }
+                elseif ($check->status_pesanan == 1) {
+                    # code belum nampil
+                  
+                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>';
+                }           
  
-            )
+            })
 
             ->addColumn('nama_pemilik', function($pesanan_homestay){
                 $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
