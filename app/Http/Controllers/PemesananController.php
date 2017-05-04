@@ -159,15 +159,15 @@ class PemesananController extends Controller
 
             ->addColumn('action',  function($check){    
 
-                if ($check->status_pesanan == 0 ) {
+                if ($check->status_pesanan == 2 ) {
                     # code belum nampil
                   
-                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>';
+                return '<a href="pemesanan/homestay/check_in/'.$check->id.'" class="btn btn-primary">Check in<a>';
                 }
-                elseif ($check->status_pesanan == 1) {
+                elseif ($check->status_pesanan == 3) {
                     # code belum nampil
                   
-                '<a href="#" class="btn btn-primary">Check in<a><a href="#" class="btn btn-danger">Check Out<a>';
+                return '<a href="pemesanan/homestay/check_out/'.$check->id.'" class="btn btn-danger">Check Out<a>';
                 }           
  
             })
@@ -205,7 +205,26 @@ class PemesananController extends Controller
                      $status_pesanan = "Pelanggan Membatalkan Pesanan";
                 } 
                 return $status_pesanan; 
-                })->make(true);
+                })->rawColumns(['action'])->make(true);
             }  
-      } 
+    } 
+
+    public function homestay_check_in($id){ 
+
+            $pesanan_homestay = PesananHomestay::find($id);   
+            $pesanan_homestay->status_pesanan = 3;
+            $pesanan_homestay->save();   
+
+        return back();
+    }
+    
+    public function homestay_check_out($id){ 
+
+            $pesanan_homestay = PesananHomestay::find($id);   
+            $pesanan_homestay->status_pesanan = 4;
+            $pesanan_homestay->sendCheckout($pesanan_homestay);
+            $pesanan_homestay->save();   
+
+        return back();
+    }
 }

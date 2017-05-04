@@ -166,10 +166,17 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
 
+	Route::get('pemesanan/homestay/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_in',
+	'uses' => 'PemesananController@homestay_check_in'
+	]);
 
-
-
-
+	Route::get('pemesanan/homestay/check_out/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_out',
+	'uses' => 'PemesananController@homestay_check_out'
+	]); 
 
 	Route::get('pemesanan/cultural/check_in/{id}',[
 	'middleware' => ['auth'],
