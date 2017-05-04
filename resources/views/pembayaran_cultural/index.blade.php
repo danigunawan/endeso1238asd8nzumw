@@ -43,31 +43,42 @@
                     <div class="col-md-6">
 
                      
-                              <h4 style="color:#42a5f5">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
+                              <h4 style="color:red;">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
                   
 
                       <div class="panel panel-default">
                         <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
                         <div class="panel-body">      
-                        <h4>1. Mohon Lakukan Pembayaran Down Payment (DP) Sebesar Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h4>
-                              <h5>
-                                Melalui Transfer Ke : <br>
-                               
-                                    Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                                    Nama Penerima  : {{ $rekening->nama_rekening_tabungan }}
+                        <h4>1. Mohon lakukan pembayaran Down Payment (DP) sebesar Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h4>
+       
+                            <h4>&nbsp;&nbsp;&nbsp;Melalui transfer ke :</h4>
+                            <h4>&nbsp;&nbsp;&nbsp;{{ $rekening->nama_bank }}</h4>
 
-                              </h5>
-                        <h4>2. Lakukan Konfirmasi Pembayaran Dengan Meng-upload Foto Bukti Transfer</h4>
+                             <table>
+                                <tbody>   
+
+                                <tr><td width="60%"><font class="satu">&nbsp;&nbsp;&nbsp;Nomor Rekening </font></td> 
+                                    <td> &nbsp;&nbsp;:</td> <td><font class="satu">&nbsp;&nbsp;{{ $rekening->nomor_rekening_tabungan }}</font> 
+                                </tr>
+                                <tr><td  width="60%"><font class="satu"> &nbsp;&nbsp;&nbsp;Atas Nama </font></td> 
+                                    <td> &nbsp;&nbsp;:</td> <td> <font class="satu">&nbsp;&nbsp;{{ $rekening->nama_rekening_tabungan   }}</font> </td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                            
+                        <hr>
+                            <h4>2. Lakukan konfirmasi pembayaran dengan meng-upload foto bukti transfer</h4>
                             <h5>
-                              Anda Sudah Bayar ? <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
-                            </h5>
-                        <h4>3. Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }} </h4>
+                              Anda sudah bayar ? <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
+                            </h5><hr>
+                        <h4>3. Lakukan sisa pembayaran sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }} </h4>
                         </div>
                       </div>
                     </div>
 
                    <div class="col-md-4">                 
-                      
+                      <br><br>
           <div class="panel panel-default">
               <div class="panel-heading" style="background-color:#df9915;color:#fff" ><b><p>No. Pesanan <br>
                 <h4>({{ $pesanan_culture->id }})</h4>

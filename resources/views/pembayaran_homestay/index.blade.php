@@ -42,17 +42,30 @@
                        </ul>
                     </div>
                     <div class="col-md-6">
-
-                        <h4>Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> 
+              
+                              <h4 style="color:red;">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
                       <div class="panel panel-default" >
 
                         <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
                         <div class="panel-body">      
-                        <h4>1. Mohon lakukan pembayaran downpayment (DP) sebesar Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }} </h4>
+                        <h4>1. Mohon lakukan pembayaran Down Payment (DP) sebesar Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }} </h4>
                         <h4>&nbsp;&nbsp;&nbsp;Melalui transfer ke :</h4>
+
                         <h4>&nbsp;&nbsp;&nbsp;{{ $rekening->nama_bank }}</h4>
-                        <b>&nbsp;&nbsp;&nbsp;Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                        &nbsp;&nbsp;&nbsp;Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
+                             <table>
+                                <tbody>   
+
+                                <tr><td width="60%"><font class="satu">&nbsp;&nbsp;&nbsp;Nomor Rekening </font></td> 
+                                    <td> &nbsp;&nbsp;:</td> <td><font class="satu">&nbsp;&nbsp;{{ $rekening->nomor_rekening_tabungan }}</font> 
+                                </tr>
+                                <tr><td  width="60%"><font class="satu"> &nbsp;&nbsp;&nbsp;Atas Nama </font></td> 
+                                    <td> &nbsp;&nbsp;:</td> <td> <font class="satu">&nbsp;&nbsp;{{ $rekening->nama_rekening_tabungan   }}</font> </td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+
+                        <hr>
                         <h4>2. Lakukan konfirmasi pembayaran dengan meng-upload foto bukti transfer.</h4>
                         <h4>Anda sudah bayar ? 
                         <a href="{{ url('/transaksi_pembayaran_homestay/'.$id.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
