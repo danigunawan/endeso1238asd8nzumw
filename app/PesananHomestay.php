@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Mail;
 use Auth;
+use App\User;
+use App\Kamar;
+
 
 
 class PesananHomestay extends Model
@@ -46,6 +49,32 @@ class PesananHomestay extends Model
     
     Mail::send('emails.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Invoice Homestay Endeso');
+
+    });
+
+    }
+
+     public static function sendPetunjukCheckin($total_harga_warga,$detail_kamar,$pesanan_homestay)
+    {
+      
+      $user = User::find($pesanan_homestay->id_user);
+    
+    Mail::send('emails.petunjuk_check', compact('user','total_harga_warga','detail_kamar','pesanan_homestay'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Petunjuk CheckIn Endeso');
+
+    });
+
+    }
+
+
+    public function sendCheckout($pesanan_homestay)
+    {
+         
+    $user = Auth::user()->find($pesanan_homestay->id_user);
+
+  
+    Mail::send('pemesanan.checkout_homestay', compact('user','pesanan_homestay','kategori'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Thank You & Review (Endeso)');
 
     });
 

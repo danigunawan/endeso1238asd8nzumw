@@ -138,42 +138,45 @@ class PembayaranController extends Controller
              $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay');
 
             return Datatables::of($pembayaran_homestay)->addColumn('status_pesanan',function($pesanan_status){
-                $status_pesanan = "status_pesanan";
-                if ($pesanan_status->status_pesanan == 0 ) {
+                if ($pesanan_status->pemesanan_homestay->status_pesanan == 0 ) {
                     # code...
                     $status_pesanan = "Pelanggan Baru saja melakukan pemesanan";
                 }
-                elseif ($pesanan_status->status_pesanan == 1) {
+                elseif ($pesanan_status->pemesanan_homestay->status_pesanan == 1) {
                     # code...
                      $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
                 }
-                elseif ($pesanan_status->status_pesanan == 2) {
+                elseif ($pesanan_status->pemesanan_homestay->status_pesanan == 2) {
                     # code...
                      $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
                 } 
-                elseif ($pesanan_status->status_pesanan == 3) {
+                elseif ($pesanan_status->pemesanan_homestay->status_pesanan == 3) {
                     # code...
                      $status_pesanan = "Pelanggan telah Check In";
                 } 
-                elseif ($pesanan_status->status_pesanan == 4) {
+                elseif ($pesanan_status->pemesanan_homestay->status_pesanan == 4) {
                     # code...
                      $status_pesanan = "Pelanggan telah Check Out";
                 } 
-                elseif ($pesanan_status->status_pesanan == 5) {
+                elseif ($pesanan_status->pemesanan_homestay->status_pesanan == 5) {
                     # code...
                      $status_pesanan = "Pelanggan telah membatalkan pesanan";
                 } 
                 return $status_pesanan; 
+
                 })->addColumn('foto_tanda_bukti',function($foto_transfer){
                 return view('pembayaran_homestay.foto_bukti', [
                         'foto_transfer'=> $foto_transfer
                          ]);
-                })->rawColumns(['foto_tanda_bukti'])
-                ->addColumn('action',function($foto_transfer){
-                return view('pembayaran_homestay._action', [
-                        'foto_transfer'=> $foto_transfer
-                         ]);
-                })->make(true);
+                })
+
+                ->addColumn('action',function($pembayaran_homestay){
+                        return view('pembayaran_homestay._action', [
+                    'model'=> $pembayaran_homestay,
+                    'terima' => route('konfirmasi_pembayaran.homestay_terima', $pembayaran_homestay->id),
+                    'tolak' => route('konfirmasi_pembayaran.homestay_tolak', $pembayaran_homestay->id)
+                    ]);
+                })->rawColumns(['foto_tanda_bukti','action'])->make(true);
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
@@ -181,14 +184,55 @@ class PembayaranController extends Controller
               ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
                ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pelanggan'])
                 ->addColumn(['data' => 'nama_bank_tujuan', 'name'=>'nama_bank_tujuan', 'title'=>'Nama Bank Tujuan'])
-                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])   
-                    ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'Status Pesanan' , 'searchable'=>false]);
+                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
+                 ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+                    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
 
 
             return view('pembayaran_homestay.konfirmasi_pembayaran')->with(compact('html'));
 
     }
 
+
+
+//ubah status konfirmasi homestay
+    public function homestay_terima($id){ 
+
+            $pembayaran_homestay = PembayaranHomestay::find($id);   
+            $pembayaran_homestay->status_pembayaran = 1;
+            $pembayaran_homestay->save();   
+
+
+            $pesanan_homestay = PesananHomestay::find($pembayaran_homestay->id_pesanan);   
+            $pesanan_homestay->status_pesanan = 2;
+            $pesanan_homestay->save();
+
+            $detail_kamar = Kamar::with('rumah')->find($pesanan_homestay->id_kamar);
+
+            $total_harga_endeso = $pesanan_homestay->harga_endeso * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
+            $total_harga_seluruh = $pesanan_homestay->total_harga;
+            $total_harga_warga = $total_harga_seluruh - $total_harga_endeso;
+
+            PesananHomestay::sendPetunjukCheckin($total_harga_warga,$detail_kamar,$pesanan_homestay);
+
+
+        return redirect()->back();
+    }
+    
+    public function homestay_tolak($id){ 
+
+            $pembayaran_homestay = PembayaranHomestay::find($id);   
+            $pembayaran_homestay->status_pembayaran = 0;
+            $pembayaran_homestay->save();   
+
+
+            $pesanan_homestay = PesananHomestay::find($pembayaran_homestay->id_pesanan);   
+            $pesanan_homestay->status_pesanan = 1;
+            $pesanan_homestay->save();
+
+        return redirect()->back();
+    }
+//ubah status konfirmasi homestay
 
     
 

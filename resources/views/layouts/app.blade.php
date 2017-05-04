@@ -348,7 +348,7 @@
     <!-- Library JS -->
     <script src="{{ asset('libraries/lib.js') }}"></script>
     <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
     <!-- Library - Theme JS --> 
     <script src="{{ asset('js/functions.js') }}"></script>

@@ -141,6 +141,7 @@ class PemesananController extends Controller
 
             $pesanan_cultural = PesananCulture::find($id);   
             $pesanan_cultural->status_pesanan = 4;
+            $pesanan_cultural->sendCheckout($pesanan_cultural);
             $pesanan_cultural->save();   
 
         return back();
@@ -155,6 +156,21 @@ class PemesananController extends Controller
              $pesanan_homestay = PesananHomestay::with(['kamar','user']);
 
             return Datatables::of($pesanan_homestay)
+
+            ->addColumn('action',  function($check){    
+
+                if ($check->status_pesanan == 2 ) {
+                    # code belum nampil
+                  
+                return '<a href="pemesanan/homestay/check_in/'.$check->id.'" class="btn btn-primary">Check in<a>';
+                }
+                elseif ($check->status_pesanan == 3) {
+                    # code belum nampil
+                  
+                return '<a href="pemesanan/homestay/check_out/'.$check->id.'" class="btn btn-danger">Check Out<a>';
+                }           
+ 
+            })
 
             ->addColumn('nama_pemilik', function($pesanan_homestay){
                 $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
@@ -189,9 +205,26 @@ class PemesananController extends Controller
                      $status_pesanan = "Pelanggan Membatalkan Pesanan";
                 } 
                 return $status_pesanan; 
-                })->make(true);
-            } 
+                })->rawColumns(['action'])->make(true);
+            }  
+    } 
 
+    public function homestay_check_in($id){ 
+
+            $pesanan_homestay = PesananHomestay::find($id);   
+            $pesanan_homestay->status_pesanan = 3;
+            $pesanan_homestay->save();   
+
+        return back();
     }
+    
+    public function homestay_check_out($id){ 
 
+            $pesanan_homestay = PesananHomestay::find($id);   
+            $pesanan_homestay->status_pesanan = 4;
+            $pesanan_homestay->sendCheckout($pesanan_homestay);
+            $pesanan_homestay->save();   
+
+        return back();
+    }
 }

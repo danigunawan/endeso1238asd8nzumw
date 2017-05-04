@@ -166,8 +166,29 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
 
+//ubah status konfirmasi pembayaran
+	Route::get('konfirmasi-pembayaran/homestay/terima/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.homestay_terima',
+	'uses' => 'PembayaranController@homestay_terima'
+	]);
+	Route::get('pemesanan/homestay/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_in',
+	'uses' => 'PemesananController@homestay_check_in'
+	]);
 
-
+	Route::get('konfirmasi-pembayaran/homestay/tolak/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.homestay_tolak',
+	'uses' => 'PembayaranController@homestay_tolak'
+	]);
+//ubah status konfirmasi pembayaran
+	Route::get('pemesanan/homestay/check_out/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_out',
+	'uses' => 'PemesananController@homestay_check_out'
+	]); 
 
 
 
@@ -187,6 +208,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.status-cultural-pesanan',
 	'uses' => 'PemesananController@status_pesanan_cultural'
+	]); 
+
+	Route::get('status/pesanan/homestay/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-homestay-pesanan',
+	'uses' => 'PemesananController@status_pesanan_homestay'
 	]); 
 });
 

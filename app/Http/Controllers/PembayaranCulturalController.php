@@ -94,7 +94,8 @@ class PembayaranCulturalController extends Controller
     public function store(Request $request){
         $this->validate($request, [
             'nomor_rekening_pelanggan' => 'required',
-            'nama_bank_pelanggan' => 'required', 
+            'nama_bank_pelanggan' => 'required',
+            'nama_bank_tujuan' => 'required',  
             'foto_tanda_bukti' => 'image|max:2048|required'
             ]); 
 
@@ -108,7 +109,8 @@ class PembayaranCulturalController extends Controller
            'id_pesanan' => $request->id_pesanan,
            'id_rekening_endeso' => '1',
            'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
-           'nama_bank_pelanggan' => $request->nama_bank_pelanggan,  
+           'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
+           'nama_bank_tujuan' => $request->nama_bank_tujuan,  
            'status' => "0",
         ]);
          // isi field foto_tanda_bukti jika ada foto_tanda_bukti yang diupload

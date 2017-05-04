@@ -43,7 +43,7 @@
                     <div class="col-md-6">
 
                      
-                              <h4 style="color:#42a5f5">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
+                              <h4 style="color:red;">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
                   
 
                       <div class="panel panel-default">
@@ -92,7 +92,7 @@
                     </div>
 
                    <div class="col-md-4">                 
-                      
+                      <br><br>
           <div class="panel panel-default">
               <div class="panel-heading" style="background-color:#df9915;color:#fff" ><b><p>No. Pesanan <br>
                 <h4>({{ $pesanan_culture->id }})</h4>
