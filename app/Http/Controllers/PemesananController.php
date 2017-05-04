@@ -207,8 +207,8 @@ class PemesananController extends Controller
                 return $status_pesanan; 
                 })->rawColumns(['action'])->make(true);
             }  
-    } 
-
+    }  
+    
     public function homestay_check_in($id){ 
 
             $pesanan_homestay = PesananHomestay::find($id);   
