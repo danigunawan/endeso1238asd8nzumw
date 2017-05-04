@@ -88,7 +88,7 @@ Route::get('/pembayaran_culture/{id}', [
 	'uses' => 'PembayaranCulturalController@pembayaran_culture'
 ]);
 
-Route::get('/transaksi_pembayaran_culture/{id}/{aktivitas}/{destinasi}', [
+Route::get('/transaksi_pembayaran_culture/{id}', [
 	'middleware' => ['auth'],
 	'as'=> 'transaksi_pembayaran_culture.form',
 	'uses' => 'PembayaranCulturalController@transaksi_pembayaran_culture'
