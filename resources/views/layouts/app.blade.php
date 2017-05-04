@@ -23,6 +23,10 @@
     </script>
 
   
+  <!--SCRIPT UNTUK GOOGLE MAP -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHrdkc90574ADfv6CQcVOOr0Xl5jD1K6k">
+    </script>
 
 
 
@@ -265,7 +269,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
-                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
+                                             <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Pembayaran </a></li>
                                             
                                         </ul> 
 
@@ -355,6 +359,7 @@
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
       <script src="{{ asset('js/my.js') }}"></script>
+
 
 
           <script type="text/javascript">
