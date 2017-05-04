@@ -166,8 +166,19 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
 
+//ubah status konfirmasi pembayaran
+	Route::get('konfirmasi-pembayaran/homestay/terima/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.homestay_terima',
+	'uses' => 'PembayaranController@homestay_terima'
+	]);
 
-
+	Route::get('konfirmasi-pembayaran/homestay/tolak/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.homestay_tolak',
+	'uses' => 'PembayaranController@homestay_tolak'
+	]);
+//ubah status konfirmasi pembayaran
 
 
 
