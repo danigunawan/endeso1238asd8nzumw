@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Mail;
 use Auth;
+use App\Warga;
+use App\Kategori;
 
 class PesananCulture extends Model
 {
@@ -33,6 +35,20 @@ class PesananCulture extends Model
         
         Mail::send('emails_cultural.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user) {
         $m->to($user->email, $user->name)->subject('Invoice Cultural Experience Endeso');
+
+    });
+
+    }
+
+    public function sendCheckout($pesanan_cultural)
+    {
+         
+    $user = Auth::user()->find($pesanan_cultural->id_user);
+    $warga = Warga::find($pesanan_cultural->id_warga)->first();
+    $kategori = Kategori::find($warga->id_kategori_culture)->first();
+  
+    Mail::send('pemesanan.checkout_cultural', compact('user','pesanan_cultural','kategori'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Thank You & Review (Endeso)');
 
     });
 

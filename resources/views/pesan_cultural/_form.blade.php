@@ -6,11 +6,15 @@
         {!! $errors->first('check_in', '<p class="help-block">:message</p>') !!}
 </div>
 
+<!--KOLOM WARGA -->
 <div class="form-group{{ $errors->has('id_warga') ? ' has-error' : '' }}">
         {!! Form::label('id_warga', 'Nama Warga', ['class' => 'control-label']) !!}
         {!!Form::select('id_warga', $warga, null, ['class' => 'form-control','placeholder'=>'--PILIH WARGA--', 'required' => ''])!!}
         {!! $errors->first('id_warga', '<p class="help-block">:message</p>') !!}
 </div>
+
+{!! Form::hidden('latitude', null, ['class'=>'form-control', 'id' => 'latitude']) !!}
+{!! Form::hidden('longitude', null, ['class'=>'form-control', 'id' => 'longitude']) !!}
 <!--KOLOM NAMA LENGKAP -->
 <div class="form-group{{ $errors->has('jadwal') ? ' has-error' : '' }}">
         {!! Form::label('jadwal', 'Jadwal ', ['class' => 'control-label']) !!}

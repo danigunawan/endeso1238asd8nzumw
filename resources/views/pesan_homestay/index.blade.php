@@ -84,8 +84,8 @@
 								<hr>
 						<table>
  							<tbody>
- 								<tr><td width="50%" style="font-size:150%;color:red;">Downpayment (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. {{ $dp }}</td></tr>
-      							<tr><td width="50%" style="font-size:150%;color:red;">Total Pembayaran </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
+ 								<tr><td width="50%" style="font-size:150%;color:red;"><b>Down Payment (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b>Rp. {{ $dp }}</b></td></tr>
+      							<tr><td width="50%" style="font-size:150%;color:red;"><b>Total Pembayaran </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b>Rp. <span id="harga_total"> </span></b></td></tr>
   							</tbody>
 						</table>
 					</div>

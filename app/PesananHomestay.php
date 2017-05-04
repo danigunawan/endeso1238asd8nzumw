@@ -67,6 +67,19 @@ class PesananHomestay extends Model
     }
 
 
+    public function sendCheckout($pesanan_homestay)
+    {
+         
+    $user = Auth::user()->find($pesanan_homestay->id_user);
+
+  
+    Mail::send('pemesanan.checkout_homestay', compact('user','pesanan_homestay','kategori'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Thank You & Review (Endeso)');
+
+    });
+
+    }
+
     public function kamar()
     {
     return $this->belongsTo('App\Kamar','id','id_kamar');

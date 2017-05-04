@@ -37,6 +37,7 @@
                                     <th>Nama Kamar</th> 
                                     <th>Nama Pemesan</th> 
                                     <th>Status</th> 
+                                    <th></th> 
                                 </tr>
                              </thead>
                         </table>
@@ -76,7 +77,8 @@ $("#datatable_pesanan_homestay").DataTable({
     "serverSide":true,"processing":true,"ajax":"{{ url('admin/pesana/homestay') }}","columns":[  
     {"data":"nama_pemilik","name":"nama_pemilik","title":"Pemilik Rumah","orderable":false,"searchable":false},
     {"data":"user.name","name":"user.name","title":"Nama Pemesan","orderable":false,"searchable":false},
-    {"data":"status_pesanan","name":"status_pesanan","title":"Status","orderable":false,"searchable":false} 
+    {"data":"status_pesanan","name":"status_pesanan","title":"Status","orderable":false,"searchable":false},
+    {"data":"action","name":"action","title":"","orderable":false,"searchable":false} 
 ]});
 </script>
 @endsection
