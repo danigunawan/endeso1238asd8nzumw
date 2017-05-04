@@ -60,7 +60,7 @@
         </div><!-- Recommended Section /- -->
         
     </main>
-
+ 
 @endsection
 
 @section('scripts')

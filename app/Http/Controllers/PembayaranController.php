@@ -197,7 +197,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay')->where('status_pembayaran',$id);
+             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_pelanggan','rekening_bank_tujuan')->where('status_pembayaran',$id);
 
             return Datatables::of($pembayaran_homestay)->addColumn('status_pesanan',function($pesanan_status){
                 if ($pesanan_status->pemesanan_homestay->status_pesanan == 0 ) {
@@ -244,8 +244,8 @@ class PembayaranController extends Controller
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
             ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan'])  
               ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
-               ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pelanggan'])
-                ->addColumn(['data' => 'nama_bank_tujuan', 'name'=>'nama_bank_tujuan', 'title'=>'Nama Bank Tujuan'])
+               ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pelanggan'])
+                ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
                  ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
                  ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
                     ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
