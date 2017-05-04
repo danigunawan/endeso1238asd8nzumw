@@ -136,6 +136,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'PembayaranController@konfirmasi'
 	]);
 
+	Route::get('konfirmasi/pembayaran/cultural',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.cultural',
+	'uses' => 'PembayaranController@konfirmasi_pembayaran_cultural'
+	]);
+	
 	Route::get('pesana/homestay',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.homestay',
@@ -172,11 +178,6 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'konfirmasi_pembayaran.homestay_terima',
 	'uses' => 'PembayaranController@homestay_terima'
 	]);
-	Route::get('pemesanan/homestay/check_in/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_check_in',
-	'uses' => 'PemesananController@homestay_check_in'
-	]);
 
 	Route::get('konfirmasi-pembayaran/homestay/tolak/{id}',[
 	'middleware' => ['auth'],
@@ -194,13 +195,32 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 
 
 //ubah status konfirmasi pembayaran
+
+//ubah status konfirmasi pembayaran cultural
+	Route::get('konfirmasi-pembayaran/cultural/terima/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.cultural_terima',
+	'uses' => 'PembayaranController@cultural_terima'
+	]);
+
+	Route::get('konfirmasi-pembayaran/cultural/tolak/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'konfirmasi_pembayaran.cultural_tolak',
+	'uses' => 'PembayaranController@cultural_tolak'
+	]);
+//ubah status konfirmasi pembayaran cultural
+
+	Route::get('pemesanan/homestay/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_in',
+	'uses' => 'PemesananController@homestay_check_in'
+	]);
+
 	Route::get('pemesanan/homestay/check_out/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.homestay_check_out',
 	'uses' => 'PemesananController@homestay_check_out'
 	]); 
-
-
 
 	Route::get('pemesanan/cultural/check_in/{id}',[
 	'middleware' => ['auth'],
@@ -218,13 +238,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.status-cultural-pesanan',
 	'uses' => 'PemesananController@status_pesanan_cultural'
-	]); 
-
-	Route::get('status/pesanan/homestay/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.status-homestay-pesanan',
-	'uses' => 'PemesananController@status_pesanan_homestay'
-	]); 
+	]);  
 });
 
 

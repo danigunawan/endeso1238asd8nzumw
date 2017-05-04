@@ -106,8 +106,7 @@ class PembayaranCulturalController extends Controller
         $id_user = Auth::user()->id;
         $pesanan_culture = PembayaranCulture::create([
            'id_user' => $id_user,
-           'id_pesanan' => $request->id_pesanan,
-           'id_rekening_endeso' => '1',
+           'id_pesanan' => $request->id_pesanan, 
            'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
            'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
            'nama_bank_tujuan' => $request->nama_bank_tujuan,  
