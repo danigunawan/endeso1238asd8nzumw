@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
 use DateTime; 
+use App\TamuHomestay;
+use App\Http\Controllers\StringController;
+
 
 class HomeController extends Controller
 {
@@ -293,7 +296,7 @@ class HomeController extends Controller
 
     }
 
-    public function detail_pesanan_homestay($id)
+    public function detail_pesanan_homestay($id,StringController $stringfunction)
     {
 
 
@@ -307,12 +310,31 @@ class HomeController extends Controller
       $format_check_out = $check_out->format('j M Y');
 
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_homestay->created_at);
-      $waktu_pesan = $created_ats->format('j M Y');
+      $waktu_pesan = $created_ats->format('j M Y H:i:s');
+
+      //hitung harga
+      $harga_kamar = $pesanan_homestay->harga_pemilik + $pesanan_homestay->harga_endeso;
+
+      $harga_kamar_tambah_harga_makan = $harga_kamar + $pesanan_homestay->harga_makan;
+
+      $harga_jumlah_orang = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang;
+
+
+
+      $harga_lama_inap = $harga_jumlah_orang * $pesanan_homestay->jumlah_malam;
+
+      
+      // ambil nama tamu
+      $tamu = TamuHomestay::select('nama_tamu')->where('id_pesanan',$pesanan_homestay->id)->get();
 
       $tampil_detail = '<div class="panel panel-default">
                           <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Homestay</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$kamar->rumah->nama_pemilik.',<h5>'.$kamar->destinasi->nama_destinasi.'</h5></h3>
+                            <h3>'.$kamar->rumah->nama_pemilik.',</h3>
+
+                            <div class="row">
+                              <div class="col-sm-6">
+                              <h5>'.$kamar->destinasi->nama_destinasi.'</h5>
                              <table>
                             <tbody>                            
                                 <tr><td width="25%"><font class="satu">Check-in </font></td> 
@@ -321,16 +343,60 @@ class HomeController extends Controller
                                 <tr><td  width="25%"><font class="satu">Check-out </font></td> 
                                     <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$format_check_out.'</font> </td>
                                 </tr>
-                                <tr><td  width="25%"><font class="satu">Kode Booking  </font></td> 
+                                <tr><td  width="30%"><font class="satu">Kode Booking</font></td> 
                                     <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$pesanan_homestay->id.'</font> </td>
-                                </tr>
-                            </tbody>
-                          </table>
-                          </div>
+                                </tr>';
+ 
+                                // penutup tabel per tama dan penutup div pertama
+                                $tampil_detail .= ' </tbody></table>
+                                </div>
+
+                                <div class="col-sm-6">
+                                <tbody><table>';  // pembuka tabel kedau dan pembuka div kedua
+
+                                // jika ada harga makan, makan akan tampil harga makan nya
+                                if ($pesanan_homestay->harga_makan != 0) {
+                                  $tampil_detail .=     '<tr><td width="50%"><font class="satu">Harga Makan </font></td> <td> &nbsp;:&nbsp;</td> <td> <font class="satu">'.$stringfunction->rp($pesanan_homestay->harga_makan).' </font></td></tr>';
+                                }
+                                
+                                // dibawah ini rincian harga nya
+                                $tampil_detail .= '
+
+                                  <tr><td  width="50%"><font class="satu">Harga Kamar </font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_kamar).'</font></td></tr>
+
+                                  <tr><td  width="50%"> <font class="satu">'.$pesanan_homestay->jumlah_orang.' orang X '.$stringfunction->rp($harga_kamar_tambah_harga_makan).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_jumlah_orang).'</font></td></tr>
+
+                                  <tr><td  width="50%"><font class="satu"> '.$pesanan_homestay->jumlah_malam.' Hari X '.$stringfunction->rp($harga_jumlah_orang).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_lama_inap).'</font></td></tr>
+
+                                </tbody>
+                                </table>
+
+                                  </div>
+                                </div>
+                                ';// penutup ttabel kedau dan  penutup div kedua
+                                if ($tamu->count() != '') {
+                                  $tampil_detail .= '<hr>
+                                <h4>Daftar Tamu</h4>';
+                                }
+                               $no_urut_tamu = 1; 
+                                foreach ($tamu as $tamus) {
+
+                                $tampil_detail .=  '
+                                
+                                <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
+                                    <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
+                                </tr><br>';
+
+                                }  
+
+                      $tampil_detail .= '</div>
                         </div>';
       
 
-      return view('detail_pesanan_homestay',['pesanan_homestay'=>$pesanan_homestay, 'tampil_detail'=>$tampil_detail, 'waktu_pesan'=>$waktu_pesan]);      
+      return view('detail_pesanan_homestay',
+                  ['pesanan_homestay' =>$pesanan_homestay, 
+                  'tampil_detail'     =>$tampil_detail, 
+                  'waktu_pesan'       =>$waktu_pesan]);      
     }
 
 
