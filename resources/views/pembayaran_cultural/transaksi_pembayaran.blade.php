@@ -50,7 +50,7 @@
                         <span>Mohon unggah bukti transfer Anda untuk mempercepat proses konfirmasi dari sistem bank. Jika Anda belum menyelesaikan pembayaran, Anda dapat mengulangi pemesanan.</span>                                    
 
 
-               {!! Form::model($pesanan_culture, ['url' => route('transaksi_pembayaran_culture.store'),'method' => 'put','files'=>'true', 'class'=>'form-horizontal']) !!}
+               {!! Form::model($pesanan_culture, ['url' => route('transaksi_pembayaran_culture.store'),'method' => 'put','files'=>'true', 'class'=>'form-horizontal' ,'style'=>'padding:5%']) !!}
                         {{ csrf_field() }}
                        <!--KOLOM Nomor Rekening -->
                           <div class="form-group{{ $errors->has('nomor_rekening_pelanggan') ? ' has-error' : '' }}">
@@ -81,7 +81,7 @@
                                    {!! $errors->first('foto_tanda_bukti', '<p class="help-block">:message</p>') !!}
                           </div> 
 
-                            {!! Form::hidden('id_pesanan', $value=$id, ['class'=>'form-control']) !!}
+                            {!! Form::hidden('id_pesanan', $value=$pesanan_culture->id, ['class'=>'form-control']) !!}
 
                        <div class="form-group">
                             {{ Form::submit('Kirim Bukti Pembayaran', array('class' => 'btn read-more','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}

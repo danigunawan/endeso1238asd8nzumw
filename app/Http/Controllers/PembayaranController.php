@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Rekening;
 use App\PesananHomestay;
+use App\PesananCulture;
+use App\PembayaranHomestay;
+use App\PembayaranCulture;
 use App\Kamar;
 use Http\Controller\Auth\StringController;
-use App\PembayaranHomestay;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables; 
 use Auth;
@@ -256,7 +258,6 @@ class PembayaranController extends Controller
     }
 
 
-
 //ubah status konfirmasi homestay
     public function homestay_terima($id){ 
 
@@ -299,6 +300,97 @@ class PembayaranController extends Controller
     
 
 
+        public function konfirmasi_pembayaran_cultural(Request $request, Builder $htmlBuilder)
+    {
+        //
 
+        if ($request->ajax()) {
+
+             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_pelanggan','rekening_bank_tujuan');
+
+            return Datatables::of($pembayaran_cultural)
+
+                ->addColumn('status_pesanan',function($pesanan_status){
+                if ($pesanan_status->pemesanan_cultural->status_pesanan == 0 ) {
+                    # code...
+                    $status_pesanan = "Pelanggan Baru saja melakukan pemesanan";
+                }
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 1) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
+                }
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 2) {
+                    # code...
+                     $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 3) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check In";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 4) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check Out";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 5) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah membatalkan pesanan";
+                } 
+                return $status_pesanan; 
+
+                })
+
+                ->addColumn('action',  function($action){    
+
+                if ($action->status  == 0 ) {
+                    # code belum nampil
+                  
+                return '<a href="konfirmasi-pembayaran/cultural/terima/'.$action->id.'" class="btn btn-info  btn-sm">Terima</a> <a href="konfirmasi-pembayaran/cultural/tolak/'.$action->id.'" class="btn btn-danger  btn-sm">Tolak</a> ';
+                }
+                elseif ($action->status  == 1) {
+                    # code belum nampil
+                  
+                return '<p style="color:red;">Sudah Konfirmasi</p>';
+                }      
+
+                }) 
+
+                ->addColumn('foto_tanda_bukti',function($foto_transfer){
+                return view('pembayaran_homestay.foto_bukti', [
+                        'foto_transfer'=> $foto_transfer
+                         ]);
+
+                })->rawColumns(['foto_tanda_bukti','action'])->make(true);
+            } 
+    } 
+
+//ubah status konfirmasi cultural
+    public function cultural_terima($id){ 
+
+            $pembayaran_cultural = PembayaranCulture::find($id);   
+            $pembayaran_cultural->status = 1;
+            $pembayaran_cultural->save();   
+
+
+            $pesanan_cultural = PesananCulture::find($pembayaran_cultural->id_pesanan);   
+            $pesanan_cultural->status_pesanan = 2;
+            $pesanan_cultural->save();
+
+        return redirect()->back();
+    }
+    
+    public function cultural_tolak($id){ 
+
+            $pembayaran_cultural = PembayaranCulture::find($id);   
+            $pembayaran_cultural->status = 0;
+            $pembayaran_cultural->save();   
+
+
+            $pesanan_cultural = PesananCulture::find($pembayaran_cultural->id_pesanan);   
+            $pesanan_cultural->status_pesanan = 1;
+            $pesanan_cultural->save();
+
+        return redirect()->back();
+    }
+//ubah status konfirmasi cultural
 }
  

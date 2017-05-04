@@ -51,6 +51,21 @@
 
                         <div id="culture" class="tab-pane fade">                          
                                
+                         <table  class="table-striped table" id="konfirmasi_pembayaran_cultural">
+                             <thead>
+                                <tr>
+                                    <th>ID Pesanan</th> 
+                                    <th>Nama Pemesan</th> 
+                                    <th>No Rekening Pelanggan</th> 
+                                    <th>Nama Bank Pelanggan</th> 
+                                    <th>Nama Bank Tujuan</th> 
+                                    <th>Foto Bukti Transfer</th> 
+                                    <th>Status Pesanan</th> 
+                                    <th>Konfirmasi Pembayaran</th> 
+                                </tr>
+                             </thead>
+                        </table>
+
                         </div>
                       </div>
                    </div>
@@ -65,7 +80,17 @@
 
 @section('scripts')
 {!! $html->scripts() !!}
-@endsection
-
-
-  
+<script type="text/javascript">
+$("#konfirmasi_pembayaran_cultural").DataTable({
+    "serverSide":true,"processing":true,"ajax":"{{ url('admin/konfirmasi/pembayaran/cultural') }}","columns":[  
+    {"data":"id_pesanan","name":"id_pesanan","title":"ID Pesanan","orderable":false,"searchable":false},
+    {"data":"pemesanan_cultural.nama","name":"pemesanan_cultural.nama","title":"Nama Pemesan","orderable":false,"searchable":false},
+    {"data":"nomor_rekening_pelanggan","name":"nomor_rekening_pelanggan","title":"No Rekening Pelanggan","orderable":false,"searchable":false},
+    {"data":"rekening_bank_pelanggan.nama_bank","name":"rekening_bank_pelanggan.nama_bank","title":"Nama Bank Pelanggan","orderable":false,"searchable":false},
+    {"data":"rekening_bank_tujuan.nama_bank","name":"rekening_bank_tujuan.nama_bank","title":"Nama Bank Tujuan","orderable":false,"searchable":false},
+    {"data":"foto_tanda_bukti","name":"foto_tanda_bukti","title":"Foto Bukti Transfer","orderable":false,"searchable":false},
+    {"data":"status_pesanan","name":"status_pesanan","title":"Status Pesanan","orderable":false,"searchable":false},
+    {"data":"action","name":"action","title":"Konfirmasi Pembayaran","orderable":false,"searchable":false} 
+]});
+</script>
+@endsection 
