@@ -20,7 +20,7 @@ class PembayaranController extends Controller
     //
     public function index($id){
 
-    	$rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
+    	$rekening = Rekening::all();
     	$detail_pesanan = PesananHomestay::find($id);
         $kamar = Kamar::with(['rumah'])->find($detail_pesanan->id_kamar);
 
@@ -67,7 +67,7 @@ class PembayaranController extends Controller
 
         public function transaksi_pembayaran_homestay($id){
 
-    	$rekening = Rekening::select('id','nama_bank','nama_rekening_tabungan','nomor_rekening_tabungan')->limit(1)->first();
+    	$rekening = Rekening::all();
     	$detail_pesanan = PesananHomestay::find($id);
         $kamar = Kamar::with('rumah')->find($detail_pesanan->id_kamar);
         
