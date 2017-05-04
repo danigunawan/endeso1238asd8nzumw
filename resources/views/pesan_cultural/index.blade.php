@@ -65,9 +65,9 @@
                                 <span id="span_tentang_warga" style="display: none">
                                     <hr style="height: 10px; border: 0; box-shadow: 0 10px 10px -10px #8c8c8c inset;">                                                           
                                         
-                                    <div class="row"">
+                                    <div class="row" style="padding: 3%">
 
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <span id="span_foto"></span>                                            
                                         </div>      
 
@@ -78,8 +78,11 @@
                                         </div>                                    
                                     </div>
 
-                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d510166.6709496358!2d98.55577078101425!3d2.610729824375855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031de07a843b6ad%3A0xc018edffa69c0d05!2sLake+Toba!5e0!3m2!1sen!2sid!4v1488293450198" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
-                                  
+                                    <div class="row" style="padding: 3%">
+                                        <span class="span-peta">
+                                            <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>                                                
+                                        </span>                                                                      
+                                    </div>
                                 </span>
 
 								</div>
@@ -169,10 +172,15 @@
                         var foto_profil = data.foto_profil;
                         var foto_tempat = data.foto_tempat;
                         var kapasitas = data.kapasitas;
+                        var latitude = data.latitude;
+                        var longitude = data.longitude;
 
 
                         $("#harga_cultural").text(tandaPemisahTitik(harga_warga));
                         $("#hitung_harga_orang").text(tandaPemisahTitik(harga_warga));
+                        $("#latitude").val(latitude);
+                        $("#longitude").val(longitude);
+
 
                     //HITUNG HARGA
                         hitung_penginapan_warga_cultural(harga_warga, nilai_dp);
@@ -192,8 +200,54 @@
                     //TAMPIL FOTO WARGA
                         $(".span-hapus").remove();
 
-                        $("#span_foto").prepend('<span class="span-hapus"> <img width="200" height="200"  class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
+                        $("#span_foto").prepend('<span class="span-hapus"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
                         $("#span_tentang_warga").show();
+
+                    //MENAMPILKAN PETA WARGA
+                            var latitude = $("#latitude").val();
+                            var longitude = $("#longitude").val();
+
+
+                                                        
+                            if (latitude != "" && longitude != "") {
+                              var marker;
+
+                              function initMap() {
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                  zoom: 15,
+                                  center: {lat: parseFloat(latitude), lng: parseFloat(longitude)}
+                                });
+
+                                marker = new google.maps.Marker({
+                                  map: map,
+                                  draggable: true,
+                                  animation: google.maps.Animation.DROP,
+                                  position: {lat: parseFloat(latitude), lng: parseFloat(longitude)}
+                                });
+                                marker.addListener('click', toggleBounce);
+                              } //INTI MAP
+
+                              function toggleBounce() {
+                                if (marker.getAnimation() !== null) {
+                                  marker.setAnimation(null);
+
+                                }
+                                else {
+                                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                                
+
+                                }
+
+                              }// TOOGLE BOUNCE
+
+                              initMap();
+                              $("#map").show();
+
+                            } //END IF
+                            else{
+                                $("#map").hide();
+                            }
+                    //MENAMPILKAN PETA WARGA
 
                         });
 
@@ -205,4 +259,7 @@
     }); 
 
     </script>
+
+
+
 @endsection
