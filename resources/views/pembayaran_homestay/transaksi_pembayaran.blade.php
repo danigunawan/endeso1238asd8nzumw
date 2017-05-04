@@ -56,8 +56,8 @@
 
                               <!--KOLOM Nomor Rekening -->
                           <div class="form-group{{ $errors->has('nomor_rekening_pelanggan') ? ' has-error' : '' }}">
-                          {!! Form::label('nomor_rekening_pelanggan', 'Nomor Rekening', ['class'=>'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
+                          {!! Form::label('nomor_rekening_pelanggan', 'Nomor Rekening Pengirim', ['class'=>'col-sm-6 control-label']) !!}
+                            <div class="col-sm-6">
                             {!! Form::number('nomor_rekening_pelanggan', null, ['class'=>'form-control']) !!}
                             {!! $errors->first('nomor_rekening_pelanggan', '<p class="help-block">:message</p>') !!}
                             </div>
@@ -65,17 +65,27 @@
 
                           <!--SELECT Nama Bank -->
                           <div class="form-group{{ $errors->has('nama_bank_pelanggan') ? ' has-error' : '' }}">   
-                                  {!! Form::label('nama_bank_pelanggan', 'Nama Bank', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                              {!! Form::select('nama_bank_pelanggan', ['' => '-- PILIH BANK --','BNI' => 'BNI','BCA'=>'BCA','BRI'=>'BRI','Mandiri'=>'Mandiri'], null,['class' => 'form-control']) !!}
+                                  {!! Form::label('nama_bank_pelanggan', 'Nama Bank Pengirim', ['class' => 'col-sm-6 control-label']) !!}
+                            <div class="col-sm-6">
+                                {!! Form::select('nama_bank_pelanggan', ['' => 'Pilih Bank Pengirim']+App\Rekening::pluck('nama_bank', 'id')->all(), null,['class' => 'form-control']) !!}
                               {!! $errors->first('nama_bank_pelanggan', '<p class="help-block">:message</p>') !!}
                             </div>
                           </div>
 
+                          <!--SELECT Nama Bank -->
+                          <div class="form-group{{ $errors->has('nama_bank_tujuan') ? ' has-error' : '' }}">   
+                                  {!! Form::label('nama_bank_tujuan', 'Nama Bank Tujuan', ['class' => 'col-sm-6 control-label']) !!}
+                            <div class="col-sm-6">
+                                {!! Form::select('nama_bank_tujuan', ['' => 'Pilih Bank Tujuan']+App\Rekening::pluck('nama_bank', 'id')->all(), null,['class' => 'form-control']) !!}
+                              {!! $errors->first('nama_bank_tujuan', '<p class="help-block">:message</p>') !!}
+                            </div>
+                          </div>
+
+
                           <!-- FOTO BUKTI TRANSFER --> 
                                       <div class="form-group{{ $errors->has('foto_tanda_bukti') ? ' has-error' : '' }}">
-                                      {!! Form::label('foto_tanda_bukti', 'Foto Tanda Bukti', ['class'=>'col-md-4 control-label']) !!}
-                                          <div class="col-md-6">
+                                      {!! Form::label('foto_tanda_bukti', 'Foto Tanda Bukti', ['class'=>'col-sm-6 control-label']) !!}
+                                          <div class="col-sm-6">
                                           {!! Form::file('foto_tanda_bukti') !!}
                                           {!! $errors->first('foto_tanda_bukti', '<p class="help-block">:message</p>') !!}
                                           </div>

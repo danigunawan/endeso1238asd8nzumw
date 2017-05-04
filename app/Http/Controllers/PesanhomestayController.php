@@ -22,7 +22,13 @@ class PesanhomestayController extends Controller
 
         $harga_kamar = $detail_kamar->harga_endeso + $detail_kamar->harga_pemilik;
 
-        return view('pesan_homestay.index',['detail_kamar' => $detail_kamar,'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),'id'=>$id,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]);
+        return view('pesan_homestay.index',['detail_kamar'          => $detail_kamar,
+                                            'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
+                                            'dp'                    =>$stringfunction->rp($detail_kamar->harga_endeso),
+                                            'id'                    =>$id,
+                                            'tanggal_checkin'       =>$tanggal_checkin,
+                                            'tanggal_checkout'      =>$tanggal_checkout,
+                                            'jumlah_orang'          =>$jumlah_orang]);
     	}
     	
     		public function store(Request $request){

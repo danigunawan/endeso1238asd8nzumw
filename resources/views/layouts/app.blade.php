@@ -269,7 +269,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
-                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
+                                             <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Pembayaran </a></li>
                                             
                                         </ul> 
 
