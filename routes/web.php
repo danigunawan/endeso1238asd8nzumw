@@ -183,6 +183,16 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'konfirmasi_pembayaran.homestay_tolak',
 	'uses' => 'PembayaranController@homestay_tolak'
 	]);
+
+//filter konfirmasi 
+	Route::get('status/pembayaran/homestay/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-homestay-pembayaran',
+	'uses' => 'PembayaranController@status_pembayaran_homestay'
+	]); 
+//filter konfirmasi 
+
+
 //ubah status konfirmasi pembayaran
 	Route::get('pemesanan/homestay/check_out/{id}',[
 	'middleware' => ['auth'],

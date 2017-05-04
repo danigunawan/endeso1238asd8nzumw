@@ -30,9 +30,23 @@
                       <br><br>
                       <div class="tab-content">
                          <div id="homestay" class="tab-pane fade in active">
-                     
-                          {!! $html->table(['class'=>'table-striped']) !!}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary">Filter Status Pembayaran</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu"> 
+                              <li><a href="{{ route('pemesanan.status-homestay-pembayaran',1) }}">Sudah Konfirmasi</a></li>
+                              <li><a href="{{ route('pemesanan.status-homestay-pembayaran',0) }}">Belum Konfirmasi</a></li> 
+                            </ul>
+                          </div>    
 
+                            <br>
+                            <br>
+
+                          {!! $html->table(['class'=>'table-striped']) !!}
+                          <br>
+                          <p style="color:red"><i>*Klik Foto untuk memperbesar</i></p>
                          </div>
 
                         <div id="culture" class="tab-pane fade">                          
