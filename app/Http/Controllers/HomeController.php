@@ -264,7 +264,7 @@ class HomeController extends Controller
                                           </div>
 
                                           <div class="col-md-6">
-                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id."/".$query->nama_aktivitas."/".$query->nama_destinasi).'" 
+                                            <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id).'" 
                                             class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
                                           </div>
                                         </div>
@@ -335,7 +335,7 @@ class HomeController extends Controller
 
 
 
-    public function detail_pesanan_culture($id,$destinasi,$aktivitas)
+    public function detail_pesanan_culture($id)
     {
       $pesanan_culture = PesananCulture::where('id',$id)->first();
 
@@ -345,13 +345,17 @@ class HomeController extends Controller
       $created_ats = DateTime::createFromFormat('Y-m-d H:i:s', $pesanan_culture->created_at);
       $waktu_pesan = $created_ats->format('j M Y');
 
+      $warga = Warga::select('id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
+      $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
+      $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
+
 
       $nama_user = User::select('name')->where('id',$pesanan_culture->id_user)->first();
 
       $tampil_detail = '<div class="panel panel-default">
                           <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Culture</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$destinasi.',<h5>'.$aktivitas.'</h5></h3>
+                            <h3>'.$destinasi->nama_destinasi.',<h5>'.$kategori->nama_aktivitas.'</h5></h3>
                              <table>
                             <tbody>                            
                                 <tr><td width="25%"><font class="satu">Check-in </font></td> 
@@ -372,8 +376,8 @@ class HomeController extends Controller
                                             'tampil_detail'=>$tampil_detail, 
                                             'waktu_pesan'=>$waktu_pesan,     
                                             'nama_user'=>$nama_user,
-                                            'destinasi'=>$destinasi,
-                                            'aktivitas'=>$aktivitas]); 
+                                            'destinasi'=>$destinasi->nama_destinasi,
+                                            'aktivitas'=>$kategori->nama_aktivitas]); 
 
     }
 
@@ -541,28 +545,28 @@ class HomeController extends Controller
               $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
 
              $lis_cultural .= '
-        <div class="recommended-detail">
-          <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
-            <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
-              <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
-              <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
-              <h4>'. $kategoris->nama_aktivitas .'</h4>
-              <h6><b><sup>RP</sup>'. $warga->harga_endeso .'   </b><span>ribu / paket</span></h6>
+                            <div class="recommended-detail">
+                              <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
+                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
+                                  <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
+                                  <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
+                                  <h4>'. $kategoris->nama_aktivitas .'</h4>
+                                  <h6><b><sup>RP</sup>'. $warga->harga_endeso .'</b><span>ribu / paket</span></h6>
 
-              <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
-              <span>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
-              </span>
-            </div>
-          </div>
-          
-        </div>';
+                                  <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
+                                  <span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                  </span>
+                                </div>
+                              </div>
+                              
+                            </div>';
              } 
 
             return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);

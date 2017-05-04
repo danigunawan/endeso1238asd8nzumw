@@ -124,7 +124,7 @@
 </div> 
 
 <div class="form-group{{ $errors->has('foto_profil.1') ? ' has-error' : '' }}">
-	{!! Form::label('foto_tempat', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
+	{!! Form::label('foto_tempat', 'Foto Tempat', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
 		{!! Form::file('foto_profil[]') !!}
 			@if (isset($warga) && $warga->foto_tempat)

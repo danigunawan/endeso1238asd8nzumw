@@ -70,6 +70,7 @@
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:150%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
 
+
       						 	<tr><td  width="50%" style="font-size:150%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
@@ -83,6 +84,7 @@
 								<hr>
 						<table>
  							<tbody>
+ 								<tr><td width="50%" style="font-size:150%;color:red;">Downpayment (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. {{ $dp }}</td></tr>
       							<tr><td width="50%" style="font-size:150%;color:red;">Total Pembayaran </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
   							</tbody>
 						</table>
@@ -104,30 +106,8 @@
 @section('scripts')
 <script type="text/javascript">
 
-    $(document).ready(function(){
       	hitung_penginapan_document();
 
-
-      	var jumlah_orang_baru = $("#jumlah_orang").val();
- 		var jumlah_orang_ganti = jumlah_orang_baru - 1;
- 		var no = 1;
- 		if (jumlah_orang_baru > 1){
-
- 			$(".span-hapus").remove();
- 
- 			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
-        {	
-        	
-       	$('<div class="form-group{{ $errors->has('nama_tamu.+no+++') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no+++' </label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
-        }
-
- 		}
- 		else{
- 			$(".span-hapus").html('');
- 		}
-
-
-    });
 
 	$(document).on('click','#harga_makan',function(e){
 		$(this).prop('checked', this.checked);
@@ -141,6 +121,7 @@
 
  		var jumlah_orang_baru = $(this).val();
  		var jumlah_orang_ganti = jumlah_orang_baru - 1;
+ 		var no_urut_tamu = jumlah_orang_baru - 1;
  		var no = 1;
  		if (jumlah_orang_baru > 1){
 
@@ -149,7 +130,7 @@
  			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
         {	
         	
-       	$('<div class="form-group{{ $errors->has('nama_tamu.+no+++') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no+++' </label><br><input type="text" name="nama_tamu[]" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
+       	$('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut_tamu--+' </label><br><input type="text" name="nama_tamu['+tamu+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
         }
 
  		}

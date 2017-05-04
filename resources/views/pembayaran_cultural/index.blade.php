@@ -42,17 +42,26 @@
                     </div>
                     <div class="col-md-6">
 
+                     
+                              <h4 style="color:#42a5f5">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
+                  
+
                       <div class="panel panel-default">
                         <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
                         <div class="panel-body">      
-                        <h4>1. Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> <br><hr>
-                        <h4>2. Mohon Transfer Ke:</h4>
-                        <h4>{{ $rekening->nama_bank }}</h4>
-                        <b>Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                        Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
-                        <h5>Jumlah Transfer : Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h5><br>
-                        <h4>3. Anda Sudah Membayar? 
-                        <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
+                        <h4>1. Mohon Lakukan Pembayaran Down Payment (DP) Sebesar Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h4>
+                              <h5>
+                                Melalui Transfer Ke : <br>
+                               
+                                    Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
+                                    Nama Penerima  : {{ $rekening->nama_rekening_tabungan }}
+
+                              </h5>
+                        <h4>2. Lakukan Konfirmasi Pembayaran Dengan Meng-upload Foto Bukti Transfer</h4>
+                            <h5>
+                              Anda Sudah Bayar ? <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
+                            </h5>
+                        <h4>3. Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }} </h4>
                         </div>
                       </div>
                     </div>

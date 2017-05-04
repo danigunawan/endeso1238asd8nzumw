@@ -63,19 +63,23 @@
     								</div>
 
                                 <span id="span_tentang_warga" style="display: none">
-                                    <hr style="height: 10px; border: 0; box-shadow: 0 10px 10px -10px #8c8c8c inset;">
+                                    <hr style="height: 10px; border: 0; box-shadow: 0 10px 10px -10px #8c8c8c inset;">                                                           
+                                        
+                                    <div class="row"">
 
-                                    <div class="row" style="padding:3%">
-                                        <div class="col-xs-3">
-                                            <span id="span_foto">                                                
-                                            </span>                    
-                                        </div>
-                                        <div class="col-xs-9">                                          
+                                        <div class="col-sm-4">
+                                            <span id="span_foto"></span>                                            
+                                        </div>      
+
+                                        <div class="col-sm-8">
                                             <aside class="widget widget_features">
-                                                <h3 class="widget-title"> <span id="tentang_warga"></span> </h3>
-                                            </aside><!-- Features Widget -->
-                                        </div>
+                                                    <h3 class="widget-title"> <span id="tentang_warga"></span> </h3>
+                                            </aside><!-- Features Widget --> 
+                                        </div>                                    
                                     </div>
+
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d510166.6709496358!2d98.55577078101425!3d2.610729824375855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031de07a843b6ad%3A0xc018edffa69c0d05!2sLake+Toba!5e0!3m2!1sen!2sid!4v1488293450198" width="100%" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                  
                                 </span>
 
 								</div>
@@ -88,8 +92,7 @@
  							<tbody>
                                 <tr><td  width="50%" style="font-size:150%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%"><b> <span id="nama_warga"></span> </b></td></tr>
 
-      						 	<tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_cultural"></span> </td></tr>
-
+                                <tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_cultural"></span> </td></tr>
 
       						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> Orang x Rp. <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
 
@@ -98,7 +101,9 @@
 								<hr>
 						<table>
  							<tbody>
-      							<tr><td width="50%" style="font-size:150%;color:red;"><b> Total Pembayaran </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                <span style="display: none" id="harga_endeso_hidden"> </span>
+                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Down Payment (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
+                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Total Pembayaran </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
   							</tbody>
 						</table>
 					</div>
@@ -134,7 +139,7 @@
         
 
                         $.post('{{ url('/ajax-data-warga') }}',{'_token': $('meta[name=csrf-token]').attr('content'),
-                            id_warga:id_warga },function(data){  
+                            id_warga:id_warga },function(data){
                             $(".span-option").remove();
 
                             if (data.jadwal_1 != null) {
@@ -160,6 +165,7 @@
                         $("#nama_warga").text(data.nama_warga);
                         $("#tentang_warga").text(data.nama_warga);
                         var harga_warga = parseInt(data.harga_endeso) + parseInt(data.harga_pemilik);
+                        var nilai_dp = parseInt(data.harga_endeso);
                         var foto_profil = data.foto_profil;
                         var foto_tempat = data.foto_tempat;
                         var kapasitas = data.kapasitas;
@@ -169,7 +175,7 @@
                         $("#hitung_harga_orang").text(tandaPemisahTitik(harga_warga));
 
                     //HITUNG HARGA
-                        hitung_penginapan_warga_cultural(harga_warga);
+                        hitung_penginapan_warga_cultural(harga_warga, nilai_dp);
 
                     //TAMPIL KAPASITAS ORANG /WARGA
                             var kapasitas_orang;
@@ -186,7 +192,7 @@
                     //TAMPIL FOTO WARGA
                         $(".span-hapus").remove();
 
-                        $("#span_foto").prepend('<span class="span-hapus"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
+                        $("#span_foto").prepend('<span class="span-hapus"> <img width="200" height="200"  class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
                         $("#span_tentang_warga").show();
 
                         });
@@ -195,7 +201,7 @@
 
 
     $(document).on('change','#jumlah_orang',function(e){
-        hitung_penginapan_cultural();        
+        hitung_penginapan_cultural();
     }); 
 
     </script>

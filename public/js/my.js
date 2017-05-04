@@ -231,18 +231,29 @@ function hitung_penginapan() {
 function hitung_penginapan_document() {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
-        var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
+        var checked = $('#harga_makan').is(":checked");
 		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
 		var harga_jumlah =  parseInt(harga_kamar);
 
 		if (harga_makan != 0) {
 
 		$("#kolom_harga").show();
+
+			if (checked == false){
+
+			var harga_jumlah =  parseInt(harga_kamar);
+			$("#harga_makan_tampil").hide();
+			$("#label").hide();
+			$("#harga_makan_hidden").val('');
+			}
+			else{
+			var harga_jumlah =  parseInt(harga_kamar) + parseInt(harga_makan);
+			$("#harga_makan_tampil").show();
+			$("#label").show();
+			$("#harga_makan_hidden").val(harga_makan);
+			}
 		};
 
-		$("#harga_makan_tampil").hide();
-		$("#label").hide();
-		$("#harga_makan_hidden").val('');
 
 		var tanggal_checkin = new Date($("#datepicker1").val());
 		var tanggal_checkout = new Date($("#datepicker2").val());
@@ -309,6 +320,7 @@ function hitung_penginapan_cultural_document() {
         };
         
         var total_harga = parseInt(harga_cultural) * parseInt(jumlah_orang);
+        var total_dp = parseInt(harga_endeso) * parseInt(jumlah_orang);
 
         // tampilan rincian harga
         $("#hitung_orang").text(jumlah_orang);
@@ -320,9 +332,14 @@ function hitung_penginapan_cultural() {
 
         var jumlah_orang = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_orang").val()))));
         var harga_cultural = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_cultural").text()))));
+        var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_endeso_hidden").text()))));
 
         if (harga_cultural == "") {
             harga_cultural = 0;
+        };
+
+        if (harga_endeso == "") {
+            harga_endeso = 0;
         };
 
         if (jumlah_orang == "") {
@@ -330,16 +347,18 @@ function hitung_penginapan_cultural() {
         };
         
         var total_harga = parseInt(harga_cultural) * parseInt(jumlah_orang);
+        var total_dp = parseInt(harga_endeso) * parseInt(jumlah_orang);
 
         // tampilan rincian harga
         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
         $("#hitung_harga_orang").text(tandaPemisahTitik(harga_cultural));
         $("#harga_jumlah_orang").text(tandaPemisahTitik(total_harga));
         $("#harga_total").text(tandaPemisahTitik(total_harga));
+        $("#harga_endeso").text(tandaPemisahTitik(total_dp));
 
 }
 
-function hitung_penginapan_warga_cultural(harga_warga) {
+function hitung_penginapan_warga_cultural(harga_warga, nilai_dp) {
 
        	var jumlah_orang = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#jumlah_orang").val()))));
        	if (jumlah_orang == "") {
@@ -347,7 +366,9 @@ function hitung_penginapan_warga_cultural(harga_warga) {
        	}
    //HITUNG TOTAL HARGA
 		var total_harga = parseInt(harga_warga) * parseInt(jumlah_orang);
+		var total_dp = parseInt(nilai_dp) * parseInt(jumlah_orang);
 		$("#harga_jumlah_orang").text(tandaPemisahTitik(total_harga));
 		$("#harga_total").text(tandaPemisahTitik(total_harga));
-		console.log(harga_warga)
+		$("#harga_endeso").text(tandaPemisahTitik(total_dp));
+		$("#harga_endeso_hidden").text(tandaPemisahTitik(total_dp));
 }

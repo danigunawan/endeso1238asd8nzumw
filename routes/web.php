@@ -76,13 +76,13 @@ Route::get('/detail-pesanan-homestay/{id}', [
 	'uses' => 'HomeController@detail_pesanan_homestay'
 ]);
 
-Route::get('/detail-pesanan-culture/{id}/{destinasi}/{aktivitas}', [
+Route::get('/detail-pesanan-culture/{id}', [
 	'middleware' => ['auth'],
 	'as'=> 'detail_pesanan.culture',
 	'uses' => 'HomeController@detail_pesanan_culture'
 ]);
 
-Route::get('/pembayaran_culture/{id}/{aktivitas}/{destinasi}', [
+Route::get('/pembayaran_culture/{id}', [
 	'middleware' => ['auth'],
 	'as'=> 'pembayaran_culture.culture',
 	'uses' => 'PembayaranCulturalController@pembayaran_culture'

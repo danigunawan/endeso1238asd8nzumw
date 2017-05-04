@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Mail;
+use Auth;
 
 class PesananCulture extends Model
 {
@@ -23,4 +26,15 @@ class PesananCulture extends Model
 	  {
 	  	return $this->belongsTo('App\User','id_user');
 	  }
+
+    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan){
+            
+        $user = Auth::user();
+        
+        Mail::send('emails_cultural.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user) {
+        $m->to($user->email, $user->name)->subject('Invoice Cultural Experience Endeso');
+
+    });
+
+    }
 }
