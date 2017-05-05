@@ -40,4 +40,45 @@
     <script type="text/javascript">
         CKEDITOR.replace('deskripsi_kategori');
     </script>
+
+<!--ON READY -> KETIKA KOLOM DESTINASI SUDAH TERISI -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var destinasi = $('#destinasi').val();
+
+        $.post('{{ url('/ajax-data-kategori') }}',{'_token': $('meta[name=csrf-token]').attr('content'), destinasi:destinasi},function(data){
+        
+            $(".span-option").remove();
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id == destinasi) {
+                        $("#id_kategori_culture").append('<option selected class="span-option" value="'+data[i].id+'">'+data[i].nama_aktivitas+'</option>');
+                    }
+                    else{
+                        $("#id_kategori_culture").append('<option class="span-option" value="'+data[i].id+'">'+data[i].nama_aktivitas+'</option>');
+                    }                    
+                }
+              
+        });
+    });
+</script>
+
+<!--ON CHANGE -> KETIKA MEMILIH DESTINASI -->
+<script type="text/javascript">
+    
+    $(document).on('change','#destinasi',function(e){
+
+        var destinasi = $('#destinasi').val();
+
+        $.post('{{ url('/ajax-data-kategori') }}',{'_token': $('meta[name=csrf-token]').attr('content'), destinasi:destinasi},function(data){
+        
+            $(".span-option").remove();
+                for (var i = 0; i < data.length; i++) {
+                    $("#id_kategori_culture").append('<option class="span-option" value="'+data[i].id+'">'+data[i].nama_aktivitas+'</option>');
+                }
+              
+        });
+    });
+
+</script>
+
 @endsection

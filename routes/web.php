@@ -16,6 +16,10 @@ Route::post('/ajax-data-warga', 'PesananCulturalController@ajax_data_warga');
 Route::post('/update-status-pesanan-cultural', 'PembayaranCulturalController@status_pesanan_cultural');
 /* PENUTUP AJAX PESANAN CULTURAL */
 
+/* PEMBUKA AJAX KATEGORI */
+Route::post('/ajax-data-kategori', 'WargaController@ajax_data_kategori');
+/* PENUTUP AJAX KATEGORI */
+
 /* PEMBUKA AJAX PEMBAYARAN HOMESTAY */
 Route::post('/update-status-pesanan', 'PembayaranController@status_pesanan');
 /* PENUTUP AJAX PEMBAYARAN HOMESTAY */
