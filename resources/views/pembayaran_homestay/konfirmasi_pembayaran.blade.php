@@ -57,6 +57,7 @@
                                     <th>ID Pesanan</th> 
                                     <th>Nama Pemesan</th> 
                                     <th>Harga Dp</th>
+                                    <th>A.n Rekening Pemesan</th> 
                                     <th>No Rekening Pemesan</th> 
                                     <th>Nama Bank Pemesan</th> 
                                     <th>Nama Bank Tujuan</th> 

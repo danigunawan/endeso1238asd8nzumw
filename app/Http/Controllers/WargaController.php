@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Warga;
+use App\Kategori;
 use Session;
 use Illuminate\Support\Facades\File;
 
@@ -22,7 +23,7 @@ class WargaController extends Controller
 
         if ($request->ajax()) {
 
-            $warga = Warga::with('kategori');
+            $warga = Warga::with(['kategori', 'destinasi']);
 
             return Datatables::of($warga)->addColumn('action', function($warga){
                     return view('warga._action', [
@@ -35,7 +36,8 @@ class WargaController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'nama_warga', 'name'=>'nama_warga', 'title'=>'Nama Warga']) 
-            ->addColumn(['data' => 'kategori.nama_aktivitas', 'name'=>'kategori.nama_aktivitas', 'title'=>'Kategori Culture']) 
+            ->addColumn(['data' => 'destinasi.nama_destinasi', 'name'=>'destinasi.nama_destinasi', 'title'=>'Destinasi'])
+            ->addColumn(['data' => 'kategori.nama_aktivitas', 'name'=>'kategori.nama_aktivitas', 'title'=>'Kategori']) 
             ->addColumn(['data' => 'jadwal_1', 'name'=>'jadwal_1', 'title'=>'Jadwal 1']) 
             ->addColumn(['data' => 'jadwal_2', 'name'=>'jadwal_2', 'title'=>'Jadwal 2']) 
             ->addColumn(['data' => 'jadwal_3', 'name'=>'jadwal_3', 'title'=>'Jadwal 3']) 
@@ -73,6 +75,7 @@ class WargaController extends Controller
         $this->validate($request, [
             'nama_warga' => 'required|unique:warga,nama_warga',
             'id_kategori_culture' => 'required|exists:kategori,id',
+            'id_destinasi' => 'required',
             'jadwal_1' => 'required',
             'jadwal_2' => 'max:191',
             'jadwal_3' => 'max:191',
@@ -92,6 +95,7 @@ class WargaController extends Controller
         $warga = Warga::create([
 
            'nama_warga' => $request->nama_warga,
+           'id_destinasi' => $request->id_destinasi,
            'id_kategori_culture' => $request->id_kategori_culture,
            'jadwal_1' => $request->jadwal_1,
            'jadwal_2' => $request->jadwal_2,
@@ -186,6 +190,7 @@ class WargaController extends Controller
         //
         $this->validate($request, [
             'nama_warga' => 'required|unique:warga,nama_warga,' . $id,
+            'id_destinasi' => 'required',
             'id_kategori_culture' => 'required|exists:kategori,id',
             'jadwal_1' => 'required',
             'jadwal_2' => 'max:191',
@@ -207,6 +212,7 @@ class WargaController extends Controller
         $warga->update([
 
            'nama_warga' => $request->nama_warga,
+           'id_destinasi' => $request->id_destinasi,
            'id_kategori_culture' => $request->id_kategori_culture,
            'jadwal_1' => $request->jadwal_1,
            'jadwal_2' => $request->jadwal_2,
@@ -310,5 +316,16 @@ class WargaController extends Controller
         "message"=>"Data Warga Berhasil Di hapus"
         ]);
         return redirect()->route('warga.index');
+    }
+
+    public function ajax_data_kategori(Request $request)
+    { 
+        if ($request-> ajax()) {
+
+            $destinasi = $request->destinasi;
+            $warga = Kategori::select(['id', 'nama_aktivitas'])->where('destinasi_kategori',$destinasi)->get();
+            return $warga;
+
+        } 
     } 
 }
