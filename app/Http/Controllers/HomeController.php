@@ -77,7 +77,12 @@ class HomeController extends Controller
         $id_user = Auth::user()->id;
         $profil = User::where('id',$id_user)->first();
         $status_foto_profil = strpos($profil->foto_profil, 'http');
-        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil]);
+        $tanggal_lahir = date_create($profil->tanggal_lahir);
+        $hari_tanggal_lahir = date_format($tanggal_lahir,"d");
+        $bulan_tanggal_lahir = date_format($tanggal_lahir,"m");
+        $tahun_tanggal_lahir = date_format($tanggal_lahir,"Y");
+
+        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil,'hari' => $hari_tanggal_lahir,'bulan' => $bulan_tanggal_lahir,'tahun' => $tahun_tanggal_lahir]);
     }
 
        public function update_profil(Request $request, $id)
@@ -93,7 +98,9 @@ class HomeController extends Controller
       
         $profil = User::where('id',$id)->first();
 
-        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $request->tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp,'kewarga_negaraan' => $request->kewarga_negaraan]);
+         $tanggal_lahir = $request->tahun.'-'. $request->bulan.'-'.$request->tanggal ;
+
+        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp,'kewarga_negaraan' => $request->kewarga_negaraan]);
 
 
          // isi field foto_profil jika ada foto_profil yang diupload
