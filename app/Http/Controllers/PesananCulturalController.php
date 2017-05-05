@@ -10,6 +10,7 @@ use Session;
 use App\Rekening;
 use Auth;
 use App\Destinasi;
+use App\TamuCulture;
 
 class PesananCulturalController extends Controller
 {
@@ -59,6 +60,33 @@ class PesananCulturalController extends Controller
             'id_user'=> $id_user
 
            ]); 
+
+        if ($request->jumlah_orang > 1){
+            // INSERT DATA TAMU
+
+
+           if ($request->has('nama_tamu')) {
+
+             $nama_tamu = $request->input('nama_tamu');
+
+             if (is_array($nama_tamu) || is_object($nama_tamu))
+            {
+
+
+              foreach ($nama_tamu as $nama_tamus) {
+                    # code...      
+                    $tamu_culture = TamuCulture::create([
+                      'id_pesanan' => $pesanan_culture->id,
+                      'nama_tamu' => $nama_tamus
+                      ]);    
+                 
+                }//end foreach
+                
+            }
+
+          }
+        // INSERT DATA TAMU
+        }
 
             Session::flash("flash_notification", [
               "level"=>"success",

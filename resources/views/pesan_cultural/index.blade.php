@@ -133,6 +133,7 @@
 
     $(document).ready(function(){
         hitung_penginapan_cultural_document();
+
     });
     
     $(document).on('change','#id_warga',function(e){
@@ -249,6 +250,27 @@
                             }
                     //MENAMPILKAN PETA WARGA
 
+
+                    // Menampilkan nama tamu
+                            var jumlah_orang_baru = $("#jumlah_orang").val();
+                            var jumlah_orang_ganti = jumlah_orang_baru - 1;
+                            var no_urut_tamu = jumlah_orang_baru - 1;
+                            var no = 1;
+                            if (jumlah_orang_baru > 1){
+                            
+                            $(".span-hapus").remove();
+                            
+                            for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
+                            {   
+                            var no_urut = no_urut_tamu--;
+                            $('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut+' </label><br><input type="text" name="nama_tamu['+no_urut+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#span_jumlah_orang");
+                            }
+                            
+                            }
+                            else{
+                            $(".span-hapus").html('');
+                            }
+
                         });
 
     });
@@ -256,6 +278,25 @@
 
     $(document).on('change','#jumlah_orang',function(e){
         hitung_penginapan_cultural();
+
+        var jumlah_orang_baru = $(this).val();
+        var jumlah_orang_ganti = jumlah_orang_baru - 1;
+        var no_urut_tamu = jumlah_orang_baru - 1;
+        var no = 1;
+        if (jumlah_orang_baru > 1){
+
+            $(".span-hapus").remove();
+ 
+            for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
+        {   
+            var no_urut = no_urut_tamu--;
+        $('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut+' </label><br><input type="text" name="nama_tamu['+no_urut+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#span_jumlah_orang");
+        }
+
+        }
+        else{
+            $(".span-hapus").html('');
+        }
     }); 
 
     </script>
