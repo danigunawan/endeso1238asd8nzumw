@@ -9,6 +9,8 @@ use App\PesananCulture;
 use App\PembayaranHomestay;
 use App\PembayaranCulture;
 use App\Kamar;
+use App\Warga;
+use App\Kategori;
 use Http\Controller\Auth\StringController;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables; 
@@ -373,7 +375,8 @@ class PembayaranController extends Controller
 
             $pesanan_cultural = PesananCulture::find($pembayaran_cultural->id_pesanan);   
             $pesanan_cultural->status_pesanan = 2;
-            $pesanan_cultural->save();
+            $pesanan_cultural->sendPetunjukCheckin($pesanan_cultural);
+            $pesanan_cultural->save(); 
 
         return redirect()->back();
     }

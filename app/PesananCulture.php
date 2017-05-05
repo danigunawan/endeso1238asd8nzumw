@@ -53,4 +53,21 @@ class PesananCulture extends Model
     });
 
     }
+
+    public function sendPetunjukCheckin($pesanan_cultural)
+    {
+         
+    $user = Auth::user()->find($pesanan_cultural->id_user); 
+    $warga = Warga::find($pesanan_cultural->id_warga)->first();
+    $kategori = Kategori::find($warga->id_kategori_culture)->first(); 
+    $total_harga_endeso = $pesanan_cultural->harga_endeso * $pesanan_cultural->jumlah_orang;
+    $total_harga_seluruh = $pesanan_cultural->total_harga;
+    $total_harga_warga = $total_harga_seluruh - $total_harga_endeso;
+  
+    Mail::send('pembayaran_cultural.petunjuk_check', compact('user','pesanan_cultural','kategori','total_harga_warga','warga'), function($m)use($user) {
+    $m->to($user->email, $user->name)->subject('Petunjuk CheckIn Endeso');
+
+    });
+
+    }
 }
