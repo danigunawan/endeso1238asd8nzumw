@@ -65,7 +65,10 @@
 
                                   @foreach($rekening as $rekenings)
                                     <table>
-                                      <tbody>                       
+                                      <tbody>     
+                                       <tr><td width="25%"><font class="satu"> Nama Bank </font></td> 
+                                        <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nama_bank }} </font></td>
+                                      </tr><br>                       
                                         <tr><td width="25%"><font class="satu"> Nomor Rekening </font></td> 
                                           <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nomor_rekening_tabungan }} </font></td>
                                         </tr><br>
