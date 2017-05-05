@@ -88,6 +88,7 @@ class WargaController extends Controller
             'longitude' => 'max:191',
             'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
+            'no_telp' => 'required',
             'foto_profil.*' => 'image|max:2048'
         ]);
 
@@ -107,7 +108,8 @@ class WargaController extends Controller
            'latitude' => $request->latitude,
            'longitude' => $request->longitude,
            'alamat_warga' => $request->alamat_warga,
-           'kapasitas' => $request->kapasitas
+           'kapasitas' => $request->kapasitas,
+           'no_telp' => $request->no_telp,
         ]);
 
         if ($request->hasFile('foto_profil')) {
@@ -202,6 +204,7 @@ class WargaController extends Controller
             'longitude' => 'max:191',
             'alamat_warga' => 'max:191',
             'kapasitas' => 'required',
+            'no_telp' => 'required',
             'foto_profil.*' => 'image|max:2048'
         ]);
 
@@ -222,7 +225,8 @@ class WargaController extends Controller
            'latitude' => $request->latitude,
            'longitude' => $request->longitude,
            'alamat_warga' => $request->alamat_warga,
-           'kapasitas' => $request->kapasitas
+           'kapasitas' => $request->kapasitas,
+           'no_telp' => $request->no_telp,
            
         ]);
 

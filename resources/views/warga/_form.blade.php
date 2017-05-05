@@ -120,6 +120,14 @@
 	</div>
 </div>
 
+<div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
+	{!! Form::label('no_telp', 'Nomor Telephone', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::number('no_telp', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 <div class="form-group{{ $errors->has('foto_profil.0') ? ' has-error' : '' }}">
 	{!! Form::label('foto_profil', 'Foto Profil', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">

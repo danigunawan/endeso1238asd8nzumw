@@ -56,15 +56,19 @@
                                 <tr>
                                     <th>ID Pesanan</th> 
                                     <th>Nama Pemesan</th> 
-                                    <th>No Rekening Pelanggan</th> 
-                                    <th>Nama Bank Pelanggan</th> 
+                                    <th>Harga Dp</th>
+                                    <th>A.n Rekening Pemesan</th> 
+                                    <th>No Rekening Pemesan</th> 
+                                    <th>Nama Bank Pemesan</th> 
                                     <th>Nama Bank Tujuan</th> 
-                                    <th>Foto Bukti Transfer</th> 
+                                    <th>Foto Bukti</th> 
                                     <th>Status Pesanan</th> 
                                     <th>Konfirmasi Pembayaran</th> 
                                 </tr>
                              </thead>
                         </table>
+                          <br>
+                          <p style="color:red"><i>*Klik Foto untuk memperbesar</i></p>
 
                         </div>
                       </div>
@@ -85,10 +89,12 @@ $("#konfirmasi_pembayaran_cultural").DataTable({
     "serverSide":true,"processing":true,"ajax":"{{ url('admin/konfirmasi/pembayaran/cultural') }}","columns":[  
     {"data":"id_pesanan","name":"id_pesanan","title":"ID Pesanan","orderable":false,"searchable":false},
     {"data":"pemesanan_cultural.nama","name":"pemesanan_cultural.nama","title":"Nama Pemesan","orderable":false,"searchable":false},
+    {"data":"pemesanan_cultural.harga_endeso","name":"pemesanan_cultural.harga_endeso","title":"Harga Dp","orderable":false,"searchable":false},
+    {"data":"atas_nama_rekening_pelanggan","name":"atas_nama_rekening_pelanggan","title":"A.n Rekening Pelanggan","orderable":false,"searchable":false},
     {"data":"nomor_rekening_pelanggan","name":"nomor_rekening_pelanggan","title":"No Rekening Pelanggan","orderable":false,"searchable":false},
     {"data":"rekening_bank_pelanggan.nama_bank","name":"rekening_bank_pelanggan.nama_bank","title":"Nama Bank Pelanggan","orderable":false,"searchable":false},
     {"data":"rekening_bank_tujuan.nama_bank","name":"rekening_bank_tujuan.nama_bank","title":"Nama Bank Tujuan","orderable":false,"searchable":false},
-    {"data":"foto_tanda_bukti","name":"foto_tanda_bukti","title":"Foto Bukti Transfer","orderable":false,"searchable":false},
+    {"data":"foto_tanda_bukti","name":"foto_tanda_bukti","title":"Foto Bukti","orderable":false,"searchable":false},
     {"data":"status_pesanan","name":"status_pesanan","title":"Status Pesanan","orderable":false,"searchable":false},
     {"data":"action","name":"action","title":"Konfirmasi Pembayaran","orderable":false,"searchable":false} 
 ]});

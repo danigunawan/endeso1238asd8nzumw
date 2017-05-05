@@ -9,6 +9,8 @@ use App\PesananCulture;
 use App\PembayaranHomestay;
 use App\PembayaranCulture;
 use App\Kamar;
+use App\Warga;
+use App\Kategori;
 use Http\Controller\Auth\StringController;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables; 
@@ -82,6 +84,7 @@ class PembayaranController extends Controller
      public function store(Request $request){
         $this->validate($request, [
             'nomor_rekening_pelanggan' => 'required',
+            'atas_nama_rekening_pengirim' => 'required',
             'nama_bank_pelanggan' => 'required',
             'foto_tanda_bukti' => 'image|max:2048|required'    
             ]); 
@@ -95,6 +98,7 @@ class PembayaranController extends Controller
            'id_user' => $id_user,
            'id_pesanan' => $request->id_pesanan,
            'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
+           'atas_nama_rekening_pelanggan' => $request->atas_nama_rekening_pengirim,
            'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
            'nama_bank_tujuan' => $request->nama_bank_tujuan,
            'status_pembayaran' => "0",
@@ -180,13 +184,15 @@ class PembayaranController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
-            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan'])  
-              ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
-               ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pelanggan'])
-                ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
-                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
-                 ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
-                    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'atas_nama_rekening_pelanggan', 'name'=>'atas_nama_rekening_pelanggan', 'title'=>'A.n Rekening Pemesan'])    
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
+            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
 
 
             return view('pembayaran_homestay.konfirmasi_pembayaran')->with(compact('html'));
@@ -244,13 +250,15 @@ class PembayaranController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
-            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan'])  
-              ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
-               ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pelanggan'])
-                ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
-                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
-                 ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
-                    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'atas_nama_rekening_pelanggan', 'name'=>'atas_nama_rekening_pelanggan', 'title'=>'A.n Rekening Pemesan']) 
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])    
+            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
 
 
             return view('pembayaran_homestay.konfirmasi_pembayaran')->with(compact('html'));
@@ -373,7 +381,8 @@ class PembayaranController extends Controller
 
             $pesanan_cultural = PesananCulture::find($pembayaran_cultural->id_pesanan);   
             $pesanan_cultural->status_pesanan = 2;
-            $pesanan_cultural->save();
+            $pesanan_cultural->sendPetunjukCheckin($pesanan_cultural);
+            $pesanan_cultural->save(); 
 
         return redirect()->back();
     }

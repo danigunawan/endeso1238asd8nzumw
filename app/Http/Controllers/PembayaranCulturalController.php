@@ -95,6 +95,7 @@ class PembayaranCulturalController extends Controller
         $this->validate($request, [
             'nomor_rekening_pelanggan' => 'required',
             'nama_bank_pelanggan' => 'required',
+            'atas_nama_rekening_pengirim' => 'required',
             'nama_bank_tujuan' => 'required',  
             'foto_tanda_bukti' => 'image|max:2048|required'
             ]); 
@@ -108,6 +109,7 @@ class PembayaranCulturalController extends Controller
            'id_user' => $id_user,
            'id_pesanan' => $request->id_pesanan, 
            'nomor_rekening_pelanggan' => $request->nomor_rekening_pelanggan,
+           'atas_nama_rekening_pelanggan' => $request->atas_nama_rekening_pengirim,
            'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
            'nama_bank_tujuan' => $request->nama_bank_tujuan,  
            'status' => "0",

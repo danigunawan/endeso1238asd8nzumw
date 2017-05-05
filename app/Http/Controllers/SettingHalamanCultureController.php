@@ -17,14 +17,19 @@ class SettingHalamanCultureController extends Controller
 
             $setting_halaman_culture = SettingHalamanCulture::all();
 
-            return Datatables::of($setting_halaman_culture)->make(true);
+            return Datatables::of($setting_halaman_culture)->addColumn('action', function($action){
+                    return view('setting-halaman-culture._action', [ 
+                    'edit_url'=> route('setting-halaman-culture.edit', $action->id) 
+                    ]);
+                })->make(true);
             }
             $html = $htmlBuilder
 
             ->addColumn(['data' => 'kategori_1', 'name'=>'kategori_1', 'title'=>'Kategori 1'])
             ->addColumn(['data' => 'kategori_2', 'name'=>'kategori_2', 'title'=>'Kategori 2'])
             ->addColumn(['data' => 'kategori_3', 'name'=>'kategori_3', 'title'=>'Kategori 3'])
-            ->addColumn(['data' => 'kategori_4', 'name'=>'kategori_4', 'title'=>'Kategori 4']);
+            ->addColumn(['data' => 'kategori_4', 'name'=>'kategori_4', 'title'=>'Kategori 4'])
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'']);
             return view('setting-halaman-culture.index')->with(compact('html'));
     }
 }
