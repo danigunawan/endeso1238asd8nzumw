@@ -105,9 +105,9 @@
 		            {!! Form::close() !!}
                     
 			
-					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
 					
 				</div><!-- Contenta Area /- -->
+
 				<!-- Widget Area -->
 				<div class="col-md-4 col-sm-4 col-xs-12 widget-area">
 					<!-- Features Widget -->
@@ -131,6 +131,11 @@
 					</aside>
 					<!-- Room Detail Widget /- -->
 				</div><!-- Widget Area /- -->
+
+				<!-- Tombol Pesan Sekarang /- -->
+					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
+				<!-- Tombol Pesan Sekarang /- -->
+
 			</div>
 		</div><!-- Container /- -->
 		
