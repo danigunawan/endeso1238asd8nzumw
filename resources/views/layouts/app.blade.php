@@ -356,8 +356,7 @@
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('js/jquery.alevatezoom.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script> 
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
       <script src="{{ asset('js/my.js') }}"></script>
