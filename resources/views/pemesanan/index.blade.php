@@ -36,6 +36,13 @@
                                 <tr>
                                     <th>Nama Kamar</th> 
                                     <th>Nama Pemesan</th> 
+                                    <th>Check In</th> 
+                                    <th>Check Out</th> 
+                                    <th>Jumlah Malam</th> 
+                                    <th>Harga Endeso</th> 
+                                    <th>Harga Pemilik</th> 
+                                    <th>Harga Makan</th> 
+                                    <th>Total Harga</th> 
                                     <th>Status</th> 
                                     <th></th> 
                                 </tr>
@@ -77,6 +84,13 @@ $("#datatable_pesanan_homestay").DataTable({
     "serverSide":true,"processing":true,"ajax":"{{ url('admin/pesana/homestay') }}","columns":[  
     {"data":"nama_pemilik","name":"nama_pemilik","title":"Pemilik Rumah","orderable":false,"searchable":false},
     {"data":"user.name","name":"user.name","title":"Nama Pemesan","orderable":false,"searchable":false},
+    {"data":"check_in","name":"check_in","title":"Check In","orderable":false,"searchable":false},
+    {"data":"check_out","name":"check_out","title":"Check Out","orderable":false,"searchable":false},
+    {"data":"jumlah_malam","name":"jumlah_malam","title":"Jumlah Malam","orderable":false,"searchable":false},
+    {"data":"harga_endeso","name":"harga_endeso","title":"Harga Endeso","orderable":false,"searchable":false},
+    {"data":"harga_pemilik","name":"harga_pemilik","title":"Harga Pemilik","orderable":false,"searchable":false},
+    {"data":"harga_makan","name":"harga_makan","title":"Harga Makan","orderable":false,"searchable":false},
+    {"data":"total_harga","name":"total_harga","title":"Total Harga","orderable":false,"searchable":false},
     {"data":"status_pesanan","name":"status_pesanan","title":"Status","orderable":false,"searchable":false},
     {"data":"action","name":"action","title":"","orderable":false,"searchable":false} 
 ]});
