@@ -18,6 +18,7 @@ use App\PesananCulture;
 use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
+use App\SettingHalamanCulture;
 use DateTime; 
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
@@ -44,8 +45,9 @@ class HomeController extends Controller
     {
         $tanggal = date('Y-m-d');
         $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get(); 
+        $cultural = SettingHalamanCulture::all();
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'cultural'=>$cultural]);
  
     }
 
