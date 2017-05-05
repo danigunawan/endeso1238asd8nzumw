@@ -651,10 +651,21 @@ class HomeController extends Controller
                   'jumlah_orang'  => 'required'
                   ]);
             
-            $kategori = Kategori::where('destinasi_kategori',$request->tujuan)->get();   
+            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);   
             
             $lis_cultural = '';
-            foreach ($kategori as $kategoris ) {
+
+            $jumlah_kategori = $kategori->count();
+
+            if ($jumlah_kategori == 0) {
+              # code...
+              Session::flash("flash_notification", [
+              "level"=>"danger",
+              "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
+              ]);
+            }
+
+            foreach ($kategori->get() as $kategoris ) {
                # code... 
               $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
 
@@ -683,7 +694,7 @@ class HomeController extends Controller
                             </div>';
              } 
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori]);
 
         }
 
