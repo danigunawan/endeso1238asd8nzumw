@@ -16,4 +16,14 @@ class PembayaranHomestay extends Model
 	  return $this->belongsTo('App\PesananHomestay','id_pesanan');
 	  }
 
+	  public function rekening_bank_pelanggan()
+	  {
+	  return $this->belongsTo('App\Rekening','nama_bank_pelanggan');
+	  }
+
+	  public function rekening_bank_tujuan()
+	  {
+	  return $this->belongsTo('App\Rekening','nama_bank_tujuan');
+	  }
+
 }
