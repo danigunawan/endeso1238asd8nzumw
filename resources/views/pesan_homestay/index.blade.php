@@ -54,17 +54,19 @@
     										</p>                              
     									@endif 						
     									</div>
-    									<div class="col-xs-9">                                          
-                                            <aside class="widget widget_features">
-                                                <h3 class="widget-title"> Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
-                                                {!!$detail_kamar->deskripsi!!}
-                                            </aside><!-- Features Widget -->
-                                        </div>
-    								</div>
+      									<div class="col-xs-9">                                          
+                          <aside class="widget widget_features">
+                              <h3 class="widget-title"> Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
+                               {!!$detail_kamar->deskripsi!!}
+                          </aside><!-- Features Widget -->
+                        </div>
+      								</div>
 
-    								<div class="row" style="padding: 3%">
-	                                        <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>                                                                  
-	                                </div>
+      								<div class="row" style="padding: 3%">
+      									<span id="span-peta" style="display: none">
+  	                       <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>     										
+      									</span>   
+                      </div>
 
 								</div>
 							</div>

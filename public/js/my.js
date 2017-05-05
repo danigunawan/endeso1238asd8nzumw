@@ -277,8 +277,12 @@ function hitung_penginapan_document(harga_endeso) {
                               }// TOOGLE BOUNCE
 
                               initMap();
+                            	$("#span-peta").show();
 
                             } //END IF
+                            else{
+                            	$("#span-peta").hide();
+                            }
                     //MENAMPILKAN PETA WARGA
                     
 		if (harga_makan != 0) {
