@@ -138,6 +138,8 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
                                     <h4>{{$homestays->rumah->nama_pemilik}}</h4>
+                                    <p>{!! $homestays->deskripsi !!}</p>
+                                    <p>{!! $homestays->deskripsi_2 !!}</p>
                                     <h6><b><sup>RP</sup>{{ $homestays->harga_endeso + $homestays->harga_pemilik }}</b><span>/Malam</span></h6>
                                     <span>
                                         <i class="fa fa-star"></i>

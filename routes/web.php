@@ -21,6 +21,11 @@ Route::post('/update-status-pesanan', 'PembayaranController@status_pesanan');
 /* PENUTUP AJAX PEMBAYARAN HOMESTAY */
 
 
+/* PEMBUKA AJAX MASTER DATA KAMAR  */
+Route::post('/ajax-data-kamar', 'KamarController@ajax_data_kamar');
+/* penutup AJAX MASTER DATA KAMAR  */
+
+
 Route::get('/', 'HomeController@index');
 
 
