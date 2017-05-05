@@ -141,7 +141,17 @@ class PembayaranController extends Controller
 
              $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_pelanggan','rekening_bank_tujuan');
 
-            return Datatables::of($pembayaran_homestay)->addColumn('status_pesanan',function($pesanan_status){
+            return Datatables::of($pembayaran_homestay)
+
+               ->addColumn('total_harga_endeso', function($harga){
+                $total_harga_endeso = $harga->pemesanan_homestay->harga_endeso * $harga->pemesanan_homestay->jumlah_orang * $harga->pemesanan_homestay->jumlah_malam; 
+                $rp = number_format($total_harga_endeso,0,',','.');
+            
+                return 'Rp.'.$rp ; 
+                })
+
+                ->addColumn('status_pesanan',function($pesanan_status){
+
                 if ($pesanan_status->pemesanan_homestay->status_pesanan == 0 ) {
                     # code...
                     $status_pesanan = "Pelanggan Baru saja melakukan pemesanan";
@@ -183,7 +193,7 @@ class PembayaranController extends Controller
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
             ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
-            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'total_harga_endeso', 'name'=>'total_harga_endeso', 'title'=>'Harga Dp'])  
             ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
             ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
             ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
@@ -204,7 +214,17 @@ class PembayaranController extends Controller
 
              $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_pelanggan','rekening_bank_tujuan')->where('status_pembayaran',$id);
 
-            return Datatables::of($pembayaran_homestay)->addColumn('status_pesanan',function($pesanan_status){
+            return Datatables::of($pembayaran_homestay)
+
+               ->addColumn('total_harga_endeso', function($harga){
+                $total_harga_endeso = $harga->pemesanan_homestay->harga_endeso * $harga->pemesanan_homestay->jumlah_orang * $harga->pemesanan_homestay->jumlah_malam; 
+                $rp = number_format($total_harga_endeso,0,',','.');
+            
+                return 'Rp.'.$rp ; 
+                })
+
+                ->addColumn('status_pesanan',function($pesanan_status){
+
                 if ($pesanan_status->pemesanan_homestay->status_pesanan == 0 ) {
                     # code...
                     $status_pesanan = "Pelanggan Baru saja melakukan pemesanan";
@@ -248,7 +268,7 @@ class PembayaranController extends Controller
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
             ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
-            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'harga_endeso', 'name'=>'harga_endeso', 'title'=>'Harga Dp'])  
             ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
             ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
             ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
@@ -313,6 +333,13 @@ class PembayaranController extends Controller
              $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_pelanggan','rekening_bank_tujuan');
 
             return Datatables::of($pembayaran_cultural)
+
+               ->addColumn('total_harga_endeso', function($harga){
+                $total_harga_endeso = $harga->pemesanan_cultural->harga_endeso * $harga->pemesanan_cultural->jumlah_orang; 
+                $rp = number_format($total_harga_endeso,0,',','.');
+            
+                return 'Rp.'.$rp ; 
+                })
 
                 ->addColumn('status_pesanan',function($pesanan_status){
                 if ($pesanan_status->pemesanan_cultural->status_pesanan == 0 ) {

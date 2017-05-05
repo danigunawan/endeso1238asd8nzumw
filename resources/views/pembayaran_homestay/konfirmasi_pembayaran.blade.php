@@ -88,7 +88,7 @@ $("#konfirmasi_pembayaran_cultural").DataTable({
     "serverSide":true,"processing":true,"ajax":"{{ url('admin/konfirmasi/pembayaran/cultural') }}","columns":[  
     {"data":"id_pesanan","name":"id_pesanan","title":"ID Pesanan","orderable":false,"searchable":false},
     {"data":"pemesanan_cultural.nama","name":"pemesanan_cultural.nama","title":"Nama Pemesan","orderable":false,"searchable":false},
-    {"data":"pemesanan_cultural.harga_endeso","name":"pemesanan_cultural.harga_endeso","title":"Harga Dp","orderable":false,"searchable":false},
+    {"data":"total_harga_endeso","name":"total_harga_endeso","title":"Harga Dp","orderable":false,"searchable":false},
     {"data":"nomor_rekening_pelanggan","name":"nomor_rekening_pelanggan","title":"No Rekening Pelanggan","orderable":false,"searchable":false},
     {"data":"rekening_bank_pelanggan.nama_bank","name":"rekening_bank_pelanggan.nama_bank","title":"Nama Bank Pelanggan","orderable":false,"searchable":false},
     {"data":"rekening_bank_tujuan.nama_bank","name":"rekening_bank_tujuan.nama_bank","title":"Nama Bank Tujuan","orderable":false,"searchable":false},
