@@ -247,6 +247,7 @@
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
+                                             <li><a href="{{ route('setting-halaman-culture.index')}}" title="Services">Setting Halaman Culture</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
                                               <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
                                                 <li><a href="{{ route('user_admin.index')}}" title="Services">User Admin </a></li>
@@ -355,8 +356,7 @@
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="{{ asset('js/jquery.alevatezoom.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script> 
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
       <script src="{{ asset('js/my.js') }}"></script>

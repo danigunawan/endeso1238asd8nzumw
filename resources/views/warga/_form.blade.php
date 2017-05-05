@@ -6,13 +6,23 @@
 	</div>
 </div>
 
-<div class="form-group{{ $errors->has('id_kategori_culture') ? ' has-error' : '' }}">
-	{!! Form::label('id_kategori_culture', 'Kategori Culture', ['class' => 'col-md-2 control-label']) !!}
+<!-- KOLOM DESTINASI KATEGORI -->
+<div class="form-group{{ $errors->has('id_destinasi') ? ' has-error' : '' }}">
+	{!! Form::label('id_destinasi', 'Destinasi', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-4">
-		{!! Form::select('id_kategori_culture', ['' => 'Pilih Kategori Culture']+App\Kategori::pluck('nama_aktivitas', 'id')->all(), null,['class' => 'form-control']) !!}
-		{!! $errors->first('id_kategori_culture', '<p class="help-block">:message</p>') !!}
+		{!! Form::select('id_destinasi', ['' => '--PILIH DESTINASI--']+App\Destinasi::pluck('nama_destinasi', 'id')->all(), null,['class' => 'form-control', 'id'=>'destinasi','required' => '']) !!}
+		{!! $errors->first('id_destinasi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
+
+<div class="form-group{{ $errors->has('id_kategori_culture') ? ' has-error' : '' }}">
+        {!! Form::label('id_kategori_culture', 'Kategori ', ['class' => 'col-md-2 control-label']) !!}
+     <div class="col-md-4">
+        {!! Form::select('id_kategori_culture', [], null, ['class' => 'form-control','placeholder'=>'--PILIH KATEGORI--','id' => 'id_kategori_culture', 'autocomplete' => 'off', 'required' => '']) !!}
+        {!! $errors->first('id_kategori_culture', '<p class="help-block">:message</p>') !!}
+     </div>
+</div>
+
 
 <div class="form-group{{ $errors->has('jadwal_1') ? ' has-error' : '' }}">
 	{!! Form::label('jadwal_1', 'Jadwal 1', ['class' => 'col-md-2 control-label']) !!}
@@ -107,6 +117,14 @@
 	<div class="col-md-4">
 		{!! Form::text('kapasitas', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
 		{!! $errors->first('kapasitas', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+<div class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
+	{!! Form::label('no_telp', 'Nomor Telephone', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-4">
+		{!! Form::number('no_telp', null, ['class' => 'form-control', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 

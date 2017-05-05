@@ -16,6 +16,10 @@ Route::post('/ajax-data-warga', 'PesananCulturalController@ajax_data_warga');
 Route::post('/update-status-pesanan-cultural', 'PembayaranCulturalController@status_pesanan_cultural');
 /* PENUTUP AJAX PESANAN CULTURAL */
 
+/* PEMBUKA AJAX KATEGORI */
+Route::post('/ajax-data-kategori', 'WargaController@ajax_data_kategori');
+/* PENUTUP AJAX KATEGORI */
+
 /* PEMBUKA AJAX PEMBAYARAN HOMESTAY */
 Route::post('/update-status-pesanan', 'PembayaranController@status_pesanan');
 /* PENUTUP AJAX PEMBAYARAN HOMESTAY */
@@ -125,6 +129,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('rekening', 'RekeningController');
 	Route::resource('kategori', 'KategoriController');
 	Route::resource('setting-halaman', 'SettingHalamanController');
+	Route::resource('setting-halaman-culture', 'SettingHalamanCultureController');
 	Route::resource('user_admin', 'UserController');
 	Route::resource('user_member', 'User_memberController');
 	Route::resource('social_media', 'SocialMediaController');

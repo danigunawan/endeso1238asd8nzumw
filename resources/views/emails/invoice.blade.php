@@ -13,7 +13,7 @@ down payment (DP) sejumlah Rp. {{number_format($total_harga_endeso,0,',','.')}}.
 <hr>
 @endforeach
 
-<p>Batas waktu pembayaran down payment (DP) anda adalah 120 menit. Jika anda tidak melakukan pembayaran dan konfirmasi pembayaran melebihi batas waktu, pesanan anda kami anggap gagal dan anda dapat melakukan pemesanan ulang di website.</p>
+<p>Batas waktu pembayaran down payment (DP) anda adalah 30 menit. Jika anda tidak melakukan pembayaran dan konfirmasi pembayaran melebihi batas waktu, pesanan anda kami anggap gagal dan anda dapat melakukan pemesanan ulang di website.</p>
 
 <p>Mohon untuk mengirim bukti transfer dengan melampirkan foto bukti transfer dengan cara mengklik link berikut ini <a href="{{ route('pembayaran.index', $id_pesanan) }}">Petunjuk Pembayaran</a> .</p>
 

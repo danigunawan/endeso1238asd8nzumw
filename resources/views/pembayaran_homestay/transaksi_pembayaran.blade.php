@@ -61,17 +61,24 @@
                             {!! $errors->first('nomor_rekening_pelanggan', '<p class="help-block">:message</p>') !!}
                           </div>
 
+                              <!--KOLOM atas nama rekening pengirim -->
+                          <div class="form-group{{ $errors->has('atas_nama_rekening_pengirim') ? ' has-error' : '' }}">
+                          {!! Form::label('atas_nama_rekening_pengirim', 'Atas Nama Rekening Pengirim', ['class'=>'control-label']) !!}
+                            {!! Form::text('atas_nama_rekening_pengirim', null, ['class'=>'form-control']) !!}
+                            {!! $errors->first('atas_nama_rekening_pengirim', '<p class="help-block">:message</p>') !!}
+                          </div>
+
                           <!--SELECT Nama Bank -->
                           <div class="form-group{{ $errors->has('nama_bank_pelanggan') ? ' has-error' : '' }}">   
                                   {!! Form::label('nama_bank_pelanggan', 'Nama Bank Pengirim', ['class' => 'control-label']) !!}
-                                {!! Form::select('nama_bank_pelanggan', ['' => 'Pilih Bank Pengirim']+App\Rekening::pluck('nama_bank', 'nama_bank')->all(), null,['class' => 'form-control']) !!}
+                                {!! Form::select('nama_bank_pelanggan', ['' => 'Pilih Bank Pengirim']+App\Rekening::pluck('nama_bank', 'id')->all(), null,['class' => 'form-control']) !!}
                               {!! $errors->first('nama_bank_pelanggan', '<p class="help-block">:message</p>') !!}
                           </div>
 
                           <!--SELECT Nama Bank -->
                           <div class="form-group{{ $errors->has('nama_bank_tujuan') ? ' has-error' : '' }}">   
                                   {!! Form::label('nama_bank_tujuan', 'Nama Bank Tujuan', ['class' => 'control-label']) !!}
-                                {!! Form::select('nama_bank_tujuan', ['' => 'Pilih Bank Tujuan']+App\Rekening::pluck('nama_bank', 'nama_bank')->all(), null,['class' => 'form-control']) !!}
+                                {!! Form::select('nama_bank_tujuan', ['' => 'Pilih Bank Tujuan']+App\Rekening::pluck('nama_bank', 'id')->all(), null,['class' => 'form-control']) !!}
                               {!! $errors->first('nama_bank_tujuan', '<p class="help-block">:message</p>') !!}
                           </div>
 

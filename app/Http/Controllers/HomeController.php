@@ -18,6 +18,7 @@ use App\PesananCulture;
 use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
+use App\SettingHalamanCulture;
 use DateTime; 
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
@@ -44,8 +45,9 @@ class HomeController extends Controller
     {
         $tanggal = date('Y-m-d');
         $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get(); 
+        $cultural = SettingHalamanCulture::all();
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'cultural'=>$cultural]);
  
     }
 
@@ -77,7 +79,12 @@ class HomeController extends Controller
         $id_user = Auth::user()->id;
         $profil = User::where('id',$id_user)->first();
         $status_foto_profil = strpos($profil->foto_profil, 'http');
-        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil]);
+        $tanggal_lahir = date_create($profil->tanggal_lahir);
+        $hari_tanggal_lahir = date_format($tanggal_lahir,"d");
+        $bulan_tanggal_lahir = date_format($tanggal_lahir,"m");
+        $tahun_tanggal_lahir = date_format($tanggal_lahir,"Y");
+
+        return view('profil',['profil' => $profil,'status_foto_profil' => $status_foto_profil,'hari' => $hari_tanggal_lahir,'bulan' => $bulan_tanggal_lahir,'tahun' => $tahun_tanggal_lahir]);
     }
 
        public function update_profil(Request $request, $id)
@@ -93,7 +100,9 @@ class HomeController extends Controller
       
         $profil = User::where('id',$id)->first();
 
-        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $request->tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp,'kewarga_negaraan' => $request->kewarga_negaraan]);
+         $tanggal_lahir = $request->tahun.'-'. $request->bulan.'-'.$request->tanggal ;
+
+        $profil->update(['name' => $request->name,'email' => $request->email,'tanggal_lahir' => $tanggal_lahir,'alamat' => $request->alamat,'jenis_kelamin' => $request->jenis_kelamin,'no_telp' => $request->no_telp,'kewarga_negaraan' => $request->kewarga_negaraan]);
 
 
          // isi field foto_profil jika ada foto_profil yang diupload
@@ -319,10 +328,11 @@ class HomeController extends Controller
 
       $harga_jumlah_orang = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang;
 
-
-
       $harga_lama_inap = $harga_jumlah_orang * $pesanan_homestay->jumlah_malam;
 
+      $total_dp = $pesanan_homestay->harga_endeso * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
+
+      $total_bayar = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
       
       // ambil nama tamu
       $tamu = TamuHomestay::select('nama_tamu')->where('id_pesanan',$pesanan_homestay->id)->get();
@@ -333,7 +343,7 @@ class HomeController extends Controller
                             <h3>'.$kamar->rumah->nama_pemilik.',</h3>
 
                             <div class="row">
-                              <div class="col-sm-6">
+                              <div class="col-md-6">
                               <h5>'.$kamar->destinasi->nama_destinasi.'</h5>
                              <table>
                             <tbody>                            
@@ -351,7 +361,7 @@ class HomeController extends Controller
                                 $tampil_detail .= ' </tbody></table>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                 <tbody><table>';  // pembuka tabel kedau dan pembuka div kedua
 
                                 // jika ada harga makan, makan akan tampil harga makan nya
@@ -368,6 +378,9 @@ class HomeController extends Controller
 
                                   <tr><td  width="50%"><font class="satu"> '.$pesanan_homestay->jumlah_malam.' Hari X '.$stringfunction->rp($harga_jumlah_orang).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_lama_inap).'</font></td></tr>
 
+                                  <tr><td  width="50%"><font class="satu" style="color:red"> Down Payment (DP) </font></td> <td><font class="satu" style="color:red">  &nbsp;:&nbsp;</font></td> <td><font class="satu" style="color:red"> '.$stringfunction->rp($total_dp).'</font></td></tr>
+
+                                  <tr><td  width="50%"><font class="satu" style="color:red"> Total Pembayaran </font></td> <td> <font class="satu" style="color:red"> &nbsp;:&nbsp;</font></td> <td><font class="satu" style="color:red"> '.$stringfunction->rp($total_bayar).'</font></td></tr>
                                 </tbody>
                                 </table>
 
@@ -401,7 +414,7 @@ class HomeController extends Controller
 
 
 
-    public function detail_pesanan_culture($id)
+    public function detail_pesanan_culture($id, StringController $stringfunction)
     {
       $pesanan_culture = PesananCulture::where('id',$id)->first();
 
@@ -415,26 +428,61 @@ class HomeController extends Controller
       $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
       $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
 
+      // hitung harga 
+      $harga_cultural = $pesanan_culture->harga_endeso + $pesanan_culture->harga_pemilik;
+
+      $harga_jumlah_orang = $harga_cultural * $pesanan_culture->jumlah_orang;
+
+      $total_dp = $pesanan_culture->harga_endeso * $pesanan_culture->jumlah_orang;
+
+      $total_bayar = 
 
       $nama_user = User::select('name')->where('id',$pesanan_culture->id_user)->first();
 
       $tampil_detail = '<div class="panel panel-default">
                           <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h4>Detail Culture</h4></b></div>
                           <div class="panel-body">
-                            <h3>'.$destinasi->nama_destinasi.',<h5>'.$kategori->nama_aktivitas.'</h5></h3>
-                             <table>
-                            <tbody>                            
-                                <tr><td width="25%"><font class="satu">Check-in </font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td><font class="satu">'.$format_check_in.'</font> 
-                                </tr>
-                                <tr><td width="25%"><font class="satu">Jadwal</font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td><font class="satu">'.$pesanan_culture->jadwal.'</font> 
-                                </tr>
-                                <tr><td  width="25%"><font class="satu">Kode Booking  </font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$pesanan_culture->id.'</font> </td>
-                                </tr>
-                            </tbody>
-                          </table>
+
+                                <h3>'.$destinasi->nama_destinasi.',</h3>
+                          <div class="row">
+
+                            <div class="col-md-6">
+                                <h5>'.$kategori->nama_aktivitas.'</h5>
+                                 <table>
+                                <tbody>                            
+                                    <tr><td width="30%"><font class="satu">Check-in </font></td> 
+                                        <td> &nbsp;&nbsp;</td> <td><font class="satu">'.$format_check_in.'</font> 
+                                    </tr>
+                                    <tr><td width="30%"><font class="satu">Jadwal</font></td> 
+                                        <td> &nbsp;&nbsp;</td> <td><font class="satu">'.$pesanan_culture->jadwal.'</font> 
+                                    </tr>
+                                    <tr><td  width="30%"><font class="satu">Kode Booking  </font></td> 
+                                        <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$pesanan_culture->id.'</font> </td>
+                                    </tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+
+                            <div class="col-md-6">
+                                 <table>
+                                <tbody>  
+                                      <tr><td  width="50%"><font class="satu">Harga </font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_cultural).'</font></td></tr>
+
+                                      <tr><td  width="50%"> <font class="satu">'.$pesanan_culture->jumlah_orang.' orang X '.$stringfunction->rp($harga_cultural).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_jumlah_orang).'</font></td></tr>
+
+                                      <tr><td  width="50%"><font class="satu" style="color:red"> Down Payment (DP) </font></td> <td> <font class="satu" style="color:red">&nbsp;:&nbsp;</font></td> <td><font class="satu" style="color:red"> '.$stringfunction->rp($total_dp).'</font></td></tr>
+
+                                      <tr><td  width="50%"><font class="satu" style="color:red"> Total Pembayaran </font></td> <td> <font class="satu" style="color:red">&nbsp;:&nbsp;</font></td> <td><font class="satu" style="color:red"> '.$stringfunction->rp($harga_jumlah_orang).'</font></td></tr>
+
+                                </tbody>
+                              </table>
+                            </div>
+
+                          </div>
+
+
+                          </div>
                           </div>
                         </div>';
 
@@ -604,10 +652,21 @@ class HomeController extends Controller
                   'jumlah_orang'  => 'required'
                   ]);
             
-            $kategori = Kategori::where('destinasi_kategori',$request->tujuan)->get();   
+            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);   
             
             $lis_cultural = '';
-            foreach ($kategori as $kategoris ) {
+
+            $jumlah_kategori = $kategori->count();
+
+            if ($jumlah_kategori == 0) {
+              # code...
+              Session::flash("flash_notification", [
+              "level"=>"danger",
+              "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
+              ]);
+            }
+
+            foreach ($kategori->get() as $kategoris ) {
                # code... 
               $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
 
@@ -636,7 +695,7 @@ class HomeController extends Controller
                             </div>';
              } 
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural]);
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori]);
 
         }
 
