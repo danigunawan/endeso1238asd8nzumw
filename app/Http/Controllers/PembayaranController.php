@@ -182,13 +182,14 @@ class PembayaranController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
-            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan'])  
-              ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
-               ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pelanggan'])
-                ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
-                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
-                 ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
-                    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
+            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
 
 
             return view('pembayaran_homestay.konfirmasi_pembayaran')->with(compact('html'));
@@ -246,13 +247,14 @@ class PembayaranController extends Controller
             }
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
-            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan'])  
-              ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pelanggan'])  
-               ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pelanggan'])
-                ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
-                 ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti Transfer'])  
-                 ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
-                    ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+            ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'pemesanan_homestay.harga_endeso', 'name'=>'pemesanan_homestay.harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
+            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
 
 
             return view('pembayaran_homestay.konfirmasi_pembayaran')->with(compact('html'));
