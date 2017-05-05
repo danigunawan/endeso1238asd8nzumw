@@ -162,41 +162,10 @@
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Cultural Experiences Terbaik</h3>
-                    <p>Paket Cultural Experiences dengan rating dan harga terbaik pilihan pelanggan setia Endeso.</p>
+                    <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
                 </div><!-- Section Header /- -->
-                <div class="offer-list">
-                    <div class="offer-box tall">
-                        <img src="images/offer/offer1.jpg" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3>Danau <span>Toba</span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 4.150.000</span></h4>
-                                <a class="read-more" title="book now" href="#">pesan <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offer-box wide">
-                        <img src="images/offer/offer2.jpg" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3>Sumba, <span>NTT</span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 2.750.000</span></h4>
-                                <a class="read-more" title="book now" href="#">pesan <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="offer-box wide">
-                        <img src="images/offer/offer3.jpg" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3>Wamena,  <span>Papua</span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 8.500.000</span></h4>
-                                <a class="read-more" title="book now" href="#">pesan <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="offer-box full">
-                        <img src="images/offer/offer4.jpg" alt="Offer" />
+                        <img src="img/0Es9Ur1yHknp5jUckK8fIlXqNCLHlB8Mn0O4JOtR.jpg" alt="Offer" />
                         <div class="offer-detail">
                             <h3>Tana  <span>Toraja</span></h3>
                             <div class="price-detail">
@@ -205,7 +174,36 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="offer-box full">
+                        <img src="img/Wb0JHjfpppnmwhrskkicSCV08xcidLyWqEvdwQyz.jpg" alt="Offer" />
+                        <div class="offer-detail">
+                            <h3>Tana  <span>Toraja</span></h3>
+                            <div class="price-detail">
+                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
+                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-box full">
+                        <img src="img/0Es9Ur1yHknp5jUckK8fIlXqNCLHlB8Mn0O4JOtR.jpg" alt="Offer" />
+                        <div class="offer-detail">
+                            <h3>Tana  <span>Toraja</span></h3>
+                            <div class="price-detail">
+                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
+                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="offer-box full">
+                        <img src="img/Wb0JHjfpppnmwhrskkicSCV08xcidLyWqEvdwQyz.jpg" alt="Offer" />
+                        <div class="offer-detail">
+                            <h3>Tana  <span>Toraja</span></h3>
+                            <div class="price-detail">
+                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
+                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
             </div><!-- container /- -->
         </div><!-- Offer Section /- -->
         <div class="section-padding"></div>
