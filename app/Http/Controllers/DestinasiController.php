@@ -195,7 +195,7 @@ class DestinasiController extends Controller
         $data_rumah = Rumah::where('id_destinasi',$id);
         $data_cultural = Kategori::where('destinasi_kategori',$id);
 
-      if ($data_rumah->count() > 0) {
+      if ($data_rumah->count() > 0 OR $data_cultural->count() > 0) {
         // menyiapkan pesan error
         $html = 'Destinasi tidak bisa dihapus karena masih memiliki rumah : ';
         $html .= '<ul>';

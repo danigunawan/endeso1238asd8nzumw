@@ -68,12 +68,12 @@
                             {!! $errors->first('atas_nama_rekening_pengirim', '<p class="help-block">:message</p>') !!}
                           </div>
 
-                          <!--SELECT Nama Bank -->
-                          <div class="form-group{{ $errors->has('nama_bank_pelanggan') ? ' has-error' : '' }}">   
-                                  {!! Form::label('nama_bank_pelanggan', 'Nama Bank Pengirim', ['class' => 'control-label']) !!}
-                                {!! Form::select('nama_bank_pelanggan', ['' => 'Pilih Bank Pengirim']+App\Rekening::pluck('nama_bank', 'id')->all(), null,['class' => 'form-control']) !!}
-                              {!! $errors->first('nama_bank_pelanggan', '<p class="help-block">:message</p>') !!}
-                          </div>
+                              <!--KOLOM atas nama bank -->
+                          <div class="form-group{{ $errors->has('nama_bank_pelanggan') ? ' has-error' : '' }}">
+                          {!! Form::label('nama_bank_pelanggan', 'Nama Bank Pengirim', ['class'=>'control-label']) !!}
+                            {!! Form::text('nama_bank_pelanggan', null, ['class'=>'form-control']) !!}
+                            {!! $errors->first('nama_bank_pelanggan', '<p class="help-block">:message</p>') !!}
+                          </div> 
 
                           <!--SELECT Nama Bank -->
                           <div class="form-group{{ $errors->has('nama_bank_tujuan') ? ' has-error' : '' }}">   

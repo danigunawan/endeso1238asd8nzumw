@@ -279,7 +279,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	]);
 // CHECK IN & CHECK OUT CULTURAL
 
-// CHECK IN & CHECK OUT CULTURAL
+// Batal pesanan HOMESTAY CULTURAL
 	Route::get('pemesanan/cultural/batal/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.cultural_batal',
@@ -291,7 +291,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'pemesanan.homestay_batal',
 	'uses' => 'PemesananController@homestay_batal'
 	]);
-// CHECK IN & CHECK OUT CULTURAL
+// Batal pesanan HOMESTAY CULTURAL
 
 Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah_orang}', [
 	'as'=> 'pesanhomestay.form',

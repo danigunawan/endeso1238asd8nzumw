@@ -8,6 +8,8 @@ use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use Session;
 use App\Rumah;
+use App\KomentarKamar;
+
 
 class KamarController extends Controller
 {
@@ -286,7 +288,24 @@ class KamarController extends Controller
         //
 
         $kamar = Kamar::find($id);
+        $data_komentar_kamar = KomentarKamar::where('id_kamar',$id);
 
+        // hapus foto lama, jika ada
+          if ($data_komentar_kamar->count() > 0) {
+        // menyiapkan pesan error
+        $html = 'Kamar tidak bisa dihapus karena masih memiliki komentar : ';
+        $html .= '<ul>';
+        $html .= '<li>'.$data_komentar_kamar->count().'</li>';
+        $html .= '</ul>';
+        
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('kamar.index');      
+        }
+            else{
         // hapus foto lama, jika ada
 
         if ($kamar->foto_kamar) {
@@ -309,8 +328,8 @@ class KamarController extends Controller
         "message"=>"Kategori Berhasil Dihapus"
         ]);
         return redirect()->route('kamar.index');
-
     }
+}
 
     public function ajax_data_kamar(Request $request)
     { 
