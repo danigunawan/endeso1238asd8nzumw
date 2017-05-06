@@ -138,8 +138,6 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
                                     <h4>{{$homestays->rumah->nama_pemilik}}</h4>
-                                    <p>{!! $homestays->deskripsi !!}</p>
-                                    <p>{!! $homestays->deskripsi_2 !!}</p>
                                     <h6><b><sup>RP</sup>{{ $homestays->harga_endeso + $homestays->harga_pemilik }}</b><span>/Malam</span></h6>
                                     <span>
                                         <i class="fa fa-star"></i>
@@ -166,46 +164,58 @@
                     <h3>Cultural Experiences Terbaik</h3>
                     <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
                 </div><!-- Section Header /- -->
+                
+                @if (isset($warga_1))
                     <div class="offer-box full">
-                        <img src="img/0Es9Ur1yHknp5jUckK8fIlXqNCLHlB8Mn0O4JOtR.jpg" alt="Offer" />
+                        <img src="img/{{ $setting_halaman_culture->foto_1 or 'foto_1' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3>Tana  <span>Toraja</span></h3>
+                            <h3><span>{{$kategori_1->nama_aktivitas}}</span></h3>
                             <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
-                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_1->harga_endeso + $warga_1->harga_pemilik,0,',','.')}}</span></h4>
+                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_1->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+                @endif
+
+                @if (isset($warga_2))
                     <div class="offer-box full">
-                        <img src="img/Wb0JHjfpppnmwhrskkicSCV08xcidLyWqEvdwQyz.jpg" alt="Offer" />
+                        <img src="img/{{ $setting_halaman_culture->foto_2 or 'foto_2' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3>Tana  <span>Toraja</span></h3>
+                            <h3><span>{{$kategori_2->nama_aktivitas}}</span></h3>
                             <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
-                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_2->harga_endeso + $warga_2->harga_pemilik,0,',','.')}}</span></h4>
+                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_2->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+                @endif
+
+                @if (isset($warga_3))
                     <div class="offer-box full">
-                        <img src="img/0Es9Ur1yHknp5jUckK8fIlXqNCLHlB8Mn0O4JOtR.jpg" alt="Offer" />
+                        <img src="img/{{ $setting_halaman_culture->foto_3 or 'foto_3' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3>Tana  <span>Toraja</span></h3>
+                            <h3><span>{{$kategori_3->nama_aktivitas}}</span></h3>
                             <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
-                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_3->harga_endeso + $warga_3->harga_pemilik,0,',','.')}}</span></h4>
+                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_3->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+                @endif
+
+                @if (isset($warga_4))
                     <div class="offer-box full">
-                        <img src="img/Wb0JHjfpppnmwhrskkicSCV08xcidLyWqEvdwQyz.jpg" alt="Offer" />
+                        <img src="img/{{ $setting_halaman_culture->foto_4 or 'foto_4' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3>Tana  <span>Toraja</span></h3>
+                            <h3><span>{{$kategori_4->nama_aktivitas}}</span></h3>
                             <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> 6.750.000</span></h4>
-                                <a class="read-more" title="book now" href="#">book now <i class="fa fa-long-arrow-right"></i></a>
+                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_4->harga_endeso + $warga_4->harga_pemilik,0,',','.')}}</span></h4>
+                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_4->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+                @endif
             </div><!-- container /- -->
         </div><!-- Offer Section /- -->
         <div class="section-padding"></div>

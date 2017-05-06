@@ -15,5 +15,8 @@ class Rumah extends Model
 	  {
 	  return $this->hasOne('App\Destinasi','id','id_destinasi');
 	  }
+
+
+	  
     
 }

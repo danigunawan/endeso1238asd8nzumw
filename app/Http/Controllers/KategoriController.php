@@ -8,6 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Kategori;
 use Session;
 use Illuminate\Support\Facades\File;
+use App\Warga;
 
 class KategoriController extends Controller
 {
@@ -254,9 +255,26 @@ class KategoriController extends Controller
     {
         //
         $kategori = Kategori::find($id);
+        $data_warga = Warga::where('id_kategori_culture',$id);
 
         // hapus foto lama, jika ada
-
+    if ($data_warga->count() > 0) {
+        // menyiapkan pesan error
+        $html = 'Kategori tidak bisa dihapus karena masih memiliki warga : ';
+        $html .= '<ul>';
+        foreach ($data_warga->get() as $warga) {
+          $html .= '<li>'.$warga->nama_warga.'</li>';
+        }
+        $html .= '</ul>';
+        
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('kategori.index');      
+        }
+    else{
         if ($kategori->foto_kategori) {
 
         $old_foto_kategori = $kategori->foto_kategori;
@@ -278,7 +296,7 @@ class KategoriController extends Controller
         ]);
         return redirect()->route('kategori.index');
     }
-
+}
 
     public function list_cultural(){
 

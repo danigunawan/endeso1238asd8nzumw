@@ -105,8 +105,9 @@
 						<table>
  							<tbody>
                                 <span style="display: none" id="harga_endeso_hidden"> </span>
-                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Down Payment (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
-                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Total Pembayaran </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                <tr><td width="50%" style="font-size:150%;color:red;"><b>Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
+                                
   							</tbody>
 						</table>
 					</div>

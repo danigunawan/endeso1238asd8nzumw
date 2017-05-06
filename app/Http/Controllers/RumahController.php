@@ -7,6 +7,8 @@ use App\Rumah;
 use Yajra\Datatables\Html\Builder; 
 use Yajra\Datatables\Datatables;
 use Session;
+use App\Kamar;
+
 
 class RumahController extends Controller
 {
@@ -146,11 +148,27 @@ class RumahController extends Controller
     public function destroy($id)
     {
         //menghapus data dengan pengecekan alert /peringatan
-        if(!Rumah::destroy($id)) 
-        {
-            return redirect()->back();
+        $data_kamar = Kamar::where('id_rumah',$id);
+
+        // hapus foto lama, jika ada
+    if ($data_kamar->count() > 0) {
+        // menyiapkan pesan error
+        $html = 'Rumah tidak bisa dihapus karena masih memiliki kamar : ';
+        $html .= '<ul>';
+        $html .= '<li>'.$data_kamar->count().'</li>';
+        $html .= '</ul>';
+        
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('rumah.index');      
         }
-        else{
+    else{
+
+        Rumah::destroy($id);
+
         Session:: flash("flash_notification", [
             "level"=>"success",
             "message"=>"Data Rumah Berhasil Di Hapus"
