@@ -133,7 +133,7 @@
 				</div><!-- Widget Area /- -->
 
 				<!-- Tombol Pesan Sekarang /- -->
-					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{$kamar->harga_endeso + $kamar->harga_pemilik}}) <i class="fa fa-long-arrow-right"></i></a>
+					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso)  * $jumlah_orang),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
 				<!-- Tombol Pesan Sekarang /- -->
 
 			</div>

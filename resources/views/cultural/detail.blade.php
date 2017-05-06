@@ -233,7 +233,7 @@
 						<p>{!! $detail_cultural->deskripsi_kategori !!}</p>
 					</aside><!-- Features Widget -->
 
-                   	<a href="{{ url('/pesan-cultural/'.$detail_cultural->id.'/'.$tanggal_masuk.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{number_format($warga->harga_endeso + $warga->harga_pemilik,0,',','.')}}) <i class="fa fa-long-arrow-right"></i></a>
+                   	<a href="{{ url('/pesan-cultural/'.$detail_cultural->id.'/'.$tanggal_masuk.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{number_format(($warga->harga_endeso + $warga->harga_pemilik) * $jumlah_orang),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
 
                     <!-- Features Widget 
 					<aside class="widget widget_features">
