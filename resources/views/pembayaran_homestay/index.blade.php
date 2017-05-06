@@ -99,11 +99,11 @@
                           </li>
                           <h4><li>
                               @if($detail_pesanan->harga_makan == 0)
-                                <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($detail_pesanan->harga_pemilik * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
-                                 Ketika Anda Check Out</h4>
+                                <h4>Lakukan Sisa Pembayaran Sebesar  Rp. {{ number_format($detail_pesanan->harga_pemilik * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
+                                Secara Tunai Ketika Anda Check Out</h4>
                               @else
                                 <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format( ($detail_pesanan->harga_pemilik + $detail_pesanan->harga_makan) * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
-                                 Ketika Anda Check Out</h4>
+                                Secara Tunai Ketika Anda Check Out</h4>
                               @endif                            
                           </li>
                           </ol>

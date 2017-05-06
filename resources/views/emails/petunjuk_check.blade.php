@@ -1,6 +1,7 @@
 <p>Hallo {{$user->name}},</p>
 <p>Terima kasih telah melakukan booking homestay melalui Endeso.</p> 
-<p>Untuk dapat menemukan lokasi tempat, anda dapat melihatnya di peta yang ada di website www.endeso.id atau <a href="https://www.google.com/maps/place/{{$detail_kamar->latitude}},{{$detail_kamar->longitude}}">Peta</a> pada bagian "Pesanan Saya". Ketika anda telah sampai di rumah yang terpilih, harap tunjukkan kartu identitas anda (KTP/SIM/ Kartu Pelajar) kepada pemilik rumah.</p>
+<p>untuk dapat menemukan lokasi tempat, anda dapat  <a href="https://www.google.com/maps/place/{{$detail_kamar->latitude}},{{$detail_kamar->longitude}}">'klik disini'</a> untuk melihat peta.</p>
+<p>Ketika anda telah sampai di rumah yang terpilih, harap tunjukkan kartu identitas anda (KTP/SIM/ Kartu Pelajar) kepada pemilik rumah.</p>
 <p>Berikut adalah nomor telepon pemilik rumah untuk mempermudah anda menemukan lokasi rumah. </p>
 <p>( No Telp: {{$detail_kamar->rumah->no_telp }}, Nama Pemilik: {{ $detail_kamar->rumah->nama_pemilik }}, Alamat: {{$detail_kamar->rumah->alamat}} )</p>
 <p>Anda dapat melakukan check-in di rumah yang terpilih setelah pukul 15.00 waktu setempat.</p>
