@@ -9,15 +9,19 @@
 </div>
 
 <!-- KOLOM DESTINASI KAMAR -->
-<div class="form-group{{ $errors->has('rumah_kamar') ? ' has-error' : '' }}">
-	{!! Form::label('rumah_kamar', 'Pemilik Rumah', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('id_rumah') ? ' has-error' : '' }}">
+	{!! Form::label('id_rumah', 'Pemilik Rumah', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-	@if (old('id_destinasi') != null)
+	@if (old('id_destinasi') != null )
 		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',old('id_destinasi'))->pluck('nama_pemilik', 'id_rumah')->toArray(), null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
+
+	@elseif(isset($kamar) && isset($kamar->id_destinasi))
+
+		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',$kamar->id_destinasi)->pluck('nama_pemilik', 'id_rumah')->toArray(), $kamar->id_destinasi,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
 	@else
 	{!! Form::select('id_rumah',['' => 'Pilih Rumah'], null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
 	@endif
-		{!! $errors->first('rumah_kamar', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('id_rumah', '<p class="help-block">:message</p>') !!}
 	
 	</div>
 </div>
