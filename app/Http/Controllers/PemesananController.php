@@ -62,17 +62,19 @@ class PemesananController extends Controller
                 })->make(true);
             }
             $html = $htmlBuilder
-            ->addColumn(['data' => 'id', 'name'=>'id', 'title'=>'Id'])  
+            ->addColumn(['data' => 'id', 'name'=>'id', 'title'=>'Kode Booking'])  
             ->addColumn(['data' => 'warga.nama_warga', 'name'=>'warga.nama_warga', 'title'=>'Nama Warga'])  
             ->addColumn(['data' => 'user.name', 'name'=>'user.name', 'title'=>'Nama Pemesan'])   
             ->addColumn(['data' => 'check_in', 'name'=>'check_in', 'title'=>'Check In'])  
             ->addColumn(['data' => 'jadwal', 'name'=>'jadwal', 'title'=>'Jadwal'])  
-            ->addColumn(['data' => 'harga_endeso', 'name'=>'harga_endeso', 'title'=>'Harga Endeso'])  
-            ->addColumn(['data' => 'harga_pemilik', 'name'=>'harga_pemilik', 'title'=>'Harga Pemilik'])  
+            ->addColumn(['data' => 'no_ktp', 'name'=>'no_ktp', 'title'=>'No KTP'])  
+            ->addColumn(['data' => 'no_telp', 'name'=>'no_telp', 'title'=>'No HP'])  
+            ->addColumn(['data' => 'email', 'name'=>'email', 'title'=>'Email'])  
             ->addColumn(['data' => 'total_harga', 'name'=>'total_harga', 'title'=>'Total Harga'])  
             ->addColumn(['data' => 'jumlah_orang', 'name'=>'jumlah_orang', 'title'=>'Jumlah Orang'])  
-            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'Status' , 'searchable'=>false]) 
-            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'' , 'searchable'=>false]); 
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'Status' , 'searchable'=>true]) 
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'' , 'searchable'=>false])
+            ->addColumn(['data' => 'created_at', 'name'=>'created_at', 'title'=>'Waktu dipesan']); 
 
             return view('pemesanan.index')->with(compact('html'));
 
@@ -134,7 +136,8 @@ class PemesananController extends Controller
             ->addColumn(['data' => 'total_harga', 'name'=>'total_harga', 'title'=>'Total Harga'])  
             ->addColumn(['data' => 'jumlah_orang', 'name'=>'jumlah_orang', 'title'=>'Jumlah Orang'])  
             ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'Status' , 'searchable'=>false]) 
-            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'' , 'searchable'=>false]); 
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'' , 'searchable'=>false])
+            ->addColumn(['data' => 'created_at', 'name'=>'created_at', 'title'=>'Waktu dipesan']) ; 
 
             return view('pemesanan.index')->with(compact('html'));
     }
