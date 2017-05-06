@@ -256,9 +256,10 @@ class KategoriController extends Controller
         //
         $kategori = Kategori::find($id);
         $data_warga = Warga::where('id_kategori_culture',$id);
+        $data_komentar_kamar = KomentarKategori::where('id_kategori',$id);
 
         // hapus foto lama, jika ada
-    if ($data_warga->count() > 0) {
+    if ($data_warga->count() > 0 OR $data_komentar_kamar->count() > 0 ) {
         // menyiapkan pesan error
         $html = 'Kategori tidak bisa dihapus karena masih memiliki warga : ';
         $html .= '<ul>';
@@ -266,7 +267,14 @@ class KategoriController extends Controller
           $html .= '<li>'.$warga->nama_warga.'</li>';
         }
         $html .= '</ul>';
-        
+        $html .= '<br>';
+        $html = 'Kategori tidak bisa dihapus karena masih memiliki komentar : ';
+        $html .= '<ul>';
+        foreach ($data_komentar_kamar->get() as $warga) {
+          $html .= '<li>'.$data_komentar_kamar->count().'</li>';
+        }
+        $html .= '</ul>';
+
         Session::flash("flash_notification", [
           "level"=>"danger",
           "message"=>$html
