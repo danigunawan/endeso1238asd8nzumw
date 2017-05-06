@@ -100,7 +100,7 @@
 
                           <h4><li>
                                 <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }}<br>
-                                Ketika Anda Check Out</h4>
+                                Secara Tunai Ketika Anda Check Out</h4>
                           </li>
                         </ol>
                         </div>
