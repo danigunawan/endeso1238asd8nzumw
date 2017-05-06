@@ -542,7 +542,7 @@ class HomeController extends Controller
        public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
     {
         $kamar = Kamar::with(['rumah'])->find($id);
-        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
+        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
 
