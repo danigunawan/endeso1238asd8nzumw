@@ -58,6 +58,7 @@
                           <aside class="widget widget_features">
                               <h3 class="widget-title"> Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
                                {!!$detail_kamar->deskripsi!!}
+                               {!!$detail_kamar->deskripsi_2!!}
                           </aside><!-- Features Widget -->
                         </div>
       								</div>
@@ -98,7 +99,7 @@
  							<tbody>
  								
       							<tr><td width="50%" style="font-size:150%;color:red;">Harga Total </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
-                    <tr><td width="50%" style="font-size:150%;color:red;">Jumlah yang harus dibayar sekarang (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
+                    <tr><td width="50%" style="font-size:100%;color:red;">Jumlah yang harus dibayar sekarang (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
   							</tbody>
 						</table>
 					</div>

@@ -73,16 +73,22 @@
 
                                         <div class="col-sm-8">
                                             <aside class="widget widget_features">
-                                                    <h3 class="widget-title"> <span id="tentang_warga"></span> </h3>
+                                                    <h3 class="widget-title"> Tentang Warga (<span id="tentang_warga"></span>) </h3>
                                             </aside><!-- Features Widget --> 
                                         </div>                                    
                                     </div>
 
                                     <div class="row" style="padding: 3%">
                                         <span class="span-peta">
-                                            <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>                                                
-                                        </span>                                                                      
+                                            <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>   
+                                             <br>
+                                             <h3 class="widget-title"> Foto Tempat </h3>
+                                            <div id="foto-tempat"></div>                                               
+                                             
+                                        </span> 
+                                               
                                     </div>
+
                                 </span>
 
 								</div>
@@ -106,7 +112,7 @@
  							<tbody>
                                 <span style="display: none" id="harga_endeso_hidden"> </span>
                                 <tr><td width="50%" style="font-size:150%;color:red;"><b> Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
-                                <tr><td width="50%" style="font-size:150%;color:red;"><b>Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
+                                <tr><td width="50%" style="font-size:100%;color:red;"><b>Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
                                 
   							</tbody>
 						</table>
@@ -200,10 +206,16 @@
                             }
 
                     //TAMPIL FOTO WARGA
-                        $(".span-hapus").remove();
+                        $(".span-hapus-foto").remove();
+                        $(".span-hapus-foto-tempat").remove();
 
-                        $("#span_foto").prepend('<span class="span-hapus"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
+                        $("#span_foto").prepend('<span class="span-hapus-foto"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
+
                         $("#span_tentang_warga").show();
+
+
+                        $("#foto-tempat").html('<span class="span-hapus-foto-tempat"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_tempat+'"> </span>');
+
 
                     //MENAMPILKAN PETA WARGA
                             var latitude = $("#latitude").val();
