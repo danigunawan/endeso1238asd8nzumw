@@ -1,8 +1,6 @@
 <p>Hallo <b>{{$user->name}}</b>,</p>
 <p>Terima kasih telah melakukan pemesanan Cultural Experience dari website</p>
-<p>www.endeso.id</p>
-<p>Untuk dapat menemukan lokasi tempat, anda dapat meilihatnya di peta yang ada</p>
-<p>di website www.endeso.id pada bagian &quot;Pesanan Saya&quot; atau <a href="https://www.google.com/maps/place/{{$warga->latitude}},{{$warga->longitude}}">Peta</a>. Ketika anda telah</p>
+<p>untuk dapat menemukan lokasi tempat, anda dapat <a href="https://www.google.com/maps/place/{{$warga->latitude}},{{$warga->longitude}}">'klik disini'</a> untuk melihat peta.</p>
 <p>bertemu dengan warga terpilih, harap tunjukkan kartu identitas anda</p>
 <p>(KTP/SIM/ Kartu Pelajar) kepada warga terpilih.</p>
 <p>Berikut adalah nomor telepon warga yang terpilih untuk mempermudah anda</p>
