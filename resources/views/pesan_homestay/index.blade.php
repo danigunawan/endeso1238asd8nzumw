@@ -120,7 +120,7 @@
 
   $(document).ready(function(){
 
-    var harga_endeso = {{ $dp }};
+    var harga_endeso = "{{ $dp }}";
     hitung_penginapan_document(harga_endeso);
 
   });
@@ -133,7 +133,7 @@
     });
 
     $(document).on('change','#jumlah_orang',function(e){
-    	var harga_endeso = {{ $dp }};
+    	var harga_endeso = "{{ $dp }}";
 
  		hitung_penginapan(harga_endeso);
 
@@ -160,12 +160,12 @@
     });
 
     $(document).on('change','#datepicker1',function(e){
-    	var harga_endeso = {{ $dp }};
+    	var harga_endeso = "{{ $dp }}";
   		hitung_penginapan(harga_endeso); 
     });
 
     $(document).on('change','#datepicker2',function(e){
-    	var harga_endeso = {{ $dp }};
+    	var harga_endeso = "{{ $dp }}";
        hitung_penginapan(harga_endeso); 
     });
 
