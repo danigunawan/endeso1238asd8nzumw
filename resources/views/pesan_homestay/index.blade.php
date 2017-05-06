@@ -58,6 +58,7 @@
                           <aside class="widget widget_features">
                               <h3 class="widget-title"> Tentang {{$detail_kamar->rumah->nama_pemilik}}</h3>
                                {!!$detail_kamar->deskripsi!!}
+                               {!!$detail_kamar->deskripsi_2!!}
                           </aside><!-- Features Widget -->
                         </div>
       								</div>

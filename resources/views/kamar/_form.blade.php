@@ -28,7 +28,7 @@
 <div class="form-group{{ $errors->has('deskripsi') ? ' has-error' : '' }}">
 	{!! Form::label('deskripsi', 'Deskripsi 1', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::textarea('deskripsi', null, ['class' => 'form-control']) !!}
+		{!! Form::textarea('deskripsi', null, ['class' => 'form-control','id'=>'deskripsi']) !!}
 		{!! $errors->first('deskripsi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
@@ -39,7 +39,7 @@
 <div class="form-group{{ $errors->has('deskripsi_2') ? ' has-error' : '' }}">
 	{!! Form::label('deskripsi_2', 'Deskripsi 2', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::textarea('deskripsi_2', null, ['class' => 'form-control']) !!}
+		{!! Form::textarea('deskripsi_2', null, ['class' => 'form-control','id'=>'deskripsi_2']) !!}
 		{!! $errors->first('deskripsi_2', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

@@ -637,7 +637,6 @@ class HomeController extends Controller
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
                                               <p>".$kamars->deskripsi ."</p>
-                                              <p>".$kamars->deskripsi_2 ."</p>
                                               <h6><b><sup>RP</sup>".$harga_kamar."</b><span>/Orang/Malam</span></h6>
                                               <span>
                                                 <i class='fa fa-star'></i>
