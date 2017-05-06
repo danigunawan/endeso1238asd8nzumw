@@ -56,8 +56,7 @@
                                 <tr>
                                     <th>ID Pesanan</th> 
                                     <th>Nama Pemesan</th> 
-                                    <th>Harga Dp</th>
-                                    <th>A.n Rekening Pemesan</th> 
+                                    <th>Harga Dp</th> 
                                     <th>No Rekening Pemesan</th> 
                                     <th>Nama Bank Pemesan</th> 
                                     <th>Nama Bank Tujuan</th> 
@@ -91,7 +90,7 @@ $("#konfirmasi_pembayaran_cultural").DataTable({
     {"data":"pemesanan_cultural.nama","name":"pemesanan_cultural.nama","title":"Nama Pemesan","orderable":false,"searchable":false},
     {"data":"total_harga_endeso","name":"total_harga_endeso","title":"Harga Dp","orderable":false,"searchable":false},
     {"data":"nomor_rekening_pelanggan","name":"nomor_rekening_pelanggan","title":"No Rekening Pelanggan","orderable":false,"searchable":false},
-    {"data":"rekening_bank_pelanggan.nama_bank","name":"rekening_bank_pelanggan.nama_bank","title":"Nama Bank Pelanggan","orderable":false,"searchable":false},
+    {"data":"nama_bank_pelanggan","name":"nama_bank_pelanggan","title":"Nama Bank Pelanggan","orderable":false,"searchable":false},
     {"data":"rekening_bank_tujuan.nama_bank","name":"rekening_bank_tujuan.nama_bank","title":"Nama Bank Tujuan","orderable":false,"searchable":false},
     {"data":"foto_tanda_bukti","name":"foto_tanda_bukti","title":"Foto Bukti","orderable":false,"searchable":false},
     {"data":"status_pesanan","name":"status_pesanan","title":"Status Pesanan","orderable":false,"searchable":false},
