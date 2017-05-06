@@ -118,9 +118,12 @@
 @section('scripts')
 <script type="text/javascript">
 
-	var harga_endeso = "{{ $dp }}";
+  $(document).ready(function(){
 
-      	hitung_penginapan_document(harga_endeso);
+    var harga_endeso = {{ $dp }};
+    hitung_penginapan_document(harga_endeso);
+
+  });
 
 
 	$(document).on('click','#harga_makan',function(e){
@@ -130,7 +133,7 @@
     });
 
     $(document).on('change','#jumlah_orang',function(e){
-    	var harga_endeso = "{{ $dp }}";
+    	var harga_endeso = {{ $dp }};
 
  		hitung_penginapan(harga_endeso);
 
@@ -156,12 +159,12 @@
     });
 
     $(document).on('change','#datepicker1',function(e){
-    	var harga_endeso = "{{ $dp }}";
+    	var harga_endeso = {{ $dp }};
   		hitung_penginapan(harga_endeso); 
     });
 
     $(document).on('change','#datepicker2',function(e){
-    	var harga_endeso = "{{ $dp }}";
+    	var harga_endeso = {{ $dp }};
        hitung_penginapan(harga_endeso); 
     });
 
