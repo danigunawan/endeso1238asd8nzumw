@@ -7,6 +7,7 @@ use App\Kamar;
 use Yajra\Datatables\Html\Builder; 
 use Yajra\Datatables\Datatables;
 use Session;
+use App\Rumah;
 
 class KamarController extends Controller
 {
@@ -63,10 +64,12 @@ class KamarController extends Controller
     {
         //
         $this->validate($request, [
-             'id_rumah' => 'required|exists:rumah,id',
+             'id_rumah' => 'required|exists:rumah,id_rumah',
             'id_destinasi' => 'required|exists:destinasi,id',
             'foto_kamar.*' => 'image|max:2048',
+            'kapasitas' => 'required|numeric',
             'deskripsi' => 'required',
+            'deskripsi_2' => 'required',
             'harga_endeso' => 'required',
             'harga_pemilik' => 'required',
             'harga_makan' => 'required'
@@ -76,6 +79,7 @@ class KamarController extends Controller
 
         $kamar = Kamar::create([
             'deskripsi' => $request->deskripsi,
+            'deskripsi_2' => $request->deskripsi_2,
             'id_rumah' => $request->id_rumah,
             'id_destinasi' => $request->id_destinasi,
             'kapasitas' => $request->kapasitas,
@@ -178,10 +182,12 @@ class KamarController extends Controller
     {
         //
        $this->validate($request, [
-             'id_rumah' => 'required|exists:rumah,id',
+             'id_rumah' => 'required|exists:rumah,id_rumah',
             'id_destinasi' => 'required|exists:destinasi,id',
             'foto_kamar.*' => 'image|max:2048',
+            'kapasitas' => 'required|numeric',
             'deskripsi' => 'required',
+            'deskripsi_2' => 'required',
             'harga_endeso' => 'required',
             'harga_pemilik' => 'required',
             'harga_makan' => 'required'            
@@ -190,6 +196,7 @@ class KamarController extends Controller
         $kamar = Kamar::find($id);
         $kamar->update([
             'deskripsi' => $request->deskripsi,
+            'deskripsi_2' => $request->deskripsi_2,
             'id_rumah' => $request->id_rumah,
             'id_destinasi' => $request->id_destinasi,
             'kapasitas' => $request->kapasitas,
@@ -304,4 +311,17 @@ class KamarController extends Controller
         return redirect()->route('kamar.index');
 
     }
+
+    public function ajax_data_kamar(Request $request)
+    { 
+        if ($request->ajax()) {
+            # code...
+            $id_destinasi = $request->id_destinasi;
+            $rumah = Rumah::where('id_destinasi',$id_destinasi)->get(); 
+            return $rumah;
+
+        } 
+    }
+
+
 }

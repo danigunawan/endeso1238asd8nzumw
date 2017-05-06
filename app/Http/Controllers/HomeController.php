@@ -602,6 +602,7 @@ class HomeController extends Controller
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
                                               <p>".$kamars->deskripsi ."</p>
+                                              <p>".$kamars->deskripsi_2 ."</p>
                                               <h6><b><sup>RP</sup>".$harga_kamar."</b><span>/Orang/Malam</span></h6>
                                               <span>
                                                 <i class='fa fa-star'></i>
@@ -651,7 +652,8 @@ class HomeController extends Controller
                   'jumlah_orang'  => 'required'
                   ]);
             
-            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);   
+            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);
+
             
             $lis_cultural = '';
 
@@ -664,10 +666,18 @@ class HomeController extends Controller
               "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
               ]);
             }
+            $jumlah_warga = 0;
 
             foreach ($kategori->get() as $kategoris ) {
                # code... 
-              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
+
+
+              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
+              if ($warga->count() > 0){
+                # code...
+              $jumlah_warga++;
+
+
 
              $lis_cultural .= '
                             <div class="recommended-detail">
@@ -676,11 +686,11 @@ class HomeController extends Controller
                                   <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
                                   <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
-                                  <h4>'. $kategoris->nama_aktivitas .'</h4>
-                                  <h6><b><sup>RP</sup>'. $warga->harga_endeso .'</b><span>ribu / paket</span></h6>
+                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
+                                <h6><b><sup>RP</sup>'. $warga->first()->harga_endeso .'</b><span>ribu / paket</span></h6>';
+                                                                             
 
-                                  <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
+                                 $lis_cultural .= '<h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
                                   <span>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -692,9 +702,21 @@ class HomeController extends Controller
                               </div>
                               
                             </div>';
+              }
+              
+
+
              } 
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori]);
+             if ($jumlah_warga == 0) {
+               # code...
+              Session::flash("flash_notification", [
+              "level"=>"danger",
+              "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
+              ]);
+             }
+
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga]);
 
         }
 

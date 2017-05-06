@@ -1,32 +1,53 @@
 
 <!-- KOLOM DESTINASI KAMAR -->
-<div class="form-group{{ $errors->has('rumah_kamar') ? ' has-error' : '' }}">
-	{!! Form::label('rumah_kamar', 'Pemilik Rumah', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('id_destinasi') ? ' has-error' : '' }}">
+	{!! Form::label('id_destinasi', 'Destinasi', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::select('id_rumah', ['' => 'Pilih Rumah']+App\Rumah::pluck('nama_pemilik', 'id')->all(), null,['class' => 'form-control']) !!}
-		{!! $errors->first('rumah_kamar', '<p class="help-block">:message</p>') !!}
+		{!! Form::select('id_destinasi', ['' => 'Pilih Destinasi']+App\Destinasi::pluck('nama_destinasi', 'id')->all(), null,['class' => 'form-control','id'=>'destinasi']) !!}
+		{!! $errors->first('id_destinasi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
 
 <!-- KOLOM DESTINASI KAMAR -->
-<div class="form-group{{ $errors->has('destinasi_kamar') ? ' has-error' : '' }}">
-	{!! Form::label('destinasi_kamar', 'Destinasi', ['class' => 'col-md-2 control-label']) !!}
+<div class="form-group{{ $errors->has('rumah_kamar') ? ' has-error' : '' }}">
+	{!! Form::label('rumah_kamar', 'Pemilik Rumah', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::select('id_destinasi', ['' => 'Pilih Destinasi']+App\Destinasi::pluck('nama_destinasi', 'id')->all(), null,['class' => 'form-control']) !!}
-		{!! $errors->first('destinasi_kamar', '<p class="help-block">:message</p>') !!}
+	@if (old('id_destinasi') != null)
+		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',old('id_destinasi'))->pluck('nama_pemilik', 'id_rumah')->toArray(), null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
+	@else
+	{!! Form::select('id_rumah',['' => 'Pilih Rumah'], null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
+	@endif
+		{!! $errors->first('rumah_kamar', '<p class="help-block">:message</p>') !!}
+	
 	</div>
 </div>
 
-<!-- KOLOM DESKRIPSI KAMAR -->
-<div class="form-group{{ $errors->has('deskripsi_kamar') ? ' has-error' : '' }}">
-	{!! Form::label('deskripsi_kamar', 'Deskripsi', ['class' => 'col-md-2 control-label']) !!}
+
+
+<!-- KOLOM DESKRIPSI KAMAR 1-->
+<div class="form-group{{ $errors->has('deskripsi') ? ' has-error' : '' }}">
+	{!! Form::label('deskripsi', 'Deskripsi 1', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
 		{!! Form::textarea('deskripsi', null, ['class' => 'form-control']) !!}
-		{!! $errors->first('deskripsi_kamar', '<p class="help-block">:message</p>') !!}
+		{!! $errors->first('deskripsi', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
+<!--END KOLOM DESKRIPSI KAMAR 1-->
+
+
+<!-- KOLOM DESKRIPSI KAMAR 2-->
+<div class="form-group{{ $errors->has('deskripsi_2') ? ' has-error' : '' }}">
+	{!! Form::label('deskripsi_2', 'Deskripsi 2', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::textarea('deskripsi_2', null, ['class' => 'form-control']) !!}
+		{!! $errors->first('deskripsi_2', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+<!--END KOLOM DESKRIPSI KAMAR 2-->
+
 
 <!-- KOLOM FOTO KAMAR GROUP -->
+
 <!-- KOLOM FOTO KAMAR  1-->
 <div class="form-group{{ $errors->has('foto_kamar.0') ? ' has-error' : '' }}">
 	{!! Form::label('foto1', 'Foto 1', ['class' => 'col-md-2 control-label']) !!}

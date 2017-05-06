@@ -159,6 +159,15 @@ class PemesananController extends Controller
         return back();
     }
 
+    public function cultural_batal($id){ 
+
+            $pesanan_cultural = PesananCulture::find($id);   
+            $pesanan_cultural->status_pesanan = 5;
+            $pesanan_cultural->save();   
+
+        return back();
+    }
+
     public function datatable_pesanan_homestay(Request $request, Builder $htmlBuilder)
     {
         //
@@ -235,6 +244,15 @@ class PemesananController extends Controller
             $pesanan_homestay = PesananHomestay::find($id);   
             $pesanan_homestay->status_pesanan = 4;
             $pesanan_homestay->sendCheckout($pesanan_homestay);
+            $pesanan_homestay->save();   
+
+        return back();
+    }
+
+    public function homestay_batal($id){ 
+
+            $pesanan_homestay = PesananHomestay::find($id);   
+            $pesanan_homestay->status_pesanan = 5;
             $pesanan_homestay->save();   
 
         return back();

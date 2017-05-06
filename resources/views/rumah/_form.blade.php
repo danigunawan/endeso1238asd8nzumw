@@ -1,3 +1,14 @@
+
+<!-- KOLOM DESTINASI KAMAR -->
+<div class="form-group{{ $errors->has('destinasi_kamar') ? ' has-error' : '' }}">
+	{!! Form::label('destinasi_kamar', 'Destinasi', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::select('id_destinasi', ['' => 'Pilih Destinasi']+App\Destinasi::pluck('nama_destinasi', 'id')->all(), null,['class' => 'form-control']) !!}
+		{!! $errors->first('destinasi_kamar', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+
 <!-- KOLOM NAMA PEMILIK -->
 <div class="form-group{{ $errors->has('nama_pemilik') ? ' has-error' : '' }}">
 	{!! Form::label('nama_pemilik', 'Nama Pemilik', ['class' => 'col-md-2 control-label']) !!}

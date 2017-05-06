@@ -147,8 +147,9 @@
  
  			for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
         {	
-        	
-       	$('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut_tamu--+' </label><br><input type="text" name="nama_tamu['+tamu+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
+        	var no_urut = no_urut_tamu--;
+
+       	$('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut+' </label><br><input type="text" name="nama_tamu['+no_urut+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#kolom_harga");
         }
 
  		}
