@@ -168,22 +168,32 @@ class HomeController extends Controller
           $kamar = Kamar::with(['rumah','destinasi'])->where('id_kamar',$pesanan_homestays->id_kamar)->first();
 
           if ($pesanan_homestays->status_pesanan == 0) {
-              $pesanan_homestays->status_pesanan = "Anda baru saja melakukan pemesanan";   
+              $status_pesanan = "Anda baru saja melakukan pemesanan";   
           }
           else if ($pesanan_homestays->status_pesanan == 1) {
-              $pesanan_homestays->status_pesanan = "Admin Sedang Melakukan Pengecekan Pembayaran anda";   
+              $status_pesanan = "Admin Sedang Melakukan Pengecekan Pembayaran anda";   
           }
            else if ($pesanan_homestays->status_pesanan == 2) {
-              $pesanan_homestays->status_pesanan = "Pesanan Anda Telah dikonfirmasi oleh admin";   
+              $status_pesanan = "Pesanan Anda Telah dikonfirmasi oleh admin";   
           }
           elseif ($pesanan_homestays->status_pesanan == 3) {
-              $pesanan_homestays->status_pesanan = "Check In";   
+              $status_pesanan = "Check In";   
           }
           else if ($pesanan_homestays->status_pesanan == 4) {
-              $pesanan_homestays->status_pesanan = "Check Out";   
+              $status_pesanan = "Check Out";   
           }  
           else if ($pesanan_homestays->status_pesanan == 5) {
-              $pesanan_homestays->status_pesanan = "Pesanan Batal";   
+              $status_pesanan = "Pesanan Batal";   
+          }
+
+          if ($pesanan_homestays->status_pesanan == 0) {
+          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+          }elseif ($pesanan_homestays->status_pesanan == 2) {
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_in/".$pesanan_homestays->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
+          }elseif ($pesanan_homestays->status_pesanan == 3) {
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+          }else{
+          $tombol_pesanan = '';
           }
 
           $tampil_pesanan_homestay .= '<div class="panel panel-default">
@@ -210,20 +220,17 @@ class HomeController extends Controller
                                          </div>
 
                                         <div class="row">
-                                          <div class="col-md-6">
-
+                                          <div class="col-md-6"> 
                                             <div class="alert alert-warning" role="alert">
-                                              <strong> '.$pesanan_homestays->status_pesanan.'  </strong> 
+                                              <strong> '.$status_pesanan.'  </strong> 
                                             </div>
-
-
-                                          </div>
-
+ 
+                                          </div> 
                                           <div class="col-md-6">
                                             <a href="'.url("/detail-pesanan-homestay/".$pesanan_homestays->id).'" class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
+                                             '. $tombol_pesanan .'
                                           </div>
-                                        </div>
-
+                                        </div> 
                                       </div>
                                     </div>
                                     </div>
@@ -241,22 +248,36 @@ class HomeController extends Controller
                           ->first();
 
                     if ($pesanan_cultures->status_pesanan == 0) {
-                    $pesanan_cultures->status_pesanan = "Anda baru saja melakukan pemesanan";   
+                    $status_pesanan = "Anda baru saja melakukan pemesanan";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 1) {
-                    $pesanan_cultures->status_pesanan = "Anda telah mengkonfirmasi pembayaran anda";   
+                    $status_pesanan = "Anda telah mengkonfirmasi pembayaran anda";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 2) {
-                    $pesanan_cultures->status_pesanan = "Kami telah mengkonfirmasi pembayaran anda";   
+                    $status_pesanan = "Kami telah mengkonfirmasi pembayaran anda";   
                     }
                     elseif ($pesanan_cultures->status_pesanan == 3) {
-                    $pesanan_cultures->status_pesanan = "Check In";   
+                    $status_pesanan = "Check In";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 4) {
-                    $pesanan_cultures->status_pesanan = "Check Out";   
+                    $status_pesanan = "Check Out";   
                     }  
                     else if ($pesanan_cultures->status_pesanan == 5) {
-                    $pesanan_cultures->status_pesanan = "Anda telah membatalkan pesanan anda";   
+                    $status_pesanan = "Anda telah membatalkan pesanan anda";   
+                    }
+ 
+                    if ($pesanan_cultures->status_pesanan == 0) {
+                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    } 
+                    elseif ($pesanan_cultures->status_pesanan == 2) {
+                     $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_in/".$pesanan_cultures->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    }
+                    elseif ($pesanan_cultures->status_pesanan == 3) {
+                     $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_out/".$pesanan_cultures->id).'" 
+                                            class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+                    } 
+                    else{
+                      $tombol_pesanan = '';
                     }
 
           $tampil_pesanan_culture .= '<div class="panel panel-default">
@@ -283,7 +304,7 @@ class HomeController extends Controller
                                           <div class="col-md-6">
 
                                            <div class="alert alert-warning" role="alert">
-                                              <strong>'.$pesanan_cultures->status_pesanan.'</strong> 
+                                              <strong>'.$status_pesanan.'</strong> 
                                             </div>
 
                                           </div>
@@ -291,6 +312,7 @@ class HomeController extends Controller
                                           <div class="col-md-6">
                                             <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id).'" 
                                             class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
+                                               '. $tombol_pesanan .'
                                           </div>
                                         </div>
 
@@ -555,7 +577,7 @@ class HomeController extends Controller
        public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
     {
         $kamar = Kamar::with(['rumah'])->find($id);
-        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
+        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
 
