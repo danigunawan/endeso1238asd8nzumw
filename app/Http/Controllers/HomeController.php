@@ -535,7 +535,7 @@ class HomeController extends Controller
  
         $detail_cultural = Kategori::find($id); 
  
-        $komentar_kategori = KomentarKategori::with('user')->where('status',1)->where('id_kategori', $id)->limit(5)->get(); 
+        $komentar_kategori = KomentarKategori::with('user')->where('status','!=','2')->where('id_kategori', $id)->limit(5)->get(); 
 
         $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
@@ -553,7 +553,7 @@ class HomeController extends Controller
      
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKamar::create(['isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user]);
+    KomentarKamar::create(['isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user,'status'=>0]);
 
     return back();
 
@@ -567,7 +567,7 @@ class HomeController extends Controller
      
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user]);
+    KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user,'status'=>0]);
 
     return back();
 
@@ -579,7 +579,7 @@ class HomeController extends Controller
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
 
-        $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
+        $komentar = KomentarKamar::with('user')->where('status','!=','2')->where('id_kamar',$id)->limit(5)->get();
 
         return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
 
