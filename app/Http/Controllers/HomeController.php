@@ -595,7 +595,7 @@ class HomeController extends Controller
     }
 
 
-    public function pencarian_ce_homestay(Request $request)
+    public function pencarian_ce_homestay(Request $request,StringController $string)
     {   
         // JIKA PILIHAN DESTINASI NYA HOMESTAY
         if ($request->pilihan == 1) {
@@ -707,11 +707,12 @@ class HomeController extends Controller
                # code... 
 
 
-              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
+              $warga = Warga::select('harga_endeso','harga_pemilik')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
               if ($warga->count() > 0){
                 # code...
               $jumlah_warga++;
 
+              $harga_cultural = $warga->first()->harga_endeso + $warga->first()->harga_pemilik;
 
 
              $lis_cultural .= '
@@ -722,7 +723,7 @@ class HomeController extends Controller
                                   <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
-                                <h6><b><sup>RP</sup>'. $warga->first()->harga_endeso .'</b><span>ribu / paket</span></h6>';
+                                <h6><b><sup>RP</sup>'. $string->rp($harga_cultural) .'</b><span>ribu / paket</span></h6>';
                                                                              
 
                                  $lis_cultural .= '<h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>

@@ -141,7 +141,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_pelanggan','rekening_bank_tujuan');
+             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_tujuan');
 
             return Datatables::of($pembayaran_homestay)
 
@@ -197,7 +197,7 @@ class PembayaranController extends Controller
             ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
             ->addColumn(['data' => 'total_harga_endeso', 'name'=>'total_harga_endeso', 'title'=>'Harga Dp'])  
             ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
-            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pemesan'])
             ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
             ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
             ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
@@ -214,7 +214,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_pelanggan','rekening_bank_tujuan')->where('status_pembayaran',$id);
+             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_tujuan')->where('status_pembayaran',$id);
 
             return Datatables::of($pembayaran_homestay)
 
@@ -270,9 +270,9 @@ class PembayaranController extends Controller
             $html = $htmlBuilder
             ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
             ->addColumn(['data' => 'pemesanan_homestay.nama', 'name'=>'pemesanan_homestay.nama', 'title'=>'Nama Pemesan']) 
-            ->addColumn(['data' => 'harga_endeso', 'name'=>'harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'total_harga_endeso', 'name'=>'total_harga_endeso', 'title'=>'Harga Dp'])  
             ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
-            ->addColumn(['data' => 'rekening_bank_pelanggan.nama_bank', 'name'=>'rekening_bank_pelanggan.nama_bank', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pemesan'])
             ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
             ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
             ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
@@ -332,7 +332,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_pelanggan','rekening_bank_tujuan');
+             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_tujuan');
 
             return Datatables::of($pembayaran_cultural)
 

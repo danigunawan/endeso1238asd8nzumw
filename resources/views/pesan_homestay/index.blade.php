@@ -96,8 +96,9 @@
 								<hr>
 						<table>
  							<tbody>
- 								<tr><td width="50%" style="font-size:150%;color:red;">Down Payment (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
-      							<tr><td width="50%" style="font-size:150%;color:red;">Total Pembayaran </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
+ 								
+      							<tr><td width="50%" style="font-size:150%;color:red;">Harga Total </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
+                    <tr><td width="50%" style="font-size:150%;color:red;">Jumlah yang harus dibayar sekarang (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
   							</tbody>
 						</table>
 					</div>
