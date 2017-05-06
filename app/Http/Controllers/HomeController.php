@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
 use App\SettingHalaman;
+use App\SettingHalamanCulture;
 use App\User;
 use Auth;
 use App\Kamar;
@@ -18,7 +19,6 @@ use App\PesananCulture;
 use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
-use App\SettingHalamanCulture;
 use DateTime; 
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
@@ -44,10 +44,23 @@ class HomeController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
-        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get(); 
-        $cultural = SettingHalamanCulture::all();
+        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
+        $setting_halaman_culture = SettingHalamanCulture::first();
+
+      //SELECT TABLE KATEGORI (Menamgbil id dan nama kategorinya atau aktivitas)
+        $kategori_1 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_1)->first();
+        $kategori_2 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_2)->first();
+        $kategori_3 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_3)->first();
+        $kategori_4 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_4)->first();
+
+      //SELECT TABLE WARGA (Menamgbil harga endeso dan harga pemilik)
+        $warga_1 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_1->id)->inRandomOrder()->first();
+        $warga_2 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_2->id)->inRandomOrder()->first();
+        $warga_3 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_3->id)->inRandomOrder()->first();
+        $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
+
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'cultural'=>$cultural]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4]);
  
     }
 
@@ -155,22 +168,32 @@ class HomeController extends Controller
           $kamar = Kamar::with(['rumah','destinasi'])->where('id_kamar',$pesanan_homestays->id_kamar)->first();
 
           if ($pesanan_homestays->status_pesanan == 0) {
-              $pesanan_homestays->status_pesanan = "Anda baru saja melakukan pemesanan";   
+              $status_pesanan = "Anda baru saja melakukan pemesanan";   
           }
           else if ($pesanan_homestays->status_pesanan == 1) {
-              $pesanan_homestays->status_pesanan = "Admin Sedang Melakukan Pengecekan Pembayaran anda";   
+              $status_pesanan = "Admin Sedang Melakukan Pengecekan Pembayaran anda";   
           }
            else if ($pesanan_homestays->status_pesanan == 2) {
-              $pesanan_homestays->status_pesanan = "Pesanan Anda Telah dikonfirmasi oleh admin";   
+              $status_pesanan = "Pesanan Anda Telah dikonfirmasi oleh admin";   
           }
           elseif ($pesanan_homestays->status_pesanan == 3) {
-              $pesanan_homestays->status_pesanan = "Check In";   
+              $status_pesanan = "Check In";   
           }
           else if ($pesanan_homestays->status_pesanan == 4) {
-              $pesanan_homestays->status_pesanan = "Check Out";   
+              $status_pesanan = "Check Out";   
           }  
           else if ($pesanan_homestays->status_pesanan == 5) {
-              $pesanan_homestays->status_pesanan = "Pesanan Batal";   
+              $status_pesanan = "Pesanan Batal";   
+          }
+
+          if ($pesanan_homestays->status_pesanan == 0) {
+          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+          }elseif ($pesanan_homestays->status_pesanan == 2) {
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_in/".$pesanan_homestays->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
+          }elseif ($pesanan_homestays->status_pesanan == 3) {
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+          }else{
+          $tombol_pesanan = '';
           }
 
           $tampil_pesanan_homestay .= '<div class="panel panel-default">
@@ -197,20 +220,17 @@ class HomeController extends Controller
                                          </div>
 
                                         <div class="row">
-                                          <div class="col-md-6">
-
+                                          <div class="col-md-6"> 
                                             <div class="alert alert-warning" role="alert">
-                                              <strong> '.$pesanan_homestays->status_pesanan.'  </strong> 
+                                              <strong> '.$status_pesanan.'  </strong> 
                                             </div>
-
-
-                                          </div>
-
+ 
+                                          </div> 
                                           <div class="col-md-6">
                                             <a href="'.url("/detail-pesanan-homestay/".$pesanan_homestays->id).'" class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
+                                             '. $tombol_pesanan .'
                                           </div>
-                                        </div>
-
+                                        </div> 
                                       </div>
                                     </div>
                                     </div>
@@ -228,22 +248,36 @@ class HomeController extends Controller
                           ->first();
 
                     if ($pesanan_cultures->status_pesanan == 0) {
-                    $pesanan_cultures->status_pesanan = "Anda baru saja melakukan pemesanan";   
+                    $status_pesanan = "Anda baru saja melakukan pemesanan";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 1) {
-                    $pesanan_cultures->status_pesanan = "Anda telah mengkonfirmasi pembayaran anda";   
+                    $status_pesanan = "Anda telah mengkonfirmasi pembayaran anda";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 2) {
-                    $pesanan_cultures->status_pesanan = "Kami telah mengkonfirmasi pembayaran anda";   
+                    $status_pesanan = "Kami telah mengkonfirmasi pembayaran anda";   
                     }
                     elseif ($pesanan_cultures->status_pesanan == 3) {
-                    $pesanan_cultures->status_pesanan = "Check In";   
+                    $status_pesanan = "Check In";   
                     }
                     else if ($pesanan_cultures->status_pesanan == 4) {
-                    $pesanan_cultures->status_pesanan = "Check Out";   
+                    $status_pesanan = "Check Out";   
                     }  
                     else if ($pesanan_cultures->status_pesanan == 5) {
-                    $pesanan_cultures->status_pesanan = "Anda telah membatalkan pesanan anda";   
+                    $status_pesanan = "Anda telah membatalkan pesanan anda";   
+                    }
+ 
+                    if ($pesanan_cultures->status_pesanan == 0) {
+                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    } 
+                    elseif ($pesanan_cultures->status_pesanan == 2) {
+                     $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_in/".$pesanan_cultures->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    }
+                    elseif ($pesanan_cultures->status_pesanan == 3) {
+                     $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_out/".$pesanan_cultures->id).'" 
+                                            class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+                    } 
+                    else{
+                      $tombol_pesanan = '';
                     }
 
           $tampil_pesanan_culture .= '<div class="panel panel-default">
@@ -270,7 +304,7 @@ class HomeController extends Controller
                                           <div class="col-md-6">
 
                                            <div class="alert alert-warning" role="alert">
-                                              <strong>'.$pesanan_cultures->status_pesanan.'</strong> 
+                                              <strong>'.$status_pesanan.'</strong> 
                                             </div>
 
                                           </div>
@@ -278,6 +312,7 @@ class HomeController extends Controller
                                           <div class="col-md-6">
                                             <a href="'.url("/detail-pesanan-culture/".$pesanan_cultures->id).'" 
                                             class="btn read-more">Detail<i class="glyphicon glyphicon-th-list"></i></a>
+                                               '. $tombol_pesanan .'
                                           </div>
                                         </div>
 
@@ -542,7 +577,7 @@ class HomeController extends Controller
        public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
     {
         $kamar = Kamar::with(['rumah'])->find($id);
-        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->limit(3)->get();
+        $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
 
@@ -652,7 +687,8 @@ class HomeController extends Controller
                   'jumlah_orang'  => 'required'
                   ]);
             
-            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);   
+            $kategori = Kategori::where('destinasi_kategori',$request->tujuan);
+
             
             $lis_cultural = '';
 
@@ -665,10 +701,18 @@ class HomeController extends Controller
               "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
               ]);
             }
+            $jumlah_warga = 0;
 
             foreach ($kategori->get() as $kategoris ) {
                # code... 
-              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder()->first(); 
+
+
+              $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
+              if ($warga->count() > 0){
+                # code...
+              $jumlah_warga++;
+
+
 
              $lis_cultural .= '
                             <div class="recommended-detail">
@@ -677,11 +721,11 @@ class HomeController extends Controller
                                   <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
                                   <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
-                                  <h4>'. $kategoris->nama_aktivitas .'</h4>
-                                  <h6><b><sup>RP</sup>'. $warga->harga_endeso .'</b><span>ribu / paket</span></h6>
+                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
+                                <h6><b><sup>RP</sup>'. $warga->first()->harga_endeso .'</b><span>ribu / paket</span></h6>';
+                                                                             
 
-                                  <h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
+                                 $lis_cultural .= '<h6><b> <span> Durasi : '. $kategoris->durasi .' </span> </b></h6>
                                   <span>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
@@ -693,9 +737,21 @@ class HomeController extends Controller
                               </div>
                               
                             </div>';
+              }
+              
+
+
              } 
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori]);
+             if ($jumlah_warga == 0) {
+               # code...
+              Session::flash("flash_notification", [
+              "level"=>"danger",
+              "message"=>"mohon maaf cultural experience di daerah yang anda pilih belum tersedia"
+              ]);
+             }
+
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga]);
 
         }
 

@@ -118,9 +118,12 @@
 @section('scripts')
 <script type="text/javascript">
 
-	var harga_endeso = "{{ $dp }}";
+  $(document).ready(function(){
 
-      	hitung_penginapan_document(harga_endeso);
+    var harga_endeso = "{{ $dp }}";
+    hitung_penginapan_document(harga_endeso);
+
+  });
 
 
 	$(document).on('click','#harga_makan',function(e){

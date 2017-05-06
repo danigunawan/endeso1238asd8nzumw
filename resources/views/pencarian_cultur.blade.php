@@ -16,7 +16,7 @@
         		<div class="section-top-padding"></div>
 			
 
-				@if($jumlah_kategori == 0)
+				@if($jumlah_kategori == 0 OR $jumlah_warga == 0)
 					@include('layouts._flash')
         		  <div class="container">
             <div class="booking-form container-fluid">

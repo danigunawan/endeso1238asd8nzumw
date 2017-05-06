@@ -251,6 +251,47 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	]);  
 });
 
+// CHECK IN & CHECK OUT HOMESTAY
+	Route::get('pemesanan/homestay/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_in',
+	'uses' => 'PemesananController@homestay_check_in'
+	]);
+
+	Route::get('pemesanan/homestay/check_out/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_check_out',
+	'uses' => 'PemesananController@homestay_check_out'
+	]); 
+// CHECK IN & CHECK OUT HOMESTAY
+
+// CHECK IN & CHECK OUT CULTURAL
+	Route::get('pemesanan/cultural/check_in/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.cultural_check_in',
+	'uses' => 'PemesananController@cultural_check_in'
+	]);
+
+	Route::get('pemesanan/cultural/check_out/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.cultural_check_out',
+	'uses' => 'PemesananController@cultural_check_out'
+	]);
+// CHECK IN & CHECK OUT CULTURAL
+
+// CHECK IN & CHECK OUT CULTURAL
+	Route::get('pemesanan/cultural/batal/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.cultural_batal',
+	'uses' => 'PemesananController@cultural_batal'
+	]);
+
+	Route::get('pemesanan/homestay/batal/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.homestay_batal',
+	'uses' => 'PemesananController@homestay_batal'
+	]);
+// CHECK IN & CHECK OUT CULTURAL
 
 Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah_orang}', [
 	'as'=> 'pesanhomestay.form',
