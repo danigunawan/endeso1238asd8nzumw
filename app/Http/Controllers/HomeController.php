@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Html\Builder;
 use App\SettingHalaman;
+use App\SettingHalamanCulture;
 use App\User;
 use Auth;
 use App\Kamar;
@@ -18,7 +19,6 @@ use App\PesananCulture;
 use Illuminate\Support\Facades\DB;
 use App\Warga;
 use App\Destinasi;
-use App\SettingHalamanCulture;
 use DateTime; 
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
@@ -44,10 +44,23 @@ class HomeController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
-        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get(); 
-        $cultural = SettingHalamanCulture::all();
+        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
+        $setting_halaman_culture = SettingHalamanCulture::first();
+
+      //SELECT TABLE KATEGORI (Menamgbil id dan nama kategorinya atau aktivitas)
+        $kategori_1 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_1)->first();
+        $kategori_2 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_2)->first();
+        $kategori_3 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_3)->first();
+        $kategori_4 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_4)->first();
+
+      //SELECT TABLE WARGA (Menamgbil harga endeso dan harga pemilik)
+        $warga_1 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_1->id)->inRandomOrder()->first();
+        $warga_2 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_2->id)->inRandomOrder()->first();
+        $warga_3 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_3->id)->inRandomOrder()->first();
+        $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
+
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'cultural'=>$cultural]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4]);
  
     }
 
