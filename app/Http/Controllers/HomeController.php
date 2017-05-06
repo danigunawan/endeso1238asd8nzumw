@@ -187,11 +187,11 @@ class HomeController extends Controller
           }
 
           if ($pesanan_homestays->status_pesanan == 0) {
-          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more-batal">BATAL<i class="glyphicon glyphicon-remove-circle"></i></a>';   
           }elseif ($pesanan_homestays->status_pesanan == 2) {
           $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_in/".$pesanan_homestays->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
           }elseif ($pesanan_homestays->status_pesanan == 3) {
-          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK OUT<i class="glyphicon glyphicon-hand-right"></i></a>';  
           }else{
           $tombol_pesanan = '';
           }
@@ -267,14 +267,14 @@ class HomeController extends Controller
                     }
  
                     if ($pesanan_cultures->status_pesanan == 0) {
-                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more-batal" >BATAL<i class="glyphicon glyphicon-remove-circle"></i></a>';   
                     } 
                     elseif ($pesanan_cultures->status_pesanan == 2) {
                      $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_in/".$pesanan_cultures->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
                     }
                     elseif ($pesanan_cultures->status_pesanan == 3) {
                      $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_out/".$pesanan_cultures->id).'" 
-                                            class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+                                            class="btn read-more">CHECK OUT<i class="glyphicon glyphicon-hand-right"></i></a>';  
                     } 
                     else{
                       $tombol_pesanan = '';

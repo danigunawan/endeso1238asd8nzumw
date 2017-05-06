@@ -99,11 +99,11 @@
 						    		<div class="col-sm-12">
 						    			@if ($pesanan_homestay->status_pesanan < 1 )
 											<a href="{{ route('pembayaran.index', $pesanan_homestay->id) }}" class="btn read-more">Pembayaran<i class="fa fa-long-arrow-right"></i></a>
-											<a href="{{ url('pemesanan/homestay/batal/'.$pesanan_homestay->id) }}" class="btn read-more">Batal<i class="fa fa-long-arrow-right"></i></a>	
+											<a href="{{ url('pemesanan/homestay/batal/'.$pesanan_homestay->id) }}" class="btn read-more">Batal<i class="fa fa-long-remove-circle"></i></a>	
 						    			@elseif ($pesanan_homestay->status_pesanan == 2 )
-											<a href="{{ url('pemesanan/homestay/check_in/'.$pesanan_homestay->id) }}" class="btn read-more">Check In<i class="fa fa-long-arrow-right"></i></a>	
+											<a href="{{ url('pemesanan/homestay/check_in/'.$pesanan_homestay->id) }}" class="btn read-more">Check In<i class="fa fa-long-hand-right"></i></a>	
 						    			@elseif ($pesanan_homestay->status_pesanan == 3 )
-											<a href="{{ url('pemesanan/homestay/check_out/'.$pesanan_homestay->id) }}" class="btn read-more">Check Out<i class="fa fa-long-arrow-right"></i></a>	
+											<a href="{{ url('pemesanan/homestay/check_out/'.$pesanan_homestay->id) }}" class="btn read-more">Check Out<i class="fa fa-long-hand-left"></i></a>	
 
 										@endif
 						    		</div>
