@@ -83,9 +83,7 @@ class PesanhomestayController extends Controller
            ]);
 
 
-if ($request->jumlah_orang > 1){
 // INSERT DATA TAMU
-
 
            if ($request->has('nama_tamu')) {
 
@@ -108,7 +106,7 @@ if ($request->jumlah_orang > 1){
 
           }
 // INSERT DATA TAMU
-}
+
 
       	    Session::flash("flash_notification", [
               "level"=>"success",

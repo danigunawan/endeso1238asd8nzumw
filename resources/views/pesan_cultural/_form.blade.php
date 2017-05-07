@@ -57,7 +57,7 @@
         {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
 </div> 
 
- @for ($i = 1; $i < old('jumlah_orang',$jumlah_orang); $i++)
+ @for ($i = 1; $i <= old('jumlah_orang',$jumlah_orang); $i++)
 
 <div class="form-group{{ $errors->has('nama_tamu') ? ' has-error' : '' }} span-hapus">
     {!! Form::label('nama_tamu','Nama Tamu '.$i,['class'=>'control-label']) !!}
