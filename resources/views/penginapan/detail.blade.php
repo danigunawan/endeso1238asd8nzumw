@@ -114,7 +114,6 @@
 					<aside class="widget widget_features">
 						<h3 class="widget-title">Tentang {{$kamar->rumah->nama_pemilik}}</h3>
 						{!!$kamar->deskripsi!!}
-						{!!$kamar->deskripsi_2 !!}
 					</aside><!-- Features Widget -->
 					<!-- Room Detail Widget -->
 					<aside class="widget widget_room">
