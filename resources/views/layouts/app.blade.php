@@ -163,8 +163,8 @@
     <header id="header" class="header-section header-position container-fluid no-padding">
 
          <!-- Menu Block -->
-        <br><br>
-        <div class="menu-block">
+
+        <div class="menu-block" style="padding-top: 30px">
             <!-- Container -->
             <div class="container">
                 <div class="row">
