@@ -569,7 +569,7 @@ class HomeController extends Controller
  
         $komentar_kategori = KomentarKategori::with('user')->where('status',1)->where('id_kategori', $id)->limit(5)->get(); 
 
-        $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
+        $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
