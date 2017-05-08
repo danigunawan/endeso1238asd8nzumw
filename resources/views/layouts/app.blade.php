@@ -161,12 +161,10 @@
         
     <!-- Header Section -->
     <header id="header" class="header-section header-position container-fluid no-padding">
-        <!-- Top Header -->
-        <div class="top-header container-fluid no-padding">
-         
-        </div><!-- Top Header /- -->
+
          <!-- Menu Block -->
-        <div class="menu-block">
+
+        <div class="menu-block" style="padding-top: 30px">
             <!-- Container -->
             <div class="container">
                 <div class="row">
