@@ -55,6 +55,21 @@
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
+
+    
+    <link href="{{ asset('css/star-rating.css')}}" media="all" rel="stylesheet" type="text/css" />
+     
+    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+    <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
+     
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+    <script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
+     
+    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+    <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+     
+    <!-- optionally if you need translation for your language then include locale file as mentioned below -->
+    <script src="{{ asset('js/locales/{lang}.js') }} "></script>
     
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
@@ -327,9 +342,9 @@
                 <div class="row">
                     <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
                         <ul class="social_widget">
-                            <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="{{$facebook}}" id="face_book" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{$twitter}}" id="twi_tter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="{{$instagram}}" id="insta_gram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
                         </ul>
                     </aside>
                     
@@ -412,6 +427,7 @@
                     }
 
             });
+
 
         });
 

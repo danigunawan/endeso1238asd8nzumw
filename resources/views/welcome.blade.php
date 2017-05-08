@@ -65,7 +65,7 @@
                         <div class="col-sm-2">
                             <div id="sampai_tanggal" style="width:180px;"  class="form-group{{ $errors->has('sampai_tanggal') ? ' has-error' : '' }}">
                                 <i class="fa fa-calendar-minus-o"></i>
-                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL']) !!}
+                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker_sampai_tanggal', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL']) !!}
                                 {!! $errors->first('sampai_tanggal', '<p class="help-block">:message</p>') !!}
 
                             </div>
@@ -134,7 +134,7 @@
                             <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
                                 <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">                               
                                     <img src="img/{{ $homestays->foto1 or 'foto1' }}" alt="Recommended" height="267" width="297" />
-                                    <span><a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal}}/1">Pesan</a></span>
+                                    <span><a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan</a></span>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
                                     <h4>{{$homestays->rumah->nama_pemilik}}</h4>
