@@ -45,6 +45,10 @@ class HomeController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
+        
+        $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
+        $tanggal_sampai_tanggal = date('Y-m-d', $besok);
+
         $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
         $setting_halaman_culture = SettingHalamanCulture::first();
 
@@ -61,9 +65,10 @@ class HomeController extends Controller
         $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
 
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4]);
  
     }
+
 
       public function tentang()
     {
@@ -602,19 +607,27 @@ class HomeController extends Controller
     } 
 
 
-       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction)   
     {
 
 
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
+        // perhitungan rating
+        $query_sum_hitung_rating = KomentarKamar::HitungRating($id)->first(); 
 
-        $komentar = KomentarKamar::with('user')->where('status','!=','2')->where('id_kamar',$id)->limit(5)->get();
+        $komentar = KomentarKamar::with('user')->where('status','!=' ,2)->where('id_kamar',$id)->limit(5)->get();
+        $harga_kamar = $kamar->harga_endeso + $kamar->harga_pemilik;
 
-        // hiting bintang
-        $query_sum_hitung_rating = KomentarKamar::HitungRating($id)->first();
-
-        return view('penginapan.detail',['total_rating'=>round($query_sum_hitung_rating->total_rating),'kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
+        return view('penginapan.detail',['total_rating'=>round($query_sum_hitung_rating->total_rating),
+                                          'kamar' => $kamar,
+                                         'kamar_lain'=>$kamar_lain,
+                                         'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
+                                         'dp'=>$stringfunction->rp($kamar->harga_endeso),
+                                         'komentar'=>$komentar,
+                                         'tanggal_checkin'=>$tanggal_checkin,
+                                         'tanggal_checkout'=>$tanggal_checkout,
+                                         'jumlah_orang'=>$jumlah_orang]); 
 
       }
 
