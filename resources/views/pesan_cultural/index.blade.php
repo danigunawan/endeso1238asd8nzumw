@@ -32,12 +32,10 @@
 						<div class="col-sm-6">
 
 
-            {!! Form::model($warga, ['url' => route('pesancultural.proses'),
-            'method' => 'get', 'files'=>'true']) !!}
-                    @include('pesan_cultural._form') 
-            {!! Form::close() !!}
-
-
+                            {!! Form::model($warga, ['url' => route('pesancultural.proses'),
+                            'method' => 'get', 'files'=>'true']) !!}
+                                    @include('pesan_cultural._form') 
+                            {!! Form::close() !!}
 
 						</div>
 						<div class="col-sm-6"> 
@@ -73,52 +71,20 @@
 
                                         <div class="col-sm-8">
                                             <aside class="widget widget_features">
-                                                    <h3 class="widget-title"> Tentang Warga (<span id="tentang_warga"></span>) </h3>
+                                                    <h3 class="widget-title"> <span id="tentang_warga"></span> </h3>
                                             </aside><!-- Features Widget --> 
                                         </div>                                    
                                     </div>
 
                                     <div class="row" style="padding: 3%">
                                         <span class="span-peta">
-                                            <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>   
-                                             <br>
-                                             <h3 class="widget-title"> Foto Tempat </h3>
-                                            <div id="foto-tempat"></div>                                               
-                                             
-                                        </span> 
-                                               
+                                            <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>                                                
+                                        </span>                                                                      
                                     </div>
-
                                 </span>
 
 								</div>
 							</div> 
-								<!-- panel Rincian Pemesanan /- -->
-				<div class="panel panel-default" >
-					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h3>Rincian Harga</h3></div>
-  					<div class="panel-body">
-						<table>
- 							<tbody>
-                                <tr><td  width="50%" style="font-size:150%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%"><b> <span id="nama_warga"></span> </b></td></tr>
-
-                                <tr><td  width="50%" style="font-size:150%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_cultural"></span> </td></tr>
-
-      						 	<tr><td  width="50%" style="font-size:150%;"><span id="hitung_orang"></span> Orang x Rp. <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
-
-  							</tbody>
-						</table>
-								<hr>
-						<table>
- 							<tbody>
-                                <span style="display: none" id="harga_endeso_hidden"> </span>
-                                <tr><td width="50%" style="font-size:150%;color:red;"><b> Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
-                                <tr><td width="50%" style="font-size:100%;color:red;"><b>Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:150%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
-                                
-  							</tbody>
-						</table>
-					</div>
-				</div>
-			<!-- panel Rincian Pemesanan /- -->
 
 
 						</div>
@@ -206,16 +172,10 @@
                             }
 
                     //TAMPIL FOTO WARGA
-                        $(".span-hapus-foto").remove();
-                        $(".span-hapus-foto-tempat").remove();
+                        $(".span-hapus").remove();
 
-                        $("#span_foto").prepend('<span class="span-hapus-foto"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
-
+                        $("#span_foto").prepend('<span class="span-hapus"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_profil+'"> </span>');
                         $("#span_tentang_warga").show();
-
-
-                        $("#foto-tempat").html('<span class="span-hapus-foto-tempat"> <img class="img-rounded img-responsive" src="{{asset("img/")}}/'+foto_tempat+'"> </span>');
-
 
                     //MENAMPILKAN PETA WARGA
                             var latitude = $("#latitude").val();
@@ -267,18 +227,22 @@
                     // Menampilkan nama tamu
                             var jumlah_orang_baru = $("#jumlah_orang").val();
                             var jumlah_orang_ganti = jumlah_orang_baru - 1;
-                            var no_urut_tamu = jumlah_orang_baru;
+                            var no_urut_tamu = jumlah_orang_baru - 1;
                             var no = 1;
+                            if (jumlah_orang_baru > 1){
                             
                             $(".span-hapus").remove();
                             
-                            for (var tamu = 1; tamu <= jumlah_orang_baru; tamu++) 
+                            for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
                             {   
                             var no_urut = no_urut_tamu--;
                             $('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut+' </label><br><input type="text" name="nama_tamu['+no_urut+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#span_jumlah_orang");
                             }
                             
-
+                            }
+                            else{
+                            $(".span-hapus").html('');
+                            }
 
                         });
 
@@ -290,19 +254,22 @@
 
         var jumlah_orang_baru = $(this).val();
         var jumlah_orang_ganti = jumlah_orang_baru - 1;
-        var no_urut_tamu = jumlah_orang_baru;
+        var no_urut_tamu = jumlah_orang_baru - 1;
         var no = 1;
-
+        if (jumlah_orang_baru > 1){
 
             $(".span-hapus").remove();
  
-            for (var tamu = 0; tamu < jumlah_orang_baru; tamu++) 
+            for (var tamu = 0; tamu < jumlah_orang_ganti; tamu++) 
         {   
             var no_urut = no_urut_tamu--;
         $('<div class="form-group{{ $errors->has('nama_tamu.+no_urut_tamu--+') ? ' has-error' : '' }} span-hapus"><label align="left">Nama Tamu '+no_urut+' </label><br><input type="text" name="nama_tamu['+no_urut+']" id="nama_tamu" class="form-control" autocomplete="off" required=""></div>').insertAfter("#span_jumlah_orang");
         }
 
-
+        }
+        else{
+            $(".span-hapus").html('');
+        }
     }); 
 
     </script>
