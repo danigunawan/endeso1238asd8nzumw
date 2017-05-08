@@ -115,7 +115,10 @@ class PesanhomestayController extends Controller
 
             $rekening_tujuan = Rekening::all();
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
-      	    PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan);
+      	   $email_satu = PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan,$request->email,$request->nama
+);
+
+             
 
           return redirect('/pembayaran-homestay/'.$pesan_homestay->id.'');
 
