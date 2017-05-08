@@ -163,36 +163,15 @@
     <header id="header" class="header-section header-position container-fluid no-padding">
         <!-- Top Header -->
         <div class="top-header container-fluid no-padding">
-            <!-- Container -->
-            <div class="container">
-                <div class="row">
-                    <div class="logo-block col-md-3"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
-                    <div class="col-md-9 contact-detail">
-                        <div class="phone">
-                            <img src="{{ asset('images/phone-ic.png') }}" alt="Phone" />
-                            <h6>Hubungi Kami</h6>
-                            <a href="tell:081234567890" >+62-812-3456-7890</a>
-                        </div>
-                        
-                        <div class="menu-search">
-                            <div id="sb-search" class="sb-search">
-                                <form>
-                                    <input class="sb-search-input" placeholder="Pencarian..." type="text" value="" name="search" id="search" />
-                                    <button class="sb-search-submit"><img src="{{ asset('images/search-ic.png') }}" alt="Search" /></button>
-                                    <span class="sb-icon-search"></span>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Container /- -->
+         
         </div><!-- Top Header /- -->
-        <!-- Menu Block -->
+         <!-- Menu Block -->
         <div class="menu-block">
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10">
+                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                    <div class="col-md-9">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
                                 <button aria-controls="navbar" aria-expanded="false" id="btnCollapse" collapse-toogle="1" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
@@ -328,6 +307,7 @@
                 </div><!-- Row /- -->
             </div><!-- Container /- -->
         </div><!-- Menu Block /- -->
+        
     </header><!-- Header Section /- -->
       
         @yield('content')
