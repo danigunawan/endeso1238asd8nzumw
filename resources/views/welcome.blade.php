@@ -208,103 +208,111 @@ else{
            </div>      
         </div>
  <?php
- }?>       
+    }
+ ?>       
         
-      <!-- Recommended Section -->
-        <div id="recommended-section" class="recommended-section container-fluid no-padding">
-            <!-- Container -->
-            <div class="container">
-                <div class="section-header">
-                    <h3>Homestay Terbaik</h3>
-                    <p>Pilihan Homestay dengan rating dan harga terbaik pilihan pelanggan setia Endeso. Harga ditampilkan dalam ratusan ribu Rupiah.</p>
-                </div>
-                <div class="recommended-detail">
-                    @foreach($homestay AS $homestays)
-                            <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
-                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">                               
-                                    <img src="img/{{ $homestays->foto1 or 'foto1' }}" alt="Recommended" height="267" width="297" />
-                                    <span><a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan</a></span>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box">
-                                    <h4>{{$homestays->rumah->nama_pemilik}}</h4>
-                                    <p>{!! $homestays->deskripsi !!}</p>
-                                    <h6><b><sup>RP</sup>{{ $homestays->harga_endeso + $homestays->harga_pemilik }}</b><span>/Malam</span></h6>
-                                    <span>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star-half-o"></i>
-                                    </span>
-                                </div>
-                            </div>
-                    @endforeach                 
-                </div>
-            </div><!-- Container /- -->
-            <div class="section-padding"></div>
-        </div><!-- Recommended Section /- -->
 
 
         <!-- Offer Section -->
-        <div class="container-fluid offer-section no-padding">
+        <div class="container-fluid offer-section no-padding" style="padding-top: 30px">
             <!-- container -->
             <div class="container">
                 <!-- Section Header -->
                 <div class="section-header">
-                    <h3>Cultural Experiences Terbaik</h3>
+                    <h3>Destinasi Cultural Experiences</h3>
                     <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
                 </div><!-- Section Header /- -->
                 
                 @if (isset($warga_1))
+                <div class="row"> 
+
+                   <div class="col-sm-2"> </div> 
+                   <div class="col-sm-8"> 
+
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_1 or 'foto_1' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_1->nama_aktivitas}}</span></h3>
+                            <h3><span>{{$kategori_1->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_1->harga_endeso + $warga_1->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_1->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+
+                   </div> 
+                   <div class="col-sm-2"> </div> 
+
+                </div>
                 @endif
 
                 @if (isset($warga_2))
+                <div class="row"> 
+
+                   <div class="col-sm-2"> </div> 
+                   <div class="col-sm-8"> 
+
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_2 or 'foto_2' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_2->nama_aktivitas}}</span></h3>
+                            <h3><span>{{$kategori_2->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_2->harga_endeso + $warga_2->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_2->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+
+                   </div> 
+                   <div class="col-sm-2"> </div> 
+
+                </div>
                 @endif
 
                 @if (isset($warga_3))
+                <div class="row"> 
+
+                   <div class="col-sm-2"> </div> 
+                   <div class="col-sm-8"> 
+
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_3 or 'foto_3' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_3->nama_aktivitas}}</span></h3>
+                            <h3><span>{{$kategori_3->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_3->harga_endeso + $warga_3->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_3->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+
+                   </div> 
+                   <div class="col-sm-2"> </div> 
+
+                </div>
                 @endif
 
                 @if (isset($warga_4))
+                <div class="row"> 
+
+                   <div class="col-sm-2"> </div> 
+                   <div class="col-sm-8"> 
+
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_4 or 'foto_4' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_4->nama_aktivitas}}</span></h3>
+                            <h3><span>{{$kategori_4->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_4->harga_endeso + $warga_4->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_4->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
+
+                   </div> 
+                   <div class="col-sm-2"> </div> 
+
+                </div>
                 @endif
             </div><!-- container /- -->
         </div><!-- Offer Section /- -->
