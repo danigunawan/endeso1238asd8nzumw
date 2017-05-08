@@ -482,6 +482,10 @@
 		$( ".datepicker").datepicker({
 			minDate: 0
 		});
+
+		$( ".datepicker_sampai_tanggal").datepicker({
+			minDate: 1
+		});
 		
 		/* -- Map Initialization */
 		if( $( "#map-canvas-contact").length == 1 ){
