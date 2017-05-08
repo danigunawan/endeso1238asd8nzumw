@@ -354,6 +354,61 @@ function hitung_penginapan_document(harga_endeso) {
 }
 
 
+//perhitungan harga untuk detail penginapan
+function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang) {
+
+		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
+		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
+		var harga_jumlah =  parseInt(harga_kamar);
+
+		var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(harga_endeso))));
+
+		var tanggal_checkin = new Date(tanggal_checkin);
+		var tanggal_checkout = new Date(tanggal_checkout);
+		var timeDiff = Math.abs(tanggal_checkout.getTime() - tanggal_checkin.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		var hitung_hari = diffDays;
+		var jumlah_orang = jumlah_orang;
+
+ 		if (jumlah_orang == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+		}
+		else if (tanggal_checkin == '' && tanggal_checkout == ''){
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+
+			var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang);
+		}
+		else{
+        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+
+        	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      	}
+
+      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+
+
+      	// tampilan rincian harga
+      	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
+         $("#harga_total").text(tandaPemisahTitik(total_harga));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
+         $("#hitung_harga_orang").text(harga_jumlah);
+         $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
+         $("#hitung_lama_inap").text(tandaPemisahTitik(harga_jumlah_orang));
+         $("#harga_lama_inap").text(tandaPemisahTitik(harga_lama_inap));
+         $("#harga_dp").text(tandaPemisahTitik(total_dp));
+        // tampilan rincian harga
+
+}
+//perhitungan harga untuk detail penginapan
+
+
 //SCRIPT PERHITUNGAN PEMESAN CULTURAL
 
 

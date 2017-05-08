@@ -574,14 +574,22 @@ class HomeController extends Controller
     } 
 
 
-       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction)   
     {
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
 
         $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
+        $harga_kamar = $kamar->harga_endeso + $kamar->harga_pemilik;
 
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
+        return view('penginapan.detail',['kamar' => $kamar,
+                                         'kamar_lain'=>$kamar_lain,
+                                         'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
+                                         'dp'=>$stringfunction->rp($kamar->harga_endeso),
+                                         'komentar'=>$komentar,
+                                         'tanggal_checkin'=>$tanggal_checkin,
+                                         'tanggal_checkout'=>$tanggal_checkout,
+                                         'jumlah_orang'=>$jumlah_orang]); 
 
       }
 
