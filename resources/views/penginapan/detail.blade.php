@@ -114,6 +114,41 @@
 					<aside class="widget widget_features">
 						<h3 class="widget-title">Tentang {{$kamar->rumah->nama_pemilik}}</h3>
 						{!!$kamar->deskripsi!!}
+						{!!$kamar->deskripsi_2 !!}
+
+				<!-- panel Rincian Pemesanan /- -->
+				<div class="panel panel-default" >
+					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h4>Rincian Harga</h4></div>
+  					<div class="panel-body">
+						<table>
+ 							<tbody>
+      						 	<tr><td width="50%" style="font-size:100%"><b>{{$kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
+
+      						 	<tr><td  width="50%" style="font-size:100%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:100%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
+
+
+      						 	<tr><td  width="50%" style="font-size:100%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
+
+      						 	<tr><td  width="50%" style="font-size:100%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+
+      						 	<tr><td  width="50%" style="font-size:100%;"><span id="lama_inap"></span> Hari X <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_lama_inap"></span> </td></tr>
+
+      						 	<span id="hidden_makan" style="display: none;">{{$kamar->harga_makan}}</span>
+
+  							</tbody>
+						</table>
+								<hr>
+						<table>
+ 							<tbody>
+ 								
+      							<tr><td width="50%" style="font-size:100%;color:red;">Harga Total </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
+                    <tr><td width="50%" style="font-size:80%;color:red;">Jumlah yang harus dibayar sekarang (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
+  							</tbody>
+						</table>
+					</div>
+				</div>
+			<!-- panel Rincian Pemesanan /- -->
+
 					</aside><!-- Features Widget -->
 					<!-- Room Detail Widget -->
 					<aside class="widget widget_room">
@@ -124,7 +159,7 @@
 							@if (isset($kamar_lains) && $kamar_lains->foto1)
 							<a href="{{url('/detail-penginapan/'.$kamar_lains->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" style="text-decoration: none">{!! Html::image(asset('img/'.$kamar_lains->foto1), null, ['alt' => 'Slide','style'=>'width:30%']) !!}</a>					
 							@endif
-							<a href="{{url('/detail-penginapan/'.$kamar_lains->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" style="text-decoration: none"><h4>{{$kamar_lains->rumah->nama_pemilik}}<b>{{$kamar_lains->harga_endeso + $kamar_lains->harga_pemilik}}</b> <span>{{$kamar_lains->destinasi->nama_destinasi}}</span></h4></a>
+							<a href="{{url('/detail-penginapan/'.$kamar_lains->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" style="text-decoration: none"><h4>{{$kamar_lains->rumah->nama_pemilik}}<b>{{number_format($kamar_lains->harga_endeso + $kamar_lains->harga_pemilik,0,',','.')}}</b> <span>{{$kamar_lains->destinasi->nama_destinasi}}</span></h4></a>
 						</div>
 						@endforeach
 					</aside>
@@ -144,3 +179,20 @@
 
 
 @endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+
+  $(document).ready(function(){
+
+    var harga_endeso = "{{ $dp }}";
+    var tanggal_checkin = "{{ $tanggal_checkin }}";
+    var tanggal_checkout = "{{ $tanggal_checkout }}";
+    var jumlah_orang = "{{ $jumlah_orang }}";
+
+    hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang);
+
+  });
+  </script>
+  @endsection
