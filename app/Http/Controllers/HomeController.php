@@ -21,6 +21,7 @@ use App\Warga;
 use App\Destinasi;
 use DateTime; 
 use App\TamuHomestay;
+use App\TamuCulture;
 use App\Http\Controllers\StringController;
 
 
@@ -428,12 +429,17 @@ class HomeController extends Controller
                                 }
                                $no_urut_tamu = 1; 
                                 foreach ($tamu as $tamus) {
-
-                                $tampil_detail .=  '
-                                
-                                <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
-                                </tr><br>';
+                                  if ($tamus->nama_tamu == NULL OR $tamus->nama_tamu == '') {
+                                    # code...
+                                  }
+                                  else{
+                                      $tampil_detail .=  '
+                                      
+                                      <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
+                                          <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
+                                      </tr><br>';
+                                  }
+                              
 
                                 }  
 
@@ -462,6 +468,8 @@ class HomeController extends Controller
       $warga = Warga::select('id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
       $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
       $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
+            // ambil nama tamu
+      $tamu = TamuCulture::select('nama_tamu')->where('id_pesanan',$pesanan_culture->id)->get();
 
       // hitung harga 
       $harga_cultural = $pesanan_culture->harga_endeso + $pesanan_culture->harga_pemilik;
@@ -514,11 +522,30 @@ class HomeController extends Controller
                               </table>
                             </div>
 
-                          </div>
 
 
-                          </div>
-                          </div>
+                          </div>';
+                            if ($tamu->count() != '') {
+                                  $tampil_detail .= '<hr>
+                                <h4>Daftar Tamu</h4>';
+                                }
+                               $no_urut_tamu = 1; 
+                                foreach ($tamu as $tamus) {
+                                  if ($tamus->nama_tamu == NULL OR $tamus->nama_tamu == '') {
+                                    # code...
+                                  }
+                                  else{
+                                      $tampil_detail .=  '
+                                      
+                                      <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
+                                          <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
+                                      </tr><br>'; 
+                                  }
+
+
+                                }  
+                          $tampil_detail .= '</div>
+                        </div>
                         </div>';
 
       return view('detail_pesanan_culture',['pesanan_culture'=>$pesanan_culture, 

@@ -61,7 +61,6 @@ class PesananCulturalController extends Controller
 
            ]); 
 
-        if ($request->jumlah_orang > 1){
             // INSERT DATA TAMU
 
 
@@ -86,7 +85,7 @@ class PesananCulturalController extends Controller
 
           }
         // INSERT DATA TAMU
-        }
+
 
             Session::flash("flash_notification", [
               "level"=>"success",
