@@ -569,7 +569,7 @@ class HomeController extends Controller
  
         $komentar_kategori = KomentarKategori::with('user')->where('status',1)->where('id_kategori', $id)->limit(5)->get(); 
 
-        $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
+        $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
@@ -580,12 +580,12 @@ class HomeController extends Controller
     public function komentar_penginapan(Request $request){  
 
           $this->validate($request, [
-        'isi_komentar' => 'required',
-        'id_kamar' => 'required',
-     
+          'isi_komentar' => 'required',
+          'id_kamar' => 'required',
+          'jumlah_bintang' => 'required',
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKamar::create(['isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user]);
+    KomentarKamar::create(['status'=>'0','isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user,'jumlah_bintang'=>$request->jumlah_bintang]);
 
     return back();
 
@@ -601,6 +601,7 @@ class HomeController extends Controller
     $id_user = Auth::user()->id;
     KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user]);
 
+
     return back();
 
     } 
@@ -608,13 +609,18 @@ class HomeController extends Controller
 
        public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction)   
     {
+
+
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
+        // perhitungan rating
+        $query_sum_hitung_rating = KomentarKamar::HitungRating($id)->first(); 
 
-        $komentar = KomentarKamar::with('user')->where('status',1)->where('id_kamar',$id)->limit(5)->get();
+        $komentar = KomentarKamar::with('user')->where('status','!=' ,2)->where('id_kamar',$id)->limit(5)->get();
         $harga_kamar = $kamar->harga_endeso + $kamar->harga_pemilik;
 
-        return view('penginapan.detail',['kamar' => $kamar,
+        return view('penginapan.detail',['total_rating'=>round($query_sum_hitung_rating->total_rating),
+                                          'kamar' => $kamar,
                                          'kamar_lain'=>$kamar_lain,
                                          'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
                                          'dp'=>$stringfunction->rp($kamar->harga_endeso),

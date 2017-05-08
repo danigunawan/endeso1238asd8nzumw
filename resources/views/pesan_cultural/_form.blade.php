@@ -61,7 +61,7 @@
         {!! Form::label('no_telp', 'No Telp', ['class' => 'control-label']) !!}
 </div>
 
- @for ($i = 1; $i < old('jumlah_orang',$jumlah_orang); $i++)
+ @for ($i = 1; $i <= old('jumlah_orang',$jumlah_orang); $i++)
 
 <div class="form-group{{ $errors->has('nama_tamu') ? ' has-error' : '' }} span-hapus">
     {!! Form::label('nama_tamu','Nama Tamu '.$i,['class'=>'control-label']) !!}
@@ -78,17 +78,17 @@
                               <div class="panel-body">
                                 <table class="table-sm">
                                     <tbody>
-                                        <tr><td  width="50%" style="font-size:125%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%"><b> <span id="nama_warga"></span> </b></td></tr>
-                                        <tr><td  width="50%" style="font-size:125%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%">Rp. <span id="harga_cultural"></span> </td></tr>
-                                        <tr><td  width="50%" style="font-size:125%;"><span id="hitung_orang"></span> Orang x Rp. <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+                                        <tr><td  width="50%" style="font-size:110%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%"><b> <span id="nama_warga"></span> </b></td></tr>
+                                        <tr><td  width="50%" style="font-size:110%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_cultural"></span> </td></tr>
+                                        <tr><td  width="50%" style="font-size:110%;"><span id="hitung_orang"></span> Orang x Rp. <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
 
                                     </tbody>
                                 </table>
                                 <table class="table-sm">
                                     <tbody>
                                         <span style="display: none" id="harga_endeso_hidden"> </span>
-                                        <tr><td width="75%" style="font-size:125%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
-                                        <tr><td width="75%" style="font-size:100%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                        <tr><td width="75%" style="font-size:110%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
+                                        <tr><td width="75%" style="font-size:125%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
                                     </tbody>
                                 </table>
                               </div>

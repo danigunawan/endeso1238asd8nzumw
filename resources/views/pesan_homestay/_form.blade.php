@@ -101,19 +101,20 @@
                               <div class="panel-body">
 		                        <table class="table-sm">
 		 							<tbody>
-		      						 	<tr><td width="50%" style="font-size:125%"><b>{{$detail_kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
-		      						 	<tr><td  width="50%" style="font-size:125%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td><td style="font-size:125%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
-		      						 	<tr><td  width="50%" style="font-size:125%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
-		      						 	<tr><td  width="50%" style="font-size:125%;"><span id="hitung_orang"></span> orang x <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
-		      						 	<tr><td  width="50%" style="font-size:125%;"><span id="lama_inap"></span> Hari x <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%">Rp. <span id="harga_lama_inap"></span> </td></tr>
+		      						 	<tr><td width="50%" style="font-size:110%"><b>{{$detail_kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
+		      						 	<tr><td  width="50%" style="font-size:110%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td><td style="font-size:110%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
+		      						 	<tr><td  width="50%" style="font-size:110%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
+		      						 	<tr><td  width="50%" style="font-size:110%;"><span id="hitung_orang"></span> orang x <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+		      						 	<tr><td  width="50%" style="font-size:110%;"><span id="lama_inap"></span> Hari x <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_lama_inap"></span> </td></tr>
 		      						 	<span id="hidden_makan" style="display: none;">{{$detail_kamar->harga_makan}}</span>
 
 		  							</tbody>
 								</table>
 								<table class="table-sm">
 		 							<tbody>
-		 								<tr><td width="50%" style="font-size:125%;color:red;"><b> Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
-		                    			<tr><td width="50%" style="font-size:100%;color:red;"><b> Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;"><b> Rp. <span id="harga_dp"> </span> </b></td></tr>
+		 								<tr><td width="75%" style="font-size:110%;color:red;"><b> Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+		                    			<tr><td width="75%" style="font-size:125%;color:red;"><b> Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;"><b> Rp. <span id="harga_dp"> </span> </b></td></tr>
+
 		  							</tbody>
 								</table>
 								</div>
