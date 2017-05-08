@@ -29,7 +29,7 @@ class PesananCulture extends Model
 	  	return $this->belongsTo('App\User','id_user');
 	  }
 
-    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan){
+    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan,$email,$nama_pemesan){
             
         $user = Auth::user();
         
@@ -37,6 +37,14 @@ class PesananCulture extends Model
         $m->to($user->email, $user->name)->subject('Invoice Cultural Experience Endeso');
 
     });
+
+        $user->name = $nama_pemesan;
+
+       Mail::send('emails_cultural.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user,$email,$nama_pemesan) {
+        $m->to($email, $nama_pemesan)->subject('Invoice Cultural Experience Endeso');
+
+    });
+
 
     }
 
@@ -49,6 +57,16 @@ class PesananCulture extends Model
   
     Mail::send('pemesanan.checkout_cultural', compact('user','pesanan_cultural','kategori'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Thank You & Review (Endeso)');
+
+    });
+
+    $email = $pesanan_cultural->email;
+    $nama_pemesan = $pesanan_cultural->nama;
+
+    $user->name = $nama_pemesan;
+
+    Mail::send('pemesanan.checkout_cultural', compact('user','pesanan_cultural','kategori'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Thank You & Review (Endeso)');
 
     });
 
@@ -65,9 +83,15 @@ class PesananCulture extends Model
     $total_harga_warga = $total_harga_seluruh - $total_harga_endeso;
   
     Mail::send('pembayaran_cultural.petunjuk_check', compact('user','pesanan_cultural','kategori','total_harga_warga','warga'), function($m)use($user) {
-    $m->to($user->email, $user->name)->subject('Petunjuk CheckIn Endeso');
+    $m->to($user->email, $user->name)->subject('Petunjuk CheckIn Endeso'); });
 
-    });
+    $email = $pesanan_cultural->email;
+    $nama_pemesan = $pesanan_cultural->nama;
+
+    $user->name = $nama_pemesan;
+
+    Mail::send('pembayaran_cultural.petunjuk_check', compact('user','pesanan_cultural','kategori','total_harga_warga','warga'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Petunjuk CheckIn Endeso'); });
 
     }
 }
