@@ -113,36 +113,36 @@
 					<!-- Features Widget -->
 					<aside class="widget widget_features">
 						<h3 class="widget-title">Tentang {{$kamar->rumah->nama_pemilik}}</h3>
-						{!!$kamar->deskripsi!!}
-						{!!$kamar->deskripsi_2 !!}
+						<p>{!!$kamar->deskripsi!!}</p>
+						<p>{!!$kamar->deskripsi_2 !!}</p>
 
 				<!-- panel Rincian Pemesanan /- -->
 				<div class="panel panel-default" >
-					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h4>Rincian Harga</h4></div>
+					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h5>Rincian Harga</h5></div>
   					<div class="panel-body">
-						<table>
+						<table class="table-sm">
  							<tbody>
-      						 	<tr><td width="50%" style="font-size:100%"><b>{{$kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
+      						 	<tr><td width="50%" style="font-size:90%"><b>{{$kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
 
-      						 	<tr><td  width="50%" style="font-size:100%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:100%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:90%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:90%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
 
 
-      						 	<tr><td  width="50%" style="font-size:100%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:90%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
 
-      						 	<tr><td  width="50%" style="font-size:100%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:90%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
 
-      						 	<tr><td  width="50%" style="font-size:100%;"><span id="lama_inap"></span> Hari X <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%">Rp. <span id="harga_lama_inap"></span> </td></tr>
+      						 	<tr><td  width="50%" style="font-size:90%;"><span id="lama_inap"></span> Hari X <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_lama_inap"></span> </td></tr>
 
       						 	<span id="hidden_makan" style="display: none;">{{$kamar->harga_makan}}</span>
 
   							</tbody>
 						</table>
 								<hr>
-						<table>
+						<table class="table-sm">
  							<tbody>
  								
-      							<tr><td width="50%" style="font-size:100%;color:red;">Harga Total </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%;color:red;" >Rp. <span id="harga_total"> </span></td></tr>
-                    <tr><td width="50%" style="font-size:80%;color:red;">Jumlah yang harus dibayar sekarang (DP) </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:100%;color:red;">Rp. <span id="harga_dp"> </span></td></tr>
+      							<tr><td width="50%" style="font-size:90%;color:red;"> <b>Harga Total</b> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                    <tr><td width="50%" style="font-size:110%;color:red;"><b> Jumlah yang harus dibayar sekarang (DP) </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;"><b> Rp. <span id="harga_dp"> </span> </b></td></tr>
   							</tbody>
 						</table>
 					</div>
