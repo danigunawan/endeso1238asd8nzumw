@@ -20,14 +20,8 @@
                     </div>          
                 </div>
                 <!-- Controls -->
-                <a class="left carousel-control" href="#photo-slider" role="button" data-slide="prev">
-                    <span class="fa fa-angle-left" aria-hidden="true"></span>
-                </a>
-                <a class="right carousel-control" href="#photo-slider" role="button" data-slide="next">
-                    <span class="fa fa-angle-right" aria-hidden="true"></span>
-                </a>
+               
             </div>
-            <p class="goto-next"><a href="#" title="Go to Next" class="bounce"><img src="images/slider/go-to-next.png" alt="Go To Next" /></a></p>
         </div><!-- Slider Section /- -->
         
     <!-- container -->
