@@ -69,6 +69,7 @@ class HomeController extends Controller
  
     }
 
+
       public function tentang()
     {
         $setting_halaman = SettingHalaman::where('jenis_halaman',1)->first();
