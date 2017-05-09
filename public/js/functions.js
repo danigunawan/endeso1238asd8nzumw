@@ -525,7 +525,7 @@
 		});/* Quick Contact Form /- */
 		
 		/* - Expanding Search */
-		new UISearch( document.getElementById( "sb-search" ) );
+
 		
 	});/* document.ready /- */
 	
