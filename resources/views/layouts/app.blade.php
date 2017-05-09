@@ -62,15 +62,10 @@
     <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
     <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
      
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-    <script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
-     
-    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-    <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+  
      
     <!-- optionally if you need translation for your language then include locale file as mentioned below -->
-    <script src="{{ asset('js/locales/{lang}.js') }} "></script>
-    
+
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
     <![endif]-->
@@ -348,7 +343,7 @@
 
 
     <!-- JQuery v1.11.3 -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
     
     <!-- Library JS -->
     <script src="{{ asset('libraries/lib.js') }}"></script>
@@ -364,6 +359,12 @@
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
       <script src="{{ asset('js/my.js') }}"></script>
+
+
+    <script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
+     
+    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+    <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
 
 
 
