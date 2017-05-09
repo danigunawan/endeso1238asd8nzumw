@@ -11,11 +11,18 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
-                        <img src="images/slider/slide1.jpg" alt="Slide" />
-                        
+                        @if (isset($setting_foto_home) && $setting_foto_home->foto_1)
+                            <p> 
+                                {!! Html::image(asset('img/'.$setting_foto_home->foto_1), null, ['alt' => 'Slide']) !!}
+                            </p>
+                        @endif
                     </div>
-                    <div class="item">
-                        <img src="images/slider/slide2.jpg" alt="Slide" />
+                    <div class="item"> 
+                        @if (isset($setting_foto_home) && $setting_foto_home->foto_2)
+                            <p> 
+                                {!! Html::image(asset('img/'.$setting_foto_home->foto_2), null, ['alt' => 'Slide']) !!}
+                            </p>
+                        @endif
                         
                     </div>          
                 </div>

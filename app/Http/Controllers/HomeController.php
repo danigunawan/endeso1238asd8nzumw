@@ -23,6 +23,7 @@ use DateTime;
 use App\TamuHomestay;
 use App\TamuCulture;
 use App\Http\Controllers\StringController;
+use App\SettingFotoHome;
 
 
 class HomeController extends Controller
@@ -70,8 +71,12 @@ class HomeController extends Controller
         $destinasi_3 = Destinasi::select('nama_destinasi')->where('id',$kategori_3->destinasi_kategori)->inRandomOrder()->first();
         $destinasi_4 = Destinasi::select('nama_destinasi')->where('id',$kategori_4->destinasi_kategori)->inRandomOrder()->first();
 
+        //MENAMPILKAN FOTO SEEDER
+        $setting_foto_home = SettingFotoHome::first();
+
+
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4,'setting_foto_home'=>$setting_foto_home]);
  
     }
 
