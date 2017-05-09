@@ -132,6 +132,14 @@
 						<p>{!!$kamar->deskripsi!!}</p>
 						<p>{!!$kamar->deskripsi_2 !!}</p>
 
+					<!--PETA HOME STAY-->
+				    <div class="row" style="padding: 3%">
+      					<span id="span-peta" style="display: none">
+  	                       <div id="map" style=" height: 200px;" class="img-rounded img-responsive"></div>     										
+      					</span>   
+                     </div>
+                     <!--PETA HOME STAY-->
+                     <br>
 				<!-- panel Rincian Pemesanan /- -->
 				<div class="panel panel-default" >
 					<div class="panel-heading" style="background-color:#df9915;color:#fff"><h5>Rincian Harga</h5></div>
@@ -150,6 +158,9 @@
       						 	<tr><td  width="50%" style="font-size:90%;"><span id="lama_inap"></span> Hari X <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_lama_inap"></span> </td></tr>
 
       						 	<span id="hidden_makan" style="display: none;">{{$kamar->harga_makan}}</span>
+
+      						{!! Form::hidden('latitude', $value = $kamar->latitude, ['class'=>'form-control', 'id' => 'latitude_homestay']) !!}
+							{!! Form::hidden('longitude', $value = $kamar->longitude, ['class'=>'form-control', 'id' => 'longitude_homestay']) !!}
 
   							</tbody>
 						</table>
