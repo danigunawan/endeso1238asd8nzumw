@@ -87,8 +87,8 @@
                                 <table class="table-sm">
                                     <tbody>
                                         <span style="display: none" id="harga_endeso_hidden"> </span>
-                                        <tr><td width="75%" style="font-size:110%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
-                                        <tr><td width="75%" style="font-size:125%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                        <tr><td width="75%" style="font-size:110%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                        <tr><td width="75%" style="font-size:125%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
                                     </tbody>
                                 </table>
                               </div>
