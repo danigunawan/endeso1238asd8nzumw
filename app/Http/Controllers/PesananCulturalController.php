@@ -11,15 +11,17 @@ use App\Rekening;
 use Auth;
 use App\Destinasi;
 use App\TamuCulture;
+use App\KomentarKategori;
 
 class PesananCulturalController extends Controller
 {
     //
     public function index($id, $tanggal_masuk,$jumlah_orang){
     	$detail_kategori = Kategori::find($id);        
-            $warga = Warga::where('id_kategori_culture',$detail_kategori->id)->pluck('nama_warga','id'); 
+      $warga = Warga::where('id_kategori_culture',$detail_kategori->id)->pluck('nama_warga','id'); 
+      $query_sum_hitung_rating = KomentarKategori::HitungRating($id)->first(); 
 
-    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang,'warga'=>$warga]);
+    	return view('pesan_cultural.index', ['total_rating'=>round($query_sum_hitung_rating->total_rating),'detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang,'warga'=>$warga]);
     }
 
     public function store(Request $request){

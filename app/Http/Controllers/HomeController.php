@@ -580,11 +580,13 @@ class HomeController extends Controller
  
         $komentar_kategori = KomentarKategori::with('user')->where('status','!=','2')->where('id_kategori', $id)->limit(5)->get(); 
 
-        $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
+        $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
+                // perhitungan rating
+        $query_sum_hitung_rating = KomentarKategori::HitungRating($id)->first(); 
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
-        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
+        return view('cultural.detail', ['total_rating'=>round($query_sum_hitung_rating->total_rating),'detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
     } 
 
 
@@ -607,10 +609,12 @@ class HomeController extends Controller
           $this->validate($request, [
         'isi_komentar' => 'required',
         'id_kategori' => 'required',
+        'jumlah_bintang' => 'required',
      
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user,'status'=>0]);
+
+    KomentarKategori::create(['status'=>'0','isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user,'jumlah_bintang'=>$request->jumlah_bintang]);
 
 
     return back();

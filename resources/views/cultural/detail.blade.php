@@ -13,7 +13,13 @@
 					<li class="active">{{$detail_cultural->nama_aktivitas}}</li>
 				</ol>
 			</div>
-            <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 5/5</div>
+			
+			<div class="container" style="color:#faac17">
+						@for ($a = 1; $a <= $total_rating; $a++)
+						<i class="fa fa-star"></i>
+						@endfor
+						{{ $total_rating }}/5
+			</div>
 		</div><!-- Page Banner /- -->
 		
 		<div class="section-top-padding"></div>
@@ -128,7 +134,7 @@
                     <hr width="75%" style="margin-top:100px;margin-bottom:100px">
 
                      <!--- Review -->
-                    <div class="comment-section">
+					<div class="comment-form">
 						<h3 class="section-heading"> Review dari Pelanggan</h3>
 						<ul class="media-list">
 						@foreach($komentar_kategori as $komentar_kategoris)
@@ -146,6 +152,12 @@
 								<div class="col-sm-10">
 									<div class="media-content">
 										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->created_at}}</span></h4>
+										<div class="container" style="color:#faac17">
+											@for ($i = 1; $i <= $komentar_kategoris->jumlah_bintang; $i++)
+											<i class="fa fa-star"></i>
+											@endfor
+											{{ $komentar_kategoris->jumlah_bintang }}/5
+										</div>
 										<p>{{$komentar_kategoris->isi_komentar}}</p>
 									</div>
 								</div>

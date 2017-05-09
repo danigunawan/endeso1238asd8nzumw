@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Rekening;
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
+use App\KomentarKamar;
 
 
 class PesanhomestayController extends Controller
@@ -21,8 +22,10 @@ class PesanhomestayController extends Controller
         $detail_kamar = Kamar::with(['rumah'])->find($id);
 
         $harga_kamar = $detail_kamar->harga_endeso + $detail_kamar->harga_pemilik;
+        $query_sum_hitung_rating = KomentarKamar::HitungRating($id)->first(); 
 
-        return view('pesan_homestay.index',['detail_kamar'          => $detail_kamar,
+        return view('pesan_homestay.index',['total_rating'=>round($query_sum_hitung_rating->total_rating),
+                                            'detail_kamar'          => $detail_kamar,
                                             'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
                                             'dp'                    =>$stringfunction->rp($detail_kamar->harga_endeso),
                                             'id'                    =>$id,
