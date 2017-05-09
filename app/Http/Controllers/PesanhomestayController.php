@@ -83,9 +83,7 @@ class PesanhomestayController extends Controller
            ]);
 
 
-if ($request->jumlah_orang > 1){
 // INSERT DATA TAMU
-
 
            if ($request->has('nama_tamu')) {
 
@@ -108,7 +106,7 @@ if ($request->jumlah_orang > 1){
 
           }
 // INSERT DATA TAMU
-}
+
 
       	    Session::flash("flash_notification", [
               "level"=>"success",
@@ -117,7 +115,10 @@ if ($request->jumlah_orang > 1){
 
             $rekening_tujuan = Rekening::all();
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
-      	    PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan);
+      	   $email_satu = PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan,$request->email,$request->nama
+);
+
+             
 
           return redirect('/pembayaran-homestay/'.$pesan_homestay->id.'');
 

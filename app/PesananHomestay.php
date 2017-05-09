@@ -42,13 +42,20 @@ class PesananHomestay extends Model
 		}
 
 
-    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan)
+    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan,$email,$nama_pemesan)
     {
         
     $user = Auth::user();
     
     Mail::send('emails.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Invoice Homestay Endeso');
+
+    });
+
+    $user->name =  $nama_pemesan;
+
+      Mail::send('emails.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Invoice Homestay Endeso');
 
     });
 
@@ -64,6 +71,15 @@ class PesananHomestay extends Model
 
     });
 
+    $email = $pesanan_homestay->email;
+    $nama_pemesan = $pesanan_homestay->nama;
+    $user->nama = $nama_pemesan;
+
+     Mail::send('emails.petunjuk_check', compact('user','total_harga_warga','detail_kamar','pesanan_homestay'), function($m)use($user) {
+    $m->to($email, $nama_pemesan)->subject('Petunjuk CheckIn Endeso');
+
+    });
+
     }
 
 
@@ -75,6 +91,15 @@ class PesananHomestay extends Model
   
     Mail::send('pemesanan.checkout_homestay', compact('user','pesanan_homestay','kategori'), function($m)use($user) {
     $m->to($user->email, $user->name)->subject('Thank You & Review (Endeso)');
+
+    });
+
+    $email = $pesanan_homestay->email;
+    $nama_pemesan = $pesanan_homestay->nama;
+    $user->nama = $nama_pemesan;
+
+    Mail::send('pemesanan.checkout_homestay', compact('user','pesanan_homestay','kategori'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Thank You & Review (Endeso)');
 
     });
 

@@ -21,6 +21,7 @@ use App\Warga;
 use App\Destinasi;
 use DateTime; 
 use App\TamuHomestay;
+use App\TamuCulture;
 use App\Http\Controllers\StringController;
 
 
@@ -44,14 +45,18 @@ class HomeController extends Controller
     public function index()
     {
         $tanggal = date('Y-m-d');
+        
+        $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
+        $tanggal_sampai_tanggal = date('Y-m-d', $besok);
+
         $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
         $setting_halaman_culture = SettingHalamanCulture::first();
 
       //SELECT TABLE KATEGORI (Menamgbil id dan nama kategorinya atau aktivitas)
-        $kategori_1 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_1)->first();
-        $kategori_2 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_2)->first();
-        $kategori_3 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_3)->first();
-        $kategori_4 = Kategori::select(['id', 'nama_aktivitas'])->where('id',$setting_halaman_culture->kategori_4)->first();
+        $kategori_1 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_1)->first();
+        $kategori_2 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_2)->first();
+        $kategori_3 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_3)->first();
+        $kategori_4 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_4)->first();
 
       //SELECT TABLE WARGA (Menamgbil harga endeso dan harga pemilik)
         $warga_1 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_1->id)->inRandomOrder()->first();
@@ -59,10 +64,17 @@ class HomeController extends Controller
         $warga_3 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_3->id)->inRandomOrder()->first();
         $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
 
+      //SELECT TABLE DESTINASI (Menamgbil nama destinasi)
+        $destinasi_1 = Destinasi::select('nama_destinasi')->where('id',$kategori_1->destinasi_kategori)->inRandomOrder()->first();
+        $destinasi_2 = Destinasi::select('nama_destinasi')->where('id',$kategori_2->destinasi_kategori)->inRandomOrder()->first();
+        $destinasi_3 = Destinasi::select('nama_destinasi')->where('id',$kategori_3->destinasi_kategori)->inRandomOrder()->first();
+        $destinasi_4 = Destinasi::select('nama_destinasi')->where('id',$kategori_4->destinasi_kategori)->inRandomOrder()->first();
+
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4]);
  
     }
+
 
       public function tentang()
     {
@@ -187,11 +199,11 @@ class HomeController extends Controller
           }
 
           if ($pesanan_homestays->status_pesanan == 0) {
-          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+          $tombol_pesanan = '<a href="'.url("pemesanan/homestay/batal/".$pesanan_homestays->id).'" class="btn read-more-batal">BATAL<i class="glyphicon glyphicon-remove-circle"></i></a>';   
           }elseif ($pesanan_homestays->status_pesanan == 2) {
           $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_in/".$pesanan_homestays->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
           }elseif ($pesanan_homestays->status_pesanan == 3) {
-          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+          $tombol_pesanan  = '<a href="'.url("pemesanan/homestay/check_out/".$pesanan_homestays->id).'" class="btn read-more">CHECK OUT<i class="glyphicon glyphicon-hand-right"></i></a>';  
           }else{
           $tombol_pesanan = '';
           }
@@ -267,14 +279,14 @@ class HomeController extends Controller
                     }
  
                     if ($pesanan_cultures->status_pesanan == 0) {
-                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more">BATAL<i class="glyphicon glyphicon-th-list"></i></a>';   
+                    $tombol_pesanan = '<a href="'.url("pemesanan/cultural/batal/".$pesanan_cultures->id).'" class="btn read-more-batal" >BATAL<i class="glyphicon glyphicon-remove-circle"></i></a>';   
                     } 
                     elseif ($pesanan_cultures->status_pesanan == 2) {
                      $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_in/".$pesanan_cultures->id).'" class="btn read-more">CHECK IN<i class="glyphicon glyphicon-th-list"></i></a>';   
                     }
                     elseif ($pesanan_cultures->status_pesanan == 3) {
                      $tombol_pesanan  = '<a href="'.url("pemesanan/cultural/check_out/".$pesanan_cultures->id).'" 
-                                            class="btn read-more">CHECK oUT<i class="glyphicon glyphicon-th-list"></i></a>';  
+                                            class="btn read-more">CHECK OUT<i class="glyphicon glyphicon-hand-right"></i></a>';  
                     } 
                     else{
                       $tombol_pesanan = '';
@@ -428,12 +440,17 @@ class HomeController extends Controller
                                 }
                                $no_urut_tamu = 1; 
                                 foreach ($tamu as $tamus) {
-
-                                $tampil_detail .=  '
-                                
-                                <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
-                                    <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
-                                </tr><br>';
+                                  if ($tamus->nama_tamu == NULL OR $tamus->nama_tamu == '') {
+                                    # code...
+                                  }
+                                  else{
+                                      $tampil_detail .=  '
+                                      
+                                      <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
+                                          <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
+                                      </tr><br>';
+                                  }
+                              
 
                                 }  
 
@@ -462,6 +479,8 @@ class HomeController extends Controller
       $warga = Warga::select('id_kategori_culture')->where('id',$pesanan_culture->id_warga)->first();
       $kategori = Kategori::select('nama_aktivitas', 'destinasi_kategori')->where('id',$warga->id_kategori_culture)->first();
       $destinasi = Destinasi::select('nama_destinasi')->where('id',$kategori->destinasi_kategori)->first();
+            // ambil nama tamu
+      $tamu = TamuCulture::select('nama_tamu')->where('id_pesanan',$pesanan_culture->id)->get();
 
       // hitung harga 
       $harga_cultural = $pesanan_culture->harga_endeso + $pesanan_culture->harga_pemilik;
@@ -514,11 +533,30 @@ class HomeController extends Controller
                               </table>
                             </div>
 
-                          </div>
 
 
-                          </div>
-                          </div>
+                          </div>';
+                            if ($tamu->count() != '') {
+                                  $tampil_detail .= '<hr>
+                                <h4>Daftar Tamu</h4>';
+                                }
+                               $no_urut_tamu = 1; 
+                                foreach ($tamu as $tamus) {
+                                  if ($tamus->nama_tamu == NULL OR $tamus->nama_tamu == '') {
+                                    # code...
+                                  }
+                                  else{
+                                      $tampil_detail .=  '
+                                      
+                                      <tr><td  width="25%"><font class="satu">'.$no_urut_tamu++.'.</font></td> 
+                                          <td> &nbsp;&nbsp;</td> <td> <font class="satu">'.$tamus->nama_tamu.'</font> </td>
+                                      </tr><br>'; 
+                                  }
+
+
+                                }  
+                          $tampil_detail .= '</div>
+                        </div>
                         </div>';
 
       return view('detail_pesanan_culture',['pesanan_culture'=>$pesanan_culture, 
@@ -537,7 +575,7 @@ class HomeController extends Controller
  
         $komentar_kategori = KomentarKategori::with('user')->where('status','!=','2')->where('id_kategori', $id)->limit(5)->get(); 
 
-        $warga = Warga::select('harga_endeso')->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
+        $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
 
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
@@ -548,12 +586,12 @@ class HomeController extends Controller
     public function komentar_penginapan(Request $request){  
 
           $this->validate($request, [
-        'isi_komentar' => 'required',
-        'id_kamar' => 'required',
-     
+          'isi_komentar' => 'required',
+          'id_kamar' => 'required',
+          'jumlah_bintang' => 'required',
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKamar::create(['isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user,'status'=>0]);
+    KomentarKamar::create(['status'=>'0','isi_komentar' => $request->isi_komentar,'id_kamar' => $request->id_kamar,'id_user' => $id_user,'jumlah_bintang'=>$request->jumlah_bintang]);
 
     return back();
 
@@ -569,19 +607,33 @@ class HomeController extends Controller
     $id_user = Auth::user()->id;
     KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user,'status'=>0]);
 
+
     return back();
 
     } 
 
 
-       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang)   
+       public function detail_penginapan($id,$tanggal_checkin,$tanggal_checkout,$jumlah_orang,StringController $stringfunction)   
     {
+
+
         $kamar = Kamar::with(['rumah'])->find($id);
         $kamar_lain = Kamar::with(['rumah','destinasi'])->where('id_destinasi',$kamar->id_destinasi)->where('id_kamar','!=',$kamar->id_kamar)->limit(3)->get();
+        // perhitungan rating
+        $query_sum_hitung_rating = KomentarKamar::HitungRating($id)->first(); 
 
-        $komentar = KomentarKamar::with('user')->where('status','!=','2')->where('id_kamar',$id)->limit(5)->get();
+        $komentar = KomentarKamar::with('user')->where('status','!=' ,2)->where('id_kamar',$id)->limit(5)->get();
+        $harga_kamar = $kamar->harga_endeso + $kamar->harga_pemilik;
 
-        return view('penginapan.detail',['kamar' => $kamar,'kamar_lain'=>$kamar_lain,'komentar'=>$komentar,'tanggal_checkin'=>$tanggal_checkin,'tanggal_checkout'=>$tanggal_checkout,'jumlah_orang'=>$jumlah_orang]); 
+        return view('penginapan.detail',['total_rating'=>round($query_sum_hitung_rating->total_rating),
+                                          'kamar' => $kamar,
+                                         'kamar_lain'=>$kamar_lain,
+                                         'harga_kamar_sebenarnya'=>$stringfunction->rp($harga_kamar),
+                                         'dp'=>$stringfunction->rp($kamar->harga_endeso),
+                                         'komentar'=>$komentar,
+                                         'tanggal_checkin'=>$tanggal_checkin,
+                                         'tanggal_checkout'=>$tanggal_checkout,
+                                         'jumlah_orang'=>$jumlah_orang]); 
 
       }
 

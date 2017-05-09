@@ -61,7 +61,6 @@ class PesananCulturalController extends Controller
 
            ]); 
 
-        if ($request->jumlah_orang > 1){
             // INSERT DATA TAMU
 
 
@@ -86,7 +85,7 @@ class PesananCulturalController extends Controller
 
           }
         // INSERT DATA TAMU
-        }
+
 
             Session::flash("flash_notification", [
               "level"=>"success",
@@ -95,7 +94,8 @@ class PesananCulturalController extends Controller
 
             $rekening_tujuan = Rekening::all();
             $total_harga_endeso = $warga->harga_endeso * $request->jumlah_orang;
-            PesananCulture::sendInvoice($total_harga_endeso,$pesanan_culture->id,$rekening_tujuan);
+            
+            PesananCulture::sendInvoice($total_harga_endeso,$pesanan_culture->id,$rekening_tujuan,$request->email,$request->nama);
         
         return redirect('/pembayaran_culture/'.$pesanan_culture->id.'');         
         }
