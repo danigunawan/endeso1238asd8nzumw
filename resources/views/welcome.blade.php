@@ -153,7 +153,7 @@
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_2 or 'foto_2' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_2->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
+                            <h3><span>{{$kategori_2->nama_aktivitas}} ({{$destinasi_2->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_2->harga_endeso + $warga_2->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_2->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
@@ -176,7 +176,7 @@
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_3 or 'foto_3' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_3->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
+                            <h3><span>{{$kategori_3->nama_aktivitas}} ({{$destinasi_3->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_3->harga_endeso + $warga_3->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_3->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
@@ -199,7 +199,7 @@
                     <div class="offer-box full">
                         <img src="img/{{ $setting_halaman_culture->foto_4 or 'foto_4' }}" alt="Offer" />
                         <div class="offer-detail">
-                            <h3><span>{{$kategori_4->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
+                            <h3><span>{{$kategori_4->nama_aktivitas}} ({{$destinasi_4->nama_destinasi}}) </span></h3>
                             <div class="price-detail">
                                 <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_4->harga_endeso + $warga_4->harga_pemilik,0,',','.')}}</span></h4>
                                 <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_4->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
