@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PesananHomestaySeeder::class);
         $this->call(PesananCulturSeeder::class);
         $this->call(SettingHalamanCultureSeeder::class);
+        $this->call(SettingFotoHomeSeeder::class);
 
     }
 }

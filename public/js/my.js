@@ -148,7 +148,6 @@ function hitung_penginapan_checkbox() {
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
          $("#harga_total").text(tandaPemisahTitik(total_harga));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
-         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
          $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
@@ -216,7 +215,6 @@ function hitung_penginapan(harga_endeso) {
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
          $("#harga_total").text(tandaPemisahTitik(total_harga));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
-         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
          $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
@@ -238,8 +236,7 @@ function hitung_penginapan_document(harga_endeso) {
 		var harga_jumlah =  parseInt(harga_kamar);
 
 		var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(harga_endeso))));
-
-                    //MENAMPILKAN PETA WARGA
+               //MENAMPILKAN PETA WARGA
                             var latitude_homestay = $("#latitude_homestay").val();
                             var longitude_homestay = $("#longitude_homestay").val();
 
@@ -338,7 +335,6 @@ function hitung_penginapan_document(harga_endeso) {
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
          $("#harga_total").text(tandaPemisahTitik(total_harga));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
-         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
          $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));
          $("#lama_inap").text(tandaPemisahTitik(hitung_hari));
@@ -395,7 +391,6 @@ function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_
       	// tampilan rincian harga
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
          $("#harga_total").text(tandaPemisahTitik(total_harga));
-         $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_orang").text(tandaPemisahTitik(jumlah_orang));
          $("#hitung_harga_orang").text(harga_jumlah);
          $("#harga_jumlah_orang").text(tandaPemisahTitik(harga_jumlah_orang));

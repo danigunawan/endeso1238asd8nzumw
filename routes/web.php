@@ -139,6 +139,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('komentar_kamar','KomentarKamarController');
 	Route::resource('komentar_kategori','KomentarKategoriController');
 	Route::resource('pemesanan','PemesananController');
+	Route::resource('setting-foto-home', 'SettingFotoHomeController');
 
 	Route::get('konfirmasi_pembayaran',[
 	'middleware' => ['auth'],

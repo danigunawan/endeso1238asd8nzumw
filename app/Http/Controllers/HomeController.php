@@ -23,6 +23,7 @@ use DateTime;
 use App\TamuHomestay;
 use App\TamuCulture;
 use App\Http\Controllers\StringController;
+use App\SettingFotoHome;
 
 
 class HomeController extends Controller
@@ -70,8 +71,12 @@ class HomeController extends Controller
         $destinasi_3 = Destinasi::select('nama_destinasi')->where('id',$kategori_3->destinasi_kategori)->inRandomOrder()->first();
         $destinasi_4 = Destinasi::select('nama_destinasi')->where('id',$kategori_4->destinasi_kategori)->inRandomOrder()->first();
 
+        //MENAMPILKAN FOTO SEEDER
+        $setting_foto_home = SettingFotoHome::first();
+
+
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4]);
+        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4,'setting_foto_home'=>$setting_foto_home]);
  
     }
 
@@ -573,13 +578,15 @@ class HomeController extends Controller
  
         $detail_cultural = Kategori::find($id); 
  
-        $komentar_kategori = KomentarKategori::with('user')->where('status',1)->where('id_kategori', $id)->limit(5)->get(); 
+        $komentar_kategori = KomentarKategori::with('user')->where('status','!=','2')->where('id_kategori', $id)->limit(5)->get(); 
+
 
         $warga = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$detail_cultural->id)->inRandomOrder()->first();
-
+                // perhitungan rating
+        $query_sum_hitung_rating = KomentarKategori::HitungRating($id)->first(); 
  
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> detail. (Passing $detail_cultural ke view atau tampilan cultural.detail) 
-        return view('cultural.detail', ['detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
+        return view('cultural.detail', ['total_rating'=>round($query_sum_hitung_rating->total_rating),'detail_cultural' => $detail_cultural, 'komentar_kategori' => $komentar_kategori, 'tanggal_masuk' => $tanggal_masuk, 'jumlah_orang' => $jumlah_orang, 'warga' => $warga]); 
     } 
 
 
@@ -602,10 +609,12 @@ class HomeController extends Controller
           $this->validate($request, [
         'isi_komentar' => 'required',
         'id_kategori' => 'required',
+        'jumlah_bintang' => 'required',
      
         ]); 
     $id_user = Auth::user()->id;
-    KomentarKategori::create(['isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user]);
+
+    KomentarKategori::create(['status'=>'0','isi_komentar' => $request->isi_komentar,'id_kategori' => $request->id_kategori,'id_user' => $id_user,'jumlah_bintang'=>$request->jumlah_bintang]);
 
 
     return back();
