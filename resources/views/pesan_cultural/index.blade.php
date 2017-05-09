@@ -14,8 +14,13 @@
 					<li class="active">{{$detail_kategori->nama_aktivitas}}</li>
 				</ol>
 			</div>
-            <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i> 4.5/5</div>
-		</div><!-- Page Banner /- -->
+                        <div class="container" style="color:#faac17">
+                        @for ($a = 1; $a <= $total_rating; $a++)
+                        <i class="fa fa-star"></i>
+                        @endfor
+                        {{ $total_rating }}/5
+                        </div>
+    		</div><!-- Page Banner /- -->
 		
 		<div class="section-top-padding"></div>
 		
