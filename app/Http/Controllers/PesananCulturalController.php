@@ -12,6 +12,7 @@ use Auth;
 use App\Destinasi;
 use App\TamuCulture;
 use App\KomentarKategori;
+use Telegram;
 
 class PesananCulturalController extends Controller
 {
@@ -66,6 +67,16 @@ class PesananCulturalController extends Controller
             // INSERT DATA TAMU
 
 
+         $nama_pemesan = Auth::user()->name;
+         $warga = Warga::find($request->id_warga);
+         $total_harga_endeso = ($warga->harga_pemilik + $warga->harga_endeso) * $request->jumlah_orang;
+         $rp = number_format($total_harga_endeso,0,',','.');
+         $chat_id = env('CHAT_ID'); 
+         $response = Telegram::sendMessage([
+            'chat_id' => $chat_id , 
+            'text' => "Pelanggan Baru Saja Melakukan Pemesanan (CULTURAL). \n Nama Warga : $warga->nama_warga \n Nomor Pesanan : $pesanan_culture->id \n Nama Pemesanan : $nama_pemesan \n Tanggal Check In : $request->check_in \n Jadwal : $request->jadwal \n Nama Pelanggan : $request->nama \n Nomor Telefone : $request->no_telp \n Nomor Ktp : $request->no_ktp \n Email : $request->email \n Total Harga : Rp.$rp \n Jumlah Orang : $request->jumlah_orang Orang",
+          ]);
+
            if ($request->has('nama_tamu')) {
 
              $nama_tamu = $request->input('nama_tamu');
@@ -87,6 +98,7 @@ class PesananCulturalController extends Controller
 
           }
         // INSERT DATA TAMU
+
 
 
             Session::flash("flash_notification", [

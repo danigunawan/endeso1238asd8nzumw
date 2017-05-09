@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kamar;
+use App\Rumah;
 use App\PesananHomestay;
 use Session;
 use Auth;
@@ -12,6 +13,7 @@ use App\Rekening;
 use App\TamuHomestay;
 use App\Http\Controllers\StringController;
 use App\KomentarKamar;
+use Telegram;
 
 
 class PesanhomestayController extends Controller
@@ -111,6 +113,16 @@ class PesanhomestayController extends Controller
 // INSERT DATA TAMU
 
 
+         $rp = number_format($request->harga_total_hidden,0,',','.');
+         $nama_pemesan = Auth::user()->name;
+         $kamar = Kamar::with('rumah')->find($request->id_kamar); 
+         $rumah = Rumah::with('destinasi')->find($kamar->id_rumah);
+         $chat_id = env('CHAT_ID'); 
+         $response = Telegram::sendMessage([
+            'chat_id' => $chat_id , 
+            'text' => "Pelanggan Baru Saja Melakukan Pemesanan (HOMESTAY).\n Nama Pemilik Rumah : $rumah->nama_pemilik \n Nomor Pesanan : $pesan_homestay->id \n Nama Pemesanan : $nama_pemesan \n Tanggal Check In : $request->tanggal_checkin \n Tanggal Check Out : $request->tanggal_checkout \n Nama Pelanggan : $request->nama \n Nomor Telefone : $request->no_telp \n Nomor Ktp : $request->no_ktp \n Email : $request->email \n Total Harga : Rp. $rp \n Jumlah Orang : $request->jumlah_orang Orang \n Jumlah Malam : $request->jumlah_malam Malam"
+          ]);
+
       	    Session::flash("flash_notification", [
               "level"=>"success",
               "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran di Email Anda"
@@ -119,6 +131,7 @@ class PesanhomestayController extends Controller
             $rekening_tujuan = Rekening::all();
       	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
       	   $email_satu = PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan,$request->email,$request->nama
+
 );
 
              

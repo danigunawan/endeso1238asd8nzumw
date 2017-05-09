@@ -17,6 +17,7 @@ use Yajra\Datatables\Datatables;
 use Auth;
 use DateTime;
 use Session;
+use Telegram;
 
 
 class PembayaranController extends Controller
@@ -101,9 +102,18 @@ class PembayaranController extends Controller
            'atas_nama_rekening_pelanggan' => $request->atas_nama_rekening_pengirim,
            'nama_bank_pelanggan' => $request->nama_bank_pelanggan,
            'nama_bank_tujuan' => $request->nama_bank_tujuan,
-           'status_pembayaran' => "0",
-  
+           'status_pembayaran' => "0", 
         ]);
+
+         $nama_pemesan = Auth::user()->name; 
+         $rekening = Rekening::find($request->nama_bank_tujuan);
+         $chat_id = env('CHAT_ID'); 
+         $response = Telegram::sendMessage([
+            'chat_id' => $chat_id , 
+            'text' => "Pelanggan Baru Saja Melakukan Pembayaran (HOMESTAY). \n Nomor Pesanan : $request->id_pesanan \n Nama Pemesanan : $nama_pemesan \n Nomor Rekening Pelanggan : $request->nomor_rekening_pelanggan \n Nama Bank Pelanggan : $request->nama_bank_pelanggan \n Atas Nama Rekening Pengirim : $request->atas_nama_rekening_pengirim \n Nama Bank Tujuan : $rekening->nama_bank"
+          ]);
+
+
          // isi field foto_tanda_bukti jika ada foto_tanda_bukti yang diupload
         if ($request->hasFile('foto_tanda_bukti')) {
         // Mengambil file yang diupload
@@ -118,6 +128,13 @@ class PembayaranController extends Controller
         // mengisi field foto_tanda_bukti di destinasi dengan filename yang baru dibuat
         $pembayaran_homestay_insert->foto_tanda_bukti = $filename;
         $pembayaran_homestay_insert->save();
+        $lokasi_foto = $destinationPath."/".$filename;
+
+        $sendPhoto = Telegram::sendPhoto([
+        'chat_id' => $chat_id , 
+        'photo' => $lokasi_foto, 
+        'caption' =>  "Tanda Bukti Pembayaran (HOMESTAY) \n Nomor Pesanan : $request->id_pesanan"
+        ]);
         } 
             
           return redirect('/user/pesanan');

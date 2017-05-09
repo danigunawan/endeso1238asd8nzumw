@@ -24,6 +24,7 @@ use App\TamuHomestay;
 use App\TamuCulture;
 use App\Http\Controllers\StringController;
 use App\SettingFotoHome;
+use Telegram;
 
 
 class HomeController extends Controller
@@ -819,6 +820,10 @@ class HomeController extends Controller
 
     }
 
+    public function telegram(){
+        $response = Telegram::getUpdates();
 
+        return $response;
+    }
    
 }
