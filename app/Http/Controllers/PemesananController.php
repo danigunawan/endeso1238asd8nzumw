@@ -10,6 +10,7 @@ use App\PesananCulture;
 Use App\Kamar;
 Use App\Rumah;
 use Session;
+use Illuminate\Support\Facades\DB;
 use Auth; 
 
 class PemesananController extends Controller
@@ -18,6 +19,10 @@ class PemesananController extends Controller
     public function index(Request $request, Builder $htmlBuilder)
     {
         //
+
+
+        PesananHomestay::batal();
+        PesananCulture::batal();
 
         if ($request->ajax()) {
 
@@ -82,6 +87,9 @@ class PemesananController extends Controller
 
         public function status_pesanan_cultural(Request $request, Builder $htmlBuilder,$id)
     {
+
+
+
         if ($request->ajax()) {
 
 
@@ -259,5 +267,16 @@ class PemesananController extends Controller
             $pesanan_homestay->save();   
 
         return back();
+    }
+
+    public static function  ubah_jadi_batal(){
+        
+        $var = PesananHomestay::where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->update(['status_pesanan' => '5']);
+
+    
+
+
+        return $var;
+
     }
 }
