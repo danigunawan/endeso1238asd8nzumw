@@ -31,7 +31,7 @@ Route::post('/ajax-data-kamar', 'KamarController@ajax_data_kamar');
 
 
 Route::get('/', 'HomeController@index');
-
+Route::get('/telegram', 'HomeController@telegram');
 
 Route::get('auth/login', function () {
     return view('auth');

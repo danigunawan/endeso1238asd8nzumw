@@ -105,7 +105,7 @@ class SettingFotoHomeController extends Controller
 
           Session::flash("flash_notification", [
         "level"=>"success",
-        "message"=>"Berhasil Menyimpan Data Kamar"
+        "message"=>"Berhasil Menyimpan Setting Foto Home"
         ]);
 
         return redirect()->route('setting-foto-home.index');

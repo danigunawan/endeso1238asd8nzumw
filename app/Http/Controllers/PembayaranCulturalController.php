@@ -15,6 +15,7 @@ use DateTime;
 use App\Rekening;
 use Auth;
 use File;
+use Telegram;
 
 class PembayaranCulturalController extends Controller
 {
@@ -104,7 +105,7 @@ class PembayaranCulturalController extends Controller
             $pesanan->status_pesanan = 1; 
             $pesanan->save();
 
-        $id_user = Auth::user()->id;
+         $id_user = Auth::user()->id;
         $pesanan_culture = PembayaranCulture::create([
            'id_user' => $id_user,
            'id_pesanan' => $request->id_pesanan, 
@@ -114,6 +115,16 @@ class PembayaranCulturalController extends Controller
            'nama_bank_tujuan' => $request->nama_bank_tujuan,  
            'status' => "0",
         ]);
+
+         $nama_pemesan = Auth::user()->name; 
+         $rekening = Rekening::find($request->nama_bank_tujuan);
+         $chat_id = env('CHAT_ID'); 
+         $response = Telegram::sendMessage([
+            'chat_id' => $chat_id , 
+            'text' => "Pelanggan Baru Saja Melakukan Pembayaran (CULTURAL). \n Nomor Pesanan : $request->id_pesanan \n Nama Pemesanan : $nama_pemesan \n Nomor Rekening Pelanggan : $request->nomor_rekening_pelanggan \n Nama Bank Pelanggan : $request->nama_bank_pelanggan \n Atas Nama Rekening Pengirim : $request->atas_nama_rekening_pengirim \n Nama Bank Tujuan : $rekening->nama_bank"
+          ]);
+
+
          // isi field foto_tanda_bukti jika ada foto_tanda_bukti yang diupload
         if ($request->hasFile('foto_tanda_bukti')) {
         // Mengambil file yang diupload
@@ -128,6 +139,13 @@ class PembayaranCulturalController extends Controller
         // mengisi field foto_tanda_bukti di destinasi dengan filename yang baru dibuat
         $pesanan_culture->foto_tanda_bukti = $filename;
         $pesanan_culture->save();
+        $lokasi_foto = $destinationPath."/".$filename;
+
+        $sendPhoto = Telegram::sendPhoto([
+        'chat_id' => $chat_id , 
+        'photo' => $lokasi_foto, 
+        'caption' =>  "Tanda Bukti Pembayaran (CULTURAL) \n Nomor Pesanan : $request->id_pesanan"
+        ]);
         } 
         return redirect('/user/pesanan');
         

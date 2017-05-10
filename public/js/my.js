@@ -388,6 +388,53 @@ function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_
       	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
 
 
+      	           //MENAMPILKAN PETA WARGA
+                            var latitude_homestay = $("#latitude_homestay").val();
+                            var longitude_homestay = $("#longitude_homestay").val();
+
+
+                                                        
+                            if (latitude_homestay != "" && longitude_homestay != "") {
+                              var marker;
+
+                              function initMap() {
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                  zoom: 15,
+                                  center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                                });
+
+                                marker = new google.maps.Marker({
+                                  map: map,
+                                  draggable: true,
+                                  animation: google.maps.Animation.DROP,
+                                  position: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                                });
+                                marker.addListener('click', toggleBounce);
+                              } //INTI MAP
+
+                              function toggleBounce() {
+                                if (marker.getAnimation() !== null) {
+                                  marker.setAnimation(null);
+
+                                }
+                                else {
+                                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                                
+
+                                }
+
+                              }// TOOGLE BOUNCE
+
+                              initMap();
+                            	$("#span-peta").show();
+
+                            } //END IF
+                            else{
+                            	$("#span-peta").hide();
+                            }
+                    //MENAMPILKAN PETA WARGA
+                    
+
       	// tampilan rincian harga
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
          $("#harga_total").text(tandaPemisahTitik(total_harga));
