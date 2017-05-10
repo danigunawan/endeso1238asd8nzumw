@@ -197,8 +197,8 @@ class PemesananController extends Controller
             })
 
             ->addColumn('nama_pemilik', function($pesanan_homestay){
-                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
-                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah)->first();
+                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar); 
+                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah);
                 return $rumah->nama_pemilik; 
             })
 
