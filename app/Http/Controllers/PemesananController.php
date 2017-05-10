@@ -226,7 +226,7 @@ class PemesananController extends Controller
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
+                     $status_pesanan = "pesanan batal";
                 } 
                 return $status_pesanan; 
                 })->rawColumns(['action'])->make(true);
