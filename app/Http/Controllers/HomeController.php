@@ -659,6 +659,8 @@ class HomeController extends Controller
 
     public function pencarian_ce_homestay(Request $request,StringController $string)
     {   
+
+      
         // JIKA PILIHAN DESTINASI NYA HOMESTAY
         if ($request->pilihan == 1) {
 
@@ -680,7 +682,9 @@ class HomeController extends Controller
 
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
          
-                $pesanan = PesananHomestay::status($kamars,$request->dari_tanggal,$request->sampai_tanggal)->count();
+                $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
+
+
 
                     if ($pesanan == 0) {//  if ($pesanan == 0)
 
@@ -734,7 +738,7 @@ class HomeController extends Controller
                       
                   }// else if ($kamar->count() == "")
 
-
+             
            return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
         }
         else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
