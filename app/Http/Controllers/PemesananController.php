@@ -56,7 +56,7 @@ class PemesananController extends Controller
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
+                     $status_pesanan = "Pesanan Batal";
                 } 
                 return $status_pesanan; 
                 })->make(true);
