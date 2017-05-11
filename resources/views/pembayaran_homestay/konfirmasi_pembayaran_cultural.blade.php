@@ -6,10 +6,10 @@
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
             <div class="container">
-                <h3>Konfirmasi Pembayaran Homestay</h3>
+                <h3>Konfirmasi Pembayaran cultural</h3>
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/home')}}">Admin</a></li>
-                    <li class="active">Pembayaran Homestay</li>
+                    <li class="active">Pembayaran cultural</li>
                 </ol>
             </div>
         </div><!-- Page Banner /- -->
@@ -29,8 +29,8 @@
                               <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu"> 
-                              <li><a href="{{ route('pemesanan.status-homestay-pembayaran',1) }}">Sudah Konfirmasi</a></li>
-                              <li><a href="{{ route('pemesanan.status-homestay-pembayaran',0) }}">Belum Konfirmasi</a></li> 
+                              <li><a href="{{ route('pemesanan.status-cultural-pembayaran',1) }}">Sudah Konfirmasi</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pembayaran',0) }}">Belum Konfirmasi</a></li> 
                             </ul>
                           </div>    
 
@@ -40,7 +40,6 @@
                           <div class="table-responsive">
                           {!! $html->table(['class'=>'table-striped']) !!}
                           </div>
-                          
                           <br>
                           <p style="color:red"><i>*Klik Foto untuk memperbesar</i></p> 
  

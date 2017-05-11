@@ -341,7 +341,7 @@ class PembayaranController extends Controller
 //ubah status konfirmasi homestay
 
     
-
+//  PEMBAYARAN CULTURAL
 
         public function konfirmasi_pembayaran_cultural(Request $request, Builder $htmlBuilder)
     {
@@ -389,31 +389,115 @@ class PembayaranController extends Controller
 
                 })
 
-                ->addColumn('action',  function($action){    
-
-                if ($action->status  == 0 ) {
-                    # code belum nampil
-                  
-                return '<a href="konfirmasi-pembayaran/cultural/terima/'.$action->id.'" class="btn btn-info  btn-sm">Terima</a> <a href="konfirmasi-pembayaran/cultural/tolak/'.$action->id.'" class="btn btn-danger  btn-sm">Tolak</a> ';
-                }
-                elseif ($action->status  == 1) {
-                    # code belum nampil
-                  
-                return '<p style="color:red;">Sudah Konfirmasi</p>';
-                }      
-
+                ->addColumn('action',function($pembayaran_cultural){
+                        return view('pembayaran_homestay._konfirmasi', [
+                    'model'=> $pembayaran_cultural,
+                    'terima' => route('konfirmasi_pembayaran.homestay_terima', $pembayaran_cultural->id),
+                    'tolak' => route('konfirmasi_pembayaran.homestay_tolak', $pembayaran_cultural->id)
+                    ]);
                 }) 
 
                 ->addColumn('foto_tanda_bukti',function($foto_transfer){
                 return view('pembayaran_homestay.foto_bukti', [
                         'foto_transfer'=> $foto_transfer
                          ]);
-
                 })->rawColumns(['foto_tanda_bukti','action'])->make(true);
+ 
             } 
+            $html = $htmlBuilder
+            ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
+            ->addColumn(['data' => 'pemesanan_cultural.nama', 'name'=>'pemesanan_cultural.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'total_harga_endeso', 'name'=>'total_harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
+            ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+
+
+            return view('pembayaran_homestay.konfirmasi_pembayaran_cultural')->with(compact('html'));
+
+    } 
+ 
+
+        public function status_pembayaran_cultural(Request $request, Builder $htmlBuilder,$id)
+    {
+        //
+
+        if ($request->ajax()) {
+
+             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_tujuan')->where('status',$id);
+
+            return Datatables::of($pembayaran_cultural)
+
+               ->addColumn('total_harga_endeso', function($harga){
+                $total_harga_endeso = $harga->pemesanan_cultural->harga_endeso * $harga->pemesanan_cultural->jumlah_orang; 
+                $rp = number_format($total_harga_endeso,0,',','.');
+            
+                return 'Rp.'.$rp ; 
+                })
+
+                ->addColumn('status_pesanan',function($pesanan_status){
+                if ($pesanan_status->pemesanan_cultural->status_pesanan == 0 ) {
+                    # code...
+                    $status_pesanan = "Pelanggan Baru saja melakukan pemesanan";
+                }
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 1) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah mengkonfirmasi pembayaran";
+                }
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 2) {
+                    # code...
+                     $status_pesanan = "Admin telah mengkonfirmasi pembayaran";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 3) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check In";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 4) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah Check Out";
+                } 
+                elseif ($pesanan_status->pemesanan_cultural->status_pesanan == 5) {
+                    # code...
+                     $status_pesanan = "Pelanggan telah membatalkan pesanan";
+                } 
+                return $status_pesanan; 
+
+                })
+
+                ->addColumn('action',function($pembayaran_cultural){
+                        return view('pembayaran_homestay._konfirmasi', [
+                    'model'=> $pembayaran_cultural,
+                    'terima' => route('konfirmasi_pembayaran.homestay_terima', $pembayaran_cultural->id),
+                    'tolak' => route('konfirmasi_pembayaran.homestay_tolak', $pembayaran_cultural->id)
+                    ]);
+                }) 
+
+                ->addColumn('foto_tanda_bukti',function($foto_transfer){
+                return view('pembayaran_homestay.foto_bukti', [
+                        'foto_transfer'=> $foto_transfer
+                         ]);
+                })->rawColumns(['foto_tanda_bukti','action'])->make(true);
+ 
+            } 
+            $html = $htmlBuilder
+            ->addColumn(['data' => 'id_pesanan', 'name'=>'id_pesanan', 'title'=>'ID Pesanan'])  
+            ->addColumn(['data' => 'pemesanan_cultural.nama', 'name'=>'pemesanan_cultural.nama', 'title'=>'Nama Pemesan']) 
+            ->addColumn(['data' => 'total_harga_endeso', 'name'=>'total_harga_endeso', 'title'=>'Harga Dp'])  
+            ->addColumn(['data' => 'nomor_rekening_pelanggan', 'name'=>'nomor_rekening_pelanggan', 'title'=>'No Rekening Pemesan'])  
+            ->addColumn(['data' => 'nama_bank_pelanggan', 'name'=>'nama_bank_pelanggan', 'title'=>'Nama Bank Pemesan'])
+            ->addColumn(['data' => 'rekening_bank_tujuan.nama_bank', 'name'=>'rekening_bank_tujuan.nama_bank', 'title'=>'Nama Bank Tujuan'])
+            ->addColumn(['data' => 'foto_tanda_bukti', 'name'=>'foto_tanda_bukti', 'title'=>'Foto Bukti'])  
+            ->addColumn(['data' => 'status_pesanan', 'name'=>'status_pesanan', 'title'=>'  Status Pesanan'])  
+            ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'Konfirmasi Pembayaran' ,  'orderable'=>false, 'searchable'=>false]);
+
+
+            return view('pembayaran_homestay.konfirmasi_pembayaran_cultural')->with(compact('html'));
+
     } 
 
-//ubah status konfirmasi cultural
     public function cultural_terima($id){ 
 
             $pembayaran_cultural = PembayaranCulture::find($id);   

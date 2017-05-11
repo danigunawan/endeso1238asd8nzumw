@@ -72,7 +72,7 @@ class PesananHomestay extends Model
     $nama_pemesan = $pesanan_homestay->nama;
     $user->nama = $nama_pemesan;
 
-     Mail::send('emails.petunjuk_check', compact('user','total_harga_warga','detail_kamar','pesanan_homestay'), function($m)use($user) {
+     Mail::send('emails.petunjuk_check', compact('user','total_harga_warga','detail_kamar','pesanan_homestay'), function($m)use($user,$email,$nama_pemesan) {
     $m->to($email, $nama_pemesan)->subject('Petunjuk CheckIn Endeso');
 
     });
