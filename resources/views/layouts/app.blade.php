@@ -264,16 +264,23 @@
                                     </li> 
 
                                      <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pesanan</a> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pemesanan </a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
-                                             <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Pembayaran </a></li>
-                                            
-                                        </ul> 
-
+                                             <li><a href="{{ route('pesanan.homestay') }}" title="Services">Homestay </a></li>
+                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Cultural </a></li> 
+                                        </ul>  
                                     </li>
                                        
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pembayaran</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Homestay </a></li>
+                                             <li><a href="{{ route('konfirmasi_pembayaran.cultural') }}" title="Services">Cultural </a></li> 
+                                        </ul>  
+                                    </li>
+
                                     <li class="li-navbar">
                                         <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
 
