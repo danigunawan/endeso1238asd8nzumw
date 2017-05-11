@@ -10,6 +10,7 @@ use App\PesananCulture;
 Use App\Kamar;
 Use App\Rumah;
 use Session;
+use Illuminate\Support\Facades\DB;
 use Auth; 
 
 class PemesananController extends Controller
@@ -18,6 +19,10 @@ class PemesananController extends Controller
     public function index(Request $request, Builder $htmlBuilder)
     {
         //
+
+
+        PesananHomestay::batal();
+        PesananCulture::batal();
 
         if ($request->ajax()) {
 
@@ -56,7 +61,7 @@ class PemesananController extends Controller
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
+                     $status_pesanan = "Pesanan Batal";
                 } 
                 return $status_pesanan; 
                 })->make(true);
@@ -82,6 +87,9 @@ class PemesananController extends Controller
 
         public function status_pesanan_cultural(Request $request, Builder $htmlBuilder,$id)
     {
+
+
+
         if ($request->ajax()) {
 
 
@@ -263,8 +271,8 @@ class PemesananController extends Controller
 
 
             ->addColumn('nama_pemilik', function($pesanan_homestay){
-                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
-                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah)->first();
+                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar); 
+                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah);
                 return $rumah->nama_pemilik; 
             })
 
@@ -292,7 +300,7 @@ class PemesananController extends Controller
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
+                     $status_pesanan = "pesanan batal";
                 } 
                 return $status_pesanan; 
                 })->rawColumns(['action'])->make(true);
@@ -343,5 +351,16 @@ class PemesananController extends Controller
             $pesanan_homestay->save();   
 
         return back();
+    }
+
+    public static function  ubah_jadi_batal(){
+        
+        $var = PesananHomestay::where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->update(['status_pesanan' => '5']);
+
+    
+
+
+        return $var;
+
     }
 }
