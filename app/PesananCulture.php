@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Auth;
 use App\Warga;
 use App\Kategori;
+use Illuminate\Support\Facades\DB;
 
 class PesananCulture extends Model
 {
@@ -18,6 +19,13 @@ class PesananCulture extends Model
     	$query->where('id_warga',$id_warga)->where('jadwal',$jadwal)->where('check_in',$tanggal_masuk)->sum('jumlah_orang');
         return $query;
     }
+
+    public function scopeBatal($query){
+        $query->where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->update(['status_pesanan' => '5']);
+
+        return $query;
+    }
+
 
     public function warga()
 	  {
