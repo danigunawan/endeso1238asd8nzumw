@@ -147,18 +147,19 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'PembayaranController@konfirmasi'
 	]);
 
-	Route::get('konfirmasi/pembayaran/cultural',[
+	Route::get('konfirmasi_pembayaran/cultural',[
 	'middleware' => ['auth'],
 	'as' => 'konfirmasi_pembayaran.cultural',
 	'uses' => 'PembayaranController@konfirmasi_pembayaran_cultural'
 	]);
 	
-	Route::get('pesana/homestay',[
+	Route::get('pemesanan/homestay',[
 	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay',
-	'uses' => 'PemesananController@datatable_pesanan_homestay'
+	'as' => 'pesanan.homestay',
+	'uses' => 'PemesananController@homestay'
 	] );
 
+	// konfirmasi komentar homestay dan cultural
 	Route::get('komentar_kategori/no_konfirmasi/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'komentar_kategori.no_konfirmasi',
@@ -182,8 +183,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'komentar_kamar.konfirmasi',
 	'uses' => 'KomentarKamarController@konfirmasi'
 	]);
+	// konfirmasi komentar homestay dan cultural
 
-//ubah status konfirmasi pembayaran
+	//ubah status konfirmasi pembayaran
 	Route::get('konfirmasi-pembayaran/homestay/terima/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'konfirmasi_pembayaran.homestay_terima',
@@ -196,16 +198,20 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'uses' => 'PembayaranController@homestay_tolak'
 	]);
 
-//filter konfirmasi 
+	//filter konfirmasi 
 	Route::get('status/pembayaran/homestay/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.status-homestay-pembayaran',
 	'uses' => 'PembayaranController@status_pembayaran_homestay'
 	]); 
-//filter konfirmasi 
+	Route::get('status/pembayaran/cultural/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-cultural-pembayaran',
+	'uses' => 'PembayaranController@status_pembayaran_cultural'
+	]); 
+	//filter konfirmasi 
 
-
-//ubah status konfirmasi pembayaran
+ 
 
 //ubah status konfirmasi pembayaran cultural
 	Route::get('konfirmasi-pembayaran/cultural/terima/{id}',[
@@ -221,38 +227,21 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	]);
 //ubah status konfirmasi pembayaran cultural
 
-	Route::get('pemesanan/homestay/check_in/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_check_in',
-	'uses' => 'PemesananController@homestay_check_in'
-	]);
-
-	Route::get('pemesanan/homestay/check_out/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_check_out',
-	'uses' => 'PemesananController@homestay_check_out'
-	]); 
-
-	Route::get('pemesanan/cultural/check_in/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.cultural_check_in',
-	'uses' => 'PemesananController@cultural_check_in'
-	]);
-
-	Route::get('pemesanan/cultural/check_out/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.cultural_check_out',
-	'uses' => 'PemesananController@cultural_check_out'
-	]);
-
+// STATUS PESANAN CULTURAL DAN HOMESTAY
 	Route::get('status/pesanan/cultural/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.status-cultural-pesanan',
 	'uses' => 'PemesananController@status_pesanan_cultural'
 	]);  
-});
 
-// CHECK IN & CHECK OUT HOMESTAY
+	Route::get('status/pesanan/homestay/{id}',[
+	'middleware' => ['auth'],
+	'as' => 'pemesanan.status-homestay-pesanan',
+	'uses' => 'PemesananController@status_pesanan_homestay'
+	]);  
+// STATUS PESANAN CULTURAL DAN HOMESTAY
+
+	// CHECK IN & CHECK OUT HOMESTAY
 	Route::get('pemesanan/homestay/check_in/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.homestay_check_in',
@@ -264,9 +253,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'pemesanan.homestay_check_out',
 	'uses' => 'PemesananController@homestay_check_out'
 	]); 
-// CHECK IN & CHECK OUT HOMESTAY
+	// CHECK IN & CHECK OUT HOMESTAY
 
-// CHECK IN & CHECK OUT CULTURAL
+	// CHECK IN & CHECK OUT CULTURAL
 	Route::get('pemesanan/cultural/check_in/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.cultural_check_in',
@@ -278,9 +267,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'pemesanan.cultural_check_out',
 	'uses' => 'PemesananController@cultural_check_out'
 	]);
-// CHECK IN & CHECK OUT CULTURAL
+	// CHECK IN & CHECK OUT CULTURAL
 
-// Batal pesanan HOMESTAY CULTURAL
+	// Batal pesanan HOMESTAY CULTURAL
 	Route::get('pemesanan/cultural/batal/{id}',[
 	'middleware' => ['auth'],
 	'as' => 'pemesanan.cultural_batal',
@@ -292,7 +281,9 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	'as' => 'pemesanan.homestay_batal',
 	'uses' => 'PemesananController@homestay_batal'
 	]);
-// Batal pesanan HOMESTAY CULTURAL
+	// Batal pesanan HOMESTAY CULTURAL
+
+});
 
 Route::get('/pesan-homestay/{id}/{tanggal_checkin}/{tanggal_checkout}/{jumlah_orang}', [
 	'as'=> 'pesanhomestay.form',
