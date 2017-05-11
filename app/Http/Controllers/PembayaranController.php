@@ -158,7 +158,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_tujuan');
+             $pembayaran_homestay = PembayaranHomestay::with('pemesanan_homestay','rekening_bank_tujuan')->where('status_pembayaran','!=','1');
 
             return Datatables::of($pembayaran_homestay)
 
@@ -349,7 +349,7 @@ class PembayaranController extends Controller
 
         if ($request->ajax()) {
 
-             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_tujuan');
+             $pembayaran_cultural = PembayaranCulture::with('pemesanan_cultural','rekening_bank_tujuan')->where('status','!=','1');
 
             return Datatables::of($pembayaran_cultural)
 

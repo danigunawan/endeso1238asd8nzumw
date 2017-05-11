@@ -26,7 +26,7 @@ class PemesananController extends Controller
 
         if ($request->ajax()) {
 
-             $pesanan_cultural = PesananCulture::with(['warga','user']);
+             $pesanan_cultural = PesananCulture::with(['warga','user'])->where('status_pesanan','<','4');
 
             return Datatables::of($pesanan_cultural)
 
@@ -185,7 +185,7 @@ class PemesananController extends Controller
 
         if ($request->ajax()) {
 
-             $pesanan_homestay = PesananHomestay::with(['kamar','user']);
+             $pesanan_homestay = PesananHomestay::with(['kamar','user'])->where('status_pesanan','<','4');
 
             return Datatables::of($pesanan_homestay)
 
