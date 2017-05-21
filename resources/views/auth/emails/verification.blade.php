@@ -4,5 +4,5 @@
 <p>Email : {{ $user->email }}</p>
 <p>Password : {{ $password_random }}</p> 
 @endif
-Klik link berikut untuk melakukan aktivasi akun Larapus:
+klik link berikut ini untuk melakukan aktivasi akun Endeso anda
 <a href="{{ $link = url('auth/verify', $token).'?email='.urlencode($user->email) }}"> {{ $link }} </a>
