@@ -179,12 +179,18 @@
                                 <ul class="nav navbar-nav">
 
                                 @if (Auth::guest())
-                                    <li class="active">
+                                  @if(Request::is('/')) 
+                                  <li class="active">
+                                  @elseif(Request::segment(1) === 'home' )
+                                  <li class="active">
+                                  @else 
+                                  <li class="">
+                                  @endif
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
-                                    <li><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
-                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
-                                    <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+                                    <li class="{{ Request::segment(1) === 'tentang-endeso' ? 'active' : null }}"><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
+                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                    <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}"><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
                                     <li class="li-navbar">
                                         <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
@@ -193,17 +199,23 @@
                                 @endif
 
                                 @role('member')
-                                    <li class="active">
+                                    @if(Request::is('/')) 
+                                  <li class="active">
+                                  @elseif(Request::segment(1) === 'home' )
+                                  <li class="active">
+                                  @else 
+                                  <li class="">
+                                  @endif
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 
                                     </li>
-                                    <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
+                                    <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           
-                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
-                                    <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+                                    <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
-                                    <li> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    <li class="{{ Request::segment(2) === 'edit-profil' ? 'active' : null }}"> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
                                     </li>
 
                                     <li class="li-navbar">
