@@ -25,8 +25,8 @@ class UserShouldVerified
 
         Session::flash("flash_notification", [
         "level" => "warning",
-       "message" => "Silahkan klik pada link aktivasi yang telah kami kirim.
-<a class='alert-link' href='$link'>Kirim lagi</a>."
+       "message" => "kami telah mengirim email verifikasi akun. Harap klik link verifikasi yang telah kami kirim. Belum terkirim ? 
+<a class='alert-link' href='$link'>Kirim ulang</a>."
         ]);
 
         return redirect('/login');
