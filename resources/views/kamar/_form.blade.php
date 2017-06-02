@@ -138,6 +138,14 @@
 	</div>
 </div>
 
+<!-- KOLOM TIPE HARGA -->
+<div class="form-group{{ $errors->has('tipe_harga') ? ' has-error' : '' }}">
+	{!! Form::label('tipe_harga', 'Tipe Harga', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::select('tipe_harga', ['' => 'Pilih Tipe Harga','1' => 'Perorang','2' => 'Perrumah / Perkamar'], null,['class' => 'form-control','id'=>'destinasi']) !!}
+		{!! $errors->first('tipe_harga', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
 
 
 <!-- KOLOM HARGA ENDESO -->
