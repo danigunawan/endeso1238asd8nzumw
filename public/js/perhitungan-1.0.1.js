@@ -90,7 +90,7 @@ function bersihPemisah(ini){
 
 
 
-function hitung_penginapan_checkbox() {
+function hitung_penginapan_checkbox(tipe_harga) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
@@ -136,10 +136,22 @@ function hitung_penginapan_checkbox() {
       		var harga_lama_inap = parseInt(harga_jumlah_orang);
 		}
 		else{
-        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
 
+			if (tipe_harga == 1) {
+			
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
         	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
       		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+			
+			}
+			else if(tipe_harga == 2){
+			//harga di hitung perkamar jadi tidak dikalikan dengan jumlah orang
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+        	var harga_jumlah_orang = parseInt(harga_jumlah) ;
+      		var harga_lama_inap = parseInt(harga_jumlah) * parseInt(hitung_hari);
+
+			}
+        	
       	}
 
 
@@ -160,7 +172,7 @@ function hitung_penginapan_checkbox() {
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
 }
-function hitung_penginapan(harga_endeso) {
+function hitung_penginapan(harga_endeso,tipe_harga) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var ceklist_harga_makan = $("#harga_makan").attr('data-toogle');
@@ -202,14 +214,27 @@ function hitung_penginapan(harga_endeso) {
       		var harga_lama_inap = parseInt(harga_jumlah_orang);
 		}
 		else{
-        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+			if (tipe_harga == 1) {
 
+        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
         	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
-      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);      
+  			var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+
+
+			}
+			// harga di hitung perkamar jadi tidak di kali dengan jumlah orang
+			else if(tipe_harga ==  2){
+
+        	var total_harga = parseInt(harga_jumlah)  * parseInt(hitung_hari);
+        	var harga_jumlah_orang = parseInt(harga_jumlah) ;
+      		var harga_lama_inap = parseInt(harga_jumlah) * parseInt(hitung_hari);
+	      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari);
+
+
+			}
       	}
 
-      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
-      	console.log(total_dp);
 
       	// tampilan rincian harga
       	 $("#harga_makan_tampil").text("Rp. "+tandaPemisahTitik(harga_makan));
@@ -228,7 +253,54 @@ function hitung_penginapan(harga_endeso) {
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
 }
-function hitung_penginapan_document(harga_endeso) {
+
+function menampilkan_peta_detail_homestay(latitude_homestay,longitude_homestay){
+
+	  //MENAMPILKAN PETA WARGA
+                
+                                        
+            if (latitude_homestay != "" && longitude_homestay != "") {
+              var marker;
+
+              function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 15,
+                  center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                });
+
+                marker = new google.maps.Marker({
+                  map: map,
+                  draggable: true,
+                  animation: google.maps.Animation.DROP,
+                  position: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
+                });
+                marker.addListener('click', toggleBounce);
+              } //INTI MAP
+
+              function toggleBounce() {
+                if (marker.getAnimation() !== null) {
+                  marker.setAnimation(null);
+
+                }
+                else {
+                  marker.setAnimation(google.maps.Animation.BOUNCE);
+                
+
+                }
+
+              }// TOOGLE BOUNCE
+
+              initMap();
+            	$("#span-peta").show();
+
+            } //END IF
+            else{
+            	$("#span-peta").hide();
+            }
+         //MENAMPILKAN PETA WARGA
+}
+
+function hitung_penginapan_document(harga_endeso,tipe_harga) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
         var checked = $('#harga_makan').is(":checked");
@@ -236,51 +308,7 @@ function hitung_penginapan_document(harga_endeso) {
 		var harga_jumlah =  parseInt(harga_kamar);
 
 		var harga_endeso = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah(harga_endeso))));
-               //MENAMPILKAN PETA WARGA
-                            var latitude_homestay = $("#latitude_homestay").val();
-                            var longitude_homestay = $("#longitude_homestay").val();
-
-
-                                                        
-                            if (latitude_homestay != "" && longitude_homestay != "") {
-                              var marker;
-
-                              function initMap() {
-                                var map = new google.maps.Map(document.getElementById('map'), {
-                                  zoom: 15,
-                                  center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
-                                });
-
-                                marker = new google.maps.Marker({
-                                  map: map,
-                                  draggable: true,
-                                  animation: google.maps.Animation.DROP,
-                                  position: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
-                                });
-                                marker.addListener('click', toggleBounce);
-                              } //INTI MAP
-
-                              function toggleBounce() {
-                                if (marker.getAnimation() !== null) {
-                                  marker.setAnimation(null);
-
-                                }
-                                else {
-                                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                                
-
-                                }
-
-                              }// TOOGLE BOUNCE
-
-                              initMap();
-                            	$("#span-peta").show();
-
-                            } //END IF
-                            else{
-                            	$("#span-peta").hide();
-                            }
-                    //MENAMPILKAN PETA WARGA
+             
                     
 		if (harga_makan != 0) {
 
@@ -322,13 +350,27 @@ function hitung_penginapan_document(harga_endeso) {
       		var harga_lama_inap = parseInt(harga_jumlah_orang);
 		}
 		else{
-        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+			console.log(tipe_harga);
+			if (tipe_harga ==  1) {
 
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
         	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
       		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      		var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+			}
+			// harga di hitung perkamar jadi tidak dikalikan per orang
+			else if (tipe_harga == 2) {
+
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+        	var harga_jumlah_orang = parseInt(harga_jumlah) ;
+      		var harga_lama_inap =  parseInt(harga_jumlah) * parseInt(hitung_hari);
+      		var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) ;
+			
+			}
+        	
       	}
 
-      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+      	
 
 
       	// tampilan rincian harga
@@ -347,11 +389,16 @@ function hitung_penginapan_document(harga_endeso) {
          $("#harga_total_hidden").val(total_harga);
          $("#jumlah_malam").val(hitung_hari);         
          //tampilan di form hideen
+
+           var latitude_homestay = $("#latitude_homestay").val(); 
+           var longitude_homestay = $("#longitude_homestay").val();
+
+          menampilkan_peta_detail_homestay(latitude_homestay,longitude_homestay);
 }
 
 
 //perhitungan harga untuk detail penginapan
-function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang) {
+function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang,tipe_harga) {
 
 		var harga_kamar = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#harga_kamar").text()))));
 		var harga_makan = bersihPemisah(bersihPemisah(bersihPemisah(bersihPemisah($("#hidden_makan").text()))));
@@ -366,73 +413,56 @@ function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_
 		var hitung_hari = diffDays;
 		var jumlah_orang = jumlah_orang;
 
+
  		if (jumlah_orang == ''){
 			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
 
 			var harga_jumlah_orang = parseInt(harga_jumlah);
       		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+
+ 
 		}
 		else if (tanggal_checkin == '' && tanggal_checkout == ''){
 			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang);
 
 			var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
       		var harga_lama_inap = parseInt(harga_jumlah_orang);
+      	
 		}
 		else{
-        	var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
+			// jika jumlah orang ada dan tanggalnya ada
 
+			if (tipe_harga == 2) {
+
+			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
+        	var harga_jumlah_orang = parseInt(harga_jumlah);
+      		var harga_lama_inap = parseInt(harga_jumlah)  ;
+      		var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari);
+
+			}
+			else if (tipe_harga == 1) {
+
+			var total_harga = parseInt(harga_jumlah) * parseInt(jumlah_orang) * parseInt(hitung_hari);
         	var harga_jumlah_orang = parseInt(harga_jumlah) * parseInt(jumlah_orang);
-      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);
+      		var harga_lama_inap = parseInt(harga_jumlah_orang) * parseInt(hitung_hari);      	
+      		var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
+
+			}
+
+        	
+      
       	}
 
-      	var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari) * (jumlah_orang);
 
 
-      	           //MENAMPILKAN PETA WARGA
-                            var latitude_homestay = $("#latitude_homestay").val();
-                            var longitude_homestay = $("#longitude_homestay").val();
 
 
-                                                        
-                            if (latitude_homestay != "" && longitude_homestay != "") {
-                              var marker;
+           var latitude_homestay = $("#latitude_homestay").val(); 
+           var longitude_homestay = $("#longitude_homestay").val();
 
-                              function initMap() {
-                                var map = new google.maps.Map(document.getElementById('map'), {
-                                  zoom: 15,
-                                  center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
-                                });
-
-                                marker = new google.maps.Marker({
-                                  map: map,
-                                  draggable: true,
-                                  animation: google.maps.Animation.DROP,
-                                  position: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
-                                });
-                                marker.addListener('click', toggleBounce);
-                              } //INTI MAP
-
-                              function toggleBounce() {
-                                if (marker.getAnimation() !== null) {
-                                  marker.setAnimation(null);
-
-                                }
-                                else {
-                                  marker.setAnimation(google.maps.Animation.BOUNCE);
-                                
-
-                                }
-
-                              }// TOOGLE BOUNCE
-
-                              initMap();
-                            	$("#span-peta").show();
-
-                            } //END IF
-                            else{
-                            	$("#span-peta").hide();
-                            }
-                    //MENAMPILKAN PETA WARGA
+        //MENAMPILKAN PETA WARGA
+            menampilkan_peta_detail_homestay(latitude_homestay,longitude_homestay);
+        //MENAMPILKAN PETA WARGA
                     
 
       	// tampilan rincian harga

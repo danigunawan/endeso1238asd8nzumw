@@ -146,14 +146,23 @@
   					<div class="panel-body">
 						<table class="table-sm">
  							<tbody>
-      						 	<tr><td width="50%" style="font-size:90%"><b>{{$kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td> </tr>
+      						 	<tr><td width="50%" style="font-size:90%"><b>{{$kamar->rumah->nama_pemilik}}</b></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td>  </tr>
+      						 		
+      						 		@if($kamar->tipe_harga == 1)
+									<tr><td>Harga di hitung perorang</td><td></td></tr>
+									@else 
+									<tr><td>Harga di hitung perkamar / rumah</td><td></td></tr>
+									@endif
 
       						 	<tr><td  width="50%" style="font-size:90%;"><span id="label" style="display: none;"> Harga Makan </span></td> <td> &nbsp;&nbsp;&nbsp;&nbsp;</td> <td style="font-size:90%;"> <span id="harga_makan_tampil" style="display: none;"> </span> </td></tr>
 
 
       						 	<tr><td  width="50%" style="font-size:90%">Harga Kamar </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_kamar">{{ $harga_kamar_sebenarnya }}</span> </td></tr>
+      						 	@if($kamar->tipe_harga == 1)
 
       						 	<tr><td  width="50%" style="font-size:90%;"><span id="hitung_orang"></span> orang X <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+
+      						 	@endif
 
       						 	<tr><td  width="50%" style="font-size:90%;"><span id="lama_inap"></span> Hari X <span id="hitung_lama_inap"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_lama_inap"></span> </td></tr>
 
@@ -194,7 +203,17 @@
 				</div><!-- Widget Area /- -->
 
 				<!-- Tombol Pesan Sekarang /- -->
-					<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso)  * $jumlah_orang),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
+
+				@if($kamar->tipe_harga == 2)
+
+						<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso)),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
+
+				@elseif($kamar->tipe_harga == 1)
+
+						<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso)  * $jumlah_orang),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
+
+				@endif
+			
 				<!-- Tombol Pesan Sekarang /- -->
 
 			</div>
@@ -217,8 +236,9 @@
     var tanggal_checkin = "{{ $tanggal_checkin }}";
     var tanggal_checkout = "{{ $tanggal_checkout }}";
     var jumlah_orang = "{{ $jumlah_orang }}";
+    var tipe_harga = "{{ $kamar->tipe_harga }}";
 
-    hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang);
+    hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_checkout,jumlah_orang,tipe_harga);
 
   });
   </script>

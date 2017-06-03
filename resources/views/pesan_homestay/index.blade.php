@@ -95,20 +95,22 @@
   $(document).ready(function(){
 
     var harga_endeso = "{{ $dp }}"; 
-    hitung_penginapan_document(harga_endeso); 
+    var tipe_harga = "{{$detail_kamar->tipe_harga}}";
+    hitung_penginapan_document(harga_endeso,tipe_harga); 
 
   });
 
 	$(document).on('click','#harga_makan',function(e){
 		$(this).prop('checked', this.checked);
-
-		hitung_penginapan_checkbox();
+    var tipe_harga = "{{$detail_kamar->tipe_harga}}";
+		hitung_penginapan_checkbox(tipe_harga);
     });
 
     $(document).on('change','#jumlah_orang',function(e){
     	var harga_endeso = "{{ $dp }}";
+      var tipe_harga = "{{$detail_kamar->tipe_harga}}";
 
- 		hitung_penginapan(harga_endeso);
+ 		hitung_penginapan(harga_endeso,tipe_harga);
 
  		var jumlah_orang_baru = $(this).val();
  		var jumlah_orang_ganti = jumlah_orang_baru - 1;
@@ -129,12 +131,14 @@
 
     $(document).on('change','#datepicker1',function(e){
     	var harga_endeso = "{{ $dp }}";
-  		hitung_penginapan(harga_endeso); 
+      var tipe_harga = "{{$detail_kamar->tipe_harga}}";
+  		hitung_penginapan(harga_endeso,tipe_harga); 
     });
 
     $(document).on('change','#datepicker2',function(e){
-    	var harga_endeso = "{{ $dp }}";
-       hitung_penginapan(harga_endeso); 
+    	 var tipe_harga = "{{$detail_kamar->tipe_harga}}";
+      var harga_endeso = "{{ $dp }}";
+       hitung_penginapan(harga_endeso,tipe_harga); 
     });
 
 </script>

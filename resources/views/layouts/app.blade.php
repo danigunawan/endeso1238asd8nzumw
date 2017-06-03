@@ -377,7 +377,7 @@
     <script src="{{ asset('js/custom.js') }}"></script> 
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-      <script src="{{ asset('js/perhitungan.js') }}"></script>
+      <script src="{{ asset('js/perhitungan-1.0.1.js') }}"></script>
 
 
     <script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
