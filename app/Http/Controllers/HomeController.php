@@ -706,7 +706,19 @@ class HomeController extends Controller
                                             <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
                                               <p>".$kamars->deskripsi ."</p>
-                                              <h6><b><sup>RP</sup>".$harga_kamar."</b><span>/Orang/Malam</span></h6>
+                                              <h6><b><sup>RP</sup>".$harga_kamar."</b><span>";
+                      
+                                              
+                                                if ($kamars->tipe_harga ==  1) {
+                                                
+                                                   $tampil_kamar .=  "/Orang/Malam";
+                                                }
+                                                elseif ($kamars->tipe_harga ==  2) {
+                                                     $tampil_kamar .=  "/Kamar/Malam";
+                                                }
+                                              
+
+                                               $tampil_kamar .=  "</span></h6>
                                               <span>
                                                 <i class='fa fa-star'></i>
                                                 <i class='fa fa-star'></i>
