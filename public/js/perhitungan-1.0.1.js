@@ -436,7 +436,7 @@ function hitung_detail_penginapan_document(harga_endeso,tanggal_checkin,tanggal_
 
 			var total_harga = parseInt(harga_jumlah) * parseInt(hitung_hari);
         	var harga_jumlah_orang = parseInt(harga_jumlah);
-      		var harga_lama_inap = parseInt(harga_jumlah)  ;
+      		var harga_lama_inap = parseInt(harga_jumlah) * parseInt(hitung_hari) ;
       		var total_dp = parseInt(harga_endeso) * parseInt(hitung_hari);
 
 			}

@@ -638,6 +638,10 @@ class HomeController extends Controller
         $komentar = KomentarKamar::with('user')->where('status','!=' ,2)->where('id_kamar',$id)->limit(5)->get();
         $harga_kamar = $kamar->harga_endeso + $kamar->harga_pemilik;
 
+        $tanggal_pertama =date_create($tanggal_checkin);
+        $tanggal_kedua =date_create($tanggal_checkout);
+        $selisih_hari =date_diff($tanggal_pertama,$tanggal_kedua);
+
         return view('penginapan.detail',['total_rating'=>round($query_sum_hitung_rating->total_rating),
                                           'kamar' => $kamar,
                                          'kamar_lain'=>$kamar_lain,
@@ -646,7 +650,8 @@ class HomeController extends Controller
                                          'komentar'=>$komentar,
                                          'tanggal_checkin'=>$tanggal_checkin,
                                          'tanggal_checkout'=>$tanggal_checkout,
-                                         'jumlah_orang'=>$jumlah_orang]); 
+                                         'jumlah_orang'=>$jumlah_orang,
+                                         'selisih_hari' =>  $selisih_hari->format("%a")]); 
 
       }
 
@@ -683,6 +688,9 @@ class HomeController extends Controller
             $tampil_kamar = '';   
             $hitung = 0;
 
+          
+
+   
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
          
                 $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
@@ -707,7 +715,7 @@ class HomeController extends Controller
                                               <h4>".$kamars->rumah->nama_pemilik."</h4>
                                               <p>".$kamars->deskripsi ."</p>
                                               <h6><b><sup>RP</sup>".$harga_kamar."</b><span>";
-                      
+
                                               
                                                 if ($kamars->tipe_harga ==  1) {
                                                 

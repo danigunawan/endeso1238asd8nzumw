@@ -206,7 +206,7 @@
 
 				@if($kamar->tipe_harga == 2)
 
-						<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso)),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
+						<a href="{{ url('/pesan-homestay/'.$kamar->id_kamar.'/'.$tanggal_checkin.'/'.$tanggal_checkout.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{ number_format(($kamar->harga_pemilik + $kamar->harga_endeso) * $selisih_hari),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
 
 				@elseif($kamar->tipe_harga == 1)
 
