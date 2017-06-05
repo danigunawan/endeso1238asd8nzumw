@@ -71,8 +71,26 @@
                             <label for="tanggal_lahir" class="col-md-4 control-label">Tanggal Lahir</label>
 
                             <div class="col-md-6">
-                                <input id="tanggal_lahir" type="tanggal_lahir" class="form-control" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+                                <div class="row">
+                                    <div class="col-sm-2">
 
+                                    {{ Form::selectRange('tanggal', 1, 31,null,['class' => 'form-control']) }}
+
+                                       
+                                    </div>
+                                    <div class="col-sm-3">
+                                          {{ Form::selectMonth('bulan',null,['class' => 'form-control']) }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{ Form::selectYear('tahun', 1950, 2050, null , ['class' => 'form-control']) }}
+
+                                    </div>
+                                    
+                                </div>
+                                
+
+                                  
+                                
                                 @if ($errors->has('tanggal_lahir'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tanggal_lahir') }}</strong>

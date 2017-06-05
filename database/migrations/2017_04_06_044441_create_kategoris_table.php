@@ -22,6 +22,7 @@ class CreateKategorisTable extends Migration
             $table->string('foto_kategori4')->nullable();
             $table->string('foto_kategori5')->nullable();
             $table->integer('destinasi_kategori'); 
+            $table->string('durasi');
             $table->text('deskripsi_kategori')->nullable();            
             $table->timestamps();
         });

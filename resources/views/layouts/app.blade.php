@@ -21,8 +21,22 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-98666545-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
 
   
+  <!--SCRIPT UNTUK GOOGLE MAP -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHrdkc90574ADfv6CQcVOOr0Xl5jD1K6k">
+    </script>
 
 
 
@@ -41,7 +55,17 @@
     <!-- Custom - Theme CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
+
     
+    <link href="{{ asset('css/star-rating.css')}}" media="all" rel="stylesheet" type="text/css" />
+     
+    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+    <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
+     
+  
+     
+    <!-- optionally if you need translation for your language then include locale file as mentioned below -->
+
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
     <![endif]-->
@@ -132,41 +156,18 @@
         
     <!-- Header Section -->
     <header id="header" class="header-section header-position container-fluid no-padding">
-        <!-- Top Header -->
-        <div class="top-header container-fluid no-padding">
+
+         <!-- Menu Block -->
+
+        <div class="menu-block" style="padding-top: 30px">
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                    <div class="logo-block col-md-3"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
-                    <div class="col-md-9 contact-detail">
-                        <div class="phone">
-                            <img src="{{ asset('images/phone-ic.png') }}" alt="Phone" />
-                            <h6>Hubungi Kami</h6>
-                            <a href="tell:081234567890" >+62-812-3456-7890</a>
-                        </div>
-                        
-                        <div class="menu-search">
-                            <div id="sb-search" class="sb-search">
-                                <form>
-                                    <input class="sb-search-input" placeholder="Pencarian..." type="text" value="" name="search" id="search" />
-                                    <button class="sb-search-submit"><img src="{{ asset('images/search-ic.png') }}" alt="Search" /></button>
-                                    <span class="sb-icon-search"></span>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Container /- -->
-        </div><!-- Top Header /- -->
-        <!-- Menu Block -->
-        <div class="menu-block">
-            <!-- Container -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10">
+                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                    <div class="col-md-9">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
-                                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                                <button aria-controls="navbar" aria-expanded="false" id="btnCollapse" collapse-toogle="1" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
@@ -178,27 +179,51 @@
                                 <ul class="nav navbar-nav">
 
                                 @if (Auth::guest())
-                                    <li class="active">
+                                  @if(Request::is('/')) 
+                                  <li class="active">
+                                  @elseif(Request::segment(1) === 'home' )
+                                  <li class="active">
+                                  @else 
+                                  <li class="">
+                                  @endif
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
-                                    <li><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
-                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
-                                    <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+                                    <li class="{{ Request::segment(1) === 'tentang-endeso' ? 'active' : null }}"><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
+                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                    <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}"><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+                                    </li>
                                     
                                 @endif
 
                                 @role('member')
-                                    <li class="active">
+                                    @if(Request::is('/')) 
+                                  <li class="active">
+                                  @elseif(Request::segment(1) === 'home' )
+                                  <li class="active">
+                                  @else 
+                                  <li class="">
+                                  @endif
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 
                                     </li>
-                                    <li><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
+                                    <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           
-                                    <li><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
                                     
-                                    <li><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
+                                    <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
-                                    <li> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    <li class="{{ Request::segment(2) === 'edit-profil' ? 'active' : null }}"> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
+                                    </li>
+
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                           {{ csrf_field() }}
+                                        </form>
                                     </li>
                                     
                                 @endrole
@@ -230,7 +255,9 @@
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('setting-foto-home.index')}}" title="Services">Setting Foto Home</a></li>
                                              <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
+                                             <li><a href="{{ route('setting-halaman-culture.index')}}" title="Services">Setting Halaman Culture</a></li>
                                              <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
                                               <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
                                                 <li><a href="{{ route('user_admin.index')}}" title="Services">User Admin </a></li>
@@ -249,46 +276,51 @@
                                     </li> 
 
                                      <li class="dropdown"> 
-                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pesanan</a> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pemesanan </a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
                                         <ul class="dropdown-menu"> 
-                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Pemesanan </a></li>
-                                             <li><a href="{{ route('kategori.index') }}" title="Services">Pembayaran </a></li>
-                                            
-                                        </ul> 
-
+                                             <li><a href="{{ route('pesanan.homestay') }}" title="Services">Homestay </a></li>
+                                             <li><a href="{{ route('pemesanan.index') }}" title="Services">Cultural </a></li> 
+                                        </ul>  
                                     </li>
                                        
+                                     <li class="dropdown"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pembayaran</a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Homestay </a></li>
+                                             <li><a href="{{ route('konfirmasi_pembayaran.cultural') }}" title="Services">Cultural </a></li> 
+                                        </ul>  
+                                    </li>
 
+                                    <li class="li-navbar">
+                                        <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
+
+                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                           {{ csrf_field() }}
+                                        </form>
+                                    </li>
 
                                 @endrole
                                 </ul>
                             </div>
                         </nav>
                     </div>
-                    <div class="col-md-2 book-now">
-
-                      @if (Auth::guest())
-                            <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
+                    <div class="col-md-2 book-now" id="btnLogin">
+                        @if (Auth::guest())
+                          <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                         @else
+                          <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
 
-                       
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                   
+                          <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                             {{ csrf_field() }}
+                          </form>
                         @endif
-                        
-                    </div>
+                  </div>
                 </div><!-- Row /- -->
             </div><!-- Container /- -->
         </div><!-- Menu Block /- -->
+        
     </header><!-- Header Section /- -->
       
         @yield('content')
@@ -303,9 +335,9 @@
                 <div class="row">
                     <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
                         <ul class="social_widget">
-                            <li><a href="#" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="{{$facebook}}" id="face_book" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{$twitter}}" id="twi_tter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="{{$instagram}}" id="insta_gram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
                         </ul>
                     </aside>
                     
@@ -330,30 +362,36 @@
 
 
     <!-- JQuery v1.11.3 -->
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
     
     <!-- Library JS -->
     <script src="{{ asset('libraries/lib.js') }}"></script>
     <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
-    <script src="http://code.jquery.com/jquery-migrate-1.0.0.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
     <!-- Library - Theme JS --> 
     <script src="{{ asset('js/functions.js') }}"></script>
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script> 
 
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-      <script src="{{ asset('js/my.js') }}"></script>
+      <script src="{{ asset('js/perhitungan-1.0.2.js') }}"></script>
+
+
+    <script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
+     
+    <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+    <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+
 
 
           <script type="text/javascript">
 
         $(document).ready(function(){
 
-
-                var pilihan = $("#pilihan").val();
+            var pilihan = $("#pilihan").val();
 
                     //jika pilihan nya CULTUR EXPERIENCE
                     if (pilihan == 2) {
@@ -388,9 +426,12 @@
                     }
 
             });
+
+
         });
 
        </script>
+
 
     @yield('scripts')
 </body>

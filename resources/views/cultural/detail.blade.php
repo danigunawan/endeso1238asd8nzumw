@@ -13,7 +13,13 @@
 					<li class="active">{{$detail_cultural->nama_aktivitas}}</li>
 				</ol>
 			</div>
-            <div class="container" style="color:#faac17"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 5/5</div>
+			
+			<div class="container" style="color:#faac17">
+						@for ($a = 1; $a <= $total_rating; $a++)
+						<i class="fa fa-star"></i>
+						@endfor
+						{{ $total_rating }}/5
+			</div>
 		</div><!-- Page Banner /- -->
 		
 		<div class="section-top-padding"></div>
@@ -128,7 +134,7 @@
                     <hr width="75%" style="margin-top:100px;margin-bottom:100px">
 
                      <!--- Review -->
-                    <div class="comment-section">
+					<div class="comment-form">
 						<h3 class="section-heading"> Review dari Pelanggan</h3>
 						<ul class="media-list">
 						@foreach($komentar_kategori as $komentar_kategoris)
@@ -146,6 +152,12 @@
 								<div class="col-sm-10">
 									<div class="media-content">
 										<h4 class="media-heading">{{$komentar_kategoris->user->name}} <span>{{$komentar_kategoris->created_at}}</span></h4>
+										<div class="container" style="color:#faac17">
+											@for ($i = 1; $i <= $komentar_kategoris->jumlah_bintang; $i++)
+											<i class="fa fa-star"></i>
+											@endfor
+											{{ $komentar_kategoris->jumlah_bintang }}/5
+										</div>
 										<p>{{$komentar_kategoris->isi_komentar}}</p>
 									</div>
 								</div>
@@ -231,9 +243,34 @@
 					<aside class="widget widget_features">
 						<h3 class="widget-title">Tentang {{$detail_cultural->nama_aktivitas}}</h3>
 						<p>{!! $detail_cultural->deskripsi_kategori !!}</p>
+
+                        <!-- Panel Rincian Harga /- -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="background-color: #df9915; color: white"><h5>Rincian Harga</h5></div>
+                              <div class="panel-body">
+                                <table class="table-sm">
+                                    <tbody>
+                                        <tr><td  width="50%" style="font-size:90%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%"><b><span id="nama_warga"> {{$detail_cultural->nama_aktivitas}} </span></b></td></tr>
+                                        <tr><td  width="50%" style="font-size:90%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. {{number_format(($warga->harga_endeso + $warga->harga_pemilik) * $jumlah_orang),0,',','.'}} <span id="harga_cultural"></span> </td></tr>
+                                        <tr><td  width="50%" style="font-size:90%;"><span id="hitung_orang">{{$jumlah_orang}}</span> Orang x Rp. <span id="hitung_harga_orang">{{number_format(($warga->harga_endeso + $warga->harga_pemilik)),0,',','.'}}</span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%">Rp. <span id="harga_jumlah_orang">{{number_format(($warga->harga_endeso + $warga->harga_pemilik) * $jumlah_orang),0,',','.'}}</span> </td></tr>
+
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <table class="table-sm">
+                                    <tbody>
+                                        <span style="display: none" id="harga_endeso_hidden"> </span>
+                                        <tr><td width="50%" style="font-size:90%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:90%;color:red;" ><b> Rp. <span id="harga_endeso"> {{number_format(($warga->harga_endeso + $warga->harga_pemilik) * $jumlah_orang),0,',','.'}} </span> </b></td></tr>
+                                        <tr><td width="50%" style="font-size:110%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_total"> {{number_format($warga->harga_endeso * $jumlah_orang),0,',','.'}} </span> </b></td></tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                        </div>
+                        <!-- Panel Rincian Harga /- -->
 					</aside><!-- Features Widget -->
 
-                   	<a href="{{ url('/pesan-cultural/'.$detail_cultural->id.'/'.$tanggal_masuk.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{number_format($warga->harga_endeso + $warga->harga_pemilik,0,',','.')}}) <i class="fa fa-long-arrow-right"></i></a>
+                   	<a href="{{ url('/pesan-cultural/'.$detail_cultural->id.'/'.$tanggal_masuk.'/'.$jumlah_orang)}}" class="read-more btn-pesan" title="Book Now">Pesan Sekarang (Rp. {{number_format(($warga->harga_endeso + $warga->harga_pemilik) * $jumlah_orang),0,',','.'}}) <i class="fa fa-long-arrow-right"></i></a>
 
                     <!-- Features Widget 
 					<aside class="widget widget_features">
@@ -242,6 +279,7 @@
 					</aside> Features Widget -->
                     
 				</div><!-- Widget Area /- -->
+
 			</div>
 		</div><!-- Container /- -->
 		

@@ -22,7 +22,7 @@
             <!-- Container -->
             <div class="container">
                
-            {!! Form::model($rumah, ['url' => route('rumah.update', $rumah->id),
+            {!! Form::model($rumah, ['url' => route('rumah.update', $rumah->id_rumah),
             'method' => 'put', 'files'=>'true', 'class'=>'form-horizontal']) !!}
 
                     @include('rumah._form')

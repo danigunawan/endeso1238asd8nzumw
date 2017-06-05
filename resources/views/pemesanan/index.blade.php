@@ -6,10 +6,10 @@
         <!-- Page Banner -->
         <div class="container-fluid page-banner about-banner">
             <div class="container">
-                <h3>Pesanan</h3>
+                <h3>Pesanan Cultural</h3>
                 <ol class="breadcrumb">
                     <li><a href="{{ url('/home')}}">Admin</a></li>
-                    <li class="active">Pesanan</li>
+                    <li class="active">Pesanan Cultural</li>
                 </ol>
             </div>
         </div><!-- Page Banner /- -->
@@ -21,33 +21,30 @@
             <!-- Container -->
             <div class="container">
                 @include('layouts._flash') 
+                          <!-- STATUS PESANAN CULTURAL -->
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-primary">Status Pesanan</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu"> 
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',0) }}">Pelanggan Baru Saja Melakukan Pemesanan</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',1) }}">Pelanggan Telah Mengkonfirmasi Pembayaran</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',2) }}">Pembayaran Sudah Dikonfirmasi Admin</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',3) }}">Pelanggan  Check In</a></li>
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',4) }}">Pelanggan  Check Out</a></li> 
+                              <li><a href="{{ route('pemesanan.status-cultural-pesanan',5) }}">Pelanggan Membatalkan Pesanan</a></li>
+                            </ul>
+                          </div>    
+                            <br>
+                            <br>
+                          <!-- STATUS PESANAN CULTURAL /-->
 
-
-                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#homestay">Pesanan Homestay</a></li>
-                        <li><a data-toggle="tab" href="#culture">Pesanan Cultur Experience</a></li>
-                      </ul>
-                      <br><br>
-                      <div class="tab-content">
-                         <div id="homestay" class="tab-pane fade in active">
-                     
-                         <table  class="table-striped table" id="datatable_pesanan_homestay">
-                             <thead>
-                                <tr>
-                                    <th>Nama Kamar</th> 
-                                    <th>Nama Pemesan</th> 
-                                    <th>Status</th> 
-                                </tr>
-                             </thead>
-                        </table>
-
-                         </div>
-
-                        <div id="culture" class="tab-pane fade">                          
-                                 {!! $html->table(['class'=>'table-striped']) !!}
-                        </div>
-                      </div>
-                   </div>
+                          <!-- DATATABLE PESANAN CULTURAL -->
+                          <div class="table-responsive">
+                                 {!! $html->table(['class'=>'table-striped']) !!} 
+                          </div>
+                          <!-- DATATABLE PESANAN CULTURAL /-->
                 
             </div><!-- Container /- -->
             <div class="section-padding"></div>
@@ -58,13 +55,5 @@
 @endsection
 
 @section('scripts')
-{!! $html->scripts() !!}
-<script type="text/javascript">
-$("#datatable_pesanan_homestay").DataTable({
-    "serverSide":true,"processing":true,"ajax":"{{ url('admin/pesana/homestay') }}","columns":[  
-    {"data":"kamar.id_kamar","name":"kamar.id_kamar","title":"Nama Kamar","orderable":false,"searchable":false},
-    {"data":"user.name","name":"user.name","title":"Nama Pemesan","orderable":false,"searchable":false},
-    {"data":"status_pesanan","name":"status_pesanan","title":"","orderable":false,"searchable":false}
-]});
-</script>
+{!! $html->scripts() !!}  
 @endsection

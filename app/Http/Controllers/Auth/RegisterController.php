@@ -52,11 +52,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
+
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'jenis_kelamin' => 'max:255',
-            'tanggal_lahir' => 'max:255',
             'alamat' => 'max:255',
             'kewarga_negaraan' => 'max:255',
             'password' => 'required|min:6|confirmed',
@@ -70,13 +71,13 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {
-       
+    {   
+        $tanggal_lahir = $data['tahun'].'-'. $data['bulan'].'-'.$data['tanggal'] ;
         $user = User::create([
         'name' => $data['name'],
         'email' => $data['email'],
         'jenis_kelamin' => $data['jenis_kelamin'],
-        'tanggal_lahir' => $data['tanggal_lahir'],
+        'tanggal_lahir' => $tanggal_lahir,
         'alamat' => $data['alamat'],
         'kewarga_negaraan' => $data['kewarga_negaraan'],
         'password' => bcrypt($data['password']),
@@ -116,7 +117,8 @@ class RegisterController extends Controller
     $user->sendVerification();
     Session::flash("flash_notification", [
     "level"=>"success",
-    "message"=>"Silahkan klik pada link aktivasi yang telah kami kirim."
+    "message"=>"kami telah mengirim email verifikasi akun. Harap klik link verifikasi yang telah kami kirim. Belum terkirim ? 
+<a class='alert-link' href='$link'>Kirim ulang</a>. "
     ]);
     }
     return redirect('/login');

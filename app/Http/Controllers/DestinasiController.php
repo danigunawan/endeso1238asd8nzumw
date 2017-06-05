@@ -8,6 +8,10 @@ use Yajra\Datatables\Datatables;
 use App\Destinasi;
 use Session;
 use Illuminate\Support\Facades\File;
+use App\Rumah;
+use App\Kategori;
+
+
 
 class DestinasiController extends Controller
 {
@@ -187,8 +191,34 @@ class DestinasiController extends Controller
         //
 
         $destinasi = Destinasi::find($id);
-
         // hapus foto lama, jika ada
+        $data_rumah = Rumah::where('id_destinasi',$id);
+        $data_cultural = Kategori::where('destinasi_kategori',$id);
+
+      if ($data_rumah->count() > 0 OR $data_cultural->count() > 0) {
+        // menyiapkan pesan error
+        $html = 'Destinasi tidak bisa dihapus karena masih memiliki rumah : ';
+        $html .= '<ul>';
+        foreach ($data_rumah->get() as $rumah) {
+          $html .= '<li>'.$rumah->nama_pemilik.'</li>';
+        }
+        $html .= '</ul>';
+        $html .= '<br>';
+        $html .= 'Destinasi tidak bisa dihapus karena masih memiliki kategori : ';
+        $html .= '<ul>';
+        foreach ($data_cultural->get() as $cutural) {
+          $html .= '<li>'.$cutural->nama_aktivitas.'</li>';
+        }
+        $html .= '</ul>';
+
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('destinasi.index');      
+        }
+        else{
 
         if ($destinasi->cover) {
 
@@ -210,5 +240,7 @@ class DestinasiController extends Controller
         "message"=>"Destinasi berhasil dihapus"
         ]);
         return redirect()->route('destinasi.index');
-    }
+    }//else{
+}   
+
 }

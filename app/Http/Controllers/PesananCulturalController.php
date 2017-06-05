@@ -7,17 +7,22 @@ use App\Kategori;
 use App\Warga;
 use App\PesananCulture;
 use Session;
+use App\Rekening;
 use Auth;
 use App\Destinasi;
+use App\TamuCulture;
+use App\KomentarKategori;
+use Telegram;
 
 class PesananCulturalController extends Controller
 {
     //
     public function index($id, $tanggal_masuk,$jumlah_orang){
     	$detail_kategori = Kategori::find($id);        
-            $warga = Warga::where('id_kategori_culture',$detail_kategori->id)->pluck('nama_warga','id'); 
+      $warga = Warga::where('id_kategori_culture',$detail_kategori->id)->pluck('nama_warga','id'); 
+      $query_sum_hitung_rating = KomentarKategori::HitungRating($id)->first(); 
 
-    	return view('pesan_cultural.index', ['detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang,'warga'=>$warga]);
+    	return view('pesan_cultural.index', ['total_rating'=>round($query_sum_hitung_rating->total_rating),'detail_kategori' => $detail_kategori, 'id' => $id, 'tanggal_masuk' => $tanggal_masuk,'jumlah_orang' => $jumlah_orang,'warga'=>$warga]);
     }
 
     public function store(Request $request){
@@ -51,65 +56,80 @@ class PesananCulturalController extends Controller
             'no_ktp' => $request->no_ktp,
             'email' => $request->email,
             'jadwal' => $request->jadwal,
-            'total_harga' => $warga->harga_pemilik + $warga->harga_endeso,
             'harga_pemilik' => $warga->harga_pemilik,
             'harga_endeso' => $warga->harga_endeso, 
             'jumlah_orang' => $request->jumlah_orang, 
+            'total_harga' => ($warga->harga_pemilik + $warga->harga_endeso) * $request->jumlah_orang,
             'id_user'=> $id_user
 
            ]); 
+
+            // INSERT DATA TAMU
+
+
+         $nama_pemesan = Auth::user()->name;
+         $warga = Warga::find($request->id_warga);
+         $total_harga_endeso = ($warga->harga_pemilik + $warga->harga_endeso) * $request->jumlah_orang;
+         $rp = number_format($total_harga_endeso,0,',','.');
+         $chat_id = env('CHAT_ID'); 
+         $response = Telegram::sendMessage([
+            'chat_id' => $chat_id , 
+            'text' => "Pelanggan Baru Saja Melakukan Pemesanan (CULTURAL). \n Nama Warga : $warga->nama_warga \n Nomor Pesanan : $pesanan_culture->id \n Nama Pemesanan : $nama_pemesan \n Tanggal Check In : $request->check_in \n Jadwal : $request->jadwal \n Nama Pelanggan : $request->nama \n Nomor Telefone : $request->no_telp \n Nomor Ktp : $request->no_ktp \n Email : $request->email \n Total Harga : Rp.$rp \n Jumlah Orang : $request->jumlah_orang Orang",
+          ]);
+
+           if ($request->has('nama_tamu')) {
+
+             $nama_tamu = $request->input('nama_tamu');
+
+             if (is_array($nama_tamu) || is_object($nama_tamu))
+            {
+
+
+              foreach ($nama_tamu as $nama_tamus) {
+                    # code...      
+                    $tamu_culture = TamuCulture::create([
+                      'id_pesanan' => $pesanan_culture->id,
+                      'nama_tamu' => $nama_tamus
+                      ]);    
+                 
+                }//end foreach
+                
+            }
+
+          }
+        // INSERT DATA TAMU
+
+
+
+            Session::flash("flash_notification", [
+              "level"=>"success",
+              "message"=>"Data Pemesanan Anda Berhasil Tersimpan , Silakan Konfirmasi Pembayaran Di Email Anda"
+            ]);
+
+            $rekening_tujuan = Rekening::all();
+            $total_harga_endeso = $warga->harga_endeso * $request->jumlah_orang;
+            
+            PesananCulture::sendInvoice($total_harga_endeso,$pesanan_culture->id,$rekening_tujuan,$request->email,$request->nama);
         
-        return redirect('/pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi->nama_destinasi.'/'.$kategori->nama_aktivitas.'');         
-        }else{
+        return redirect('/pembayaran_culture/'.$pesanan_culture->id.'');         
+        }
+        else{
             Session::flash("flash_notification", [
               "level"=>"danger",
-              "message"=>"Mohon maaf warga di cultural yang anda pilih sedang penuh, silahkan pilih jadwal atau warga lain"
+              "message"=>"Mohon Maaf Warga Di Cultural Yang Anda Pilih Sedang Penuh, Silahkan Pilih Jadwal Atau Warga Lain"
               ]);  
 
             return redirect()->back()->withInput($request->input());
         } 
     }
 
-    public function ajax_jadwal_kegiatan(Request $request)
+    public function ajax_data_warga(Request $request)
     { 
         if ($request-> ajax()) {
             # code...
             $id_warga = $request->id_warga;
-            $warga = Warga::select('id','jadwal_1','jadwal_2','jadwal_3','jadwal_4','jadwal_5')->find($id_warga); 
+            $warga = Warga::find($id_warga); 
             return $warga;
-
-        } 
-    }
-
-    public function ajax_warga_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return $warga->nama_warga;
-
-        } 
-    }
-
-    public function ajax_harga_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return ($warga->harga_endeso + $warga->harga_pemilik);
-
-        } 
-    }
-
-    public function ajax_harga_perhitungan_cultural(Request $request)
-    { 
-        if ($request-> ajax()) {
-            # code...
-            $id_warga = $request->id_warga;
-            $warga = Warga::find($id_warga); 
-            return ($warga->harga_endeso + $warga->harga_pemilik);
 
         } 
     }

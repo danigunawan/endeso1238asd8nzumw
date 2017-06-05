@@ -13,6 +13,6 @@ class KomentarKategoriSeeder extends Seeder
     public function run()
     {
         //
-        $komentar = KomentarKategori::create(['id_kategori' => '1', 'id_user' => '1', 'isi_komentar' => 'Menapis kain memang sangat menyenangkan, dan kita harus benar teliti dan tekun agar bisa menghasilkan kain tapis yang BERKUALITAS. Terima Kasih Endeso-Id' ]);
+        $komentar = KomentarKategori::create(['id_kategori' => '1', 'id_user' => '1', 'isi_komentar' => 'Menapis kain memang sangat menyenangkan, dan kita harus benar teliti dan tekun agar bisa menghasilkan kain tapis yang BERKUALITAS. Terima Kasih Endeso-Id' ,'jumlah_bintang'=>'3']);
     }
 }

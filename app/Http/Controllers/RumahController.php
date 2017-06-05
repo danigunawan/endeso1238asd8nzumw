@@ -7,6 +7,8 @@ use App\Rumah;
 use Yajra\Datatables\Html\Builder; 
 use Yajra\Datatables\Datatables;
 use Session;
+use App\Kamar;
+
 
 class RumahController extends Controller
 {
@@ -19,18 +21,19 @@ class RumahController extends Controller
     {
         // cara menampilkan datatable
       if ($request->ajax()) {
-        $rumah = Rumah::select(['id', 'nama_pemilik','no_telp','alamat']);
+        $rumah = Rumah::with('destinasi');
         return Datatables::of($rumah)->addColumn('action', function($rumah){
             return view('rumah._action', [
             'model'=> $rumah,
-            'hapus_url'=> route('rumah.destroy', $rumah->id),
-            'edit_url'=> route('rumah.edit', $rumah->id),
+            'hapus_url'=> route('rumah.destroy', $rumah->id_rumah),
+            'edit_url'=> route('rumah.edit', $rumah->id_rumah),
             'confirm_message' => 'Yakin mau menghapus ' . $rumah->title . '?'
             ]);
          })->make(true);
       }
 
       $html = $htmlBuilder
+        ->addColumn(['data' => 'destinasi.nama_destinasi', 'name'=>'destinasi.nama_destinasi', 'title'=>'Destinasi'])
         ->addColumn(['data' => 'nama_pemilik', 'name'=>'nama_pemilik', 'title'=>'Nama Pemilik'])
         ->addColumn(['data' => 'no_telp', 'name'=>'no_telp', 'title'=>'No Telp'])
         ->addColumn(['data' => 'alamat', 'name'=>'alamat', 'title'=>'Alamat'])
@@ -60,12 +63,14 @@ class RumahController extends Controller
     {
         
         $this->validate($request, [
+             'id_destinasi'   => 'required',
             'nama_pemilik'   => 'required|unique:rumah,nama_pemilik',
             'no_telp'   => 'required',
             'alamat'   => 'required'
             ]);
 //memasukan data dengan model rumah
          $rumah = Rumah::create([
+            'id_destinasi' => $request->id_destinasi,
             'nama_pemilik' => $request->nama_pemilik,
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat]);
@@ -113,13 +118,15 @@ class RumahController extends Controller
     {
         //
         $this->validate($request, [
-            'nama_pemilik'   => 'required|unique:rumah,nama_pemilik,' . $id,
+            'id_destinasi'   => 'required',
+            'nama_pemilik'   => 'required|unique:rumah,nama_pemilik,' . $id.',id_rumah',
             'no_telp'   => 'required',
             'alamat'   => 'required'
             ]);
 //memasukan data dengan model rumah
          $rumah = Rumah::find($id);
          $rumah->update([
+            'id_destinasi' => $request->id_destinasi,
             'nama_pemilik' => $request->nama_pemilik,
             'no_telp' => $request->no_telp,
             'alamat' => $request->alamat]);
@@ -141,11 +148,27 @@ class RumahController extends Controller
     public function destroy($id)
     {
         //menghapus data dengan pengecekan alert /peringatan
-        if(!Rumah::destroy($id)) 
-        {
-            return redirect()->back();
+        $data_kamar = Kamar::where('id_rumah',$id);
+
+        // hapus foto lama, jika ada
+    if ($data_kamar->count() > 0) {
+        // menyiapkan pesan error
+        $html = 'Rumah tidak bisa dihapus karena masih memiliki kamar : ';
+        $html .= '<ul>';
+        $html .= '<li>'.$data_kamar->count().'</li>';
+        $html .= '</ul>';
+        
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('rumah.index');      
         }
-        else{
+    else{
+
+        Rumah::destroy($id);
+
         Session:: flash("flash_notification", [
             "level"=>"success",
             "message"=>"Data Rumah Berhasil Di Hapus"

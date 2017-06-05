@@ -6,15 +6,19 @@
         {!! $errors->first('check_in', '<p class="help-block">:message</p>') !!}
 </div>
 
+<!--KOLOM WARGA -->
 <div class="form-group{{ $errors->has('id_warga') ? ' has-error' : '' }}">
         {!! Form::label('id_warga', 'Nama Warga', ['class' => 'control-label']) !!}
-        {!!Form::select('id_warga', $warga, null, ['class' => 'form-control'])!!}
+        {!!Form::select('id_warga', $warga, null, ['class' => 'form-control','placeholder'=>'--PILIH WARGA--'])!!}
         {!! $errors->first('id_warga', '<p class="help-block">:message</p>') !!}
 </div>
+
+{!! Form::hidden('latitude', null, ['class'=>'form-control', 'id' => 'latitude']) !!}
+{!! Form::hidden('longitude', null, ['class'=>'form-control', 'id' => 'longitude']) !!}
 <!--KOLOM NAMA LENGKAP -->
 <div class="form-group{{ $errors->has('jadwal') ? ' has-error' : '' }}">
         {!! Form::label('jadwal', 'Jadwal ', ['class' => 'control-label']) !!}
-        {!! Form::select('jadwal', [], null, ['class' => 'form-control','id' => 'jadwal', 'autocomplete' => 'off']) !!}
+        {!! Form::select('jadwal', [], null, ['class' => 'form-control','placeholder'=>'--PILIH JADWAL--','id' => 'jadwal', 'autocomplete' => 'off']) !!}
         {!! $errors->first('jadwal', '<p class="help-block">:message</p>') !!}
 </div>
 
@@ -44,27 +48,51 @@
         {!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}" id="span_jumlah_orang">
         {!! Form::label('jumlah_orang', 'Jumlah Orang', ['class' => 'control-label']) !!}
-
         {!! Form::select('jumlah_orang',[
-                             '1' => '1',
-                             '2' => '2',
-                             '3' => '3',
-                             '4' => '4',
-                             '5' => '5',
-                             '6' => '6',
-                             '7' => '7',
-                             '8' => '8',
-                             '9' => '9',
-                             '10' => '10',
-                             '11' => '11',
-                             '12' => '12',
-                             '13' => '13',
-                             '14' => '14',
-                             '15' => '15',
+                             $jumlah_orang => $jumlah_orang,
                              ],$value = $jumlah_orang,['class'=>'form-control','placeholder'=>'--PILIH JUMLAH ORANG--','id'=>'jumlah_orang']) !!}
         {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
-</div> 
+</div>
 
-		{{ Form::button('Pesan Sekarang <i class="fa fa-long-arrow-right"></i>', array('class' => 'btn read-more','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}					
+
+<div style="display: none" class="form-group{{ $errors->has('no_telp') ? ' has-error' : '' }}">
+        {!! Form::label('no_telp', 'No Telp', ['class' => 'control-label']) !!}
+</div>
+
+ @for ($i = 1; $i <= old('jumlah_orang',$jumlah_orang); $i++)
+
+<div class="form-group{{ $errors->has('nama_tamu') ? ' has-error' : '' }} span-hapus">
+    {!! Form::label('nama_tamu','Nama Tamu '.$i,['class'=>'control-label']) !!}
+    {!! Form::text('nama_tamu['.$i.']', null, ['class'=>'form-control',  'id'=>'nama_tamu', 'autocomplete'=>'off']) !!}
+    {!! $errors->first('nama_tamu', '<p class="help-block">:message</p>') !!}
+</div>
+@endfor
+
+
+                        <!-- Panel Rincian Harga /- -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="background-color: #df9915; color: white"><h4>Rincian Harga</h4></div>
+                              <div class="panel-body">
+                                <table class="table-sm">
+                                    <tbody>
+                                        <tr><td  width="50%" style="font-size:110%"><b> Warga </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%"><b> <span id="nama_warga"></span> </b></td></tr>
+                                        <tr><td  width="50%" style="font-size:110%">Harga </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_cultural"></span> </td></tr>
+                                        <tr><td  width="50%" style="font-size:110%;"><span id="hitung_orang"></span> Orang x Rp. <span id="hitung_harga_orang"></span> </td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%">Rp. <span id="harga_jumlah_orang"></span> </td></tr>
+
+                                    </tbody>
+                                </table>
+                                <table class="table-sm">
+                                    <tbody>
+                                        <span style="display: none" id="harga_endeso_hidden"> </span>
+                                        <tr><td width="75%" style="font-size:110%;color:red;"><b>  Harga Total </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:110%;color:red;" ><b> Rp. <span id="harga_total"> </span> </b></td></tr>
+                                        <tr><td width="75%" style="font-size:125%;color:red;"><b><p></p> Jumlah yang harus dibayar sekarang (DP)  </b></td> <td> &nbsp;&nbsp;:&nbsp;&nbsp;</td> <td style="font-size:125%;color:red;" ><b> Rp. <span id="harga_endeso"> </span> </b></td></tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                        </div>
+                        <!-- Panel Rincian Harga /- -->
+
+{{ Form::button('Pesan Sekarang <i class="fa fa-long-arrow-right"></i>', array('class' => 'btn read-more','title'=>'Book Now','id'=>'submit_pesan','type'=>'submit')) }}

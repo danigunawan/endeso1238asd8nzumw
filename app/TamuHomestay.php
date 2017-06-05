@@ -8,5 +8,5 @@ class TamuHomestay extends Model
 {
     //
     protected $table = 'tamu_homestays';
-    protected $fillable = ['id_pesanan'];
+    protected $fillable = ['id_pesanan','nama_tamu'];
 }

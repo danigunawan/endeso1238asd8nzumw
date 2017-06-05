@@ -42,23 +42,73 @@
                     </div>
                     <div class="col-md-6">
 
+                     
+                              <h4 style="color:red;">Selesaikan Pembayaran Sebelum <span id="timer"></span></h4>
+                  
+
                       <div class="panel panel-default">
                         <div class="panel-heading" style="background-color:#df9915;color:#fff"><b><h3>Petunjuk Pembayaran Transfer</h3></head></b></div>
                         <div class="panel-body">      
-                        <h4>1. Selesaikan Pembayaran Sebelum <span id="timer"></span></h5></h4> <br><hr>
-                        <h4>2. Mohon Transfer Ke:</h4>
-                        <h4>{{ $rekening->nama_bank }}</h4>
-                        <b>Nomor Rekening : {{ $rekening->nomor_rekening_tabungan }}<br>
-                        Nama Penerima : {{ $rekening->nama_rekening_tabungan   }}</b> <hr>
-                        <h5>Jumlah Transfer : Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h5><br>
-                        <h4>3. Anda Sudah Membayar? 
-                        <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'/'.$destinasi.'/'.$aktivitas.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>  </h4>
+                        
+                        <ol>
+                          <h4><li>
+                            <h4> Mohon Lakukan Pembayaran Down Payment (DP) Sebesar<br>
+                           Rp. {{ number_format($warga->harga_endeso * $pesanan_culture->jumlah_orang,0,',','.') }}</h4>
+                                <h5>
+
+                                  <table>
+                                      <tbody>                            
+                                        <tr><td width="25%"><font class="satu"> Melalui Transfer Ke </font></td> 
+                                          <td> &nbsp;: </td></tr>
+                                      </tbody>
+                                  </table>
+
+                                  @foreach($rekening as $rekenings)
+                                    <table>
+                                      <tbody>     
+                                       <tr><td width="25%"><font class="satu"> Nama Bank </font></td> 
+                                        <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nama_bank }} </font></td>
+                                      </tr><br>                       
+                                        <tr><td width="25%"><font class="satu"> Nomor Rekening </font></td> 
+                                          <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nomor_rekening_tabungan }} </font></td>
+                                        </tr><br>
+                                        <tr><td width="25%"><font class="satu"> Atas Nama </font></td> 
+                                          <td> &nbsp;: </td> <td><font class="satu"> {{ $rekenings->nama_rekening_tabungan }} </font></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  @endforeach
+
+                                </h5>
+                          </li>
+
+                          <h4><li>                        
+                            <h4>Lakukan Konfirmasi Pembayaran Dengan Meng-upload Foto Bukti Transfer</h4>
+                                <h5>
+                                    <table>
+                                        <tbody>                            
+                                          <tr>
+                                            <td width="25%"><font class="satu"> Anda Sudah Bayar?  </font></td> 
+                                            <td> &nbsp; 
+                                              <a href="{{ url('/transaksi_pembayaran_culture/'.$pesanan_culture->id.'')}}" class="btn read-more">Konfirmasi Pembayaran<i class="fa fa-long-arrow-right"></i></a>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                    </table>
+                                </h5>
+                          </li>
+
+                          <h4><li>
+                                <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format($warga->harga_pemilik * $pesanan_culture->jumlah_orang,0,',','.') }}<br>
+                                Secara Tunai Ketika Anda Check Out</h4>
+                          </li>
+                        </ol>
                         </div>
                       </div>
                     </div>
 
                    <div class="col-md-4">                 
-                      
+                      <br><br>
           <div class="panel panel-default">
               <div class="panel-heading" style="background-color:#df9915;color:#fff" ><b><p>No. Pesanan <br>
                 <h4>({{ $pesanan_culture->id }})</h4>
@@ -71,13 +121,13 @@
                           <h3>Destinasi : {{ $destinasi }}<h4>Cultural Experiences : {{ $aktivitas }}</h4></h3><br> 
                           <table>
                             <tbody>                            
-                              <tr><td width="25%"><font class="satu">Check-in </font></td> 
+                              <tr><td width="50%"><font class="satu">Check-in </font></td> <td> &nbsp;: </td>
                                 <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $format_check_in }}</font> 
                               </tr>
-                              <tr><td width="25%"><font class="satu">Jadwal</font></td> 
+                              <tr><td width="50%"><font class="satu">Jadwal</font></td> <td> &nbsp;: </td>
                                 <td> &nbsp;&nbsp;</td> <td><font class="satu">{{ $pesanan_culture->jadwal }}</font> 
                               </tr>
-                              <tr><td  width="25%"><font class="satu">Kode Booking  </font></td> 
+                              <tr><td  width="50%"><font class="satu">Kode Booking  </font></td> <td> &nbsp;: </td>
                                 <td> &nbsp;&nbsp;</td> <td> <font class="satu">{{ $pesanan_culture->id }}</font> </td>
                               </tr>
                             </tbody>
@@ -96,28 +146,42 @@
  @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-    document.getElementById('timer').innerHTML =
-  30 + ":" + 00;
-startTimer();
+<script type="text/javascript">
+$(document).ready(function(){ 
+  document.getElementById('timer').innerHTML = {{$time_diff}} + ":" + 00;
+  startTimer();  
 
 function startTimer() {
   var presentTime = document.getElementById('timer').innerHTML;
   var timeArray = presentTime.split(/[:]+/);
-  var m = timeArray[0];
-  var s = checkSecond((timeArray[1] - 1));
-  if(s==59){m=m-1}
+  var id_pesanan = "{{$id}}";
+  var menit = timeArray[0];
+  var detik = checkSecond((timeArray[1] - 1));
+  if(detik==59){menit=menit-1}
   //if(m<0){alert('timer completed')}
   
   document.getElementById('timer').innerHTML =
-    m + ":" + s;
-  setTimeout(startTimer, 1000);
+    menit + ":" + detik;
+    if(menit < "00"){
+      //untuk post ke route
+      $.post('{{ url('/update-status-pesanan-cultural') }}',{'_token': $('meta[name=csrf-token]').attr('content'),id_pesanan:id_pesanan },function(data){  
+      });
+     //untuk post ke route
+
+      window.location = "{{ url('/user/pesanan/') }}";
+    }
+    else{
+    setTimeout(startTimer, 1000);
+  }
 }
 
 function checkSecond(sec) {
   if (sec < 10 && sec >= 0) {sec = "0" + sec}; // add zero in front of numbers < 10
   if (sec < 0) {sec = "59"};
   return sec;
-}
+} 
+
+
+});
 </script>
 @endsection

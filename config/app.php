@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'in',
 
     /*
     |--------------------------------------------------------------------------
@@ -182,6 +182,7 @@ return [
         Yajra\Datatables\ButtonsServiceProvider::class,
         Yajra\Datatables\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Telegram\Bot\Laravel\TelegramServiceProvider::class,
 
 
     ],
@@ -236,6 +237,8 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Laratrust' => Laratrust\LaratrustFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
+
 
     ],
 

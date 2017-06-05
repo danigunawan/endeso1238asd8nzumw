@@ -8,6 +8,7 @@ use Yajra\Datatables\Datatables;
 use App\Kategori;
 use Session;
 use Illuminate\Support\Facades\File;
+use App\Warga;
 
 class KategoriController extends Controller
 {
@@ -64,6 +65,7 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas',
             'destinasi_kategori' => 'required|exists:destinasi,id',
+            'durasi' => 'required',
             'foto_kategori.*' => 'image|max:2048'
         ]);
 
@@ -71,7 +73,8 @@ class KategoriController extends Controller
 
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
-           'destinasi_kategori' => $request->destinasi_kategori
+           'destinasi_kategori' => $request->destinasi_kategori,
+           'durasi' => $request->durasi
            
         ]);
 
@@ -164,6 +167,7 @@ class KategoriController extends Controller
         $this->validate($request, [
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas,' . $id,
             'destinasi_kategori' => 'required|exists:destinasi,id',
+            'durasi' => 'required',
             'foto_kategori.*' => 'image|max:2048'
         ]);
 
@@ -172,7 +176,8 @@ class KategoriController extends Controller
 
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
-           'destinasi_kategori' => $request->destinasi_kategori
+           'destinasi_kategori' => $request->destinasi_kategori,
+           'durasi' => $request->durasi
            
         ]);
 
@@ -250,9 +255,34 @@ class KategoriController extends Controller
     {
         //
         $kategori = Kategori::find($id);
+        $data_warga = Warga::where('id_kategori_culture',$id);
+        $data_komentar_kamar = KomentarKategori::where('id_kategori',$id);
 
         // hapus foto lama, jika ada
+    if ($data_warga->count() > 0 OR $data_komentar_kamar->count() > 0 ) {
+        // menyiapkan pesan error
+        $html = 'Kategori tidak bisa dihapus karena masih memiliki warga : ';
+        $html .= '<ul>';
+        foreach ($data_warga->get() as $warga) {
+          $html .= '<li>'.$warga->nama_warga.'</li>';
+        }
+        $html .= '</ul>';
+        $html .= '<br>';
+        $html = 'Kategori tidak bisa dihapus karena masih memiliki komentar : ';
+        $html .= '<ul>';
+        foreach ($data_komentar_kamar->get() as $warga) {
+          $html .= '<li>'.$data_komentar_kamar->count().'</li>';
+        }
+        $html .= '</ul>';
 
+        Session::flash("flash_notification", [
+          "level"=>"danger",
+          "message"=>$html
+        ]);
+        // membatalkan proses penghapusan
+        return redirect()->route('kategori.index');      
+        }
+    else{
         if ($kategori->foto_kategori) {
 
         $old_foto_kategori = $kategori->foto_kategori;
@@ -274,7 +304,7 @@ class KategoriController extends Controller
         ]);
         return redirect()->route('kategori.index');
     }
-
+}
 
     public function list_cultural(){
 

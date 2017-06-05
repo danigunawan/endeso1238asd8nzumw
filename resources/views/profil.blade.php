@@ -76,7 +76,22 @@
 
                             <div class="">
                                     
-                               {!! Form::date('tanggal_lahir', null, ['class'=>'form-control','maxlength' => 15]) !!}
+                                <div class="row">
+                                    <div class="col-sm-2">
+
+                                    {{ Form::selectRange('tanggal', 1, 31,$hari,['class' => 'form-control']) }}
+
+                                       
+                                    </div>
+                                    <div class="col-sm-3">
+                                          {{ Form::selectMonth('bulan',$bulan,['class' => 'form-control']) }}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        {{ Form::selectYear('tahun', 1950, 2050, $tahun , ['class' => 'form-control']) }}
+
+                                    </div>
+                                    
+                                </div>
 
                                 {!! $errors->first('tanggal_lahir', '<p class="help-block">:message</p>') !!}
                             </div>

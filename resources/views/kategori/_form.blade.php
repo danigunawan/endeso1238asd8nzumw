@@ -16,6 +16,15 @@
 	</div>
 </div>
 
+<!-- KOLOM DURASI -->
+<div class="form-group{{ $errors->has('durasi') ? ' has-error' : '' }}">
+	{!! Form::label('durasi', 'Durasi', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::text('durasi', null, ['class' => 'form-control', 'placeholder' => 'Durasi', 'autocomplete' => 'off']) !!}
+		{!! $errors->first('durasi', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
 <!-- KOLOM DESKRIPSI KATEGORI -->
 <div class="form-group{{ $errors->has('deskripsi_kategori') ? ' has-error' : '' }}">
 	{!! Form::label('deskripsi_kategori', 'Deskripsi', ['class' => 'col-md-2 control-label']) !!}

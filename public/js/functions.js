@@ -482,6 +482,10 @@
 		$( ".datepicker").datepicker({
 			minDate: 0
 		});
+
+		$( ".datepicker_sampai_tanggal").datepicker({
+			minDate: 1
+		});
 		
 		/* -- Map Initialization */
 		if( $( "#map-canvas-contact").length == 1 ){
@@ -521,7 +525,7 @@
 		});/* Quick Contact Form /- */
 		
 		/* - Expanding Search */
-		new UISearch( document.getElementById( "sb-search" ) );
+
 		
 	});/* document.ready /- */
 	

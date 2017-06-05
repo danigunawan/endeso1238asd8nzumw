@@ -3,6 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Mail;
+use Auth;
+use App\Warga;
+use App\Kategori;
+use Illuminate\Support\Facades\DB;
 
 class PesananCulture extends Model
 {
@@ -14,6 +20,13 @@ class PesananCulture extends Model
         return $query;
     }
 
+    public function scopeBatal($query){
+        $query->where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->update(['status_pesanan' => '5']);
+
+        return $query;
+    }
+
+
     public function warga()
 	  {
 	  	return $this->belongsTo('App\Warga','id_warga');
@@ -23,4 +36,58 @@ class PesananCulture extends Model
 	  {
 	  	return $this->belongsTo('App\User','id_user');
 	  }
+
+    public static function sendInvoice($total_harga_endeso,$id_pesanan,$rekening_tujuan,$email,$nama_pemesan){
+            
+        $user = Auth::user();
+        
+
+
+        $user->name = $nama_pemesan;
+
+       Mail::send('emails_cultural.invoice', compact('user','total_harga_endeso','id_pesanan','rekening_tujuan'), function($m)use($user,$email,$nama_pemesan) {
+        $m->to($email, $nama_pemesan)->subject('Invoice Cultural Experience Endeso');
+
+    });
+
+
+    }
+
+    public function sendCheckout($pesanan_cultural)
+    {
+         
+    $user = Auth::user()->find($pesanan_cultural->id_user);
+    $warga = Warga::find($pesanan_cultural->id_warga)->first();
+    $kategori = Kategori::find($warga->id_kategori_culture)->first();
+    $email = $pesanan_cultural->email;
+    $nama_pemesan = $pesanan_cultural->nama;
+
+    $user->name = $nama_pemesan;
+
+    Mail::send('pemesanan.checkout_cultural', compact('user','pesanan_cultural','kategori'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Thank You & Review (Endeso)');
+
+    });
+
+    }
+
+    public function sendPetunjukCheckin($pesanan_cultural)
+    {
+         
+    $user = Auth::user()->find($pesanan_cultural->id_user); 
+    $warga = Warga::find($pesanan_cultural->id_warga)->first();
+    $kategori = Kategori::find($warga->id_kategori_culture)->first(); 
+    $total_harga_endeso = $pesanan_cultural->harga_endeso * $pesanan_cultural->jumlah_orang;
+    $total_harga_seluruh = $pesanan_cultural->total_harga;
+    $total_harga_warga = $total_harga_seluruh - $total_harga_endeso;
+  
+    $email = $pesanan_cultural->email;
+    $nama_pemesan = $pesanan_cultural->nama;
+
+    $user->name = $nama_pemesan;
+
+    Mail::send('pembayaran_cultural.petunjuk_check', compact('user','pesanan_cultural','kategori','total_harga_warga','warga'), function($m)use($user,$email,$nama_pemesan) {
+    $m->to($email, $nama_pemesan)->subject('Petunjuk CheckIn Endeso'); });
+
+    }
 }
