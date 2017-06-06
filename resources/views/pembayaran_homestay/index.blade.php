@@ -52,7 +52,17 @@
                           <ol>
                           <h4><li>
                               <h4>Mohon Lakukan Pembayaran Down Payment (DP) Sebesar<br>
-                              Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}</h4>
+                              @if($kamar->tipe_harga == 1)
+
+                              Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}
+
+                              @elseif($kamar->tipe_harga ==2)
+
+                              Rp. {{ number_format($detail_pesanan->harga_endeso * $detail_pesanan->jumlah_malam,0,',','.') }}
+
+                              @endif
+
+                              </h4>
 
                               <h5>
 
@@ -98,13 +108,15 @@
                                 </h5>
                           </li>
                           <h4><li>
-                              @if($detail_pesanan->harga_makan == 0)
-                                <h4>Lakukan Sisa Pembayaran Sebesar  Rp. {{ number_format($detail_pesanan->harga_pemilik * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
-                                Secara Tunai Ketika Anda Check Out</h4>
-                              @else
+                          @if($kamar->tipe_harga == 1)
                                 <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format( ($detail_pesanan->harga_pemilik + $detail_pesanan->harga_makan) * $detail_pesanan->jumlah_orang * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
-                                Secara Tunai Ketika Anda Check Out</h4>
-                              @endif                            
+                          @elseif($kamar->tipe_harga ==2)
+
+                               <h4>Lakukan Sisa Pembayaran Sebesar Rp. {{ number_format( ($detail_pesanan->harga_pemilik + $detail_pesanan->harga_makan) * $detail_pesanan->jumlah_malam,0,',','.') }}<br>
+
+                          @endif
+                         
+                                Secara Tunai Ketika Anda Check Out</h4>                         
                           </li>
                           </ol>
 

@@ -129,7 +129,15 @@ class PesanhomestayController extends Controller
               ]);
 
             $rekening_tujuan = Rekening::all();
-      	    $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
+            if ($kamar->tipe_harga == 1) {
+
+                  $total_harga_endeso = $request->harga_endeso_hidden * $request->jumlah_orang * $request->jumlah_malam;
+            }
+            elseif ($kamar->tipe_harga == 2) {
+
+              $total_harga_endeso = $request->harga_endeso_hidden  * $request->jumlah_malam;
+            }
+      	
       	   $email_satu = PesananHomestay::sendInvoice($total_harga_endeso,$pesan_homestay->id,$rekening_tujuan,$request->email,$request->nama
 
 );
