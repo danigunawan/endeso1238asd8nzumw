@@ -382,13 +382,28 @@ class HomeController extends Controller
 
       $harga_kamar_tambah_harga_makan = $harga_kamar + $pesanan_homestay->harga_makan;
 
-      $harga_jumlah_orang = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang;
+      if ($kamar->tipe_harga == 1) {
 
-      $harga_lama_inap = $harga_jumlah_orang * $pesanan_homestay->jumlah_malam;
+          $harga_jumlah_orang = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang;
 
-      $total_dp = $pesanan_homestay->harga_endeso * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
+           $total_dp = $pesanan_homestay->harga_endeso * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
+           $harga_lama_inap = $harga_jumlah_orang * $pesanan_homestay->jumlah_malam;
+      
+          $total_bayar = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
 
-      $total_bayar = $harga_kamar_tambah_harga_makan * $pesanan_homestay->jumlah_orang * $pesanan_homestay->jumlah_malam;
+      }
+      elseif ($kamar->tipe_harga == 2) {
+
+          $harga_jumlah_orang = $harga_kamar_tambah_harga_makan ;
+          $total_dp = $pesanan_homestay->harga_endeso  * $pesanan_homestay->jumlah_malam;
+          $harga_lama_inap = $harga_jumlah_orang * $pesanan_homestay->jumlah_malam;
+      
+          $total_bayar = $harga_kamar_tambah_harga_makan  * $pesanan_homestay->jumlah_malam;
+
+      }
+
+    
+
       
       // ambil nama tamu
       $tamu = TamuHomestay::select('nama_tamu')->where('id_pesanan',$pesanan_homestay->id)->get();
@@ -428,11 +443,17 @@ class HomeController extends Controller
                                 // dibawah ini rincian harga nya
                                 $tampil_detail .= '
 
-                                  <tr><td  width="50%"><font class="satu">Harga Kamar </font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_kamar).'</font></td></tr>
+                                  <tr><td  width="50%"><font class="satu">Harga Kamar </font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_kamar).'</font></td></tr>';
 
-                                  <tr><td  width="50%"> <font class="satu">'.$pesanan_homestay->jumlah_orang.' orang X '.$stringfunction->rp($harga_kamar_tambah_harga_makan).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_jumlah_orang).'</font></td></tr>
+                                  if ($kamar->tipe_harga == 1) {
 
-                                  <tr><td  width="50%"><font class="satu"> '.$pesanan_homestay->jumlah_malam.' Hari X '.$stringfunction->rp($harga_jumlah_orang).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_lama_inap).'</font></td></tr>
+                                     $tampil_detail .= '<tr><td  width="50%"> <font class="satu">'.$pesanan_homestay->jumlah_orang.' orang X '.$stringfunction->rp($harga_kamar_tambah_harga_makan).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_jumlah_orang).'</font></td></tr>';
+
+
+                                  }
+                                
+                                 
+                                $tampil_detail .=  '<tr><td  width="50%"><font class="satu"> '.$pesanan_homestay->jumlah_malam.' Hari X '.$stringfunction->rp($harga_jumlah_orang).'</font></td> <td> &nbsp;:&nbsp;</td> <td><font class="satu"> '.$stringfunction->rp($harga_lama_inap).'</font></td></tr>
 
                                   <tr><td  width="50%"><font class="satu" style="color:red"> Down Payment (DP) </font></td> <td><font class="satu" style="color:red">  &nbsp;:&nbsp;</font></td> <td><font class="satu" style="color:red"> '.$stringfunction->rp($total_dp).'</font></td></tr>
 
