@@ -183,6 +183,7 @@ class PemesananController extends Controller
     {
         //
 
+
         if ($request->ajax()) {
 
              $pesanan_homestay = PesananHomestay::with(['kamar','user'])->where('status_pesanan','<','4');
@@ -193,12 +194,13 @@ class PemesananController extends Controller
             return view('pemesanan._action', [
                     'model'=> $pesanan_cultural,
                     'check_in' => route('pemesanan.homestay_check_in', $pesanan_cultural->id),
-                    'check_out' => route('pemesanan.homestay_check_in', $pesanan_cultural->id)
+                    'check_out' => route('pemesanan.homestay_check_out', $pesanan_cultural->id)
                     ]);})
 
+
             ->addColumn('nama_pemilik', function($pesanan_homestay){
-                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar)->first(); 
-                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah)->first();
+                $kamar = Kamar::select('id_rumah')->find($pesanan_homestay->id_kamar); 
+                $rumah = Rumah::select('nama_pemilik')->find($kamar->id_rumah);
                 return $rumah->nama_pemilik; 
             })
 
@@ -226,7 +228,7 @@ class PemesananController extends Controller
                 } 
                 elseif ($pesanan_status->status_pesanan == 5) {
                     # code...
-                     $status_pesanan = "Pelanggan Membatalkan Pesanan";
+                     $status_pesanan = "pesanan batal";
                 } 
                 return $status_pesanan; 
                 })->rawColumns(['action'])->make(true);
