@@ -43,7 +43,7 @@ class PesananHomestay extends Model
 		}
 
     public function scopeBatal($query){
-        $query->where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->where('status_pesanan','0')->update(['status_pesanan' => '5']);
+        $query->where(DB::raw('TIME_TO_SEC(TIMEDIFF(NOW(),created_at))/ 60'),'>','30')->where('status_pesanan','0')->update(['status_pesanan' => '5','updated_at' => date('Y-m-d H:i:s')]);
 
         return $query;
     }
