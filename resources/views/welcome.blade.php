@@ -52,7 +52,7 @@
                     <div class="col-sm-2"> 
                         <div id="dari_tanggal" style="width:180px;" class="form-group{{ $errors->has('dari_tanggal') ? ' has-error' : '' }}">
                             <i class="fa fa-calendar-minus-o"></i>
-                            {!! Form::text('dari_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker1','placeholder'=>'DARI TANGGAL','autocomplete'=>'off']) !!}
+                            {!! Form::text('dari_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker1','placeholder'=>'DARI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
                             {!! $errors->first('dari_tanggal', '<p class="help-block">:message</p>') !!}
 
                         </div>
@@ -62,7 +62,7 @@
                         <div class="col-sm-2">
                             <div id="sampai_tanggal" style="width:180px;"  class="form-group{{ $errors->has('sampai_tanggal') ? ' has-error' : '' }}">
                                 <i class="fa fa-calendar-minus-o"></i>
-                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker_sampai_tanggal', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL','autocomplete'=>'off']) !!}
+                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker_sampai_tanggal', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
                                 {!! $errors->first('sampai_tanggal', '<p class="help-block">:message</p>') !!}
 
                             </div>
