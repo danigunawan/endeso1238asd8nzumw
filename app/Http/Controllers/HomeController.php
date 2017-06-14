@@ -85,18 +85,31 @@ class HomeController extends Controller
     }
 
 
-      public function tentang()
+      public function tentang_homestay()
     {
         $setting_halaman = SettingHalaman::where('jenis_halaman',1)->first();
 
-        return view('tentang',['setting_halaman' => $setting_halaman]);
+        return view('tentang.homestay',['setting_halaman' => $setting_halaman]);
+    }  
+
+     public function tentang_ce()
+    {
+        $setting_halaman = SettingHalaman::where('jenis_halaman',4)->first();
+
+        return view('tentang.ce',['setting_halaman' => $setting_halaman]);
     }
 
-     public function cara_pesan()
+     public function cara_pesan_homestay()
     {
         $setting_halaman = SettingHalaman::where('jenis_halaman',2)->first();
 
-        return view('cara_pesan',['setting_halaman' => $setting_halaman]);
+        return view('cara_pesan.homestay',['setting_halaman' => $setting_halaman]);
+    } 
+     public function cara_pesan_ce()
+    {
+        $setting_halaman = SettingHalaman::where('jenis_halaman',5)->first();
+
+        return view('cara_pesan.ce',['setting_halaman' => $setting_halaman]);
     }
 
       public function kontak()
