@@ -6,7 +6,7 @@
     
     .carousel-inner{
   width:100%;
-  max-height: 380px !important;
+  max-height: 450px !important;
 }
 </style>
 
