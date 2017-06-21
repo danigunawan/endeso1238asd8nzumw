@@ -206,6 +206,7 @@
                                      <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
                                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
                                         <i class="ddl-switch fa fa-angle-down"></i> 
+                                        
                                         <ul class="dropdown-menu"> 
                                              <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
                                              <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
@@ -235,7 +236,19 @@
                                     </li>
                                     <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           
-                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                   
+                                    <!-- nav cara pesan -->
+                                     <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
+                                             <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
+                                        </ul> 
+
+                                    </li>
+
                                     
                                     <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
