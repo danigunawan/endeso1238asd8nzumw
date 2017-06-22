@@ -96,7 +96,7 @@
 
                     <div class="col-sm-2" id="col-tujuan">
                         <div style="width:180px;"  class="form-group{{ $errors->has('tujuan') ? ' has-error' : '' }}">
-                          {!! Form::select('tujuan', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker']) !!}
+                          {!! Form::select('tujuan', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker','id' => 'tujuan']) !!}
                           {!! $errors->first('tujuan', '<p class="help-block">:message</p>') !!}
                         </div>
                     </div>
@@ -147,208 +147,256 @@
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Homestay Terbaik</h3>
-                    <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
+                    <p>Homestay Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
                 </div><!-- Section Header /- -->
-                
-                @if (isset($warga_1))
+              
+
+            
                 <div class="row"> 
 
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
+                @foreach($homestay as $homestays)
+                    <a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">
+                   <div class="col-sm-3 list-penginapan section-header">
 
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_1 or 'foto_1' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_1->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_1->harga_endeso + $warga_1->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_1->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                   <div id="carousel-homestay-{{$homestays->id_kamar }}" class="carousel slide" data-ride="carousel">
+            
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner">
+
+                    <div class="item active">
+                      <img src="img/{{ $homestays->foto1 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_2))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_2 or 'foto_2' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_2->nama_aktivitas}} ({{$destinasi_2->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_2->harga_endeso + $warga_2->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_2->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @if($homestays->foto2 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $homestays->foto2 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_3))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_3 or 'foto_3' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_3->nama_aktivitas}} ({{$destinasi_3->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_3->harga_endeso + $warga_3->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_3->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @endif
+                    @if($homestays->foto3 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $homestays->foto3 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_4))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_4 or 'foto_4' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_4->nama_aktivitas}} ({{$destinasi_4->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_4->harga_endeso + $warga_4->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_4->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @endif  
+                    @if($homestays->foto4 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $homestays->foto4 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
                     </div>
+                    @endif
+                    @if($homestays->foto5 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $homestays->foto5 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
+                    </div>
+                    @endif
+                  </div>
 
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
+                  <!-- Left and right controls -->
+                  <a class="left carousel-control" href="#carousel-homestay-{{$homestays->id_kamar }}" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#carousel-homestay-{{$homestays->id_kamar }}" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
                 </div>
-                @endif
+                <!-- / carousel homestay -->
+                       <center>
+                    <p>
+
+                    @if($homestays->tipe_harga == 1)
+                    <b>Rp {{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }} </b> /Orang/Malam
+                    @elseif($homestays->tipe_harga == 2)
+                    Rp <b>{{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }}</b> /Kamar/Malam
+                    @endif
+                    <br>
+                        <b>{{ $homestays->rumah->nama_pemilik}}</b><br>
+                        KAPASITAS : {{ $homestays->kapasitas}} orang <br>
+                        {{ $homestays->destinasi->nama_destinasi}} 
+                    </p>
+                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
+                    
+                        </center>
+                </div>
+                </a> 
+                <!-- / row -->
+
+                @endforeach
+
+               
+        
+
+              
             </div><!-- container /- -->
 
         </div><!-- homestay terbaik  /- -->
+
 <!-- culture experience terbaik Section -->
-        <div class="container-fluid offer-section no-padding" style="padding-top: 30px">
+      
+        <div class="container-fluid offer-section no-padding" >
             <!-- container -->
             <div class="container">
                 <!-- Section Header -->
                 <div class="section-header">
-                    <h3>Destinasi Cultural Experiences</h3>
+                    <h3>Culture Experience Terbaik</h3>
                     <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
                 </div><!-- Section Header /- -->
-                
-                @if (isset($warga_1))
+              
+
+            
                 <div class="row"> 
 
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
+                @foreach($cultural as $culturals)
 
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_1 or 'foto_1' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_1->nama_aktivitas}} ({{$destinasi_1->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_1->harga_endeso + $warga_1->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_1->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                   <div class="col-sm-3 list-penginapan section-header">
+
+                   <div id="carousel-cultural-{{$culturals->id }}" class="carousel slide" data-ride="carousel">
+            
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner">
+
+                    <div class="item active">
+                      <img src="img/{{ $culturals->foto_kategori }}" alt="{{ $culturals->nama_aktivitas}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_2))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_2 or 'foto_2' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_2->nama_aktivitas}} ({{$destinasi_2->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_2->harga_endeso + $warga_2->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_2->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @if($culturals->foto_kategori2 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $culturals->foto_kategori2 }}" alt="{{ $culturals->nama_aktivitas}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_3))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_3 or 'foto_3' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_3->nama_aktivitas}} ({{$destinasi_3->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_3->harga_endeso + $warga_3->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_3->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @endif
+                    @if($culturals->foto_kategori3 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $culturals->foto_kategori3 }}" alt="{{ $culturals->nama_aktivitas}}">
                     </div>
-
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
-                </div>
-                @endif
-
-                @if (isset($warga_4))
-                <div class="row"> 
-
-                   <div class="col-sm-2"> </div> 
-                   <div class="col-sm-8"> 
-
-                    <div class="offer-box full">
-                        <img src="img/{{ $setting_halaman_culture->foto_4 or 'foto_4' }}" alt="Offer" />
-                        <div class="offer-detail">
-                            <h3><span>{{$kategori_4->nama_aktivitas}} ({{$destinasi_4->nama_destinasi}}) </span></h3>
-                            <div class="price-detail">
-                                <h4>mulai dari <span><sup>RP</sup> {{number_format($warga_4->harga_endeso + $warga_4->harga_pemilik,0,',','.')}}</span></h4>
-                                <a class="read-more" title="book now" href="{{ url('/detail-cultural/')}}/{{$kategori_4->id}}/{{$tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                            </div>
-                        </div>
+                    @endif  
+                    @if($culturals->foto_kategori4 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $culturals->foto_kategori4 }}" alt="{{ $culturals->nama_aktivitas}}">
                     </div>
+                    @endif
+                    @if($culturals->foto_kategori5 != NULL)
+                    <div class="item">
+                      <img src="img/{{ $culturals->foto_kategori5 }}" alt="{{ $culturals->rumah->nama_aktivitas}}">
+                    </div>
+                    @endif
+                  </div>
 
-                   </div> 
-                   <div class="col-sm-2"> </div> 
-
+                  <!-- Left and right controls -->
+                  <a class="left carousel-control" href="#carousel-cultural-{{$culturals->id }}" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#carousel-cultural-{{$culturals->id }}" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
                 </div>
-                @endif
+                <!-- / carousel homestay -->
+                       <center>
+                    <p>
+
+               
+                    <!-- <b>Rp {{ number_format($culturals->harga_endeso + $culturals->harga_pemilik,0,',','.')  }} </b> /Paket -->
+                 
+                        <b>{{ $culturals->nama_aktivitas}}</b><br>
+                        {{ $culturals->destinasi->nama_destinasi}} 
+                    </p>
+                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$culturals->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
+                    
+                        </center>
+                </div> 
+                <!-- / row -->
+
+                @endforeach
+
+               
+        
+
+              
             </div><!-- container /- -->
 
-        </div><!-- culture experience terbaik  /- -->
+        </div>
 
+<!-- /culture experience terbaik  /- -->
+
+<!-- destinasi homestay -->
+
+   <div class="container-fluid offer-section no-padding" >
+            <!-- container -->
+            <div class="container">
+                <!-- Section Header -->
+                <div class="section-header">
+                    <h3>Destinasi Homestay</h3>
+                  
+                </div><!-- Section Header /- -->
+              
+
+            
+                <div class="row"> 
+
+                @foreach($destinasi_homestay as $destinasi_homestays)
+
+                <div class="col-sm-3 section-header col-destinasi-homestay" style="cursor:pointer" data-id="{{ $destinasi_homestays->id_destinasi }}">
+          
+                      <img src="img/{{ $destinasi_homestays->foto_destinasi }}" alt="{{ $destinasi_homestays->nama_destinasi}}" class="img-responsive" >
+                 
+                       <center>
+                        <p>
+                            <b>{{ $destinasi_homestays->nama_destinasi}}</b><br>
+                        </p>
+                      </center>
+                
+                </div> 
+                <!-- / row -->
+
+                @endforeach
+
+               
+        
+
+              
+            </div><!-- container /- -->
+
+        </div>
+
+<!-- / destinasi homestay -->
+
+<!-- destinasi cultural -->
+
+   <div class="container-fluid offer-section no-padding" >
+            <!-- container -->
+            <div class="container">
+                <!-- Section Header -->
+                <div class="section-header">
+                    <h3>Destinasi cultural experience</h3>
+                  
+                </div><!-- Section Header /- -->
+      
+                <div class="row"> 
+
+                @foreach($destinasi_cultural as $destinasi_culturals)
+
+                <div class="col-sm-3 section-header col-destinasi-culture" style="cursor:pointer" data-id="{{$destinasi_culturals->id_destinasi}}">
+          
+                      <img src="img/{{ $destinasi_culturals->foto_destinasi }}" alt="{{ $destinasi_culturals->nama_destinasi}}" class="img-responsive" >
+                 
+                       <center>
+                        <p>
+                            <b>{{ $destinasi_culturals->nama_destinasi}}</b><br>
+                        </p>
+                      </center>
+                
+                </div> 
+                <!-- / row -->
+
+                @endforeach
+
+               
+        
+
+              
+            </div><!-- container /- -->
+
+        </div>
+
+<!-- / destinasi cultural -->
         
 
     </main>
@@ -356,5 +404,41 @@
 
 
 @endsection
+@section('scripts')
+<script type="text/javascript">
+    
+    $(".col-destinasi-culture").click(function() {
+    $('html,body').animate({
+        scrollTop: $(".site-main").offset().top},
+        'slow');
+    var tujuan = $(this).attr('data-id');
+  
+    $("#pilihan").val('2');
+    $("#tujuan").val(tujuan);
+   
+    $("#span_cultur").hide();
+    $("#datepicker1").attr("placeholder","TANGGAL");
+    $('.selectpicker').selectpicker('refresh');
 
+    });
+
+    $(".col-destinasi-homestay").click(function() {
+    $('html,body').animate({
+        scrollTop: $(".site-main").offset().top},
+        'slow');
+    var tujuan = $(this).attr('data-id');
+ 
+
+    $("#pilihan").val('1');
+    $("#tujuan").val(tujuan);
+  
+    $("#span_cultur").show();
+    $("#datepicker1").attr("placeholder","DARI TANGGAL");
+
+    $('.selectpicker').selectpicker('refresh');
+
+    });
+</script>
+
+@endsection
  
