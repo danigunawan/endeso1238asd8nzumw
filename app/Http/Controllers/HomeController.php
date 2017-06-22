@@ -54,33 +54,20 @@ class HomeController extends Controller
         $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
         $tanggal_sampai_tanggal = date('Y-m-d', $besok);
 
-        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
-        $setting_halaman_culture = SettingHalamanCulture::first();
+        $homestay = Kamar::with('rumah','destinasi')->limit(4)->inRandomOrder()->get();
+        $cultural = Kategori::with('destinasi')->limit(4)->inRandomOrder()->get();
 
-      //SELECT TABLE KATEGORI (Menamgbil id dan nama kategorinya atau aktivitas)
-        $kategori_1 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_1)->first();
-        $kategori_2 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_2)->first();
-        $kategori_3 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_3)->first();
-        $kategori_4 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_4)->first();
+        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->limit(4)->inRandomOrder()->groupBy('id_destinasi')->get();
 
-      //SELECT TABLE WARGA (Menamgbil harga endeso dan harga pemilik)
-        $warga_1 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_1->id)->inRandomOrder()->first();
-        $warga_2 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_2->id)->inRandomOrder()->first();
-        $warga_3 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_3->id)->inRandomOrder()->first();
-        $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
+        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->limit(4)->inRandomOrder()->groupBy('destinasi_kategori')->get();
 
-      //SELECT TABLE DESTINASI (Menamgbil nama destinasi)
-        $destinasi_1 = Destinasi::select('nama_destinasi')->where('id',$kategori_1->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_2 = Destinasi::select('nama_destinasi')->where('id',$kategori_2->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_3 = Destinasi::select('nama_destinasi')->where('id',$kategori_3->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_4 = Destinasi::select('nama_destinasi')->where('id',$kategori_4->destinasi_kategori)->inRandomOrder()->first();
-
+ 
         //MENAMPILKAN FOTO SEEDER
         $setting_foto_home = SettingFotoHome::first();
 
 
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4,'setting_foto_home'=>$setting_foto_home]);
+        return view('welcome', ['homestay' => $homestay,'cultural' => $cultural,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_foto_home'=>$setting_foto_home,'destinasi_homestay' => $destinasi_homestay,'destinasi_cultural' => $destinasi_cultural]);
  
     }
 
