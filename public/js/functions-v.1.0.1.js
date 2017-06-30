@@ -125,13 +125,15 @@
 		var height	=	$(window).height();
 
 		/*** set sticky menu ***/
-		if( scroll >= height )
+		if( scroll > 0 )
 		{
-			$(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 2000 ).fadeIn();
+			$(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 200 ).fadeIn();
+			$("#logo-endeso").attr('src','images/logo-mobile.png');
 		}
 		else if ( scroll <= height )
 		{
 			$(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
+			$("#logo-endeso").attr('src','images/logo.png');
 		}
 		else
 		{
