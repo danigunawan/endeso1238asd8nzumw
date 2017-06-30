@@ -701,17 +701,36 @@ class HomeController extends Controller
                   'tujuan'        => 'required',
                   'jumlah_orang'  => 'required'
                   ]);
+
+            //penentuan urutan harga homestay
+            if (isset($request->urutan)) {
+              
+              $urutan = $request->urutan;
+            }
+            else {
+              $urutan = 0;
+            }
+
+            // urutkan dari yang paling murah
+            if ($urutan == 0) {
+              $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
+                  $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
+              })->orderByRaw('harga_endeso + harga_pemilik ASC')->get(); 
+            }
+            // urutkan dari yang paling mahal
+            elseif ($urutan == 1) {
+              $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
+                  $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
+              })->orderByRaw('harga_endeso + harga_pemilik DESC')->get(); 
+            }
             
-            $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
-                $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
-            })->get();  
+        
 
             $tampil_kamar = '';   
             $hitung = 0;
 
-          
+            $lokasi_kamar = array();
 
-   
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
          
                 $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
@@ -726,54 +745,108 @@ class HomeController extends Controller
                         // untuk menghitung berapa kamar yang akan tampil
                         $hitung = $hitung + 1;
 
-                        $tampil_kamar .= "<div class='col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail'>
-                                            <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
-                                              <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
+                        if ($kamars->judul_peta != NULL AND $kamars->latitude != NULL AND $kamars->longitude != NULL) {
+                          array_push($lokasi_kamar, ['judul_peta' => $kamars->judul_peta,'latitude' => $kamars->latitude,'longitude' => $kamars->longitude ]);
+                        }
 
-                                              <span><a href='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>Pesan</a></span>
-                                            </div>
-                                            <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
-                                              <h4>".$kamars->rumah->nama_pemilik."</h4>
-                                              <p>".$kamars->deskripsi ."</p>
-                                              <h6><b><sup>RP</sup>".$harga_kamar."</b><span>";
+           
 
+                        $tampil_kamar .= "<div class='row list-homestay' style='margin-bottom:10px;'>
+                        
+                            <div class='col-md-4 col-sm-4 col-xs-4 no-padding '>
+                              <a href='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>";
+                        $tampil_kamar .=  "<div id='list-homestay-".$kamars->id_kamar."' class='carousel slide' data-ride='carousel'>
+
+
+                      <div class='carousel-inner'>
+                        <div class='item active'>
+                          <img src='img/".$kamars->foto1."' alt='Los Angeles'>
+                        </div>";
+                        if ($kamars->foto2 != NULL) {
+                           $tampil_kamar .= "<div class='item'>
+                          <img src='img/".$kamars->foto2."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                        }
+
+                        if ($kamars->foto3 != NULL) {
+                          $tampil_kamar .=  "<div class='item'>
+                          <img src='img/".$kamars->foto3."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                         
+                          }
+                        if ($kamars->foto4 != NULL) {
+
+                          $tampil_kamar .= "<div class='item'>
+                          <img src='img/".$kamars->foto4."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                          }
+
+                        if ($kamars->foto5 != NULL) {
+                          $tampil_kamar .="<div class='item'>
+                          <img src='img/".$kamars->foto5."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                          }
+           $tampil_kamar .= "</div> <!-- / carousel-inner -->
+
+                      <!-- Left and right controls -->
+                      <a class='left carousel-control' href='#list-homestay-".$kamars->id_kamar."' data-slide='prev'>
+                        <span class='glyphicon glyphicon-chevron-left'></span>
+                        <span class='sr-only'>Previous</span>
+                      </a>
+                      <a class='right carousel-control' href='#list-homestay-".$kamars->id_kamar."' data-slide='next'>
+                        <span class='glyphicon glyphicon-chevron-right'></span>
+                        <span class='sr-only'>Next</span>
+                      </a>
+                    </div>";
+
+                    $tampil_kamar .= "
+                      </a>
+                    </div> <!-- / carousel slide -->
+                        <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
+                            <h4>".$kamars->rumah->nama_pemilik."</h4>
+                            <p>".$kamars->deskripsi ."</p>
+                            <h6><b><sup>RP</sup>". number_format($harga_kamar,0,',','.')."</b><span>";
+
+                              
+                                if ($kamars->tipe_harga ==  1) {
+                                
+                                   $tampil_kamar .=  "/Orang/Malam";
+                                }
+                                elseif ($kamars->tipe_harga ==  2) {
+                                     $tampil_kamar .=  "/Kamar/Malam";
+                                }
                                               
-                                                if ($kamars->tipe_harga ==  1) {
-                                                
-                                                   $tampil_kamar .=  "/Orang/Malam";
-                                                }
-                                                elseif ($kamars->tipe_harga ==  2) {
-                                                     $tampil_kamar .=  "/Kamar/Malam";
-                                                }
-                                              
 
-                                               $tampil_kamar .=  "</span></h6>
-                                              <span>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star-half-o'></i>
-                                              </span>
-                                            </div>
-                                          </div>";
+                           $tampil_kamar .=  "</span></h6>
+                          <span>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star-half-o'></i>
+                          </span>
+                        </div><!-- / hotel-detail-box -->
+                  
+                      </div> <!--/ row list-homestay -->
+                      <hr>
+                      ";
 
                     }////  if ($pesanan == 0)
             } // foreach ($kamar as $kamars)
             
                   // jika kapasitas nya tidak mencukupi
-                  if ($kamar->count() == "") { // if if ($kamar->count() == "")
+                  if ($kamar->count() == "") { 
                     Session::flash("flash_notification", [
                     "level"=>"danger",
                     "message"=>"mohon maaf tidak ada homestay yang mencukupi kapasitas yang anda inginkan"
                     ]);
-                  }// if if ($kamar->count() == "")
+                  }
                   else
-                  {// else if ($kamar->count() == "")
+                  {
                    
                      // jika kamar tidak ada yang tampil maka akan muncul alert
                   
-                      if ($hitung === 0) {// if ($hitung === 0)
+                      if ($hitung === 0) {
                          Session::flash("flash_notification", [
                         "level"=>"danger",
                         "message"=>"mohon maaf homestay di destinasi yang anda pilih sedang penuh, silahkan pilih tanggal lain"
@@ -782,9 +855,12 @@ class HomeController extends Controller
                       
                   }// else if ($kamar->count() == "")
 
+
+
              
-           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
-        }
+           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung,'lokasi_kamar' =>  $lokasi_kamar,'pilihan' => $request->pilihan,'dari_tanggal' => $request->dari_tanggal,'sampai_tanggal' => $request->sampai_tanggal,'tujuan' => $request->tujuan,'jumlah_orang' => $request->jumlah_orang,'urutan' => $urutan]);   
+
+            }
         else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
         {
 
