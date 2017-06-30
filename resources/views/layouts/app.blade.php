@@ -155,7 +155,7 @@
         <a id="top"></a>
         
     <!-- Header Section -->
-    <header id="header" class="header-section header-position container-fluid no-padding">
+    <header id="header" class="header-section header-position  no-padding">
 
          <!-- Menu Block -->
 
@@ -163,7 +163,7 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" id="logo-endeso" /></a></div>
                     <div class="col-md-9">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
@@ -403,6 +403,7 @@
     
     <!-- Library JS -->
     <script src="{{ asset('libraries/lib.js') }}"></script>
+    <script src="{{ asset('js/sticky-kit.js') }}"></script>
     <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
@@ -466,6 +467,7 @@
 
 
         });
+
 
        </script>
 
