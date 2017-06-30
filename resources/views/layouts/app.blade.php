@@ -408,7 +408,7 @@
     <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
     <!-- Library - Theme JS --> 
-    <script src="{{ asset('js/functions.js') }}"></script>
+    <script src="{{ asset('js/functions-v.1.0.1.js') }}"></script>
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
