@@ -54,12 +54,12 @@ class HomeController extends Controller
         $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
         $tanggal_sampai_tanggal = date('Y-m-d', $besok);
 
-        $homestay = Kamar::with('rumah','destinasi')->limit(4)->inRandomOrder()->get();
-        $cultural = Kategori::with('destinasi')->limit(4)->inRandomOrder()->get();
+        $homestay = Kamar::with('rumah','destinasi')->inRandomOrder()->get();
+        $cultural = Kategori::with('destinasi')->inRandomOrder()->get();
 
-        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->limit(4)->inRandomOrder()->groupBy('id_destinasi')->get();
+        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('id_destinasi')->get();
 
-        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->limit(4)->inRandomOrder()->groupBy('destinasi_kategori')->get();
+        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('destinasi_kategori')->get();
 
  
         //MENAMPILKAN FOTO SEEDER
@@ -800,7 +800,7 @@ class HomeController extends Controller
                     </div>";
 
                     $tampil_kamar .= "
-                      </a>
+                
                     </div> <!-- / carousel slide -->
                         <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                             <h4>".$kamars->rumah->nama_pemilik."</h4>
@@ -826,8 +826,10 @@ class HomeController extends Controller
                             <i class='fa fa-star-half-o'></i>
                           </span>
                         </div><!-- / hotel-detail-box -->
+
                   
                       </div> <!--/ row list-homestay -->
+                       </a>
                       <hr>
                       ";
 
@@ -901,12 +903,55 @@ class HomeController extends Controller
 
 
              $lis_cultural .= '
-                            <div class="recommended-detail">
-                              <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
-                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
-                                  <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
-                                  <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
-                                </div>
+                            <div class="row list-ce" style="margin-bottom:10px;">
+                             <a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
+                                <div class="col-md-4 col-sm-4 col-xs-4 no-padding ">';
+
+              $lis_cultural .=   "<div id='list-ce-".$kategoris->id."' class='carousel slide' data-ride='carousel'>
+
+
+                      <div class='carousel-inner'>
+                        <div class='item active'>
+                          <img src='img/".$kategoris->foto_kategori."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                        if ($kategoris->foto_kategori2 != NULL) {
+                           $lis_cultural .= "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori2."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                        }
+
+                        if ($kategoris->foto_kategori3 != NULL) {
+                          $lis_cultural .=  "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori3."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                         
+                          }
+                        if ($kategoris->foto_kategori4 != NULL) {
+
+                          $lis_cultural .= "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori4."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                          }
+
+                        if ($kategoris->foto_kategori5 != NULL) {
+                          $lis_cultural .="<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori5."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                          }
+           $lis_cultural .= "</div> <!-- / carousel-inner -->
+
+                      <!-- Left and right controls -->
+                      <a class='left carousel-control' href='#list-ce-".$kategoris->id."' data-slide='prev'>
+                        <span class='glyphicon glyphicon-chevron-left'></span>
+                        <span class='sr-only'>Previous</span>
+                      </a>
+                      <a class='right carousel-control' href='#list-ce-".$kategoris->id."' data-slide='next'>
+                        <span class='glyphicon glyphicon-chevron-right'></span>
+                        <span class='sr-only'>Next</span>
+                      </a>
+                    </div>";        
+                            
+              $lis_cultural .= '</div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
                                 <h6><b><sup>RP</sup>'. $string->rp($harga_cultural) .'</b><span>ribu / paket</span></h6>';
                                                                              
@@ -920,9 +965,12 @@ class HomeController extends Controller
                                     <i class="fa fa-star-half-o"></i>
                                   </span>
                                 </div>
-                              </div>
+                                </a>
+                               
+                           
                               
-                            </div>';
+                            </div>
+                            ';
               }
               
 
