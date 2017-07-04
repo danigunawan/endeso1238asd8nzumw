@@ -4,10 +4,94 @@
 
 <style type="text/css">
     
-    .carousel-inner{
+    .carousel-home{
   width:100%;
   max-height: 450px !important;
 }
+
+
+
+.iosSlider {
+  width: 100%;
+  height: 450px;
+}
+
+.iosSlider .slider {
+  width: 100%;
+  height: 100%;
+}
+
+@if ($agent->isMobile())
+
+.iosSlider .slider .item {
+  float: left;
+  width: 50%;
+
+  padding-right: 10px;
+}
+
+
+@else 
+
+.iosSlider .slider .item {
+  float: left;
+  width: 25%;
+
+  padding-right: 10px;
+}
+
+@endif
+
+.iosSliderCe {
+  width: 100%;
+  height: 450px;
+}
+
+.iosSliderCe .slider {
+  width: 100%;
+  height: 100%;
+}
+
+@if ($agent->isMobile())
+
+.iosSliderCe .slider .item {
+  float: left;
+  width: 50%;
+
+  padding-right: 10px;
+}
+
+
+@else 
+
+.iosSliderCe .slider .item {
+  float: left;
+  width: 25%;
+
+  padding-right: 10px;
+}
+
+@endif
+
+
+
+/* Next & previous buttons */
+.prev, .next {
+ 
+}
+
+
+.container-homestay .unselectable {
+  opacity: 0.2;
+}
+
+
+.contaier-homestay{
+
+  padding-bottom: 20px;
+}
+
+
 </style>
 
     
@@ -21,7 +105,7 @@
      
 
           <!-- Wrapper for slides -->
-          <div class="carousel-inner">
+          <div class="carousel-inner carousel-home">
             <div class="item active">
                @if (isset($setting_foto_home) && $setting_foto_home->foto_1) 
                                 {!! Html::image(asset('img/'.$setting_foto_home->foto_1), null, ['alt' => 'Slide']) !!} 
@@ -141,9 +225,11 @@
 
 
         <!-- homestay terbaik Section -->
-        <div class="container-fluid offer-section no-padding" >
+  
             <!-- container -->
-            <div class="container">
+            <div class="container container-homestay offer-section">
+
+       
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Homestay Terbaik</h3>
@@ -152,52 +238,18 @@
               
 
             
-                <div class="row"> 
+               <div class = 'iosSlider'>
+                   <div class = 'slider'>
 
                 @foreach($homestay as $homestays)
+
                     <a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">
-                   <div class="col-sm-3 list-penginapan section-header">
+                   <div class="item list-penginapan section-header">
 
-                   <div id="carousel-homestay-{{$homestays->id_kamar }}" class="carousel slide" data-ride="carousel">
-            
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
+                   <!-- carousel homestay -->
 
-                    <div class="item active">
                       <img src="img/{{ $homestays->foto1 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                    </div>
-                    @if($homestays->foto2 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $homestays->foto2 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                    </div>
-                    @endif
-                    @if($homestays->foto3 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $homestays->foto3 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                    </div>
-                    @endif  
-                    @if($homestays->foto4 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $homestays->foto4 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                    </div>
-                    @endif
-                    @if($homestays->foto5 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $homestays->foto5 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                    </div>
-                    @endif
-                  </div>
-
-                  <!-- Left and right controls -->
-                  <a class="left carousel-control" href="#carousel-homestay-{{$homestays->id_kamar }}" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#carousel-homestay-{{$homestays->id_kamar }}" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
+                   
                 <!-- / carousel homestay -->
                        <center>
                     <p>
@@ -216,24 +268,23 @@
                     
                         </center>
                 </div>
+                <!-- / div item -->
                 </a> 
-                <!-- / row -->
+     
 
                 @endforeach
 
-               
-        
+              </div>
+              <!-- / slider -->
+            </div>
+             <!-- / iosslider -->
 
-              
-            </div><!-- container /- -->
-
-        </div><!-- homestay terbaik  /- -->
+        </div><!-- container homestay terbaik  /- -->
 
 <!-- culture experience terbaik Section -->
       
-        <div class="container-fluid offer-section no-padding" >
-            <!-- container -->
-            <div class="container">
+        <div class="container offer-section " >
+          
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Culture Experience Terbaik</h3>
@@ -242,57 +293,22 @@
               
 
             
-                <div class="row"> 
+       
+
+                 <div class = 'iosSliderCe'>
+                   <div class = 'slider'>
 
                 @foreach($cultural as $culturals)
 
-                   <div class="col-sm-3 list-penginapan section-header">
+                   <div class="item section-header">
 
-                   <div id="carousel-cultural-{{$culturals->id }}" class="carousel slide" data-ride="carousel">
-            
-                  <!-- Wrapper for slides -->
-                  <div class="carousel-inner">
-
-                    <div class="item active">
+                 
                       <img src="img/{{ $culturals->foto_kategori }}" alt="{{ $culturals->nama_aktivitas}}">
-                    </div>
-                    @if($culturals->foto_kategori2 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $culturals->foto_kategori2 }}" alt="{{ $culturals->nama_aktivitas}}">
-                    </div>
-                    @endif
-                    @if($culturals->foto_kategori3 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $culturals->foto_kategori3 }}" alt="{{ $culturals->nama_aktivitas}}">
-                    </div>
-                    @endif  
-                    @if($culturals->foto_kategori4 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $culturals->foto_kategori4 }}" alt="{{ $culturals->nama_aktivitas}}">
-                    </div>
-                    @endif
-                    @if($culturals->foto_kategori5 != NULL)
-                    <div class="item">
-                      <img src="img/{{ $culturals->foto_kategori5 }}" alt="{{ $culturals->rumah->nama_aktivitas}}">
-                    </div>
-                    @endif
-                  </div>
-
-                  <!-- Left and right controls -->
-                  <a class="left carousel-control" href="#carousel-cultural-{{$culturals->id }}" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#carousel-cultural-{{$culturals->id }}" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </div>
+                   
                 <!-- / carousel homestay -->
                        <center>
                     <p>
 
-               
                     <!-- <b>Rp {{ number_format($culturals->harga_endeso + $culturals->harga_pemilik,0,',','.')  }} </b> /Paket -->
                  
                         <b>{{ $culturals->nama_aktivitas}}</b><br>
@@ -306,21 +322,19 @@
 
                 @endforeach
 
-               
-        
-
-              
-            </div><!-- container /- -->
-
+                </div>
+                <!-- / slider -->
+                </div>
+                <!-- / iosslider -->
+ 
         </div>
 
 <!-- /culture experience terbaik  /- -->
 
 <!-- destinasi homestay -->
 
-   <div class="container-fluid offer-section no-padding" >
-            <!-- container -->
-            <div class="container">
+   <div class="container offer-section " >
+
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Destinasi Homestay</h3>
@@ -329,11 +343,13 @@
               
 
             
-                <div class="row"> 
+             <div class = 'iosSliderCe'>
+                   <div class = 'slider'>
+
 
                 @foreach($destinasi_homestay as $destinasi_homestays)
 
-                <div class="col-sm-3 section-header col-destinasi-homestay" style="cursor:pointer" data-id="{{ $destinasi_homestays->id_destinasi }}">
+                <div class="item section-header col-destinasi-homestay" style="cursor:pointer" data-id="{{ $destinasi_homestays->id_destinasi }}">
           
                       <img src="img/{{ $destinasi_homestays->foto_destinasi }}" alt="{{ $destinasi_homestays->nama_destinasi}}" class="img-responsive" >
                  
@@ -348,11 +364,11 @@
 
                 @endforeach
 
-               
-        
-
-              
-            </div><!-- container /- -->
+                </div>
+                <!-- /slider -->
+                </div>
+                <!-- / iosslider -->
+         
 
         </div>
 
@@ -360,20 +376,21 @@
 
 <!-- destinasi cultural -->
 
-   <div class="container-fluid offer-section no-padding" >
-            <!-- container -->
-            <div class="container">
+   <div class="container offer-section" >
+            
                 <!-- Section Header -->
                 <div class="section-header">
                     <h3>Destinasi cultural experience</h3>
                   
                 </div><!-- Section Header /- -->
       
-                <div class="row"> 
+             <div class = 'iosSliderCe'>
+                   <div class = 'slider'>
+
 
                 @foreach($destinasi_cultural as $destinasi_culturals)
 
-                <div class="col-sm-3 section-header col-destinasi-culture" style="cursor:pointer" data-id="{{$destinasi_culturals->id_destinasi}}">
+                <div class="item section-header col-destinasi-culture" style="cursor:pointer" data-id="{{$destinasi_culturals->id_destinasi}}">
           
                       <img src="img/{{ $destinasi_culturals->foto_destinasi }}" alt="{{ $destinasi_culturals->nama_destinasi}}" class="img-responsive" >
                  
@@ -387,6 +404,11 @@
                 <!-- / row -->
 
                 @endforeach
+
+                </div>
+                <!-- slider -->
+                </div>
+                <!-- / iosslider -->
 
                
         
@@ -438,6 +460,67 @@
     $('.selectpicker').selectpicker('refresh');
 
     });
+
+
+      $(document).ready(function() {
+        
+        $('.iosSlider').iosSlider({
+          snapToChildren: true,
+          desktopClickDrag: true,
+          keyboardControls: true,
+          onSliderLoaded: sliderTest,
+          onSlideStart: sliderTest,
+          onSlideComplete: slideComplete,
+          navNextSelector: $('.next'),
+          navPrevSelector: $('.prev'),
+          autoSlide : true,
+          infiniteSlider : true,
+          scrollbar:true,
+          autoSlideTimer :3000,
+        });
+      $('.iosSliderCe').iosSlider({
+          snapToChildren: true,
+          desktopClickDrag: true,
+          keyboardControls: true,
+          onSliderLoaded: sliderTest,
+          onSlideStart: sliderTest,
+          onSlideComplete: slideComplete,
+          navNextSelector: $('.next'),
+          navPrevSelector: $('.prev'),
+          autoSlide : true,
+          infiniteSlider : true,
+          scrollbar:true,
+          autoSlideTimer :3000,
+        });
+
+     
+        $('i:contains("version")').html('');
+        
+      });
+      
+      function sliderTest(args) {
+        try {
+          console.log(args);
+        } catch(err) {
+        }
+      }
+      
+      function slideComplete(args) {
+        
+        $('.next, .prev').removeClass('unselectable');
+
+          if(args.currentSlideNumber == 1) {
+      
+              $('.prev').addClass('unselectable');
+      
+          } else if(args.currentSliderOffset == args.data.sliderMax) {
+      
+              $('.next').addClass('unselectable');
+      
+          }
+      
+      }
+
 </script>
 
 @endsection
