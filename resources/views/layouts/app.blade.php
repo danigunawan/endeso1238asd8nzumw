@@ -422,6 +422,8 @@
      
     <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
     <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+    <script src="{{ asset('js/jquery.easing-1.3.js') }} "></script>
+    <script src="{{ asset('js/jquery.iosslider.js') }} "></script>
 
 
 
