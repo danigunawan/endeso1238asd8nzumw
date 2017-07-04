@@ -187,7 +187,7 @@
                          {!! $tampil_kamar !!}
                         </div>
                         <div  class="col-sm-4 map-list-homestay">
-                        <div id="map-list-homestay" style="width: 100%; height: 200px;">
+                        <div id="map-list-homestay" style="width: 100%; height: 350px;">
                             
                         </div>
 
@@ -237,9 +237,9 @@
 
 
       @if($loop->last)
-        ['{{ $data['judul_peta'] }}',{{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}}]
+        ['{{ $data['judul_peta'] }}',{{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}},'detail-penginapan/{{ $data['id_kamar']}}/{{ $dari_tanggal}}/{{ $sampai_tanggal }}/{{$jumlah_orang}}','{{ $data['nama_pemilik']}}','{{  number_format($data['harga'],0,',','.')}}','{{ $data['sistem_harga']}}','{{ $data['gambar']}}','{{ $data['kapasitas']}}']
       @else 
-       ['{{ $data['judul_peta'] }}', {{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}}],
+       ['{{ $data['judul_peta'] }}', {{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}},'detail-penginapan/{{ $data['id_kamar']}}/{{ $dari_tanggal}}/{{ $sampai_tanggal }}/{{$jumlah_orang}}','{{ $data['nama_pemilik']}}','{{  number_format($data['harga'],0,',','.')}}','{{ $data['sistem_harga']}}','{{ $data['gambar']}}','{{ $data['kapasitas']}}'],
       @endif
 
    
@@ -268,12 +268,33 @@
       //extend the bounds to include each marker's position
   bounds.extend(marker.position);
 
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
         return function() {
-          infowindow.setContent(locations[i][0]);
+
+          var content = '<h3>'+locations[i][0]+'</h3><h5>'+ locations[i][5]+'</h5> Rp. '+locations[i][6]+' ';
+
+          if (locations[i][7] == 1) {
+            content += "/Orang/Malam";
+          }
+          else if (locations[i][7] == 2) {
+             content += "/Kamar/Malam";
+          }
+          content += '<br> <span class="glyphicon glyphicon-user"></span> '+locations[i][9]+''
+
+
+          infowindow.setContent(content);
           infowindow.open(map, marker);
         }
+      })(marker, i)); 
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+
+          window.location.href = locations[i][4];
+        }
       })(marker, i));
+
+
     }
 
     map.fitBounds(bounds);

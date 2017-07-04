@@ -746,7 +746,7 @@ class HomeController extends Controller
                         $hitung = $hitung + 1;
 
                         if ($kamars->judul_peta != NULL AND $kamars->latitude != NULL AND $kamars->longitude != NULL) {
-                          array_push($lokasi_kamar, ['judul_peta' => $kamars->judul_peta,'latitude' => $kamars->latitude,'longitude' => $kamars->longitude ]);
+                          array_push($lokasi_kamar, ['judul_peta' => $kamars->judul_peta,'latitude' => $kamars->latitude,'longitude' => $kamars->longitude ,'id_kamar' => $kamars->id_kamar,'harga' => $kamars->harga_endeso + $kamars->harga_pemilik,'nama_pemilik' => $kamars->rumah->nama_pemilik ,'sistem_harga' => $kamars->tipe_harga,'gambar' => $kamars->foto1,'kapasitas' => $kamars->kapasitas]);
                         }
 
            
@@ -858,9 +858,12 @@ class HomeController extends Controller
                   }// else if ($kamar->count() == "")
 
 
+                  $string = new StringController();
+
+
 
              
-           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung,'lokasi_kamar' =>  $lokasi_kamar,'pilihan' => $request->pilihan,'dari_tanggal' => $request->dari_tanggal,'sampai_tanggal' => $request->sampai_tanggal,'tujuan' => $request->tujuan,'jumlah_orang' => $request->jumlah_orang,'urutan' => $urutan]);   
+           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung,'lokasi_kamar' =>  $lokasi_kamar,'pilihan' => $request->pilihan,'dari_tanggal' => $string->tanggal_mysql($request->dari_tanggal),'sampai_tanggal' => $string->tanggal_mysql($request->sampai_tanggal),'tujuan' => $request->tujuan,'jumlah_orang' => $request->jumlah_orang,'urutan' => $urutan]);   
 
             }
         else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
