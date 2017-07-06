@@ -893,13 +893,20 @@ class HomeController extends Controller
             }
             $jumlah_warga = 0;
 
+            $data_warga = array();
+
             foreach ($kategori->get() as $kategoris ) {
                # code... 
 
 
-              $warga = Warga::select('harga_endeso','harga_pemilik')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
+              $warga = Warga::select('harga_endeso','harga_pemilik','nama_warga','harga_endeso','harga_pemilik','latitude','longitude','kapasitas')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
               if ($warga->count() > 0){
-                # code...
+
+                array_push($data_warga,['nama_warga' => $warga->first()->nama_warga,'nama_kategori' => $kategoris->nama_aktivitas,'harga' =>$string->rp($warga->first()->harga_endeso + $warga->first()->harga_pemilik),'latitude' => $warga->first()->latitude,'longitude' => $warga->first()->longitude,'kapasitas' => $warga->first()->kapasitas,'id_kategori' => $kategoris->id ]);
+
+
+             
+   
               $jumlah_warga++;
 
               $harga_cultural = $warga->first()->harga_endeso + $warga->first()->harga_pemilik;
@@ -988,7 +995,7 @@ class HomeController extends Controller
               ]);
              }
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga]);
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga,'dari_tanggal' => $string->tanggal_mysql($request->dari_tanggal),'jumlah_orang' => $request->jumlah_orang,'data_warga' => $data_warga]);
 
         }
 

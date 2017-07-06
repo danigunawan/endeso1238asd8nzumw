@@ -168,7 +168,10 @@
                     {!! $lis_cultural !!}
                     </div>
                     <div  class="col-md-4 map-list-homestay">
-                
+                   <div id="map-list-homestay" style="width: 100%; height: 350px;">
+                            
+                        </div>
+
                     </div>
                             
                 </div>
@@ -199,6 +202,75 @@
     offset_top: 90 });  
 
 @endif
+
+
+
+
+    // script google map
+
+    var locations = [
+    @foreach($data_warga as $data)
+
+
+      @if($loop->last)
+        ['{{ $data['nama_warga'] }}',{{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}},'detail-cultural/{{ $data['id_kategori']}}/{{ $dari_tanggal}}/{{$jumlah_orang}}','{{ $data['nama_kategori']}}','{{  $data['harga']}}','{{ $data['kapasitas']}}']
+      @else 
+       ['{{ $data['nama_warga'] }}', {{ $data['latitude']}}, {{ $data['longitude']}}, {{$loop->iteration}},'detail-cultural/{{ $data['id_kategori']}}/{{ $dari_tanggal}}/{{$jumlah_orang}}','{{ $data['nama_kategori']}}','{{  $data['harga']}}','{{ $data['kapasitas']}}'],
+      @endif
+
+   
+     
+    @endforeach
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map-list-homestay'), {
+      zoom: 10
+
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    //create empty LatLngBounds object
+    var bounds = new google.maps.LatLngBounds();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      //extend the bounds to include each marker's position
+  bounds.extend(marker.position);
+
+      google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+        return function() {
+
+          var content = '<center><h3>'+locations[i][0]+'</h3><h5>'+ locations[i][5]+'</h5> Rp. '+locations[i][6]+' ';
+
+   
+            content += "/Paket";
+       
+          content += '<br> <span class="glyphicon glyphicon-user"></span> '+locations[i][7]+'</center>'
+
+
+          infowindow.setContent(content);
+          infowindow.open(map, marker);
+        }
+      })(marker, i)); 
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+
+          window.location.href = locations[i][4];
+        }
+      })(marker, i));
+
+
+    }
+
+    map.fitBounds(bounds);
 
 
 </script>
