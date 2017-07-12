@@ -11,7 +11,7 @@
 
 
 
-.iosSlider {
+.iosSlider{
   width: 100%;
   height: 450px;
 }
@@ -42,43 +42,7 @@
 
 @endif
 
-.iosSliderCe {
-  width: 100%;
-  height: 450px;
-}
 
-.iosSliderCe .slider {
-  width: 100%;
-  height: 100%;
-}
-
-@if ($agent->isMobile())
-
-.iosSliderCe .slider .item {
-  float: left;
-  width: 50%;
-
-  padding-right: 10px;
-}
-
-
-@else 
-
-.iosSliderCe .slider .item {
-  float: left;
-  width: 25%;
-
-  padding-right: 10px;
-}
-
-@endif
-
-
-
-/* Next & previous buttons */
-.prev, .next {
- 
-}
 
 
 .container-homestay .unselectable {
@@ -91,6 +55,20 @@
   padding-bottom: 20px;
 }
 
+@if (!$agent->isMobile())
+
+ .glyphicon-chevron-left {
+    font-size: 50px;
+    margin-top: 75%;
+}
+
+ .glyphicon-chevron-right {
+    font-size: 50px;
+    margin-top: 75%;
+}
+
+
+@endif
 
 </style>
 
@@ -237,8 +215,17 @@
                 </div><!-- Section Header /- -->
               
 
+             <div class="row">
+               <div class="col-sm-1">
+               @if (!$agent->isMobile())
+
+                    <span class="glyphicon glyphicon-chevron-left prev-homestay"></span>
+                @endif     
+               </div>
+
             
-               <div class = 'iosSlider'>
+              <div class="col-sm-10">
+               <div class = 'iosSliderHomestay iosSlider '>
                    <div class = 'slider'>
 
                 @foreach($homestay as $homestays)
@@ -278,7 +265,16 @@
               <!-- / slider -->
             </div>
              <!-- / iosslider -->
-
+             </div>
+              <div class="col-sm-1">
+              @if (!$agent->isMobile())
+                   <span class="glyphicon glyphicon-chevron-right next-homestay"></span>  
+              @endif 
+               </div>
+          </div>
+          <!-- / div row -->
+          
+    
         </div><!-- container homestay terbaik  /- -->
 
 <!-- culture experience terbaik Section -->
@@ -294,8 +290,15 @@
 
             
        
+             <div class="row">
+               <div class="col-sm-1">
+               @if (!$agent->isMobile())
 
-                 <div class = 'iosSliderCe'>
+                    <span class="glyphicon glyphicon-chevron-left prev-ce"></span>
+                @endif     
+               </div>
+               <div class="col-sm-10">
+                 <div class = 'iosSliderCe iosSlider'>
                    <div class = 'slider'>
 
                 @foreach($cultural as $culturals)
@@ -305,7 +308,7 @@
                  
                       <img src="img/{{ $culturals->foto_kategori }}" alt="{{ $culturals->nama_aktivitas}}">
                    
-                <!-- / carousel homestay -->
+ 
                        <center>
                     <p>
 
@@ -326,9 +329,17 @@
                 <!-- / slider -->
                 </div>
                 <!-- / iosslider -->
+              </div>
+             <div class="col-sm-1">
+              @if (!$agent->isMobile())
+                   <span class="glyphicon glyphicon-chevron-right next-ce"></span>  
+              @endif 
+               </div>
+        
+          
  
         </div>
-
+    <!-- / div row -->
 <!-- /culture experience terbaik  /- -->
 
 <!-- destinasi homestay -->
@@ -342,8 +353,17 @@
                 </div><!-- Section Header /- -->
               
 
+             <div class="row">
+               <div class="col-sm-1">
+               @if (!$agent->isMobile())
+
+                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-homestay"></span>
+                @endif     
+               </div>
+               <div class="col-sm-10">
+
             
-             <div class = 'iosSliderCe'>
+             <div class = 'iosSliderDestinasiHomestay iosSlider'>
                    <div class = 'slider'>
 
 
@@ -369,7 +389,14 @@
                 </div>
                 <!-- / iosslider -->
          
-
+            </div>
+             <div class="col-sm-1">
+              @if (!$agent->isMobile())
+                   <span class="glyphicon glyphicon-chevron-right next-destinasi-homestay"></span>  
+              @endif 
+               </div>
+       </div>
+    <!-- / div row -->
         </div>
 
 <!-- / destinasi homestay -->
@@ -383,8 +410,18 @@
                     <h3>Destinasi cultural experience</h3>
                   
                 </div><!-- Section Header /- -->
+
+                  <div class="row">
+               <div class="col-sm-1">
+               @if (!$agent->isMobile())
+
+                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-ce"></span>
+                @endif     
+               </div>
+               <div class="col-sm-10">
+
       
-             <div class = 'iosSliderCe'>
+             <div class = 'iosSliderDestinasiCe iosSlider'>
                    <div class = 'slider'>
 
 
@@ -409,6 +446,14 @@
                 <!-- slider -->
                 </div>
                 <!-- / iosslider -->
+                </div>
+                <div class="col-sm-1">
+              @if (!$agent->isMobile())
+                   <span class="glyphicon glyphicon-chevron-right next-destinasi-ce"></span>  
+              @endif 
+               </div>
+       </div>
+    <!-- / div row -->
 
                
         
@@ -464,62 +509,59 @@
 
       $(document).ready(function() {
         
-        $('.iosSlider').iosSlider({
+        $('.iosSliderHomestay').iosSlider({
           snapToChildren: true,
-          desktopClickDrag: true,
           keyboardControls: true,
-          onSliderLoaded: sliderTest,
-          onSlideStart: sliderTest,
-          onSlideComplete: slideComplete,
-          navNextSelector: $('.next'),
-          navPrevSelector: $('.prev'),
-          autoSlide : true,
-          infiniteSlider : true,
-          scrollbar:true,
-          autoSlideTimer :3000,
-        });
-      $('.iosSliderCe').iosSlider({
-          snapToChildren: true,
-          desktopClickDrag: true,
-          keyboardControls: true,
-          onSliderLoaded: sliderTest,
-          onSlideStart: sliderTest,
-          onSlideComplete: slideComplete,
-          navNextSelector: $('.next'),
-          navPrevSelector: $('.prev'),
+           desktopClickDrag: true,
+          navNextSelector: $('.next-homestay'),
+          navPrevSelector: $('.prev-homestay'),
           autoSlide : true,
           infiniteSlider : true,
           scrollbar:true,
           autoSlideTimer :3000,
         });
 
-     
+        $('.iosSliderCe').iosSlider({
+          snapToChildren: true,
+          keyboardControls: true,
+           desktopClickDrag: true,
+          autoSlide : true, 
+          navNextSelector: $('.next-ce'),
+          navPrevSelector: $('.prev-ce'),
+          infiniteSlider : true,
+          scrollbar:true,
+          autoSlideTimer :3000,
+        });
+        $('.iosSliderDestinasiHomestay').iosSlider({
+          snapToChildren: true,
+          keyboardControls: true,
+           desktopClickDrag: true,
+          autoSlide : true, 
+          navNextSelector: $('.next-destinasi-homestay'),
+          navPrevSelector: $('.prev-destinasi-homestay'),
+          infiniteSlider : true,
+          scrollbar:true,
+          autoSlideTimer :3000,
+        });
+      $('.iosSliderDestinasiCe').iosSlider({
+          snapToChildren: true,
+          keyboardControls: true,
+           desktopClickDrag: true,
+          autoSlide : true, 
+          navNextSelector: $('.next-destinasi-ce'),
+          navPrevSelector: $('.prev-destinasi-ce'),
+          infiniteSlider : true,
+          scrollbar:true,
+          autoSlideTimer :3000,
+        });
+      
         $('i:contains("version")').html('');
         
       });
       
-      function sliderTest(args) {
-        try {
-          console.log(args);
-        } catch(err) {
-        }
-      }
+     
       
-      function slideComplete(args) {
-        
-        $('.next, .prev').removeClass('unselectable');
-
-          if(args.currentSlideNumber == 1) {
       
-              $('.prev').addClass('unselectable');
-      
-          } else if(args.currentSliderOffset == args.data.sliderMax) {
-      
-              $('.next').addClass('unselectable');
-      
-          }
-      
-      }
 
 </script>
 
