@@ -6,6 +6,7 @@
     
 .list-homestay:hover {
     background: #f2f2f2;
+      cursor: pointer; 
 }
 
 .booking-form {
@@ -30,7 +31,7 @@
       border-bottom:2px solid #000000;
 }
 .booking-form {
-    z-index: 1000;
+    z-index: 500;
     color:#000000;
 
   }
@@ -298,5 +299,13 @@
     }
 
     map.fitBounds(bounds);
+
+       $(".list-homestay").click(function(){
+      var url = $(this).attr('data-url');
+
+    window.location.href = url;
+
+        });
+
 </script>
     @endsection

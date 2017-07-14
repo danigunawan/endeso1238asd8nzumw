@@ -6,6 +6,7 @@
 
 .list-ce:hover {
     background: #f2f2f2;
+    cursor: pointer; 
 }
 
     
@@ -271,6 +272,14 @@
     }
 
     map.fitBounds(bounds);
+
+
+    $(".list-ce").click(function(){
+      var url = $(this).attr('data-url');
+
+window.location.href = url;
+
+    });
 
 
 </script>

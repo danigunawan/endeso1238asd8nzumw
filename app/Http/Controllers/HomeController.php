@@ -751,10 +751,10 @@ class HomeController extends Controller
 
            
 
-                        $tampil_kamar .= "<div class='row list-homestay' style='margin-bottom:10px;'>
+                        $tampil_kamar .= "<div class='row list-homestay' style='margin-bottom:10px;' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>
                         
                             <div class='col-md-4 col-sm-4 col-xs-4 no-padding '>
-                              <a href='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>";
+                             ";
                         $tampil_kamar .=  "<div id='list-homestay-".$kamars->id_kamar."' class='carousel slide' data-ride='carousel'>
 
 
@@ -802,6 +802,7 @@ class HomeController extends Controller
                     $tampil_kamar .= "
                 
                     </div> <!-- / carousel slide -->
+                    
                         <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
                             <h4>".$kamars->rumah->nama_pemilik."</h4>
                             <p>".$kamars->deskripsi ."</p>
@@ -826,10 +827,10 @@ class HomeController extends Controller
                             <i class='fa fa-star-half-o'></i>
                           </span>
                         </div><!-- / hotel-detail-box -->
-
+                     
                   
                       </div> <!--/ row list-homestay -->
-                       </a>
+                    
                       <hr>
                       ";
 
@@ -913,8 +914,8 @@ class HomeController extends Controller
 
 
              $lis_cultural .= '
-                            <div class="row list-ce" style="margin-bottom:10px;">
-                             <a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
+                            <div class="row list-ce" style="margin-bottom:10px;" data-url="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
+                            
                                 <div class="col-md-4 col-sm-4 col-xs-4 no-padding ">';
 
               $lis_cultural .=   "<div id='list-ce-".$kategoris->id."' class='carousel slide' data-ride='carousel'>
@@ -975,7 +976,7 @@ class HomeController extends Controller
                                     <i class="fa fa-star-half-o"></i>
                                   </span>
                                 </div>
-                                </a>
+                          
                                
                            
                               
