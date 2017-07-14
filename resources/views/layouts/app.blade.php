@@ -135,7 +135,13 @@
   background: #E74B37;
 }
 .big-checkbox {width: 3000000px; height: 3000000px;}
-.
+
+
+.dropdown-menu {
+      z-index: 1000;
+}
+
+
 
 </style>
 
@@ -163,7 +169,7 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" id="logo-endeso" /></a></div>
+                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ url('/images/logo.png') }}" alt="Logo" id="logo-endeso" /></a></div>
                     <div class="col-md-9">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
@@ -173,7 +179,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
+                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ url('/images/logo-mobile.png') }}"></a>
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
@@ -469,6 +475,39 @@
 
 
         });
+
+        /* ## Document Scroll - Window Scroll */
+      $( document ).scroll(function()
+      {
+        var scroll  = $(window).scrollTop();
+        var height  = $(window).height();
+
+        /*** set sticky menu ***/
+        if( scroll > 0 )
+        {
+          $(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 200 ).fadeIn();
+          $("#logo-endeso").attr('src','{{ url('/images/logo-mobile.png')}}');
+        }
+        else if ( scroll <= height )
+        {
+          $(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
+          $("#logo-endeso").attr('src','{{ url('/images/logo.png')}}');
+        }
+        else
+        {
+          $(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
+        } /* set sticky menu - end */
+
+        if ($(this).scrollTop() >= 50)
+        {
+          /* If page is scrolled more than 50px */
+          $('#back-to-top').fadeIn(200);    /* Fade in the arrow */
+        }
+        else
+        {
+          $('#back-to-top').fadeOut(200);   /* Else fade out the arrow */
+        }
+      });
 
 
        </script>

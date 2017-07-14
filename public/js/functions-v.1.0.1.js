@@ -118,38 +118,7 @@
 		});	
 	}
 	
-	/* ## Document Scroll - Window Scroll */
-	$( document ).scroll(function()
-	{
-		var scroll	= $(window).scrollTop();
-		var height	=	$(window).height();
-
-		/*** set sticky menu ***/
-		if( scroll > 0 )
-		{
-			$(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 200 ).fadeIn();
-			$("#logo-endeso").attr('src','images/logo-mobile.png');
-		}
-		else if ( scroll <= height )
-		{
-			$(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
-			$("#logo-endeso").attr('src','images/logo.png');
-		}
-		else
-		{
-			$(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
-		} /* set sticky menu - end */
-
-		if ($(this).scrollTop() >= 50)
-		{
-			/* If page is scrolled more than 50px */
-			$('#back-to-top').fadeIn(200);    /* Fade in the arrow */
-		}
-		else
-		{
-			$('#back-to-top').fadeOut(200);   /* Else fade out the arrow */
-		}
-	});
+	
 
 	$('#back-to-top').on("click", function()
 	{
