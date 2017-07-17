@@ -317,7 +317,7 @@
                         <b>{{ $culturals->nama_aktivitas}}</b><br>
                         {{ $culturals->destinasi->nama_destinasi}} 
                     </p>
-                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$culturals->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
+                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$culturals->id}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
                     
                         </center>
                 </div> 
