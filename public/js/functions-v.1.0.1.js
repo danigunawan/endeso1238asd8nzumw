@@ -118,36 +118,7 @@
 		});	
 	}
 	
-	/* ## Document Scroll - Window Scroll */
-	$( document ).scroll(function()
-	{
-		var scroll	= $(window).scrollTop();
-		var height	=	$(window).height();
-
-		/*** set sticky menu ***/
-		if( scroll >= height )
-		{
-			$(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 2000 ).fadeIn();
-		}
-		else if ( scroll <= height )
-		{
-			$(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
-		}
-		else
-		{
-			$(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
-		} /* set sticky menu - end */
-
-		if ($(this).scrollTop() >= 50)
-		{
-			/* If page is scrolled more than 50px */
-			$('#back-to-top').fadeIn(200);    /* Fade in the arrow */
-		}
-		else
-		{
-			$('#back-to-top').fadeOut(200);   /* Else fade out the arrow */
-		}
-	});
+	
 
 	$('#back-to-top').on("click", function()
 	{

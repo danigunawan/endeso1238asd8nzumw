@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
          Collective\Html\HtmlServiceProvider::class,
          Laratrust\LaratrustServiceProvider::class,
+         Jenssegers\Agent\AgentServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -183,6 +184,7 @@ return [
         Yajra\Datatables\HtmlServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Telegram\Bot\Laravel\TelegramServiceProvider::class,
+        App\Providers\AgentServiceProvider::class,
 
 
     ],
@@ -238,6 +240,7 @@ return [
         'Laratrust' => Laratrust\LaratrustFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
 
 
     ],

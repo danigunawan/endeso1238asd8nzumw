@@ -135,7 +135,13 @@
   background: #E74B37;
 }
 .big-checkbox {width: 3000000px; height: 3000000px;}
-.
+
+
+.dropdown-menu {
+      z-index: 1000;
+}
+
+
 
 </style>
 
@@ -155,7 +161,7 @@
         <a id="top"></a>
         
     <!-- Header Section -->
-    <header id="header" class="header-section header-position container-fluid no-padding">
+    <header id="header" class="header-section header-position  no-padding">
 
          <!-- Menu Block -->
 
@@ -163,7 +169,7 @@
             <!-- Container -->
             <div class="container">
                 <div class="row">
-                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ asset('images/logo.png') }}" alt="Logo" /></a></div>
+                <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ url('/images/logo.png') }}" alt="Logo" id="logo-endeso" /></a></div>
                     <div class="col-md-9">
                         <nav class="navbar navbar-default ow-navigation">
                             <div class="navbar-header">
@@ -173,7 +179,7 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ asset('images/logo-mobile.png') }}"></a>
+                                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ url('/images/logo-mobile.png') }}"></a>
                             </div>
                             <div class="navbar-collapse collapse" id="navbar">
                                 <ul class="nav navbar-nav">
@@ -188,8 +194,33 @@
                                   @endif
                                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                                     </li>
-                                    <li class="{{ Request::segment(1) === 'tentang-endeso' ? 'active' : null }}"><a href="{{ url('/tentang-endeso')}}" title="Tentang">Tentang Endeso</a></li>
-                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                 
+
+                                    <!-- nav tentang endeso -->
+                                    <li class="dropdown {{ Request::segment(1) === 'tentang-endeso-homestay' OR Request::segment(1) === 'tentang-endeso-ce' ? 'active' : null }}"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Tentang Endeso </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ url('/tentang-endeso-homestay')}}" title="Homestay">Homestay </a></li>
+                                             <li><a href="{{ url('/tentang-endeso-ce')}}" title="Culture Experience">Culture Experience</a></li>
+                                        </ul> 
+
+                                    </li>
+
+                            
+                                    <!-- nav cara pesan -->
+                                     <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
+                                             <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
+                                        </ul> 
+
+                                    </li>
+
+
                                     <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}"><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
                                     <li class="li-navbar">
@@ -211,7 +242,19 @@
                                     </li>
                                     <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
                                           
-                                    <li class="{{ Request::segment(1) === 'cara-pesan' ? 'active' : null }}"><a href="{{ url('/cara-pesan')}}" title="Tentang">Cara Pesan</a></li>
+                                   
+                                    <!-- nav cara pesan -->
+                                     <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
+                                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
+                                        <i class="ddl-switch fa fa-angle-down"></i> 
+                                        
+                                        <ul class="dropdown-menu"> 
+                                             <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
+                                             <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
+                                        </ul> 
+
+                                    </li>
+
                                     
                                     <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
@@ -366,11 +409,12 @@
     
     <!-- Library JS -->
     <script src="{{ asset('libraries/lib.js') }}"></script>
+    <script src="{{ asset('js/sticky-kit.js') }}"></script>
     <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
         
     <!-- Library - Theme JS --> 
-    <script src="{{ asset('js/functions.js') }}"></script>
+    <script src="{{ asset('js/functions-v.1.0.1.js') }}"></script>
 
     <script src="{{ asset('js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
@@ -384,6 +428,8 @@
      
     <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
     <script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+    <script src="{{ asset('js/jquery.easing-1.3.js') }} "></script>
+    <script src="{{ asset('js/jquery.iosslider.js') }} "></script>
 
 
 
@@ -429,6 +475,40 @@
 
 
         });
+
+        /* ## Document Scroll - Window Scroll */
+      $( document ).scroll(function()
+      {
+        var scroll  = $(window).scrollTop();
+        var height  = $(window).height();
+
+        /*** set sticky menu ***/
+        if( scroll > 0 )
+        {
+          $(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 200 ).fadeIn();
+          $("#logo-endeso").attr('src','{{ url('/images/logo-mobile.png')}}');
+        }
+        else if ( scroll <= height )
+        {
+          $(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
+          $("#logo-endeso").attr('src','{{ url('/images/logo.png')}}');
+        }
+        else
+        {
+          $(".header-section").removeClass("navbar-fixed-top animated fadeInDown");
+        } /* set sticky menu - end */
+
+        if ($(this).scrollTop() >= 50)
+        {
+          /* If page is scrolled more than 50px */
+          $('#back-to-top').fadeIn(200);    /* Fade in the arrow */
+        }
+        else
+        {
+          $('#back-to-top').fadeOut(200);   /* Else fade out the arrow */
+        }
+      });
+
 
        </script>
 

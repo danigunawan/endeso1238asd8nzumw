@@ -33,11 +33,19 @@ class SettingHalamanController extends Controller
                 })->editColumn('jenis_halaman', function($setting_halaman){
                         if ($setting_halaman->jenis_halaman == 1) {
                             # code...
-                            return 'Tentang Endeso';
+                            return 'Tentang Homestay';
                         }
                         elseif ($setting_halaman->jenis_halaman == 2) {
                             # code...
-                            return 'Cara Pesan';
+                            return 'Cara Pesan Homestay';
+                        } 
+                        elseif ($setting_halaman->jenis_halaman == 4) {
+                            # code...
+                            return 'Tentang Culture Experience';
+                        } 
+                        elseif ($setting_halaman->jenis_halaman == 5) {
+                            # code...
+                            return 'Cara Pesan Culture Experience';
                         }
 
                            elseif ($setting_halaman->jenis_halaman == 3) {

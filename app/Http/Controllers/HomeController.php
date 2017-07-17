@@ -54,49 +54,49 @@ class HomeController extends Controller
         $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
         $tanggal_sampai_tanggal = date('Y-m-d', $besok);
 
-        $homestay = Kamar::with('rumah')->limit(8)->inRandomOrder()->get();
-        $setting_halaman_culture = SettingHalamanCulture::first();
+        $homestay = Kamar::with('rumah','destinasi')->inRandomOrder()->get();
+        $cultural = Kategori::with('destinasi')->inRandomOrder()->get();
 
-      //SELECT TABLE KATEGORI (Menamgbil id dan nama kategorinya atau aktivitas)
-        $kategori_1 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_1)->first();
-        $kategori_2 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_2)->first();
-        $kategori_3 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_3)->first();
-        $kategori_4 = Kategori::select(['id', 'nama_aktivitas', 'destinasi_kategori'])->where('id',$setting_halaman_culture->kategori_4)->first();
+        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('id_destinasi')->get();
 
-      //SELECT TABLE WARGA (Menamgbil harga endeso dan harga pemilik)
-        $warga_1 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_1->id)->inRandomOrder()->first();
-        $warga_2 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_2->id)->inRandomOrder()->first();
-        $warga_3 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_3->id)->inRandomOrder()->first();
-        $warga_4 = Warga::select(['harga_endeso', 'harga_pemilik'])->where('id_kategori_culture',$kategori_4->id)->inRandomOrder()->first();
+        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('destinasi_kategori')->get();
 
-      //SELECT TABLE DESTINASI (Menamgbil nama destinasi)
-        $destinasi_1 = Destinasi::select('nama_destinasi')->where('id',$kategori_1->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_2 = Destinasi::select('nama_destinasi')->where('id',$kategori_2->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_3 = Destinasi::select('nama_destinasi')->where('id',$kategori_3->destinasi_kategori)->inRandomOrder()->first();
-        $destinasi_4 = Destinasi::select('nama_destinasi')->where('id',$kategori_4->destinasi_kategori)->inRandomOrder()->first();
-
+ 
         //MENAMPILKAN FOTO SEEDER
         $setting_foto_home = SettingFotoHome::first();
 
 
         //Mereturn (menampilkan) halaman yang ada difolder cultural -> list. (Passing $lis_cultural ke view atau tampilan cultural.list)
-        return view('welcome', ['homestay' => $homestay,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_halaman_culture' => $setting_halaman_culture, 'kategori_1'=>$kategori_1, 'kategori_2'=>$kategori_2, 'kategori_3'=>$kategori_3, 'kategori_4'=>$kategori_4, 'warga_1'=>$warga_1, 'warga_2'=>$warga_2, 'warga_3'=>$warga_3, 'warga_4'=>$warga_4, 'destinasi_1'=>$destinasi_1, 'destinasi_2'=>$destinasi_2, 'destinasi_3'=>$destinasi_3, 'destinasi_4'=>$destinasi_4,'setting_foto_home'=>$setting_foto_home]);
+        return view('welcome', ['homestay' => $homestay,'cultural' => $cultural,'tanggal' => $tanggal,'tanggal_sampai_tanggal' => $tanggal_sampai_tanggal, 'setting_foto_home'=>$setting_foto_home,'destinasi_homestay' => $destinasi_homestay,'destinasi_cultural' => $destinasi_cultural]);
  
     }
 
 
-      public function tentang()
+      public function tentang_homestay()
     {
         $setting_halaman = SettingHalaman::where('jenis_halaman',1)->first();
 
-        return view('tentang',['setting_halaman' => $setting_halaman]);
+        return view('tentang.homestay',['setting_halaman' => $setting_halaman]);
+    }  
+
+     public function tentang_ce()
+    {
+        $setting_halaman = SettingHalaman::where('jenis_halaman',4)->first();
+
+        return view('tentang.ce',['setting_halaman' => $setting_halaman]);
     }
 
-     public function cara_pesan()
+     public function cara_pesan_homestay()
     {
         $setting_halaman = SettingHalaman::where('jenis_halaman',2)->first();
 
-        return view('cara_pesan',['setting_halaman' => $setting_halaman]);
+        return view('cara_pesan.homestay',['setting_halaman' => $setting_halaman]);
+    } 
+     public function cara_pesan_ce()
+    {
+        $setting_halaman = SettingHalaman::where('jenis_halaman',5)->first();
+
+        return view('cara_pesan.ce',['setting_halaman' => $setting_halaman]);
     }
 
       public function kontak()
@@ -701,17 +701,36 @@ class HomeController extends Controller
                   'tujuan'        => 'required',
                   'jumlah_orang'  => 'required'
                   ]);
+
+            //penentuan urutan harga homestay
+            if (isset($request->urutan)) {
+              
+              $urutan = $request->urutan;
+            }
+            else {
+              $urutan = 0;
+            }
+
+            // urutkan dari yang paling murah
+            if ($urutan == 0) {
+              $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
+                  $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
+              })->orderByRaw('harga_endeso + harga_pemilik ASC')->get(); 
+            }
+            // urutkan dari yang paling mahal
+            elseif ($urutan == 1) {
+              $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
+                  $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
+              })->orderByRaw('harga_endeso + harga_pemilik DESC')->get(); 
+            }
             
-            $kamar = Kamar::with('rumah')->where('id_destinasi',$request->tujuan)->where(function ($query) use ($request){
-                $query->where('kapasitas',$request->jumlah_orang)->orwhere('kapasitas','>',$request->jumlah_orang);
-            })->get();  
+        
 
             $tampil_kamar = '';   
             $hitung = 0;
 
-          
+            $lokasi_kamar = array();
 
-   
             foreach ($kamar as $kamars) {// foreach ($kamar as $kamars)
          
                 $pesanan = PesananHomestay::status($kamars->id_kamar,$request->dari_tanggal,$request->sampai_tanggal)->count();
@@ -726,54 +745,111 @@ class HomeController extends Controller
                         // untuk menghitung berapa kamar yang akan tampil
                         $hitung = $hitung + 1;
 
-                        $tampil_kamar .= "<div class='col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail'>
-                                            <div class='col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box'>
-                                              <img src='img/".$kamars->foto1."' alt='Recommended' height='267' width='297' />
+                        if ($kamars->judul_peta != NULL AND $kamars->latitude != NULL AND $kamars->longitude != NULL) {
+                          array_push($lokasi_kamar, ['judul_peta' => $kamars->judul_peta,'latitude' => $kamars->latitude,'longitude' => $kamars->longitude ,'id_kamar' => $kamars->id_kamar,'harga' => $kamars->harga_endeso + $kamars->harga_pemilik,'nama_pemilik' => $kamars->rumah->nama_pemilik ,'sistem_harga' => $kamars->tipe_harga,'gambar' => $kamars->foto1,'kapasitas' => $kamars->kapasitas]);
+                        }
 
-                                              <span><a href='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>Pesan</a></span>
-                                            </div>
-                                            <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
-                                              <h4>".$kamars->rumah->nama_pemilik."</h4>
-                                              <p>".$kamars->deskripsi ."</p>
-                                              <h6><b><sup>RP</sup>".$harga_kamar."</b><span>";
+           
 
+                        $tampil_kamar .= "<div class='row list-homestay' style='margin-bottom:10px;' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>
+                        
+                            <div class='col-md-4 col-sm-4 col-xs-4 no-padding '>
+                             ";
+                        $tampil_kamar .=  "<div id='list-homestay-".$kamars->id_kamar."' class='carousel slide' data-ride='carousel'>
+
+
+                      <div class='carousel-inner'>
+                        <div class='item active'>
+                          <img src='img/".$kamars->foto1."' alt='Los Angeles'>
+                        </div>";
+                        if ($kamars->foto2 != NULL) {
+                           $tampil_kamar .= "<div class='item'>
+                          <img src='img/".$kamars->foto2."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                        }
+
+                        if ($kamars->foto3 != NULL) {
+                          $tampil_kamar .=  "<div class='item'>
+                          <img src='img/".$kamars->foto3."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                         
+                          }
+                        if ($kamars->foto4 != NULL) {
+
+                          $tampil_kamar .= "<div class='item'>
+                          <img src='img/".$kamars->foto4."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                          }
+
+                        if ($kamars->foto5 != NULL) {
+                          $tampil_kamar .="<div class='item'>
+                          <img src='img/".$kamars->foto5."' alt='".$kamars->rumah->nama_pemilik."'>
+                        </div>";
+                          }
+           $tampil_kamar .= "</div> <!-- / carousel-inner -->
+
+                      <!-- Left and right controls -->
+                      <a class='left carousel-control' href='#list-homestay-".$kamars->id_kamar."' data-slide='prev'>
+                        <span class='glyphicon glyphicon-chevron-left'></span>
+                        <span class='sr-only'>Previous</span>
+                      </a>
+                      <a class='right carousel-control' href='#list-homestay-".$kamars->id_kamar."' data-slide='next'>
+                        <span class='glyphicon glyphicon-chevron-right'></span>
+                        <span class='sr-only'>Next</span>
+                      </a>
+                    </div>";
+
+                    $tampil_kamar .= "
+                
+                    </div> <!-- / carousel slide -->
+                    
+                        <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
+                            <h4>".$kamars->rumah->nama_pemilik."</h4>
+                            <p>".$kamars->deskripsi ."</p>
+                            <h6><b><sup>RP</sup>". number_format($harga_kamar,0,',','.')."</b><span>";
+
+                              
+                                if ($kamars->tipe_harga ==  1) {
+                                
+                                   $tampil_kamar .=  "/Orang/Malam";
+                                }
+                                elseif ($kamars->tipe_harga ==  2) {
+                                     $tampil_kamar .=  "/Kamar/Malam";
+                                }
                                               
-                                                if ($kamars->tipe_harga ==  1) {
-                                                
-                                                   $tampil_kamar .=  "/Orang/Malam";
-                                                }
-                                                elseif ($kamars->tipe_harga ==  2) {
-                                                     $tampil_kamar .=  "/Kamar/Malam";
-                                                }
-                                              
 
-                                               $tampil_kamar .=  "</span></h6>
-                                              <span>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star'></i>
-                                                <i class='fa fa-star-half-o'></i>
-                                              </span>
-                                            </div>
-                                          </div>";
+                           $tampil_kamar .=  "</span></h6>
+                          <span>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star'></i>
+                            <i class='fa fa-star-half-o'></i>
+                          </span>
+                        </div><!-- / hotel-detail-box -->
+                     
+                  
+                      </div> <!--/ row list-homestay -->
+                    
+                      <hr>
+                      ";
 
                     }////  if ($pesanan == 0)
             } // foreach ($kamar as $kamars)
             
                   // jika kapasitas nya tidak mencukupi
-                  if ($kamar->count() == "") { // if if ($kamar->count() == "")
+                  if ($kamar->count() == "") { 
                     Session::flash("flash_notification", [
                     "level"=>"danger",
                     "message"=>"mohon maaf tidak ada homestay yang mencukupi kapasitas yang anda inginkan"
                     ]);
-                  }// if if ($kamar->count() == "")
+                  }
                   else
-                  {// else if ($kamar->count() == "")
+                  {
                    
                      // jika kamar tidak ada yang tampil maka akan muncul alert
                   
-                      if ($hitung === 0) {// if ($hitung === 0)
+                      if ($hitung === 0) {
                          Session::flash("flash_notification", [
                         "level"=>"danger",
                         "message"=>"mohon maaf homestay di destinasi yang anda pilih sedang penuh, silahkan pilih tanggal lain"
@@ -782,9 +858,15 @@ class HomeController extends Controller
                       
                   }// else if ($kamar->count() == "")
 
+
+                  $string = new StringController();
+
+
+
              
-           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung]);
-        }
+           return view('pencarian_homestay',['tampil_kamar'=>$tampil_kamar, 'hitung'=>$hitung,'lokasi_kamar' =>  $lokasi_kamar,'pilihan' => $request->pilihan,'dari_tanggal' => $string->tanggal_mysql($request->dari_tanggal),'sampai_tanggal' => $string->tanggal_mysql($request->sampai_tanggal),'tujuan' => $request->tujuan,'jumlah_orang' => $request->jumlah_orang,'urutan' => $urutan]);   
+
+            }
         else        // JIKA PILIHAN DESTINASI NYA CULTUR EXPERIENCE
         {
 
@@ -812,25 +894,75 @@ class HomeController extends Controller
             }
             $jumlah_warga = 0;
 
+            $data_warga = array();
+
             foreach ($kategori->get() as $kategoris ) {
                # code... 
 
 
-              $warga = Warga::select('harga_endeso','harga_pemilik')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
+              $warga = Warga::select('harga_endeso','harga_pemilik','nama_warga','harga_endeso','harga_pemilik','latitude','longitude','kapasitas')->where('id_kategori_culture',$kategoris->id)->inRandomOrder();
               if ($warga->count() > 0){
-                # code...
+
+                array_push($data_warga,['nama_warga' => $warga->first()->nama_warga,'nama_kategori' => $kategoris->nama_aktivitas,'harga' =>$string->rp($warga->first()->harga_endeso + $warga->first()->harga_pemilik),'latitude' => $warga->first()->latitude,'longitude' => $warga->first()->longitude,'kapasitas' => $warga->first()->kapasitas,'id_kategori' => $kategoris->id ]);
+
+
+             
+   
               $jumlah_warga++;
 
               $harga_cultural = $warga->first()->harga_endeso + $warga->first()->harga_pemilik;
 
 
              $lis_cultural .= '
-                            <div class="recommended-detail">
-                              <div class="col-md-6 col-sm-12 col-xs-12 no-padding hotel-detail">
-                                <div class="col-md-6 col-sm-6 col-xs-6 no-padding hotel-img-box">
-                                  <img src="img/'.$kategoris->foto_kategori .'" alt="Recommended" height="267" width="297" />
-                                  <span><a href="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">Pesan</a></span>
-                                </div>
+                            <div class="row list-ce" style="margin-bottom:10px;" data-url="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
+                            
+                                <div class="col-md-4 col-sm-4 col-xs-4 no-padding ">';
+
+              $lis_cultural .=   "<div id='list-ce-".$kategoris->id."' class='carousel slide' data-ride='carousel'>
+
+
+                      <div class='carousel-inner'>
+                        <div class='item active'>
+                          <img src='img/".$kategoris->foto_kategori."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                        if ($kategoris->foto_kategori2 != NULL) {
+                           $lis_cultural .= "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori2."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                        }
+
+                        if ($kategoris->foto_kategori3 != NULL) {
+                          $lis_cultural .=  "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori3."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                         
+                          }
+                        if ($kategoris->foto_kategori4 != NULL) {
+
+                          $lis_cultural .= "<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori4."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                          }
+
+                        if ($kategoris->foto_kategori5 != NULL) {
+                          $lis_cultural .="<div class='item'>
+                          <img src='img/".$kategoris->foto_kategori5."' alt='".$kategoris->nama_aktivitas."'>
+                        </div>";
+                          }
+           $lis_cultural .= "</div> <!-- / carousel-inner -->
+
+                      <!-- Left and right controls -->
+                      <a class='left carousel-control' href='#list-ce-".$kategoris->id."' data-slide='prev'>
+                        <span class='glyphicon glyphicon-chevron-left'></span>
+                        <span class='sr-only'>Previous</span>
+                      </a>
+                      <a class='right carousel-control' href='#list-ce-".$kategoris->id."' data-slide='next'>
+                        <span class='glyphicon glyphicon-chevron-right'></span>
+                        <span class='sr-only'>Next</span>
+                      </a>
+                    </div>";        
+                            
+              $lis_cultural .= '</div>
                                 <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
                                 <h6><b><sup>RP</sup>'. $string->rp($harga_cultural) .'</b><span>ribu / paket</span></h6>';
                                                                              
@@ -844,9 +976,12 @@ class HomeController extends Controller
                                     <i class="fa fa-star-half-o"></i>
                                   </span>
                                 </div>
-                              </div>
+                          
+                               
+                           
                               
-                            </div>';
+                            </div>
+                            ';
               }
               
 
@@ -861,7 +996,7 @@ class HomeController extends Controller
               ]);
              }
 
-            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga]);
+            return view('pencarian_cultur',['lis_cultural'=>$lis_cultural,'jumlah_kategori' => $jumlah_kategori,'jumlah_warga' => $jumlah_warga,'dari_tanggal' => $string->tanggal_mysql($request->dari_tanggal),'jumlah_orang' => $request->jumlah_orang,'data_warga' => $data_warga]);
 
         }
 

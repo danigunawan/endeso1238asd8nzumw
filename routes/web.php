@@ -65,9 +65,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
  
-Route::get('/tentang-endeso','HomeController@tentang');
+Route::get('/tentang-endeso-homestay','HomeController@tentang_homestay');
+Route::get('/tentang-endeso-ce','HomeController@tentang_ce');
 
-Route::get('/cara-pesan','HomeController@cara_pesan');
+Route::get('/cara-pesan-homestay','HomeController@cara_pesan_homestay');
+Route::get('/cara-pesan-ce','HomeController@cara_pesan_ce');
 
 Route::get('/kontak','HomeController@kontak');
 
