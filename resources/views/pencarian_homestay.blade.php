@@ -175,7 +175,7 @@
             
             @elseif($urutan == 1)
 
-            <p>URUTKAN &nbsp;&nbsp;<a href="pencarian?pilihan={{ $pilihan}}&dari_tanggal={{ $dari_tanggal}}&sampai_tanggal={{ $sampai_tanggal }}&tujuan={{$tujuan}}&jumlah_orang={{$jumlah_orang}}&urutan=1" class="btn btn-default">Harga <span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></p>
+            <p>URUTKAN &nbsp;&nbsp;<a href="pencarian?pilihan={{ $pilihan}}&dari_tanggal={{ $dari_tanggal}}&sampai_tanggal={{ $sampai_tanggal }}&tujuan={{$tujuan}}&jumlah_orang={{$jumlah_orang}}&urutan=0" class="btn btn-default">Harga <span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a></p>
 
             @endif
 
