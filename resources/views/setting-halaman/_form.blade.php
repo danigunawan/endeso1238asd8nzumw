@@ -17,7 +17,7 @@
 <div class="form-group{{ $errors->has('jenis_halaman') ? ' has-error' : '' }}">
 	{!! Form::label('jenis_halaman', 'Jenis Halaman', ['class' => 'col-md-2 control-label']) !!}
 	<div class="col-md-8">
-		{!! Form::select('jenis_halaman', ['' => 'Pilih Jenis Halaman','1' => 'Tentang Endeso','2' => 'Cara Pesan' ,'3' => 'Kontak'], null,['class' => 'form-control']) !!}
+		{!! Form::select('jenis_halaman', ['' => 'Pilih Jenis Halaman','1' => 'Tentang Homestay','2' => 'Cara Pesan Homestay' ,'3' => 'Kontak','4'=>'Tentang Culture Experience','5'=>'Cara Pesan Culture Experience'], null,['class' => 'form-control']) !!}
 		{!! $errors->first('jenis_halaman', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>
