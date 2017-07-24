@@ -751,7 +751,7 @@ class HomeController extends Controller
 
            
 
-                        $tampil_kamar .= "<div class='row list-homestay' style='margin-bottom:10px;' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>
+                        $tampil_kamar .= "<div class='row ' style='margin-bottom:10px;' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>
                         
                             <div class='col-md-4 col-sm-4 col-xs-4 no-padding '>
                              ";
@@ -759,30 +759,30 @@ class HomeController extends Controller
 
 
                       <div class='carousel-inner'>
-                        <div class='item active'>
+                        <div class='item active list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."' >
                           <img src='img/".$kamars->foto1."' alt='Los Angeles'>
                         </div>";
                         if ($kamars->foto2 != NULL) {
-                           $tampil_kamar .= "<div class='item'>
+                           $tampil_kamar .= "<div class='item list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."' >
                           <img src='img/".$kamars->foto2."' alt='".$kamars->rumah->nama_pemilik."'>
                         </div>";
                         }
 
                         if ($kamars->foto3 != NULL) {
-                          $tampil_kamar .=  "<div class='item'>
+                          $tampil_kamar .=  "<div class='item list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."' >
                           <img src='img/".$kamars->foto3."' alt='".$kamars->rumah->nama_pemilik."'>
                         </div>";
                          
                           }
                         if ($kamars->foto4 != NULL) {
 
-                          $tampil_kamar .= "<div class='item'>
+                          $tampil_kamar .= "<div class='item list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."' >
                           <img src='img/".$kamars->foto4."' alt='".$kamars->rumah->nama_pemilik."'>
                         </div>";
                           }
 
                         if ($kamars->foto5 != NULL) {
-                          $tampil_kamar .="<div class='item'>
+                          $tampil_kamar .="<div class='item list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."' >
                           <img src='img/".$kamars->foto5."' alt='".$kamars->rumah->nama_pemilik."'>
                         </div>";
                           }
@@ -803,7 +803,7 @@ class HomeController extends Controller
                 
                     </div> <!-- / carousel slide -->
                     
-                        <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box'>
+                        <div class='col-md-6 col-sm-6 col-xs-6 hotel-detail-box list-homestay' data-url='detail-penginapan/".$kamars->id_kamar."/".HomeController::tanggal_mysql($request->dari_tanggal)."/".HomeController::tanggal_mysql($request->sampai_tanggal)."/".$request->jumlah_orang."'>
                             <h4>".$kamars->rumah->nama_pemilik."</h4>
                             <p>".$kamars->deskripsi ."</p>
                             <h6><b><sup>RP</sup>". number_format($harga_kamar,0,',','.')."</b><span>";
@@ -914,7 +914,7 @@ class HomeController extends Controller
 
 
              $lis_cultural .= '
-                            <div class="row list-ce" style="margin-bottom:10px;" data-url="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
+                            <div class="row " style="margin-bottom:10px;" data-url="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'">
                             
                                 <div class="col-md-4 col-sm-4 col-xs-4 no-padding ">';
 
@@ -922,30 +922,33 @@ class HomeController extends Controller
 
 
                       <div class='carousel-inner'>
-                        <div class='item active'>
+                        <div class='item active list-ce' data-url='". url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang."'>
                           <img src='img/".$kategoris->foto_kategori."' alt='".$kategoris->nama_aktivitas."'>
                         </div>";
                         if ($kategoris->foto_kategori2 != NULL) {
-                           $lis_cultural .= "<div class='item'>
+                           $lis_cultural .= "<div class='item list-ce' data-url='". url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang."'>
                           <img src='img/".$kategoris->foto_kategori2."' alt='".$kategoris->nama_aktivitas."'>
                         </div>";
                         }
 
                         if ($kategoris->foto_kategori3 != NULL) {
-                          $lis_cultural .=  "<div class='item'>
+                          $lis_cultural .=  "<div class='item list-ce' data-url='". url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang."'
+                          >
                           <img src='img/".$kategoris->foto_kategori3."' alt='".$kategoris->nama_aktivitas."'>
                         </div>";
                          
                           }
                         if ($kategoris->foto_kategori4 != NULL) {
 
-                          $lis_cultural .= "<div class='item'>
+                          $lis_cultural .= "<div class='item list-ce' data-url='". url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang."'
+                          >
                           <img src='img/".$kategoris->foto_kategori4."' alt='".$kategoris->nama_aktivitas."'>
                         </div>";
                           }
 
                         if ($kategoris->foto_kategori5 != NULL) {
-                          $lis_cultural .="<div class='item'>
+                          $lis_cultural .="<div class='item list-ce' data-url='". url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang."'
+                          >
                           <img src='img/".$kategoris->foto_kategori5."' alt='".$kategoris->nama_aktivitas."'>
                         </div>";
                           }
@@ -963,7 +966,7 @@ class HomeController extends Controller
                     </div>";        
                             
               $lis_cultural .= '</div>
-                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box"><h4>'. $kategoris->nama_aktivitas .'</h4> 
+                                <div class="col-md-6 col-sm-6 col-xs-6 hotel-detail-box list-ce" data-url="'. url ('/detail-cultural/').'/'.$kategoris->id.'/'.HomeController::tanggal_mysql($request->dari_tanggal).'/'.$request->jumlah_orang.'" ><h4>'. $kategoris->nama_aktivitas .'</h4> 
                                 <h6><b><sup>RP</sup>'. $string->rp($harga_cultural) .'</b><span>ribu / paket</span></h6>';
                                                                              
 

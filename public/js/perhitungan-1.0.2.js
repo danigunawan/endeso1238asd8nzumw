@@ -264,7 +264,7 @@ function menampilkan_peta_detail_homestay(latitude_homestay,longitude_homestay){
 
               function initMap() {
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 15,
+                  zoom: 18,
                   center: {lat: parseFloat(latitude_homestay), lng: parseFloat(longitude_homestay)}
                 });
 
