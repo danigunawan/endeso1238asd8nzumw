@@ -82,10 +82,14 @@
         @include('layouts._flash')
        @endif
   
+            <a data-toggle="collapse" data-target="#demo" class="btn btn-warning" id="collapse_mobile">Pilih Tanggal/Destinasi Lain</a>
+            
             <div class="booking-form container-fluid">
        
           {!! Form::open(['url' => 'pencarian','files'=>'true','method' => 'get', 'class'=>'']) !!}
                  <div class="row"> 
+
+                    <div id="demo" class="collapse">
 
                     <div class="col-sm-2" id="col-pilihan">
                         <div style="width:180px;" class="form-group {{ $errors->has('pilihan') ? ' has-error' : '' }}">
@@ -148,13 +152,18 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" id="pencarian_komputer">
                         <div class="form-group" style="width:100px; ">
                             {!! Form::submit('CARI') !!}
                         </div>
                     </div>
 
-
+                    <div class="col-sm-4" id="pencarian_mobile"><br>
+                        <div class="form-group" style="width:150px;">
+                            {!! Form::submit('CARI') !!}
+                        </div>
+                    </div>
+                  </div>
                 </div>
                {!! Form::close() !!}
             </div>      
@@ -218,11 +227,18 @@
 
   $(".booking-form").stick_in_parent({
     offset_top: 120 }); 
+  $("#pencarian_mobile").show();
+  $("#collapse_mobile").show();
+  $("#pencarian_komputer").hide();  
 
 @else
   
   $(".booking-form").stick_in_parent({
     offset_top: 90 });  
+  $("#pencarian_komputer").show();
+  $("#demo").show();
+  $("#collapse_mobile").hide();  
+  $("#pencarian_mobile").hide();  
 
 @endif
 
