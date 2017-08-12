@@ -57,9 +57,9 @@ class HomeController extends Controller
         $homestay = Kamar::with('rumah','destinasi')->inRandomOrder()->get();
         $cultural = Kategori::with('destinasi')->inRandomOrder()->get();
 
-        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('id_destinasi')->get();
+        $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->limit(10)->groupBy('id_destinasi')->get();
 
-        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('destinasi_kategori')->get();
+        $destinasi_cultural =   DB::table('kategori')->join('destinasi', 'kategori.destinasi_kategori', '=', 'destinasi.id')->select('destinasi.id AS id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->limit(10)->groupBy('destinasi_kategori')->get();
 
  
         //MENAMPILKAN FOTO SEEDER
