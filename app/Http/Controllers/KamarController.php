@@ -31,6 +31,17 @@ class KamarController extends Controller
             'confirm_message' => 'Yakin mau menghapus ' . $kamar->title . '?'
              ]);
 
+         })->addColumn('tampil_di_home', function(Kamar $kamar){
+           
+           if ($kamar->tampil_home == 0) {
+               
+               return "Tidak";
+
+           }
+           else {
+                return "Ÿa";
+           }
+
          })->make(true);
       }
 
@@ -38,6 +49,7 @@ class KamarController extends Controller
             ->addColumn(['data' => 'rumah.nama_pemilik', 'name'=>'rumah.nama_pemilik', 'title'=>'Nama Pemilik Rumah'])
             ->addColumn(['data' => 'destinasi.nama_destinasi', 'name'=>'destinasi.nama_destinasi', 'title'=>'Nama Destinasi'])
             ->addColumn(['data' => 'kapasitas', 'name'=>'kapasitas', 'title'=>'Kapasitas'])
+            ->addColumn(['data' => 'tampil_di_home', 'name'=>'tampil_di_home', 'title'=>'Tampil Di Home'])
             ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
             return view('kamar.index')->with(compact('html'));
     }
@@ -72,7 +84,8 @@ class KamarController extends Controller
             'harga_endeso' => 'required|numeric',
             'harga_pemilik' => 'required|numeric',
             'harga_makan' => 'required|numeric',
-            'tipe_harga' => 'required|numeric'
+            'tipe_harga' => 'required|numeric',
+            'tampil_home' => 'required|numeric'
 
 
             ]); 
@@ -90,7 +103,8 @@ class KamarController extends Controller
            'harga_pemilik' => $request->harga_pemilik,
            'harga_makan' => $request->harga_makan,
            'info_makanan' => $request->info_makanan,
-           'tipe_harga' => $request->tipe_harga
+           'tipe_harga' => $request->tipe_harga,
+           'tampil_home' => $request->tampil_home
 
            ]);
 
@@ -192,7 +206,8 @@ class KamarController extends Controller
             'harga_endeso' => 'required|numeric',
             'harga_pemilik' => 'required|numeric',
             'harga_makan' => 'required|numeric'  ,
-            'tipe_harga' => 'required|numeric'            
+            'tipe_harga' => 'required|numeric'   ,
+            'tampil_home' => 'required|numeric'            
             ]); 
 
         $kamar = Kamar::find($id);
@@ -209,7 +224,8 @@ class KamarController extends Controller
            'harga_pemilik' => $request->harga_pemilik,
            'harga_makan' => $request->harga_makan,
            'info_makanan' => $request->info_makanan,
-           'tipe_harga' => $request->tipe_harga
+           'tipe_harga' => $request->tipe_harga,
+           'tampil_home' => $request->tampil_home
 
         ]);
 
