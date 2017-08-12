@@ -110,6 +110,16 @@
 
 <!--END KOLOM FOTO KAtegori GROUP -->
 
+<!-- KOLOM tampil home -->
+<div class="form-group{{ $errors->has('tampil_home') ? ' has-error' : '' }}">
+	{!! Form::label('tampil_home', 'Tampil Di Home', ['class' => 'col-md-2 control-label']) !!}
+	<div class="col-md-8">
+		{!! Form::select('tampil_home', ['0' => 'Tidak','1' => 'Ya'], null,['class' => 'form-control','id'=>'destinasi']) !!}
+		{!! $errors->first('tampil_home', '<p class="help-block">:message</p>') !!}
+	</div>
+</div>
+
+
 <!-- TOMBOL SIMPAN KATEGORI -->
 <div class="form-group">
 	<div class="col-md-4 col-md-offset-2">

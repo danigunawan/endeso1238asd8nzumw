@@ -44,22 +44,7 @@
     </script>
 
   <script type="text/javascript">
-      $(document).ready(function(){
-            var id_destinasi = $('#destinasi').val();
-    
-                        $.post('{{ url('/ajax-data-kamar') }}',{'_token': $('meta[name=csrf-token]').attr('content'),
-                            id_destinasi:id_destinasi },function(data){
-
-                            $(".span-option").remove();
-                                
-                                for (var i = 0; i < data.length; i++) {
-
-                                $("#id_rumah").append('<option class="span-option" value="'+data[i].id_rumah+'">'+data[i].nama_pemilik+'</option>');
-                                
-                                }
-                            console.log(data[0].id_rumah);
-                    });
-    });
+   
 
     $('#destinasi').change(function(){
             var id_destinasi = $('#destinasi').val();

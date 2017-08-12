@@ -8,7 +8,7 @@ class Kategori extends Model
 {
     //
     protected $table = 'kategori';
-    protected $fillable = ['nama_aktivitas', 'foto_kategori', 'destinasi_kategori', 'deskripsi_kategori', 'durasi'];
+    protected $fillable = ['nama_aktivitas', 'foto_kategori', 'destinasi_kategori', 'deskripsi_kategori', 'durasi','tampil_home'];
 
     public function destinasi()
 	  {

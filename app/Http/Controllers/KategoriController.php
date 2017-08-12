@@ -30,12 +30,24 @@ class KategoriController extends Controller
                         'edit_url' => route('kategori.edit', $kategori->id),
                         'confirm_message' => 'Apakah Anda Yakin Menghapus' . $kategori->title . '?'
                     ]);
-                })->make(true);
+                })->addColumn('tampil_di_home', function(Kategori $kategori){
+           
+           if ($kategori->tampil_home == 0) {
+               
+               return "Tidak";
+
+           }
+           else {
+                return "Ÿa";
+           }
+
+         })->make(true);
         }
 
         $html = $htmlBuilder
         -> addColumn(['data' => 'nama_aktivitas', 'name' => 'nama_aktivitas', 'title' => 'Aktivitas'])
         -> addColumn(['data' => 'destinasi.nama_destinasi', 'name' => 'destinasi.nama_destinasi', 'title' => 'Destinasi'])
+           ->addColumn(['data' => 'tampil_di_home', 'name'=>'tampil_di_home', 'title'=>'Tampil Di Home'])
         -> addColumn(['data' => 'action', 'name' => 'action', 'title' => '', 'orderable' => false, 'searchable' => false]);
 
         return view('kategori.index')->with(compact('html'));
@@ -66,7 +78,8 @@ class KategoriController extends Controller
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas',
             'destinasi_kategori' => 'required|exists:destinasi,id',
             'durasi' => 'required',
-            'foto_kategori.*' => 'image|max:2048'
+            'foto_kategori.*' => 'image|max:2048',
+            'tampil_home' => 'required:numeric'
         ]);
 
         $kategori = Kategori::create([
@@ -74,7 +87,8 @@ class KategoriController extends Controller
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
            'destinasi_kategori' => $request->destinasi_kategori,
-           'durasi' => $request->durasi
+           'durasi' => $request->durasi,
+           'tampil_home' => $request->tampil_home
            
         ]);
 
@@ -168,7 +182,8 @@ class KategoriController extends Controller
             'nama_aktivitas' => 'required|unique:kategori,nama_aktivitas,' . $id,
             'destinasi_kategori' => 'required|exists:destinasi,id',
             'durasi' => 'required',
-            'foto_kategori.*' => 'image|max:2048'
+            'foto_kategori.*' => 'image|max:2048',
+            'tampil_home' => 'required|numeric'
         ]);
 
         $kategori = Kategori::find($id);
@@ -177,7 +192,8 @@ class KategoriController extends Controller
            'nama_aktivitas' => $request->nama_aktivitas,
            'deskripsi_kategori' => $request->deskripsi_kategori,
            'destinasi_kategori' => $request->destinasi_kategori,
-           'durasi' => $request->durasi
+           'durasi' => $request->durasi,
+           'tampil_home' => $request->tampil_home
            
         ]);
 

@@ -14,7 +14,7 @@ class KolomTampilDiHomeCe extends Migration
     public function up()
     {
        
-        Schema::table('warga', function (Blueprint $table) {
+        Schema::table('kategori', function (Blueprint $table) {
       
         $table->integer('tampil_home')->default(0);
         });
@@ -29,7 +29,7 @@ class KolomTampilDiHomeCe extends Migration
     public function down()
     {
     
-    Schema::table('warga', function (Blueprint $table) {
+    Schema::table('kategori', function (Blueprint $table) {
          
             $table->dropColumn('tampil_home');
         });

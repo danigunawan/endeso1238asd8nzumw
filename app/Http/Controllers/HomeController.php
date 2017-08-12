@@ -54,8 +54,8 @@ class HomeController extends Controller
         $besok = mktime (0,0,0, date("m"), date("d")+1,date("Y"));
         $tanggal_sampai_tanggal = date('Y-m-d', $besok);
 
-        $homestay = Kamar::with('rumah','destinasi')->inRandomOrder()->get();
-        $cultural = Kategori::with('destinasi')->inRandomOrder()->get();
+        $homestay = Kamar::with('rumah','destinasi')->where('tampil_home',1)->inRandomOrder()->get();
+        $cultural = Kategori::with('destinasi')->where('tampil_home',1)->inRandomOrder()->get();
 
         $destinasi_homestay =   DB::table('kamar')->join('destinasi', 'kamar.id_destinasi', '=', 'destinasi.id')->select('id_destinasi','nama_destinasi','foto_destinasi')->inRandomOrder()->groupBy('id_destinasi')->get();
 

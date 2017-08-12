@@ -16,8 +16,9 @@
 		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',old('id_destinasi'))->pluck('nama_pemilik', 'id_rumah')->toArray(), null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
 
 	@elseif(isset($kamar) && isset($kamar->id_destinasi))
+	
 
-		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',$kamar->id_destinasi)->pluck('nama_pemilik', 'id_rumah')->toArray(), $kamar->id_destinasi,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
+		{!! Form::select('id_rumah',['' => 'Pilih Rumah']+App\Rumah::where('id_destinasi',$kamar->id_destinasi)->pluck('nama_pemilik', 'id_rumah')->toArray(), $kamar->id_rumah,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
 	@else
 	{!! Form::select('id_rumah',['' => 'Pilih Rumah'], null,['class' => 'form-control','id' => 'id_rumah', 'autocomplete' => 'off', 'required' => '']) !!}
 	@endif
