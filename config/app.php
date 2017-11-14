@@ -167,9 +167,10 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-         Collective\Html\HtmlServiceProvider::class,
-         Laratrust\LaratrustServiceProvider::class,
-         Jenssegers\Agent\AgentServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Laratrust\LaratrustServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
 
         /*
          * Application Service Providers...
