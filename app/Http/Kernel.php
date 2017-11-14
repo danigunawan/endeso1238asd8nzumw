@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
         'ability' => \Laratrust\Middleware\LaratrustAbility::class,
         'user-should-verified' => \App\Http\Middleware\UserShouldVerified::class,
+        'optimizeImages' => \Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages::class
     ];
 }

@@ -171,6 +171,7 @@ return [
         Laratrust\LaratrustServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
         RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
+        Spatie\LaravelImageOptimizer\ImageOptimizerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -241,7 +242,7 @@ return [
         'Laratrust' => Laratrust\LaratrustFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Telegram'  => Telegram\Bot\Laravel\Facades\Telegram::class,
-        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class
 
 
     ],

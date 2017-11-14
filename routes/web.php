@@ -34,14 +34,14 @@ Route::get('/', 'HomeController@index');
 Route::get('/telegram', 'HomeController@telegram');
 
 Route::get('auth/login', function () {
-    return view('auth');
+	return view('auth');
 });
- 
+
 Route::get('auth/google', 'AuthController@redirectToGoogle');
 Route::get('auth/google/callback', 'AuthController@handleGoogleCallback');
 
 Route::get('/list-penginapan', function () {
-    return view('penginapan.list');
+	return view('penginapan.list');
 });
 
 
@@ -64,7 +64,7 @@ Route::get('/detail-cultural/{id}/{tanggal_masuk}/{jumlah_orang}', [
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
- 
+
 Route::get('/tentang-endeso-homestay','HomeController@tentang_homestay');
 Route::get('/tentang-endeso-ce','HomeController@tentang_ce');
 
@@ -125,7 +125,7 @@ Route::get('/user/pesanan', [
 ]);
 
 
-Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function () {
+Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin','optimizeImages']], function () {
 
 	Route::resource('destinasi', 'DestinasiController');
 	Route::resource('rekening', 'RekeningController');
@@ -144,144 +144,144 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 	Route::resource('setting-foto-home', 'SettingFotoHomeController');
 
 	Route::get('konfirmasi_pembayaran',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.index',
-	'uses' => 'PembayaranController@konfirmasi'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.index',
+		'uses' => 'PembayaranController@konfirmasi'
 	]);
 
 	Route::get('konfirmasi_pembayaran/cultural',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.cultural',
-	'uses' => 'PembayaranController@konfirmasi_pembayaran_cultural'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.cultural',
+		'uses' => 'PembayaranController@konfirmasi_pembayaran_cultural'
 	]);
 	
 	Route::get('pemesanan/homestay',[
-	'middleware' => ['auth'],
-	'as' => 'pesanan.homestay',
-	'uses' => 'PemesananController@homestay'
+		'middleware' => ['auth'],
+		'as' => 'pesanan.homestay',
+		'uses' => 'PemesananController@homestay'
 	] );
 
 	// konfirmasi komentar homestay dan cultural
 	Route::get('komentar_kategori/no_konfirmasi/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'komentar_kategori.no_konfirmasi',
-	'uses' => 'KomentarKategoriController@no_konfirmasi'
+		'middleware' => ['auth'],
+		'as' => 'komentar_kategori.no_konfirmasi',
+		'uses' => 'KomentarKategoriController@no_konfirmasi'
 	]);
 
 	Route::get('komentar_kategori/konfirmasi/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'komentar_kategori.konfirmasi',
-	'uses' => 'KomentarKategoriController@konfirmasi'
+		'middleware' => ['auth'],
+		'as' => 'komentar_kategori.konfirmasi',
+		'uses' => 'KomentarKategoriController@konfirmasi'
 	]);
 
 	Route::get('komentar_kamar/no_konfirmasi/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'komentar_kamar.no_konfirmasi',
-	'uses' => 'KomentarKamarController@no_konfirmasi'
+		'middleware' => ['auth'],
+		'as' => 'komentar_kamar.no_konfirmasi',
+		'uses' => 'KomentarKamarController@no_konfirmasi'
 	]);
 
 	Route::get('komentar_kamar/konfirmasi/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'komentar_kamar.konfirmasi',
-	'uses' => 'KomentarKamarController@konfirmasi'
+		'middleware' => ['auth'],
+		'as' => 'komentar_kamar.konfirmasi',
+		'uses' => 'KomentarKamarController@konfirmasi'
 	]);
 	// konfirmasi komentar homestay dan cultural
 
 	//ubah status konfirmasi pembayaran
 	Route::get('konfirmasi-pembayaran/homestay/terima/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.homestay_terima',
-	'uses' => 'PembayaranController@homestay_terima'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.homestay_terima',
+		'uses' => 'PembayaranController@homestay_terima'
 	]);
 
 	Route::get('konfirmasi-pembayaran/homestay/tolak/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.homestay_tolak',
-	'uses' => 'PembayaranController@homestay_tolak'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.homestay_tolak',
+		'uses' => 'PembayaranController@homestay_tolak'
 	]);
 
 	//filter konfirmasi 
 	Route::get('status/pembayaran/homestay/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.status-homestay-pembayaran',
-	'uses' => 'PembayaranController@status_pembayaran_homestay'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.status-homestay-pembayaran',
+		'uses' => 'PembayaranController@status_pembayaran_homestay'
 	]); 
 	Route::get('status/pembayaran/cultural/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.status-cultural-pembayaran',
-	'uses' => 'PembayaranController@status_pembayaran_cultural'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.status-cultural-pembayaran',
+		'uses' => 'PembayaranController@status_pembayaran_cultural'
 	]); 
 	//filter konfirmasi 
 
- 
+	
 
 //ubah status konfirmasi pembayaran cultural
 	Route::get('konfirmasi-pembayaran/cultural/terima/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.cultural_terima',
-	'uses' => 'PembayaranController@cultural_terima'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.cultural_terima',
+		'uses' => 'PembayaranController@cultural_terima'
 	]);
 
 	Route::get('konfirmasi-pembayaran/cultural/tolak/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'konfirmasi_pembayaran.cultural_tolak',
-	'uses' => 'PembayaranController@cultural_tolak'
+		'middleware' => ['auth'],
+		'as' => 'konfirmasi_pembayaran.cultural_tolak',
+		'uses' => 'PembayaranController@cultural_tolak'
 	]);
 //ubah status konfirmasi pembayaran cultural
 
 // STATUS PESANAN CULTURAL DAN HOMESTAY
 	Route::get('status/pesanan/cultural/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.status-cultural-pesanan',
-	'uses' => 'PemesananController@status_pesanan_cultural'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.status-cultural-pesanan',
+		'uses' => 'PemesananController@status_pesanan_cultural'
 	]);  
 
 	Route::get('status/pesanan/homestay/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.status-homestay-pesanan',
-	'uses' => 'PemesananController@status_pesanan_homestay'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.status-homestay-pesanan',
+		'uses' => 'PemesananController@status_pesanan_homestay'
 	]);  
 // STATUS PESANAN CULTURAL DAN HOMESTAY
 
 	// CHECK IN & CHECK OUT HOMESTAY
 	Route::get('pemesanan/homestay/check_in/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_check_in',
-	'uses' => 'PemesananController@homestay_check_in'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.homestay_check_in',
+		'uses' => 'PemesananController@homestay_check_in'
 	]);
 
 	Route::get('pemesanan/homestay/check_out/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_check_out',
-	'uses' => 'PemesananController@homestay_check_out'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.homestay_check_out',
+		'uses' => 'PemesananController@homestay_check_out'
 	]); 
 	// CHECK IN & CHECK OUT HOMESTAY
 
 	// CHECK IN & CHECK OUT CULTURAL
 	Route::get('pemesanan/cultural/check_in/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.cultural_check_in',
-	'uses' => 'PemesananController@cultural_check_in'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.cultural_check_in',
+		'uses' => 'PemesananController@cultural_check_in'
 	]);
 
 	Route::get('pemesanan/cultural/check_out/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.cultural_check_out',
-	'uses' => 'PemesananController@cultural_check_out'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.cultural_check_out',
+		'uses' => 'PemesananController@cultural_check_out'
 	]);
 	// CHECK IN & CHECK OUT CULTURAL
 
 	// Batal pesanan HOMESTAY CULTURAL
 	Route::get('pemesanan/cultural/batal/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.cultural_batal',
-	'uses' => 'PemesananController@cultural_batal'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.cultural_batal',
+		'uses' => 'PemesananController@cultural_batal'
 	]);
 
 	Route::get('pemesanan/homestay/batal/{id}',[
-	'middleware' => ['auth'],
-	'as' => 'pemesanan.homestay_batal',
-	'uses' => 'PemesananController@homestay_batal'
+		'middleware' => ['auth'],
+		'as' => 'pemesanan.homestay_batal',
+		'uses' => 'PemesananController@homestay_batal'
 	]);
 	// Batal pesanan HOMESTAY CULTURAL
 
