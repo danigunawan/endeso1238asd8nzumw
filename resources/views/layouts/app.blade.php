@@ -32,7 +32,7 @@
 
     </script>
 
-    
+
     <!--SCRIPT UNTUK GOOGLE MAP -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHrdkc90574ADfv6CQcVOOr0Xl5jD1K6k">
@@ -56,21 +56,21 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
 
-  
+
   <link href="{{ asset('css/star-rating.css')}}" media="all" rel="stylesheet" type="text/css" />
-  
+
   <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
   <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
+
   
-  
-  
+
   <!-- optionally if you need translation for your language then include locale file as mentioned below -->
 
     <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
       <![endif]-->
       <style type="text/css">
-      
+
       /* Shared */
       .loginBtn {
         box-sizing: border-box;
@@ -159,7 +159,7 @@
     </div><!-- Loader /- -->
 
     <a id="top"></a>
-    
+
     <!-- Header Section -->
     <header id="header" class="header-section header-position  no-padding">
 
@@ -194,7 +194,7 @@
                         @endif
                         <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
                       </li>
-                      
+
 
                       <!-- nav tentang endeso -->
                       <li class="dropdown {{ Request::segment(1) === 'tentang-endeso-homestay' OR Request::segment(1) === 'tentang-endeso-ce' ? 'active' : null }}"> 
@@ -207,12 +207,12 @@
 
                      </li>
 
-                     
+
                      <!-- nav cara pesan -->
                      <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
                       <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
                       <i class="ddl-switch fa fa-angle-down"></i> 
-                      
+
                       <ul class="dropdown-menu"> 
                        <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
                        <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
@@ -226,7 +226,7 @@
                    <li class="li-navbar">
                     <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
                   </li>
-                  
+
                   @endif
 
                   @role('member')
@@ -241,13 +241,13 @@
 
                       </li>
                       <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
-                      
-                      
+
+
                       <!-- nav cara pesan -->
                       <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
                         <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
                         <i class="ddl-switch fa fa-angle-down"></i> 
-                        
+
                         <ul class="dropdown-menu"> 
                          <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
                          <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
@@ -255,7 +255,7 @@
 
                      </li>
 
-                     
+
                      <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
 
                      <li class="{{ Request::segment(2) === 'edit-profil' ? 'active' : null }}"> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
@@ -268,9 +268,9 @@
                        {{ csrf_field() }}
                      </form>
                    </li>
-                   
+
                    @endrole
-                   
+
                    @role('admin')
                    <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
 
@@ -308,7 +308,7 @@
                </ul> 
 
              </li>
-             
+
              <li class="dropdown"> 
               <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Komentar</a> 
               <i class="ddl-switch fa fa-angle-down"></i> 
@@ -326,7 +326,7 @@
              <li><a href="{{ route('pemesanan.index') }}" title="Services">Cultural </a></li> 
            </ul>  
          </li>
-         
+
          <li class="dropdown"> 
           <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pembayaran</a> 
           <i class="ddl-switch fa fa-angle-down"></i> 
@@ -383,7 +383,7 @@
             <li><a href="{{$instagram}}" id="insta_gram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </aside>
-        
+
         <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
           <div style="text-align:center">
             <a href=#><img src="{{ asset('images/logo.png') }}"></a>
@@ -405,7 +405,7 @@
 
 
 <!-- JQuery v1.11.3 -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
 
 <!-- Library JS -->
 <script src="{{ asset('libraries/lib.js') }}"></script>
@@ -424,10 +424,10 @@
 <script src="{{ asset('js/perhitungan-1.0.2.js') }}"></script>
 
 
-<script src="{{ asset('js/star-rating.js') }} " type="text/javascript"></script>
+<script src="{{ asset('js/star-rating.min.js') }} " type="text/javascript"></script>
 
 <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-<script src="{{ asset('themes/krajee-svg/theme.js') }} "></script>
+<script src="{{ asset('themes/krajee-svg/theme.min.js') }} "></script>
 <script src="{{ asset('js/jquery.easing-1.3.js') }} "></script>
 <script src="{{ asset('js/jquery.iosslider.js') }} "></script>
 
@@ -439,7 +439,7 @@
 
     var pilihan = $("#pilihan").val();
 
-    
+
     if (pilihan == 2) {
 
       $("#span_cultur").hide();
@@ -457,7 +457,7 @@
 
       var pilihan = $(this).val();
 
-      
+
       if (pilihan == 2) {
 
         $("#span_cultur").hide();
@@ -476,13 +476,13 @@
 
   });
 
-  
+
   $( document ).scroll(function()
   {
     var scroll  = $(window).scrollTop();
     var height  = $(window).height();
 
-    
+
     if( scroll > 0 )
     {
       $(".header-section").addClass("navbar-fixed-top animated fadeInDown").delay( 200 ).fadeIn();
@@ -500,7 +500,7 @@
 
     if ($(this).scrollTop() >= 50)
     {
-      
+
       $('#back-to-top').fadeIn(200);    
     }
     else
