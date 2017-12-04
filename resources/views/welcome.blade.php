@@ -1,9 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
 <style type="text/css">
-    
     .carousel-home{
   width:100%;
   max-height: 450px !important;
@@ -69,103 +67,105 @@
 
 
 @endif
-
 </style>
-
-    
-    
-    <main class="site-main page-spacing">
-       
-
-        <!-- Slider Section -->
-
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-     
-
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner carousel-home">
+<main class="site-main page-spacing">
+    <!-- Slider Section -->
+    <div class="carousel slide" data-ride="carousel" id="myCarousel">
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner carousel-home">
             <div class="item active">
-               @if (isset($setting_foto_home) && $setting_foto_home->foto_1) 
+                @if (isset($setting_foto_home) && $setting_foto_home->foto_1) 
                                 {!! Html::image(asset('img/'.$setting_foto_home->foto_1), null, ['alt' => 'Slide']) !!} 
                 @endif
             </div>
-
             <div class="item">
-              
                 @if (isset($setting_foto_home) && $setting_foto_home->foto_2) 
                                 {!! Html::image(asset('img/'.$setting_foto_home->foto_2), null, ['alt' => 'Slide']) !!} 
                 @endif
             </div>
-
-    
-          </div>
-
-              <!-- Left and right controls -->
-              <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-              </a>
         </div>
-
-
-        <!-- Slider Section /- -->
-        
+        <!-- Left and right controls -->
+        <a class="left carousel-control" data-slide="prev" href="#myCarousel">
+            <span class="glyphicon glyphicon-chevron-left">
+            </span>
+            <span class="sr-only">
+                Previous
+            </span>
+        </a>
+        <a class="right carousel-control" data-slide="next" href="#myCarousel">
+            <span class="glyphicon glyphicon-chevron-right">
+            </span>
+            <span class="sr-only">
+                Next
+            </span>
+        </a>
+    </div>
+    <!-- Slider Section /- -->
     <!-- container -->
-           
-       
-        <!-- form pesan sekarang -->
-            <div class="booking-form container-fluid" >
-                <div class="col-sm-2 col-sm-12 col-sm-12">
-                    <h4><span>Pesan</span> Sekarang</h4>
-                </div>
-
-          {!! Form::open(['url' => 'pencarian','files'=>'true','method' => 'get', 'class'=>'col-sm-10 col-sm-12 col-sm-12']) !!}
-                 <div class="row"> 
-
-                    <div class="col-sm-2" id="col-pilihan">
-                        <div style="width:180px;" class="form-group {{ $errors->has('pilihan') ? ' has-error' : '' }}">
-                            {{ Form::select('pilihan', [
+    <!-- form pesan sekarang -->
+    <div class="booking-form container-fluid">
+        <div class="col-sm-2 col-sm-12 col-sm-12">
+            <h4>
+                <span>
+                    Pesan
+                </span>
+                Sekarang
+            </h4>
+        </div>
+        {!! Form::open(['url' => 'pencarian','files'=>'true','method' => 'get', 'class'=>'col-sm-10 col-sm-12 col-sm-12']) !!}
+        <div class="row">
+            <div class="col-sm-2" id="col-pilihan">
+                <div class="form-group {{ $errors->has('pilihan') ? ' has-error' : '' }}" style="width:180px;">
+                    {{ Form::select('pilihan', [
                             '1' => 'HOMESTAY',
                             '2' => 'CULTURAL EXPERIENCES'],null, ['class'=> 'selectpicker', 'id'=>'pilihan','style'=>'font-size:70px;' ]
                             ) }}
-                            {!! $errors->first('pilihan', '<p class="help-block">:message</p>') !!}
-                        </div>
+                            {!! $errors->first('pilihan', '
+                    <p class="help-block">
+                        :message
+                    </p>
+                    ') !!}
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group{{ $errors->has('dari_tanggal') ? ' has-error' : '' }}" id="dari_tanggal" style="width:180px;">
+                    <i class="fa fa-calendar-minus-o">
+                    </i>
+                    {!! Form::text('dari_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker1','placeholder'=>'DARI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
+                            {!! $errors->first('dari_tanggal', '
+                    <p class="help-block">
+                        :message
+                    </p>
+                    ') !!}
+                </div>
+            </div>
+            <span id="span_cultur">
+                <div class="col-sm-2">
+                    <div class="form-group{{ $errors->has('sampai_tanggal') ? ' has-error' : '' }}" id="sampai_tanggal" style="width:180px;">
+                        <i class="fa fa-calendar-minus-o">
+                        </i>
+                        {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker_sampai_tanggal', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
+                                {!! $errors->first('sampai_tanggal', '
+                        <p class="help-block">
+                            :message
+                        </p>
+                        ') !!}
                     </div>
-
-                    <div class="col-sm-2"> 
-                        <div id="dari_tanggal" style="width:180px;" class="form-group{{ $errors->has('dari_tanggal') ? ' has-error' : '' }}">
-                            <i class="fa fa-calendar-minus-o"></i>
-                            {!! Form::text('dari_tanggal', null, ['class'=>'form-control datepicker', 'id'=>'datepicker1','placeholder'=>'DARI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
-                            {!! $errors->first('dari_tanggal', '<p class="help-block">:message</p>') !!}
-
-                        </div>
-                    </div>
-
-                    <span id="span_cultur">
-                        <div class="col-sm-2">
-                            <div id="sampai_tanggal" style="width:180px;"  class="form-group{{ $errors->has('sampai_tanggal') ? ' has-error' : '' }}">
-                                <i class="fa fa-calendar-minus-o"></i>
-                                {!! Form::text('sampai_tanggal', null, ['class'=>'form-control datepicker_sampai_tanggal', 'id'=>'datepicker2','placeholder'=>'SAMPAI TANGGAL','autocomplete'=>'off','readonly' => 'true']) !!}
-                                {!! $errors->first('sampai_tanggal', '<p class="help-block">:message</p>') !!}
-
-                            </div>
-                        </div>
-                    </span>
-
-                    <div class="col-sm-2" id="col-tujuan">
-                        <div style="width:180px;"  class="form-group{{ $errors->has('tujuan') ? ' has-error' : '' }}">
-                          {!! Form::select('tujuan', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker','id' => 'tujuan']) !!}
-                          {!! $errors->first('tujuan', '<p class="help-block">:message</p>') !!}
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2" id="col-jumlah">
-                        <div style="width:180px;"  class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}">
-                            {!! Form::select('jumlah_orang',[
+                </div>
+            </span>
+            <div class="col-sm-2" id="col-tujuan">
+                <div class="form-group{{ $errors->has('tujuan') ? ' has-error' : '' }}" style="width:180px;">
+                    {!! Form::select('tujuan', [''=>'TUJUAN']+App\Destinasi::pluck('nama_destinasi','id')->all(), null,['class'=>'selectpicker','id' => 'tujuan']) !!}
+                          {!! $errors->first('tujuan', '
+                    <p class="help-block">
+                        :message
+                    </p>
+                    ') !!}
+                </div>
+            </div>
+            <div class="col-sm-2" id="col-jumlah">
+                <div class="form-group{{ $errors->has('jumlah_orang') ? ' has-error' : '' }}" style="width:180px;">
+                    {!! Form::select('jumlah_orang',[
                             '1' => '1',
                             '2' => '2',
                             '3' => '3',
@@ -183,297 +183,268 @@
                             '15' => '15',],null,['class'=>'selectpicker','placeholder'=>'JUMLAH ORANG']) !!}
 
 
-                             {!! $errors->first('jumlah_orang', '<p class="help-block">:message</p>') !!}
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <div class="form-group" style="width:100px; ">
-                            {!! Form::submit('CARI') !!}
-                        </div>
-                    </div>
-
-
+                             {!! $errors->first('jumlah_orang', '
+                    <p class="help-block">
+                        :message
+                    </p>
+                    ') !!}
                 </div>
-               {!! Form::close() !!}
-            </div>      
-        <!-- / form pesan sekarang -->
-
-
-
-        <!-- homestay terbaik Section -->
-  
-            <!-- container -->
-            <div class="container container-homestay offer-section">
-
-       
-                <!-- Section Header -->
-                <div class="section-header">
-                    <h3>Homestay Terbaik</h3>
-                    <p>Homestay Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
-                </div><!-- Section Header /- -->
-              
-
-             <div class="row">
-               <div class="col-sm-1">
-               @if (!$agent->isMobile())
-
-                    <span class="glyphicon glyphicon-chevron-left prev-homestay"></span>
-                @endif     
-               </div>
-
-            
-              <div class="col-sm-10">
-               <div class = 'iosSliderHomestay iosSlider '>
-                   <div class = 'slider'>
-
-                @foreach($homestay as $homestays)
-
-                    <a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">
-                   <div class="item list-penginapan section-header">
-
-                   <!-- carousel homestay -->
-
-                      <img src="img/{{ $homestays->foto1 }}" alt="{{ $homestays->rumah->nama_pemilik}}">
-                   
-                <!-- / carousel homestay -->
-                       <center>
-                    <p>
-
-                    @if($homestays->tipe_harga == 1)
-                    <b>Rp {{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }} </b> /Orang/Malam
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group" style="width:100px; ">
+                    {!! Form::submit('CARI') !!}
+                </div>
+            </div>
+        </div>
+        {!! Form::close() !!}
+    </div>
+    <!-- / form pesan sekarang -->
+    <!-- homestay terbaik Section -->
+    <!-- container -->
+    <div class="container container-homestay offer-section">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3>
+                Homestay Terbaik
+            </h3>
+            <p>
+                Homestay Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.
+            </p>
+        </div>
+        <!-- Section Header /- -->
+        <div class="row">
+            <div class="col-sm-1">
+                @if (!$agent->isMobile())
+                <span class="glyphicon glyphicon-chevron-left prev-homestay">
+                </span>
+                @endif
+            </div>
+            <div class="col-sm-10">
+                <div class="iosSliderHomestay iosSlider ">
+                    <div class="slider">
+                        @foreach($homestay as $homestays)
+                        <a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">
+                            <div class="item list-penginapan section-header">
+                                <!-- carousel homestay -->
+                                <img alt="{{ $homestays->rumah->nama_pemilik}}" src="img/{{ $homestays->foto1 }}">
+                                    <!-- / carousel homestay -->
+                                    <center>
+                                        <p>
+                                            @if($homestays->tipe_harga == 1)
+                                            <b>
+                                                Rp {{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }}
+                                            </b>
+                                            /Orang/Malam
                     @elseif($homestays->tipe_harga == 2)
-                    Rp <b>{{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }}</b> /Kamar/Malam
+                    Rp
+                                            <b>
+                                                {{ number_format($homestays->harga_endeso + $homestays->harga_pemilik,0,',','.')  }}
+                                            </b>
+                                            /Kamar/Malam
                     @endif
-                    <br>
-                        <b>{{ $homestays->rumah->nama_pemilik}}</b><br>
-                        KAPASITAS : {{ $homestays->kapasitas}} orang <br>
-                        {{ $homestays->destinasi->nama_destinasi}} 
-                    </p>
-                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                    
-                        </center>
+                                            <br>
+                                                <b>
+                                                    {{ $homestays->rumah->nama_pemilik}}
+                                                </b>
+                                                <br>
+                                                    KAPASITAS : {{ $homestays->kapasitas}} orang
+                                                    <br>
+                                                        {{ $homestays->destinasi->nama_destinasi}}
+                                                    </br>
+                                                </br>
+                                            </br>
+                                        </p>
+                                        <a href="{{ url('/detail-penginapan/')}}/{{$homestays->id_kamar}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1" title="book now">
+                                            Pesan Sekarang
+                                            <i class="fa fa-long-arrow-right">
+                                            </i>
+                                        </a>
+                                    </center>
+                                </img>
+                            </div>
+                            <!-- / div item -->
+                        </a>
+                        @endforeach
+                    </div>
+                    <!-- / slider -->
                 </div>
-                <!-- / div item -->
-                </a> 
-     
-
-                @endforeach
-
-              </div>
-              <!-- / slider -->
+                <!-- / iosslider -->
             </div>
-             <!-- / iosslider -->
-             </div>
-              <div class="col-sm-1">
-              @if (!$agent->isMobile())
-                   <span class="glyphicon glyphicon-chevron-right next-homestay"></span>  
-              @endif 
-               </div>
-          </div>
-          <!-- / div row -->
-          
-    
-        </div><!-- container homestay terbaik  /- -->
-
-<!-- culture experience terbaik Section -->
-      
-        <div class="container offer-section " >
-          
-                <!-- Section Header -->
-                <div class="section-header">
-                    <h3>Culture Experience Terbaik</h3>
-                    <p>Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.</p>
-                </div><!-- Section Header /- -->
-              
-
-            
-       
-             <div class="row">
-               <div class="col-sm-1">
-               @if (!$agent->isMobile())
-
-                    <span class="glyphicon glyphicon-chevron-left prev-ce"></span>
-                @endif     
-               </div>
-               <div class="col-sm-10">
-                 <div class = 'iosSliderCe iosSlider'>
-                   <div class = 'slider'>
-
-                @foreach($cultural as $culturals)
-
-                   <div class="item section-header">
-
-                 
-                      <img src="img/{{ $culturals->foto_kategori }}" alt="{{ $culturals->nama_aktivitas}}">
-                   
- 
-                       <center>
-                    <p>
-
-                    <!-- <b>Rp {{ number_format($culturals->harga_endeso + $culturals->harga_pemilik,0,',','.')  }} </b> /Paket -->
-                 
-                        <b>{{ $culturals->nama_aktivitas}}</b><br>
-                        {{ $culturals->destinasi->nama_destinasi}} 
-                    </p>
-                    <a  title="book now" href="{{ url('/detail-penginapan/')}}/{{$culturals->id}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1">Pesan Sekarang <i class="fa fa-long-arrow-right"></i></a>
-                    
-                        </center>
-                </div> 
-                <!-- / row -->
-
-                @endforeach
-
-                </div>
-                <!-- / slider -->
-                </div>
-                <!-- / iosslider -->
-              </div>
-             <div class="col-sm-1">
-              @if (!$agent->isMobile())
-                   <span class="glyphicon glyphicon-chevron-right next-ce"></span>  
-              @endif 
-               </div>
-        
-          
- 
-        </div>
-    <!-- / div row -->
-<!-- /culture experience terbaik  /- -->
-
-<!-- destinasi homestay -->
-
-   <div class="container offer-section " >
-
-                <!-- Section Header -->
-                <div class="section-header">
-                    <h3>Destinasi Homestay</h3>
-                  
-                </div><!-- Section Header /- -->
-              
-
-             <div class="row">
-               <div class="col-sm-1">
-               @if (!$agent->isMobile())
-
-                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-homestay"></span>
-                @endif     
-               </div>
-               <div class="col-sm-10">
-
-            
-             <div class = 'iosSliderDestinasiHomestay iosSlider'>
-                   <div class = 'slider'>
-
-
-                @foreach($destinasi_homestay as $destinasi_homestays)
-
-                <div class="item section-header col-destinasi-homestay" style="cursor:pointer" data-id="{{ $destinasi_homestays->id_destinasi }}">
-          
-                      <img src="img/{{ $destinasi_homestays->foto_destinasi }}" alt="{{ $destinasi_homestays->nama_destinasi}}" class="img-responsive" >
-                 
-                       <center>
-                        <p>
-                            <b>{{ $destinasi_homestays->nama_destinasi}}</b><br>
-                        </p>
-                      </center>
-                
-                </div> 
-                <!-- / row -->
-
-                @endforeach
-
-                </div>
-                <!-- /slider -->
-                </div>
-                <!-- / iosslider -->
-         
+            <div class="col-sm-1">
+                @if (!$agent->isMobile())
+                <span class="glyphicon glyphicon-chevron-right next-homestay">
+                </span>
+                @endif
             </div>
-             <div class="col-sm-1">
-              @if (!$agent->isMobile())
-                   <span class="glyphicon glyphicon-chevron-right next-destinasi-homestay"></span>  
-              @endif 
-               </div>
-       </div>
-    <!-- / div row -->
         </div>
-
-<!-- / destinasi homestay -->
-
-<!-- destinasi cultural -->
-
-   <div class="container offer-section" >
-            
-                <!-- Section Header -->
-                <div class="section-header">
-                    <h3>Destinasi cultural experience</h3>
-                  
-                </div><!-- Section Header /- -->
-
-                  <div class="row">
-               <div class="col-sm-1">
-               @if (!$agent->isMobile())
-
-                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-ce"></span>
-                @endif     
-               </div>
-               <div class="col-sm-10">
-
-      
-             <div class = 'iosSliderDestinasiCe iosSlider'>
-                   <div class = 'slider'>
-
-
-                @foreach($destinasi_cultural as $destinasi_culturals)
-
-                <div class="item section-header col-destinasi-culture" style="cursor:pointer" data-id="{{$destinasi_culturals->id_destinasi}}">
-          
-                      <img src="img/{{ $destinasi_culturals->foto_destinasi }}" alt="{{ $destinasi_culturals->nama_destinasi}}" class="img-responsive" >
-                 
-                       <center>
-                        <p>
-                            <b>{{ $destinasi_culturals->nama_destinasi}}</b><br>
-                        </p>
-                      </center>
-                
-                </div> 
-                <!-- / row -->
-
-                @endforeach
-
-                </div>
-                <!-- slider -->
+        <!-- / div row -->
+    </div>
+    <!-- container homestay terbaik  /- -->
+    <!-- culture experience terbaik Section -->
+    <div class="container offer-section ">
+        <!-- Section Header -->
+        <div class="section-header">
+            <h3>
+                Culture Experience Terbaik
+            </h3>
+            <p>
+                Paket Cultural Experiences Dengan Rating Dan Harga Terbaik Pilihan Pelanggan Setia Endeso.
+            </p>
+        </div>
+        <!-- Section Header /- -->
+        <div class="row">
+            <div class="col-sm-1">
+                @if (!$agent->isMobile())
+                <span class="glyphicon glyphicon-chevron-left prev-ce">
+                </span>
+                @endif
+            </div>
+            <div class="col-sm-10">
+                <div class="iosSliderCe iosSlider">
+                    <div class="slider">
+                        @foreach($cultural as $culturals)
+                        <div class="item section-header">
+                            <img alt="{{ $culturals->nama_aktivitas}}" src="img/{{ $culturals->foto_kategori }}">
+                                <center>
+                                    <p>
+                                        <!-- <b>Rp {{ number_format($culturals->harga_endeso + $culturals->harga_pemilik,0,',','.')  }} </b> /Paket -->
+                                        <b>
+                                            {{ $culturals->nama_aktivitas}}
+                                        </b>
+                                        <br>
+                                            {{ $culturals->destinasi->nama_destinasi}}
+                                        </br>
+                                    </p>
+                                    <a href="{{ url('/detail-penginapan/')}}/{{$culturals->id}}/{{$tanggal}}/{{$tanggal_sampai_tanggal}}/1" title="book now">
+                                        Pesan Sekarang
+                                        <i class="fa fa-long-arrow-right">
+                                        </i>
+                                    </a>
+                                </center>
+                            </img>
+                        </div>
+                        <!-- / row -->
+                        @endforeach
+                    </div>
+                    <!-- / slider -->
                 </div>
                 <!-- / iosslider -->
+            </div>
+            <div class="col-sm-1">
+                @if (!$agent->isMobile())
+                <span class="glyphicon glyphicon-chevron-right next-ce">
+                </span>
+                @endif
+            </div>
+        </div>
+        <!-- / div row -->
+        <!-- /culture experience terbaik  /- -->
+        <!-- destinasi homestay -->
+        <div class="container offer-section ">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h3>
+                    Destinasi Homestay
+                </h3>
+            </div>
+            <!-- Section Header /- -->
+            <div class="row">
+                <div class="col-sm-1">
+                    @if (!$agent->isMobile())
+                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-homestay">
+                    </span>
+                    @endif
+                </div>
+                <div class="col-sm-10">
+                    <div class="iosSliderDestinasiHomestay iosSlider">
+                        <div class="slider">
+                            @foreach($destinasi_homestay as $destinasi_homestays)
+                            <div class="item section-header col-destinasi-homestay" data-id="{{ $destinasi_homestays->id_destinasi }}" style="cursor:pointer">
+                                <img alt="{{ $destinasi_homestays->nama_destinasi}}" class="img-responsive" src="img/{{ $destinasi_homestays->foto_destinasi }}">
+                                    <center>
+                                        <p>
+                                            <b>
+                                                {{ $destinasi_homestays->nama_destinasi}}
+                                            </b>
+                                            <br>
+                                            </br>
+                                        </p>
+                                    </center>
+                                </img>
+                            </div>
+                            <!-- / row -->
+                            @endforeach
+                        </div>
+                        <!-- /slider -->
+                    </div>
+                    <!-- / iosslider -->
                 </div>
                 <div class="col-sm-1">
-              @if (!$agent->isMobile())
-                   <span class="glyphicon glyphicon-chevron-right next-destinasi-ce"></span>  
-              @endif 
-               </div>
-       </div>
-    <!-- / div row -->
-
-               
-        
-
-              
-            </div><!-- container /- -->
-
+                    @if (!$agent->isMobile())
+                    <span class="glyphicon glyphicon-chevron-right next-destinasi-homestay">
+                    </span>
+                    @endif
+                </div>
+            </div>
+            <!-- / div row -->
         </div>
-
-<!-- / destinasi cultural -->
-        
-
-    </main>
-
-
-
+        <!-- / destinasi homestay -->
+        <!-- destinasi cultural -->
+        <div class="container offer-section">
+            <!-- Section Header -->
+            <div class="section-header">
+                <h3>
+                    Destinasi cultural experience
+                </h3>
+            </div>
+            <!-- Section Header /- -->
+            <div class="row">
+                <div class="col-sm-1">
+                    @if (!$agent->isMobile())
+                    <span class="glyphicon glyphicon-chevron-left prev-destinasi-ce">
+                    </span>
+                    @endif
+                </div>
+                <div class="col-sm-10">
+                    <div class="iosSliderDestinasiCe iosSlider">
+                        <div class="slider">
+                            @foreach($destinasi_cultural as $destinasi_culturals)
+                            <div class="item section-header col-destinasi-culture" data-id="{{$destinasi_culturals->id_destinasi}}" style="cursor:pointer">
+                                <img alt="{{ $destinasi_culturals->nama_destinasi}}" class="img-responsive" src="img/{{ $destinasi_culturals->foto_destinasi }}">
+                                    <center>
+                                        <p>
+                                            <b>
+                                                {{ $destinasi_culturals->nama_destinasi}}
+                                            </b>
+                                            <br>
+                                            </br>
+                                        </p>
+                                    </center>
+                                </img>
+                            </div>
+                            <!-- / row -->
+                            @endforeach
+                        </div>
+                        <!-- slider -->
+                    </div>
+                    <!-- / iosslider -->
+                </div>
+                <div class="col-sm-1">
+                    @if (!$agent->isMobile())
+                    <span class="glyphicon glyphicon-chevron-right next-destinasi-ce">
+                    </span>
+                    @endif
+                </div>
+            </div>
+            <!-- / div row -->
+        </div>
+        <!-- container /- -->
+    </div>
+    <!-- / destinasi cultural -->
+</main>
 @endsection
 @section('scripts')
 <script type="text/javascript">
-    
     $(".col-destinasi-culture").click(function() {
     $('html,body').animate({
         scrollTop: $(".site-main").offset().top},
@@ -558,12 +529,5 @@
         $('i:contains("version")').html('');
         
       });
-      
-     
-      
-      
-
 </script>
-
 @endsection
- 

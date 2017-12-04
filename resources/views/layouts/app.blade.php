@@ -1,77 +1,57 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <title>{{ config('app.name', 'Laravel') }}</title>
-  <!-- Standard Favicon -->
-  <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}" />
-
-  <!-- Styles -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-  <!-- Scripts -->
-  <script>
-    window.Laravel = {!! json_encode([
+    <head>
+        <meta charset="utf-8">
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
+                <meta content="width=device-width, initial-scale=1" name="viewport">
+                    <!-- CSRF Token -->
+                    <meta content="{{ csrf_token() }}" name="csrf-token">
+                        <title>
+                            {{ config('app.name', 'Laravel') }}
+                        </title>
+                        <!-- Standard Favicon -->
+                        <link href="{{ asset('images/favicon.png') }}" rel="icon" type="image/x-icon"/>
+                        <!-- Styles -->
+                        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+                            <!-- Scripts -->
+                            <script>
+                                window.Laravel = {!! json_encode([
       'csrfToken' => csrf_token(),
       ]) !!};
-    </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                            </script>
+                            <script>
+                                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-98666545-1', 'auto');
       ga('send', 'pageview');
-
-    </script>
-
-
-    <!--SCRIPT UNTUK GOOGLE MAP -->
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHrdkc90574ADfv6CQcVOOr0Xl5jD1K6k">
-  </script>
-
-
-
-
-  <!-- Library - Bootstrap v3.3.5 -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('libraries/lib.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('libraries/calender/calendar.css') }}">
-  <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-
-  <!-- Custom - Common CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/navigation-menu.css') }}">
-  <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
-  <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
-
-  <!-- Custom - Theme CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ asset('style.css') }}" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('css/shortcodes.css') }}" />
-
-
-  <link href="{{ asset('css/star-rating.css')}}" media="all" rel="stylesheet" type="text/css" />
-
-  <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-  <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css" />
-
-  
-
-  <!-- optionally if you need translation for your language then include locale file as mentioned below -->
-
-    <!--[if lt IE 9]>
+                            </script>
+                            <!--SCRIPT UNTUK GOOGLE MAP -->
+                            <script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHrdkc90574ADfv6CQcVOOr0Xl5jD1K6k">
+                            </script>
+                            <!-- Library - Bootstrap v3.3.5 -->
+                            <link href="{{ asset('libraries/lib.css') }}" rel="stylesheet" type="text/css">
+                                <link href="{{ asset('libraries/calender/calendar.css') }}" rel="stylesheet" type="text/css">
+                                    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+                                        <!-- Custom - Common CSS -->
+                                        <link href="{{ asset('css/plugins.css') }}" rel="stylesheet" type="text/css">
+                                            <link href="{{ asset('css/navigation-menu.css') }}" rel="stylesheet" type="text/css">
+                                                <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
+                                                    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+                                                        <!-- Custom - Theme CSS -->
+                                                        <link href="{{ asset('style.css') }}" rel="stylesheet" type="text/css"/>
+                                                        <link href="{{ asset('css/shortcodes.css?v=1') }}" rel="stylesheet" type="text/css"/>
+                                                        <link href="{{ asset('css/star-rating.css')}}" media="all" rel="stylesheet" type="text/css"/>
+                                                        <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+                                                        <link href="{{ asset('themes/krajee-svg/theme.css')}}" media="all" rel="stylesheet" type="text/css"/>
+                                                        <!-- optionally if you need translation for your language then include locale file as mentioned below -->
+                                                        <!--[if lt IE 9]>
         <script src="js/html5/respond.min.js"></script>
       <![endif]-->
-      <style type="text/css">
-
-      /* Shared */
+                                                        <style type="text/css">
+                                                            /* Shared */
       .loginBtn {
         box-sizing: border-box;
         position: relative;
@@ -140,302 +120,463 @@
       .dropdown-menu {
         z-index: 1000;
       }
-
-
-
-    </style>
-
-
-  </head>
-  <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
-
-    <!-- Loader -->
-    <div id="site-loader" class="load-complete">
-      <div class="loader">
-        <div class="loader-inner ball-clip-rotate">
-          <div></div>
+                                                        </style>
+                                                    </link>
+                                                </link>
+                                            </link>
+                                        </link>
+                                    </link>
+                                </link>
+                            </link>
+                        </link>
+                    </meta>
+                </meta>
+            </meta>
+        </meta>
+    </head>
+    <body data-offset="200" data-spy="scroll" data-target=".ow-navigation">
+        <!-- Loader -->
+        <div class="load-complete" id="site-loader">
+            <div class="loader">
+                <div class="loader-inner ball-clip-rotate">
+                    <div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div><!-- Loader /- -->
-
-    <a id="top"></a>
-
-    <!-- Header Section -->
-    <header id="header" class="header-section header-position  no-padding">
-
-     <!-- Menu Block -->
-
-     <div class="menu-block" style="padding-top: 30px">
-      <!-- Container -->
-      <div class="container">
-        <div class="row">
-          <div class="logo-block col-md-1"><a href="{{ url('/')}}" title="Endeso"><img src="{{ url('/images/logo.png') }}" alt="Logo" id="logo-endeso" /></a></div>
-          <div class="col-md-9">
-            <nav class="navbar navbar-default ow-navigation">
-              <div class="navbar-header">
-                <button aria-controls="navbar" aria-expanded="false" id="btnCollapse" collapse-toogle="1" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a href="{{ url('/')}}" title="Endeso" class="navbar-brand"><img src="{{ url('/images/logo-mobile.png') }}"></a>
-              </div>
-              <div class="navbar-collapse collapse" id="navbar">
-                <ul class="nav navbar-nav">
-
-                  @if (Auth::guest())
-                  @if(Request::is('/')) 
-                  <li class="active">
-                    @elseif(Request::segment(1) === 'home' )
-                    <li class="active">
-                      @else 
-                      <li class="">
-                        @endif
-                        <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-                      </li>
-
-
-                      <!-- nav tentang endeso -->
-                      <li class="dropdown {{ Request::segment(1) === 'tentang-endeso-homestay' OR Request::segment(1) === 'tentang-endeso-ce' ? 'active' : null }}"> 
-                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Tentang Endeso </a> 
-                        <i class="ddl-switch fa fa-angle-down"></i> 
-                        <ul class="dropdown-menu"> 
-                         <li><a href="{{ url('/tentang-endeso-homestay')}}" title="Homestay">Homestay </a></li>
-                         <li><a href="{{ url('/tentang-endeso-ce')}}" title="Culture Experience">Culture Experience</a></li>
-                       </ul> 
-
-                     </li>
-
-
-                     <!-- nav cara pesan -->
-                     <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
-                      <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
-                      <i class="ddl-switch fa fa-angle-down"></i> 
-
-                      <ul class="dropdown-menu"> 
-                       <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
-                       <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
-                     </ul> 
-
-                   </li>
-
-
-                   <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}"><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
-
-                   <li class="li-navbar">
-                    <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
-                  </li>
-
-                  @endif
+        <!-- Loader /- -->
+        <a id="top">
+        </a>
+        <!-- Header Section -->
+        <header class="header-section header-position no-padding" id="header">
+            <!-- Menu Block -->
+            <div class="menu-block" style="padding-top: 30px">
+                <!-- Container -->
+                <div class="container">
+                    <div class="row">
+                        <div class="logo-block col-md-1">
+                            <a href="{{ url('/')}}" title="Endeso">
+                                <img alt="Logo" id="logo-endeso" src="{{ url('/images/logo.png') }}"/>
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <nav class="navbar navbar-default ow-navigation">
+                                <div class="navbar-header">
+                                    <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" collapse-toogle="1" data-target="#navbar" data-toggle="collapse" id="btnCollapse" type="button">
+                                        <span class="sr-only">
+                                            Toggle navigation
+                                        </span>
+                                        <span class="icon-bar">
+                                        </span>
+                                        <span class="icon-bar">
+                                        </span>
+                                        <span class="icon-bar">
+                                        </span>
+                                    </button>
+                                    <a class="navbar-brand" href="{{ url('/')}}" title="Endeso">
+                                        <img src="{{ url('/images/logo-mobile.png') }}"/>
+                                    </a>
+                                </div>
+                                <div class="navbar-collapse collapse" id="navbar">
+                                    <ul class="nav navbar-nav">
+                                        @if (Auth::guest())
+                  @if(Request::is('/'))
+                                        <li class="active">
+                                            @elseif(Request::segment(1) === 'home' )
+                                            <li class="active">
+                                                @else
+                                                <li class="">
+                                                    @endif
+                                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="{{ url('/home')}}" role="button" title="Home">
+                                                        Home
+                                                    </a>
+                                                </li>
+                                                <!-- nav tentang endeso -->
+                                                <li class="dropdown {{ Request::segment(1) === 'tentang-endeso-homestay' OR Request::segment(1) === 'tentang-endeso-ce' ? 'active' : null }}">
+                                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                        Tentang Endeso
+                                                    </a>
+                                                    <i class="ddl-switch fa fa-angle-down">
+                                                    </i>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="{{ url('/tentang-endeso-homestay')}}" title="Homestay">
+                                                                Homestay
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ url('/tentang-endeso-ce')}}" title="Culture Experience">
+                                                                Culture Experience
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <!-- nav cara pesan -->
+                                                <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}">
+                                                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                        Cara Pesan
+                                                    </a>
+                                                    <i class="ddl-switch fa fa-angle-down">
+                                                    </i>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">
+                                                                Homestay
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">
+                                                                Culture Experience
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}">
+                                                    <a href="{{ url('/kontak')}}" title="Contact">
+                                                        Kontak
+                                                    </a>
+                                                </li>
+                                                <li class="li-navbar">
+                                                    <a href="{{ url('/login')}}" title="Book Now">
+                                                        Masuk / Daftar
+                                                    </a>
+                                                </li>
+                                                @endif
 
                   @role('member')
-                  @if(Request::is('/')) 
-                  <li class="active">
-                    @elseif(Request::segment(1) === 'home' )
-                    <li class="active">
-                      @else 
-                      <li class="">
-                        @endif
-                        <a href="{{ url('/home')}}" title="Home" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
-
-                      </li>
-                      <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}"><a href="{{ route('pesanan') }}" title="Contact">Pesanan Saya</a></li>
-
-
-                      <!-- nav cara pesan -->
-                      <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}"> 
-                        <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Cara Pesan </a> 
-                        <i class="ddl-switch fa fa-angle-down"></i> 
-
-                        <ul class="dropdown-menu"> 
-                         <li><a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">Homestay </a></li>
-                         <li><a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">Culture Experience</a></li>
-                       </ul> 
-
-                     </li>
-
-
-                     <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}" ><a href="{{ url('/kontak')}}" title="Contact">Kontak</a></li>
-
-                     <li class="{{ Request::segment(2) === 'edit-profil' ? 'active' : null }}"> <a href="{{ route('profil.edit')}}" title="Profile"> <span class="glyphicon glyphicon-user"></span> {{ Auth::user()->name }}</a> 
-                     </li>
-
-                     <li class="li-navbar">
-                      <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
-
-                      <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                       {{ csrf_field() }}
-                     </form>
-                   </li>
-
-                   @endrole
+                  @if(Request::is('/'))
+                                                <li class="active">
+                                                    @elseif(Request::segment(1) === 'home' )
+                                                    <li class="active">
+                                                        @else
+                                                        <li class="">
+                                                            @endif
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="{{ url('/home')}}" role="button" title="Home">
+                                                                Home
+                                                            </a>
+                                                        </li>
+                                                        <li class="{{ Request::segment(2) === 'pesanan' ? 'active' : null }}">
+                                                            <a href="{{ route('pesanan') }}" title="Contact">
+                                                                Pesanan Saya
+                                                            </a>
+                                                        </li>
+                                                        <!-- nav cara pesan -->
+                                                        <li class="dropdown {{ Request::segment(1) === 'cara-pesan-homestay' OR Request::segment(1) === 'cara-pesan-ce' ? 'active' : null }}">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Cara Pesan
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ url('/cara-pesan-homestay')}}" title="Homestay">
+                                                                        Homestay
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ url('/cara-pesan-ce')}}" title="Culture Experience">
+                                                                        Culture Experience
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="{{ Request::segment(1) === 'kontak' ? 'active' : null }}">
+                                                            <a href="{{ url('/kontak')}}" title="Contact">
+                                                                Kontak
+                                                            </a>
+                                                        </li>
+                                                        <li class="{{ Request::segment(2) === 'edit-profil' ? 'active' : null }}">
+                                                            <a href="{{ route('profil.edit')}}" title="Profile">
+                                                                <span class="glyphicon glyphicon-user">
+                                                                </span>
+                                                                {{ Auth::user()->name }}
+                                                            </a>
+                                                        </li>
+                                                        <li class="li-navbar">
+                                                            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                                                Logout
+                                                            </a>
+                                                            <form action="{{ url('/logout') }}" id="logout-form" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
+                                                        </li>
+                                                        @endrole
 
                    @role('admin')
-                   <li><a href="{{ route('destinasi.index')}}" title="Services">Destinasi</a></li>
-
-                   <li class="dropdown"> 
-                    <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Homestay </a> 
-                    <i class="ddl-switch fa fa-angle-down"></i> 
-                    <ul class="dropdown-menu"> 
-                     <li><a href="{{ route('rumah.index') }}" title="Services">Rumah </a></li>
-                     <li><a href="{{ route('kamar.index') }}" title="Services">Kamar</a></li>
-                   </ul> 
-
-                 </li>
-
-                 <li class="dropdown"> 
-                  <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Culture Experience</a> 
-                  <i class="ddl-switch fa fa-angle-down"></i> 
-                  <ul class="dropdown-menu"> 
-                   <li><a href="{{ route('kategori.index') }}" title="Services">Kategori </a></li>
-                   <li><a href="{{ route('warga.index') }}" title="Services">Warga</a></li>
-                 </ul> 
-
-               </li>
-
-               <li class="dropdown"> 
-                <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Setting</a> 
-                <i class="ddl-switch fa fa-angle-down"></i> 
-                <ul class="dropdown-menu"> 
-                 <li><a href="{{ route('setting-foto-home.index')}}" title="Services">Setting Foto Home</a></li>
-                 <li><a href="{{ route('setting-halaman.index')}}" title="Services">Setting Halaman</a></li>
-                 <li><a href="{{ route('setting-halaman-culture.index')}}" title="Services">Setting Halaman Culture</a></li>
-                 <li><a href="{{ route('rekening.index')}}" title="Services">Rekening</a></li>
-                 <li><a href="{{ route('social_media.index')}}" title="Services">Social Media</a></li>
-                 <li><a href="{{ route('user_admin.index')}}" title="Services">User Admin </a></li>
-                 <li><a href="{{ route('user_member.index')}}" title="Services">User Member</a></li>
-               </ul> 
-
-             </li>
-
-             <li class="dropdown"> 
-              <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Komentar</a> 
-              <i class="ddl-switch fa fa-angle-down"></i> 
-              <ul class="dropdown-menu"> 
-               <li><a href="{{ route('komentar_kamar.index')}}" title="Services">Kamar</a></li>
-               <li><a href="{{ route('komentar_kategori.index')}}" title="Services">Kategori</a></li>
-             </ul> 
-           </li> 
-
-           <li class="dropdown"> 
-            <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pemesanan </a> 
-            <i class="ddl-switch fa fa-angle-down"></i> 
-            <ul class="dropdown-menu"> 
-             <li><a href="{{ route('pesanan.homestay') }}" title="Services">Homestay </a></li>
-             <li><a href="{{ route('pemesanan.index') }}" title="Services">Cultural </a></li> 
-           </ul>  
-         </li>
-
-         <li class="dropdown"> 
-          <a href="#" title="Rooms" class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false"> Pembayaran</a> 
-          <i class="ddl-switch fa fa-angle-down"></i> 
-          <ul class="dropdown-menu"> 
-           <li><a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">Homestay </a></li>
-           <li><a href="{{ route('konfirmasi_pembayaran.cultural') }}" title="Services">Cultural </a></li> 
-         </ul>  
-       </li>
-
-       <li class="li-navbar">
-        <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
-
-        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-         {{ csrf_field() }}
-       </form>
-     </li>
-
-     @endrole
-   </ul>
- </div>
-</nav>
-</div>
-<div class="col-md-2 book-now" id="btnLogin">
-  @if (Auth::guest())
-  <a href="{{ url('/login')}}" title="Book Now">Masuk / Daftar</a>
-  @else
-  <a href="{{ url('/logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();"> Logout </a>
-
-  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-   {{ csrf_field() }}
- </form>
- @endif
-</div>
-</div><!-- Row /- -->
-</div><!-- Container /- -->
-</div><!-- Menu Block /- -->
-
-</header><!-- Header Section /- -->
-
-@yield('content')
-
-
-<!-- Footer Section -->
-<div class="footer-section container-fluid no-padding">
-  <!-- Top Footer -->
-  <div class="top-footer container-fluid no-padding">
-    <!-- Container -->
-    <div class="container">
-      <div class="row">
-        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
-          <ul class="social_widget">
-            <li><a href="{{$facebook}}" id="face_book" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="{{$twitter}}" id="twi_tter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="{{$instagram}}" id="insta_gram" title="Instagram"><i class="fa fa-instagram"></i></a></li>
-          </ul>
-        </aside>
-
-        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
-          <div style="text-align:center">
-            <a href=#><img src="{{ asset('images/logo.png') }}"></a>
-          </div>
-        </aside>
-
-        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
-          <p align="right" color="#fff" style="line-height:20px">
-            &copy; 2017 <span style="color:#faac17">Endeso.id</span><br>
-            Semua hak dilindungi undang-undang
-          </p>
-        </aside>
-      </div>
-    </div><!-- Container /- -->
-  </div><!-- Top Footer -->
-</div><!-- Footer Section /- -->   
-
-
-
-
-<!-- JQuery v1.11.3 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-
-<!-- Library JS -->
-<script src="{{ asset('libraries/lib.js') }}"></script>
-<script src="{{ asset('js/sticky-kit.js') }}"></script>
-<script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}"></script>
-<script src="https://code.jquery.com/jquery-migrate-1.0.0.js"></script>
-
-<!-- Library - Theme JS --> 
-<script src="{{ asset('js/functions-v.1.0.1.js') }}"></script>
-
-<script src="{{ asset('js/jquery.dataTables.js') }}"></script>
-<script src="{{ asset('js/dataTables.bootstrap.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script> 
-
-<script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-<script src="{{ asset('js/perhitungan-1.0.2.js') }}"></script>
-
-
-<script src="{{ asset('js/star-rating.min.js') }} " type="text/javascript"></script>
-
-<!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
-<script src="{{ asset('themes/krajee-svg/theme.min.js') }} "></script>
-<script src="{{ asset('js/jquery.easing-1.3.js') }} "></script>
-<script src="{{ asset('js/jquery.iosslider.js') }} "></script>
-
-
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
+                                                        <li>
+                                                            <a href="{{ route('destinasi.index')}}" title="Services">
+                                                                Destinasi
+                                                            </a>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Homestay
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('rumah.index') }}" title="Services">
+                                                                        Rumah
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('kamar.index') }}" title="Services">
+                                                                        Kamar
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Culture Experience
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('kategori.index') }}" title="Services">
+                                                                        Kategori
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('warga.index') }}" title="Services">
+                                                                        Warga
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Setting
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('setting-foto-home.index')}}" title="Services">
+                                                                        Setting Foto Home
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('setting-halaman.index')}}" title="Services">
+                                                                        Setting Halaman
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('setting-halaman-culture.index')}}" title="Services">
+                                                                        Setting Halaman Culture
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('rekening.index')}}" title="Services">
+                                                                        Rekening
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('social_media.index')}}" title="Services">
+                                                                        Social Media
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('user_admin.index')}}" title="Services">
+                                                                        User Admin
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('user_member.index')}}" title="Services">
+                                                                        User Member
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Komentar
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('komentar_kamar.index')}}" title="Services">
+                                                                        Kamar
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('komentar_kategori.index')}}" title="Services">
+                                                                        Kategori
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Pemesanan
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('pesanan.homestay') }}" title="Services">
+                                                                        Homestay
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('pemesanan.index') }}" title="Services">
+                                                                        Cultural
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="dropdown">
+                                                            <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" href="#" role="button" title="Rooms">
+                                                                Pembayaran
+                                                            </a>
+                                                            <i class="ddl-switch fa fa-angle-down">
+                                                            </i>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('konfirmasi_pembayaran.index') }}" title="Services">
+                                                                        Homestay
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="{{ route('konfirmasi_pembayaran.cultural') }}" title="Services">
+                                                                        Cultural
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="li-navbar">
+                                                            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                                                Logout
+                                                            </a>
+                                                            <form action="{{ url('/logout') }}" id="logout-form" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
+                                                        </li>
+                                                        @endrole
+                                                    </li>
+                                                </li>
+                                            </li>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-md-2 book-now" id="btnLogin">
+                            @if (Auth::guest())
+                            <a href="{{ url('/login')}}" title="Book Now">
+                                Masuk / Daftar
+                            </a>
+                            @else
+                            <a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form action="{{ url('/logout') }}" id="logout-form" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                            @endif
+                        </div>
+                    </div>
+                    <!-- Row /- -->
+                </div>
+                <!-- Container /- -->
+            </div>
+            <!-- Menu Block /- -->
+        </header>
+        <!-- Header Section /- -->
+        @yield('content')
+        <!-- Footer Section -->
+        <div class="footer-section container-fluid no-padding">
+            <!-- Top Footer -->
+            <div class="top-footer container-fluid no-padding">
+                <!-- Container -->
+                <div class="container">
+                    <div class="row">
+                        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
+                            <ul class="social_widget">
+                                <li>
+                                    <a href="{{$facebook}}" id="face_book" title="Facebook">
+                                        <i class="fa fa-facebook">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{$twitter}}" id="twi_tter" title="Twitter">
+                                        <i class="fa fa-twitter">
+                                        </i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{$instagram}}" id="insta_gram" title="Instagram">
+                                        <i class="fa fa-instagram">
+                                        </i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </aside>
+                        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
+                            <div style="text-align:center">
+                                <a href="#">
+                                    <img src="{{ asset('images/logo.png') }}"/>
+                                </a>
+                            </div>
+                        </aside>
+                        <aside class="col-md-4 col-sm-6 col-xs-6 widget text_widget">
+                            <p align="right" color="#fff" style="line-height:20px">
+                                © 2017
+                                <span style="color:#faac17">
+                                    Endeso.id
+                                </span>
+                                <br>
+                                    Semua hak dilindungi undang-undang
+                                </br>
+                            </p>
+                        </aside>
+                    </div>
+                </div>
+                <!-- Container /- -->
+            </div>
+            <!-- Top Footer -->
+        </div>
+        <!-- Footer Section /- -->
+        <!-- JQuery v1.11.3 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js">
+        </script>
+        <!-- Library JS -->
+        <script src="{{ asset('libraries/lib.js') }}">
+        </script>
+        <script src="{{ asset('js/sticky-kit.js') }}">
+        </script>
+        <script src="{{ asset('libraries/calender/jquery-ui-datepicker.min.js') }}">
+        </script>
+        <script src="https://code.jquery.com/jquery-migrate-1.0.0.js">
+        </script>
+        <!-- Library - Theme JS -->
+        <script src="{{ asset('js/functions-v.1.0.1.js') }}">
+        </script>
+        <script src="{{ asset('js/jquery.dataTables.js') }}">
+        </script>
+        <script src="{{ asset('js/dataTables.bootstrap.js') }}">
+        </script>
+        <script src="{{ asset('js/custom.js') }}">
+        </script>
+        <script src="{{ asset('js/ckeditor/ckeditor.js') }}">
+        </script>
+        <script src="{{ asset('js/perhitungan-1.0.2.js') }}">
+        </script>
+        <script src="{{ asset('js/star-rating.min.js') }} " type="text/javascript">
+        </script>
+        <!-- optionally if you need to use a theme, then include the theme file as mentioned below -->
+        <script src="{{ asset('themes/krajee-svg/theme.min.js') }} ">
+        </script>
+        <script src="{{ asset('js/jquery.easing-1.3.js') }} ">
+        </script>
+        <script src="{{ asset('js/jquery.iosslider.js') }} ">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
 
     var pilihan = $("#pilihan").val();
 
@@ -508,11 +649,7 @@
       $('#back-to-top').fadeOut(200);   
     }
   });
-
-
-</script>
-
-
-@yield('scripts')
-</body>
+        </script>
+        @yield('scripts')
+    </body>
 </html>
