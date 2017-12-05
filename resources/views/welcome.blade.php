@@ -115,12 +115,11 @@
         {!! Form::open(['url' => 'pencarian','files'=>'true','method' => 'get', 'class'=>'col-sm-10 col-sm-12 col-sm-12']) !!}
         <div class="row">
             <div class="col-sm-2" id="col-pilihan">
-                <div class="form-group {{ $errors->has('pilihan') ? ' has-error' : '' }}" style="width:180px;">
-                    {{ Form::select('pilihan', [
+                <div class="form-group{{ $errors->has('pilihan') ? ' has-error' : '' }}" style="width:180px;">
+                    {!! Form::select('pilihan',  [
                             '1' => 'HOMESTAY',
-                            '2' => 'CULTURAL EXPERIENCES'],null, ['class'=> 'selectpicker', 'id'=>'pilihan','style'=>'font-size:70px;' ]
-                            ) }}
-                            {!! $errors->first('pilihan', '
+                            '2' => 'CULTURAL EXPERIENCES'], null,['class'=>'selectpicker','id' => 'pilihan']) !!}
+                          {!! $errors->first('pilihan', '
                     <p class="help-block">
                         :message
                     </p>
