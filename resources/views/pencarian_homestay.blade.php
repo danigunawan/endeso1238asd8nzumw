@@ -249,7 +249,6 @@
     offset_top: 250 });
 
 
-    // script google map
 
     var locations = [
     @foreach($lokasi_kamar as $data)
@@ -273,7 +272,6 @@
 
     var infowindow = new google.maps.InfoWindow();
 
-    //create empty LatLngBounds object
     var bounds = new google.maps.LatLngBounds();
 
     var marker, i;
@@ -284,7 +282,6 @@
         map: map
       });
 
-      //extend the bounds to include each marker's position
   bounds.extend(marker.position);
 
       google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
@@ -298,7 +295,7 @@
           else if (locations[i][7] == 2) {
              content += "/Kamar/Malam";
           }
-          content += '<br> <span class="glyphicon glyphicon-user"></span> '+locations[i][9]+''
+          content += '<br> <span class="glyphicon glyphicon-user"></span> '+locations[i][9]+'';
 
 
           infowindow.setContent(content);
